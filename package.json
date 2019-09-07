@@ -1,0 +1,20 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build.js",
+  "scripts": {
+    "start": "node ."
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jstransformer-handlebars": "^1.1.0",
+    "metalsmith": "^2.3.0",
+    "metalsmith-collections": "^0.9.0",
+    "metalsmith-discover-partials": "^0.1.2",
+    "metalsmith-layouts": "^2.3.1",
+    "metalsmith-markdown": "^1.2.0",
+    "metalsmith-permalinks": "^2.2.0"
+  }
+}
