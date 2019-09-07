@@ -1,4 +1,4 @@
 ---
-title: blog
+permalink: ""
 layout: index.hbs
 ---

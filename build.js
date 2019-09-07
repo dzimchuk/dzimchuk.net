@@ -16,9 +16,6 @@ Metalsmith(__dirname)
 	.source('./src')
     .destination('./build')
 	.use(collections({
-		pages: {
-			pattern: 'content/pages/*.md'
-		},
 		posts: {
 			pattern: 'content/posts/*.md',
 			sortBy: 'date',
@@ -27,7 +24,9 @@ Metalsmith(__dirname)
 	}))
 	.use(markdown())
     .use(permalinks({
-		pattern: ':collection/:title'
+		pattern: ':title',
+		relative: false,
+		duplicatesFail: true
 	}))
 	.use(discoverPartials({
 		directory: './layouts/partials',
