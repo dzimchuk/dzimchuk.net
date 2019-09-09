@@ -1,6 +1,7 @@
 var Metalsmith = require('metalsmith'),
     markdown   = require('metalsmith-markdown'),
 	discoverPartials = require('metalsmith-discover-partials'),
+	registerHelpers = require('metalsmith-register-helpers'),
 	layouts = require('metalsmith-layouts'),
 	collections = require('metalsmith-collections'),
     permalinks  = require('metalsmith-permalinks');
@@ -16,17 +17,24 @@ Metalsmith(__dirname)
 	.source('./src')
     .destination('./build')
 	.use(collections({
+		pages: {
+			pattern: 'content/pages/*.md'
+		},
 		posts: {
 			pattern: 'content/posts/*.md',
 			sortBy: 'date',
 			reverse: true
-		}
+		},
+		home: {}
 	}))
 	.use(markdown())
     .use(permalinks({
 		pattern: ':title',
 		relative: false,
 		duplicatesFail: true
+	}))
+	.use(registerHelpers({
+		directory: './helpers'
 	}))
 	.use(discoverPartials({
 		directory: './layouts/partials',
