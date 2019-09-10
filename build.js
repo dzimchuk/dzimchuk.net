@@ -4,6 +4,7 @@ var Metalsmith = require('metalsmith'),
 	registerHelpers = require('metalsmith-register-helpers'),
 	layouts = require('metalsmith-layouts'),
 	collections = require('metalsmith-collections'),
+	pagination = require('metalsmith-pagination'),
     permalinks  = require('metalsmith-permalinks');
 
 Metalsmith(__dirname)
@@ -32,6 +33,17 @@ Metalsmith(__dirname)
 		pattern: ':title',
 		relative: false,
 		duplicatesFail: true
+	}))
+	.use(pagination({
+		'collections.posts': {
+			perPage: 5,
+		  	layout: 'index.hbs',
+		    first: 'index.html',
+		  	path: 'page/:num/index.html',
+			pageMetadata: {
+				isPageIndex: true
+		  	}
+		}
 	}))
 	.use(registerHelpers({
 		directory: './helpers'

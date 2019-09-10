@@ -1,8 +1,10 @@
 var slugify = require('slugify');
 
 module.exports = function() {
-    if (this.collection.includes('home'))
-        return 'home-template';
+    if (this.isPageIndex)
+        return 'paged';
+    else if (this.collection.includes('home'))
+        return 'home-template'; // 'paged' for 2nd and other pages
     else if (this.collection.includes('posts'))
         return 'post-template'; // plus add post tags: tag-one-slug, tag-two-slug
     else if (this.collection.includes('pages'))
