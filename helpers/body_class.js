@@ -2,7 +2,9 @@ var slugify = require('slugify');
 
 module.exports = function() {
     if (this.isPageIndex)
-        return 'paged';
+        return 'paged'; // generated post index pages
+    else if (!this.collection)
+        return ''; // genereated tag pages
     else if (this.collection.includes('home'))
         return 'home-template'; // 'paged' for 2nd and other pages
     else if (this.collection.includes('posts'))

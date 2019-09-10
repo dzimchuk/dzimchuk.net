@@ -1,12 +1,15 @@
 var Metalsmith = require('metalsmith'),
-    markdown   = require('metalsmith-markdown'),
-	discoverPartials = require('metalsmith-discover-partials'),
-	registerHelpers = require('metalsmith-register-helpers'),
-	layouts = require('metalsmith-layouts'),
+	markdown   = require('metalsmith-markdown'),
+	excerpts = require('metalsmith-excerpts')
 	collections = require('metalsmith-collections'),
 	pagination = require('metalsmith-pagination'),
 	permalinks  = require('metalsmith-permalinks'),
-	excerpts = require('metalsmith-excerpts');
+	tags = require('metalsmith-tags'),
+	discoverPartials = require('metalsmith-discover-partials'),
+	registerHelpers = require('metalsmith-register-helpers'),
+	layouts = require('metalsmith-layouts');
+
+var pageSize = 5;
 
 Metalsmith(__dirname)
 	.metadata({
@@ -38,7 +41,7 @@ Metalsmith(__dirname)
 	}))
 	.use(pagination({
 		'collections.posts': {
-			perPage: 5,
+			perPage: pageSize,
 		  	layout: 'index.hbs',
 		    first: 'index.html',
 		  	path: 'page/:num/index.html',
@@ -46,6 +49,16 @@ Metalsmith(__dirname)
 				isPageIndex: true
 		  	}
 		}
+	}))
+	.use(tags({
+		handle: 'tags',
+		path:'tag/:tag/index.html',
+		pathPage: "tag/:tag/page/:num/index.html",
+  		perPage: pageSize,
+		layout:'tag.hbs',
+		sortBy: 'date',
+		reverse: true,
+		slug: {mode: 'rfc3986'}
 	}))
 	.use(registerHelpers({
 		directory: './helpers'
