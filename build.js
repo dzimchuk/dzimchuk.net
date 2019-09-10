@@ -5,7 +5,8 @@ var Metalsmith = require('metalsmith'),
 	layouts = require('metalsmith-layouts'),
 	collections = require('metalsmith-collections'),
 	pagination = require('metalsmith-pagination'),
-    permalinks  = require('metalsmith-permalinks');
+	permalinks  = require('metalsmith-permalinks'),
+	excerpts = require('metalsmith-excerpts');
 
 Metalsmith(__dirname)
 	.metadata({
@@ -29,6 +30,7 @@ Metalsmith(__dirname)
 		home: {}
 	}))
 	.use(markdown())
+	.use(excerpts())
     .use(permalinks({
 		pattern: ':title',
 		relative: false,
