@@ -58,7 +58,9 @@ Metalsmith(__dirname)
 		layout:'tag.hbs',
 		sortBy: 'date',
 		reverse: true,
-		slug: {mode: 'rfc3986'}
+		skipMetadata: false,
+		metadataKey: "tags",
+		slug: { mode: 'rfc3986', remove: /[.]/g } // uses https://github.com/dodo/node-slug but can be replaced with a custom function
 	}))
 	.use(registerHelpers({
 		directory: './helpers'

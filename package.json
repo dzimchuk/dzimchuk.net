@@ -20,6 +20,7 @@
     "metalsmith-pagination": "^1.4.1",
     "metalsmith-permalinks": "^2.2.0",
     "metalsmith-register-helpers": "^0.4.0",
-    "metalsmith-tags": "^2.0.0"
+    "metalsmith-tags": "^2.0.0",
+    "moment": "^2.24.0"
   }
 }

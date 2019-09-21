@@ -1,7 +1,7 @@
 ---
 title: "Fifth Post"
 date: 2014-04-22
-tags: azure-service-fabric
+tags: Azure Service Fabric
 ---
 
 Nunc vehicula facilisis mi ac sagittis. Praesent imperdiet lectus id mauris gravida iaculis. Donec viverra lacinia lacinia. Sed tincidunt hendrerit augue, sed scelerisque nulla. Ut molestie et justo mollis luctus. Nulla facilisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris in sodales leo, quis lobortis mauris. Aliquam non consequat tellus, ac maximus lectus. Aliquam elementum quis nibh vel gravida. Duis cursus viverra ultricies. Nunc lobortis nisl non nibh tincidunt, et maximus arcu rhoncus. Pellentesque maximus lectus et nisi vestibulum, in iaculis ipsum consectetur. Praesent eget lorem eu est lobortis posuere. Nunc interdum sagittis lacus, quis feugiat ante tristique eget. 
