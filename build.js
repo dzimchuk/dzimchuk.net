@@ -7,7 +7,8 @@ var Metalsmith = require('metalsmith'),
 	tags = require('metalsmith-tags'),
 	discoverPartials = require('metalsmith-discover-partials'),
 	registerHelpers = require('metalsmith-register-helpers'),
-	layouts = require('metalsmith-layouts');
+	layouts = require('metalsmith-layouts'),
+	serve = require('metalsmith-serve');
 
 var pageSize = 5;
 
@@ -20,7 +21,8 @@ Metalsmith(__dirname)
 		}
 	})
 	.source('./src')
-    .destination('./build')
+	.destination('./build')
+	//.use(serve())
 	.use(collections({
 		pages: {
 			pattern: 'content/pages/*.md'
@@ -38,12 +40,24 @@ Metalsmith(__dirname)
 		pattern: ':title',
 		relative: false,
 		duplicatesFail: true
+		/* linksets: [
+			{
+			  match: { collection: 'posts' },
+			  pattern: 'blog/:date/:title',
+			  date: 'mmddyy'
+			},
+			{
+			  match: { collection: 'pages' },
+			  pattern: 'pages/:title'
+			}
+		  ] */
 	}))
 	.use(pagination({
 		'collections.posts': {
 			perPage: pageSize,
 		  	layout: 'index.hbs',
-		    first: 'index.html',
+			first: 'index.html',
+			noPageOne: false,
 		  	path: 'page/:num/index.html',
 			pageMetadata: {
 				isPageIndex: true
@@ -59,7 +73,7 @@ Metalsmith(__dirname)
 		sortBy: 'date',
 		reverse: true,
 		skipMetadata: false,
-		metadataKey: "tags",
+		metadataKey: "tags", // global tag list
 		slug: { mode: 'rfc3986', remove: /[.]/g } // uses https://github.com/dodo/node-slug but can be replaced with a custom function
 	}))
 	.use(registerHelpers({
