@@ -8,7 +8,8 @@ var Metalsmith = require('metalsmith'),
 	discoverPartials = require('metalsmith-discover-partials'),
 	registerHelpers = require('metalsmith-register-helpers'),
 	layouts = require('metalsmith-layouts'),
-	serve = require('metalsmith-serve');
+	serve = require('metalsmith-serve'),
+	debug = require('metalsmith-debug');
 
 var pageSize = 5;
 
@@ -22,7 +23,6 @@ Metalsmith(__dirname)
 	})
 	.source('./src')
 	.destination('./build')
-	//.use(serve())
 	.use(collections({
 		pages: {
 			pattern: 'content/pages/*.md'
@@ -87,5 +87,7 @@ Metalsmith(__dirname)
         engine: 'handlebars',
         directory: './layouts',
         default: 'post.hbs'
-    }))
+	}))
+	//.use(serve())
+	//.use(debug()) // set environment variable DEBUG=metalsmith:*
     .build(function (err, files) { if(err) console.log(err) });
