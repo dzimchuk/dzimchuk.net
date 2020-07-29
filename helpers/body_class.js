@@ -1,14 +1,38 @@
 var slugify = require('slugify');
 
 module.exports = function() {
-    if (this.isPageIndex)
-        return 'paged'; // generated post index pages
-    else if (!this.collection)
-        return ''; // genereated tag pages
-    else if (this.collection.includes('home'))
-        return 'home-template'; // 'paged' for 2nd and other pages
+    if (this.isPageIndex) // generated post index pages
+    {
+        if (this.pagination.num == 1 && this.path == 'index.html')
+        {
+            return 'home-template'; // home index page
+        }
+        return 'paged'; // 'paged' for 2nd and other pages
+    }
+    else if (!this.collection && this.tag) // genereated tag pages
+    {
+        var result = 'tag-template';
+        result = addClass(result, 'tag', this.tag);
+        if (this.pagination.num > 1)
+        {
+            result += ' paged';
+        }
+        return result;
+    }
     else if (this.collection.includes('posts'))
-        return 'post-template'; // plus add post tags: tag-one-slug, tag-two-slug
+    {
+        var result = 'post-template';
+        if (this.tags && this.tags.length > 0)
+        {
+            var tags = [];
+            this.tags.forEach(element => {
+                tags.push('tag-' + element.slug);
+            });
+
+            result = result + ' ' + tags.join(', ');
+        }
+        return result;
+    }
     else if (this.collection.includes('pages'))
     {
         var result = 'page-template';
@@ -23,7 +47,7 @@ module.exports = function() {
         return result;
     }
     else 
-        return 'tag-template'; // plus tag-slug
+        return '';
 }
 
 function addClass(cls, prefix, title) {

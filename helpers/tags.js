@@ -7,7 +7,7 @@ module.exports = function(prefix){
     {
         var links = [];
         this.tags.forEach(element => {
-            links.push('<a href="/tag/' +  element.slug + '/">' + element.name + '</a>');
+            links.push('<a href="/tag/' +  element.slug + '/">' + Handlebars.escapeExpression(element.name) + '</a>');
         });
 
         tagLinks = links.join(', ');

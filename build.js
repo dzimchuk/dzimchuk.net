@@ -31,8 +31,7 @@ Metalsmith(__dirname)
 			pattern: 'content/posts/*.md',
 			sortBy: 'date',
 			reverse: true
-		},
-		home: {}
+		}
 	}))
 	.use(markdown())
 	.use(excerpts())
@@ -89,5 +88,5 @@ Metalsmith(__dirname)
         default: 'post.hbs'
 	}))
 	//.use(serve())
-	//.use(debug()) // set environment variable DEBUG=metalsmith:*
+	.use(debug()) // set environment variable DEBUG=metalsmith:*
     .build(function (err, files) { if(err) console.log(err) });
