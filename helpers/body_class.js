@@ -29,7 +29,7 @@ module.exports = function() {
                 tags.push('tag-' + element.slug);
             });
 
-            result = result + ' ' + tags.join(', ');
+            result = result + ' ' + tags.join(' ');
         }
         return result;
     }
