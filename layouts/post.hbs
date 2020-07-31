@@ -1,8 +1,57 @@
 {{> header}}
 
+<header class="main-header post-head {{#if image}}" style="background-image: url({{image}}){{else}}no-cover{{/if}}">
+    <nav class="main-nav {{#if image}}overlay{{/if}} clearfix">
+        {{> navigation}}
+    </nav>
+</header>
+
 <main class="content" role="main">
     <article class="{{post_class}}">
-        {{{contents}}}
+        <header class="post-header">
+            <h1 class="post-title">{{title}}</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="{{date "YYYY-MM-DD"}}">{{date "DD MMMM YYYY"}}</time> {{tags " on "}}
+            </section>
+        </header>
+
+        <section class="post-content">
+            {{{contents}}}
+        </section>
+
+        <footer class="post-footer">
+
+        {{!-- Everything inside the #primary_author tags pulls data from the primary author --}}
+        {{#primary_author}}
+
+            {{#if profile_image}}
+            <figure class="author-image">
+                <a class="img" href="{{url}}" style="background-image: url({{profile_image}})"><span class="hidden">{{name}}'s Picture</span></a>
+            </figure>
+            {{/if}}
+
+            <section class="author">
+                <h4><a href="{{url}}">{{name}}</a></h4>
+
+                {{#if bio}}
+                    <p>{{bio}}</p>
+                {{else}}
+                    <p>Read <a href="{{url}}">more posts</a> by this author.</p>
+                {{/if}}
+                <div class="author-meta">
+                    {{#if location}}<span>{{> "icons/map-marker"}}{{location}}</span>{{/if}}
+                    {{#if website}}<span>{{> "icons/link"}}<a href="{{website}}">{{website}}</a></span>{{/if}}
+                </div>
+            </section>
+
+        {{/primary_author}}
+
+        {{!--    {{> "social-sharing"}} --}}
+
+        </footer>
+
+        {{!-- {{> "disqus"}} --}}
+
     </article>
 </main>
 

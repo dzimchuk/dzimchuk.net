@@ -1,5 +1,24 @@
 {{> header}}
 
+{{!-- If we have a tag cover, display that - else blog cover - else nothing --}}
+<header class="main-header tag-head {{#if image}}" style="background-image: url({{image}}){{else}}{{#if site.cover_image}}" style="background-image: url({{site.cover_image}}){{else}}no-cover{{/if}}{{/if}}">
+    <nav class="main-nav overlay clearfix">
+        {{> navigation}}
+    </nav>
+    <div class="vertical">
+        {{#tag}}
+        <div class="main-header-content inner">
+            <h1 class="page-title">{{name}}</h1>
+            <h2 class="page-description">
+                {{#if description}}
+                    {{description}}
+                {{/if}}
+            </h2>
+        </div>
+        {{/tag}}
+    </div>
+</header>
+
 <main class="content" role="main">
     {{> loop}}
 </main>

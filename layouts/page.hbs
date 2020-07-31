@@ -1,5 +1,11 @@
 {{> header}}
 
+<header class="main-header post-head {{#if image}}" style="background-image: url({{image}}){{else}}no-cover{{/if}}">
+    <nav class="main-nav {{#if image}}overlay{{/if}} clearfix">
+        {{> navigation}}
+    </nav>
+</header>
+
 <main class="content" role="main">
     <article class="{{post_class}}">
         <header class="post-header">

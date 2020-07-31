@@ -1,6 +1,6 @@
 var Metalsmith = require('metalsmith'),
 	markdown   = require('metalsmith-markdown'),
-	excerpts = require('metalsmith-excerpts')
+	excerpts = require('metalsmith-excerpts'),
 	collections = require('metalsmith-collections'),
 	pagination = require('metalsmith-pagination'),
 	permalinks  = require('metalsmith-permalinks'),
@@ -9,7 +9,8 @@ var Metalsmith = require('metalsmith'),
 	registerHelpers = require('metalsmith-register-helpers'),
 	layouts = require('metalsmith-layouts'),
 	serve = require('metalsmith-serve'),
-	debug = require('metalsmith-debug');
+	debug = require('metalsmith-debug'),
+	metadata = require('./metadata.js');
 
 var pageSize = 5;
 
@@ -27,11 +28,18 @@ Metalsmith(__dirname)
 				{ label: 'Azure AD', url: '/tag/azure-active-directory/' },
 				{ label: 'Azure Services', url: '/tag/azure-services/' },
 				{ label: 'About', url: '/about/' }
-			]
+			],
+			author: {
+				profile_image: '//www.gravatar.com/avatar/7fbe59ac3d3eaab56ec27da019d76f66?s=250&amp;d=mm&amp;r=x',
+				url: '/',
+				name: 'Andrei Dzimchuk',
+				bio: "Hi, I'm Andrei, I'm a software developer building cloud enabled solutions. I'm mostly focused on Azure and .NET and I try to share my experience and knowledge here with you."
+			}
 		}
 	})
 	.source('./src')
 	.destination('./build')
+	.use(metadata())
 	.use(collections({
 		pages: {
 			pattern: 'content/pages/*.md'
