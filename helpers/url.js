@@ -3,7 +3,8 @@ module.exports = function(options){
         return this.url;
     }
     else if (this.path){
-        return format.call(this, this.path, options.hash.absolute);
+        var exp = /^(.*)index\.html$/;
+        return format.call(this, this.path.replace(exp, '$1'), options.hash.absolute);
     }
     else{
         return '';
@@ -11,5 +12,5 @@ module.exports = function(options){
 }
 
 function format(path, absolute){
-    return (absolute && this.site ? this.site.url : '') + '/' + path + '/';
+    return (absolute ? this.site.url : '') + '/' + path + '/';
 }
