@@ -5,7 +5,7 @@ var Metalsmith = require('metalsmith'),
 	pagination = require('metalsmith-pagination'),
 	permalinks  = require('metalsmith-permalinks'),
 	tags = require('metalsmith-tags'),
-	discoverPartials = require('metalsmith-discover-partials'),
+	registerPartials = require('./partials.js'),
 	registerHelpers = require('metalsmith-register-helpers'),
 	layouts = require('metalsmith-layouts'),
 	serve = require('metalsmith-serve'),
@@ -18,7 +18,16 @@ Metalsmith(__dirname)
 		site: {
 			name: 'Andrei Dzimchuk',
 			description: "I build solutions on Microsoft Azure and write about it here",
-			lang: 'en'
+			lang: 'en',
+			cover_image: 'https://blogcontent.azureedge.net/2017/08/cover3.jpg',
+			navigation: [
+				{ label: 'Home', url: '/' },
+				{ label: 'Cloud Patterns', url: '/tag/cloud-patterns/' },
+				{ label: 'Service Fabric', url: '/tag/azure-service-fabric/' },
+				{ label: 'Azure AD', url: '/tag/azure-active-directory/' },
+				{ label: 'Azure Services', url: '/tag/azure-services/' },
+				{ label: 'About', url: '/about/' }
+			]
 		}
 	})
 	.source('./src')
@@ -78,9 +87,8 @@ Metalsmith(__dirname)
 	.use(registerHelpers({
 		directory: './helpers'
 	}))
-	.use(discoverPartials({
-		directory: './layouts/partials',
-		pattern: /\.hbs$/
+	.use(registerPartials({
+		directory: './layouts/partials'
 	}))
 	.use(layouts({
         engine: 'handlebars',
