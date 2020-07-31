@@ -20,6 +20,7 @@ Metalsmith(__dirname)
 			name: 'Andrei Dzimchuk',
 			description: "I build solutions on Microsoft Azure and write about it here",
 			lang: 'en',
+			url: 'https://dzimchuk.net',
 			cover_image: 'https://blogcontent.azureedge.net/2017/08/cover3.jpg',
 			navigation: [
 				{ label: 'Home', url: '/' },

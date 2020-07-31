@@ -11,7 +11,7 @@
         <header class="post-header">
             <h1 class="post-title">{{title}}</h1>
             <section class="post-meta">
-                <time class="post-date" datetime="{{date "YYYY-MM-DD"}}">{{date "DD MMMM YYYY"}}</time> {{tags " on "}}
+                <time class="post-date" datetime="{{date format="YYYY-MM-DD"}}">{{date format="DD MMMM YYYY"}}</time> {{tags prefix=" on "}}
             </section>
         </header>
 
@@ -50,7 +50,7 @@
 
         </footer>
 
-        {{!-- {{> "disqus"}} --}}
+        {{> disqus}}
 
     </article>
 </main>

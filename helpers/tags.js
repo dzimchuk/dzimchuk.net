@@ -1,6 +1,6 @@
 var Handlebars = require('handlebars');
 
-module.exports = function(prefix){
+module.exports = function(options){
     var tagLinks = '';
     
     if (this.tags && this.tags.length > 0)
@@ -11,6 +11,8 @@ module.exports = function(prefix){
         });
 
         tagLinks = links.join(', ');
+        
+        var prefix = options.hash.prefix;
         if (prefix){
             tagLinks = prefix + tagLinks;
         }
