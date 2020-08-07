@@ -1,5 +1,9 @@
 var Handlebars = require('handlebars');
 
 module.exports = function(asset){
-    return new Handlebars.SafeString('/assets/' + asset + '?v=asset_hash');
+    var manifest = this['rev-manifest'];
+    if (manifest && manifest[asset]){
+        asset = manifest[asset];
+    }
+    return new Handlebars.SafeString('/assets/' + asset);
 }

@@ -2,6 +2,9 @@ var gulp = require('gulp');
 var noop = require('gulp-noop');
 var path = require('path');
 
+var rev = require('gulp-rev');
+var del = require('del');
+
 var metalsmithFactory = require('./metalsmith.js');
 
 var argv = require('minimist')(process.argv.slice(2));
@@ -51,18 +54,36 @@ gulp.task('styles', function () {
         processors.push(cssnano());
     }
     
+    let outputDir = path.join(__dirname, site.config.destination.assets);
+    del.sync(path.join(outputDir, '*.css'));
+
     return gulp.src(path.join(__dirname, site.config.source.styles, '**/*.scss'))
         .pipe(sass().on('error', sass.logError))
         .pipe(postcss(processors))
         .pipe(concat('theme.css'))
-        .pipe(gulp.dest(path.join(__dirname, site.config.destination.assets)));
+        .pipe(rev())
+        .pipe(gulp.dest(outputDir))
+        .pipe(rev.manifest(path.join(outputDir, 'rev-manifest.json'), {
+            merge: true,
+            base: outputDir 
+         }))
+        .pipe(gulp.dest(outputDir));
 });
 
 gulp.task('scripts', function() {
+    let outputDir = path.join(__dirname, site.config.destination.assets);
+    del.sync(path.join(outputDir, '*.js'));
+    
     return gulp.src([path.join(__dirname, site.config.source.scripts, '*.js')])
         .pipe(args.production ? uglify() : noop())
         .pipe(concat('theme.js'))
-        .pipe(gulp.dest(path.join(__dirname, site.config.destination.assets)));
+        .pipe(rev())
+        .pipe(gulp.dest(outputDir))
+        .pipe(rev.manifest(path.join(outputDir, 'rev-manifest.json'), {
+           merge: true,
+           base: outputDir 
+        }))
+        .pipe(gulp.dest(outputDir));
 });
 
 gulp.task('watch', function () {
