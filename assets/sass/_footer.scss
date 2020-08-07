@@ -1,0 +1,86 @@
+/* ==========================================================================
+   Footer - The bottom of every page
+   ========================================================================== */
+$footer-color: #BBC7CC;
+
+.site-footer {
+    overflow: hidden;
+    position: relative;
+    
+    margin: 2rem 0 0 0;
+    padding: 2rem 15px;
+    
+    background: #242526;
+
+    .copyright {
+        display: block;
+        float: left;
+
+        font-family: "Open Sans", sans-serif;
+        font-size: 1.4rem;
+        font-weight: normal;
+        color: $footer-color;
+
+        a {
+            color: $footer-color;
+            text-decoration: none;
+    
+            &:hover {
+                color: #fff;
+            }
+        }
+    }
+
+    .site-footer-nav {
+        display: block;
+        float: right;
+        padding-top: 0.4rem;
+
+        a {
+            margin: 0 0.8rem;
+
+            &:last-of-type {
+                margin-right: 0;
+            }
+        }
+
+        svg {
+            height: 1.8rem;
+            fill: $footer-color;
+            transition: fill 0.3s ease;
+
+            &:hover {
+                fill: #fff;
+            }
+        }
+    }
+}
+
+.site-footer-inner {
+    width: $content-width;
+    max-width: $content-max-width;
+    margin: 0 auto;
+}
+
+@media only screen and (max-width: 600px) {
+    .site-footer {
+        
+        margin-top: 1rem;
+        
+        .copyright,
+        .site-footer-nav {
+            float: none;
+            clear: both;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .site-footer-nav {
+            margin-top: 0.4em;
+        }
+    }
+
+    .site-footer-nav a:first-of-type {
+        margin-left: 0;
+    }
+}

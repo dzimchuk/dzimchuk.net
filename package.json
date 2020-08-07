@@ -4,24 +4,53 @@
   "description": "",
   "main": "build.js",
   "scripts": {
-    "start": "node ."
+    "dev": "./node_modules/.bin/gulp build",
+    "debug": "DEBUG=metalsmith* ./node_modules/.bin/gulp build",
+    "production": "./node_modules/.bin/gulp build --production",
+    "start": "./node_modules/.bin/gulp",
+    "watch": "./node_modules/.bin/gulp watch",
+    "serve": "./node_modules/.bin/gulp serve"
   },
-  "author": "",
-  "license": "ISC",
+  "author": {
+    "name": "Andrei Dzimchuk",
+    "email": "andrei@dzimchuk.net",
+    "url": "https://dzimchuk.net"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dzimchuk/blog"
+  },
   "devDependencies": {
+    "autoprefixer": "^9.8.6",
+    "cssnano": "^4.1.10",
     "defaults": "^1.0.3",
+    "finalhandler": "^1.1.2",
+    "gulp": "^4.0.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-noop": "^1.0.1",
+    "gulp-postcss": "^8.0.0",
+    "gulp-sass": "^4.1.0",
+    "gulp-uglify": "^3.0.2",
+    "gulp-watch": "^5.0.1",
+    "gulp-zip": "^5.0.2",
     "jstransformer-handlebars": "^1.1.0",
     "metalsmith": "^2.3.0",
     "metalsmith-collections": "^0.9.0",
     "metalsmith-debug": "^1.2.0",
     "metalsmith-excerpts": "^1.2.0",
+    "metalsmith-html-minifier": "^4.0.1",
     "metalsmith-layouts": "^2.3.1",
     "metalsmith-markdown": "^1.2.0",
     "metalsmith-pagination": "^1.4.1",
     "metalsmith-permalinks": "^2.2.0",
     "metalsmith-register-helpers": "^0.4.0",
-    "metalsmith-serve": "0.0.7",
     "metalsmith-tags": "^2.0.0",
-    "moment": "^2.24.0"
+    "minimist": "^1.2.5",
+    "moment": "^2.24.0",
+    "postcss-color-function": "^4.1.0",
+    "postcss-custom-properties": "^9.1.1",
+    "postcss-easy-import": "^3.0.0",
+    "serve-static": "^1.14.1"
   }
 }

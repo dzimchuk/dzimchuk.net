@@ -1,0 +1,39 @@
+.main-header {
+    position: relative;
+    display: table;
+    width: 100%;
+    min-height: 160px;
+    height: 40vh;
+    margin-bottom: 5rem;
+    text-align: center;
+    background: #222 no-repeat center center;
+    background-size: cover;
+    overflow: hidden;
+
+    .inner {
+        width: $content-width;
+    }
+
+    &.no-cover {
+        background: #f5f8fa;
+    }
+
+    &.post-head {
+        &.no-cover {
+            height: 75px;
+            min-height: 0;
+            margin-bottom: 4rem;
+            background: transparent;
+        }
+    }
+}
+
+@media only screen and (max-width: $mobile-width-threshold) {
+    .main-header {
+        &.post-head {
+            &.no-cover {
+                margin-bottom: 2.4rem;
+            }
+        }
+    }
+}

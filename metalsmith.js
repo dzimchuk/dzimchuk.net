@@ -8,14 +8,21 @@ var Metalsmith = require('metalsmith'),
 	registerPartials = require('./partials.js'),
 	registerHelpers = require('metalsmith-register-helpers'),
 	layouts = require('metalsmith-layouts'),
-	serve = require('metalsmith-serve'),
 	debug = require('metalsmith-debug'),
-	metadata = require('./metadata.js');
+	metadata = require('./metadata.js'),
+	htmlMinifier = require('metalsmith-html-minifier');
 
 var pageSize = 5;
 
-Metalsmith(__dirname)
-	.metadata({
+module.exports = function(production){
+	var ms = new Metalsmith(process.cwd());
+	initialize(ms, production);
+
+	return ms;
+};
+
+function initialize(ms, production){
+	ms.metadata({
 		site: {
 			name: 'Andrei Dzimchuk',
 			description: "I build solutions on Microsoft Azure and write about it here",
@@ -101,9 +108,16 @@ Metalsmith(__dirname)
 	}))
 	.use(layouts({
         engine: 'handlebars',
-        directory: './layouts',
+		directory: './layouts',
+		pattern: "**/*.html",
         default: 'post.hbs'
 	}))
-	//.use(serve())
-	.use(debug()) // set environment variable DEBUG=metalsmith:*
-    .build(function (err, files) { if(err) console.log(err) });
+	.use(debug()); // set environment variable DEBUG=metalsmith:*
+
+	if (production) {
+		ms.use(htmlMinifier({
+			"removeAttributeQuotes": false,
+        	"keepClosingSlash": true
+		}));
+	}
+}

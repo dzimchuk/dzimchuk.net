@@ -1,0 +1,14 @@
+.post-comments {
+    font-family: "Open Sans", sans-serif;
+    margin-top: 6.7rem;
+
+    a {
+        color: #26a8ed;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .post-comments {
+        margin-top: 5rem;
+    }
+}

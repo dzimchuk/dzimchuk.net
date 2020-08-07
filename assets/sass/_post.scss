@@ -1,0 +1,243 @@
+/* ==========================================================================
+   Single Post - When you click on an individual post
+   ========================================================================== */
+
+   .post-template .post-header,
+   .page-template .post-header {
+      margin-bottom: 3.4rem;
+   }
+   
+   .post-template .post-title,
+   .page-template .post-title {
+       margin-bottom: 0;
+   }
+   
+   .post-template .post-meta,
+   .page-template .post-meta {
+       margin: 0;
+   }
+      
+   /* Stop elements, such as img wider than the post content, from
+      creating horizontal scroll - slight hack due to imperfections
+      with browser width % calculations and rounding */
+   .post-template .content,
+   .page-template .content {
+       overflow: hidden;
+   }
+   
+   /* Tweak the .post wrapper style */
+   .post-template .post,
+   .page-template .post {
+       margin-top: 0;
+       border-bottom: none;
+       padding-bottom: 0;
+   }
+   
+   /* Kill that stylish little circle that was on the border, too */
+   .post-template .post:after,
+   .page-template .post:after {
+       display: none;
+   }
+   
+   /* Keep images centered, and allow images wider than the main
+      text column to break out. */
+   .post-content img {
+       display: block;
+       max-width: 126%;
+       height: auto;
+       padding: 0.6em 0;
+       /* Centers an image by (1) pushing its left edge to the
+          center of its container and (2) shifting the entire image
+          in the opposite direction by half its own width.
+          Works for images that are larger than their containers. */
+       position: relative;
+       left: 50%;
+       -webkit-transform: translateX(-50%); /* for Safari and iOS */
+       -ms-transform: translateX(-50%); /* for IE9 */
+       transform: translateX(-50%);
+   }
+
+   .post-content {
+        .kg-width-wide {
+            position: relative;
+            width: 55vw;
+            min-width: 100%;
+            margin-left: calc(50% - 50vw);
+            margin-right: calc(50% - 50vw);
+            transform: translateX(calc(50vw - 50%));
+
+            img {
+                max-width: 100%;
+            }
+        }
+
+        .kg-width-full {
+            position: relative;
+            width: 100vw;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+
+            img {
+                max-width: 100%;
+            }
+        }
+
+       figcaption {
+           font-family: "Open Sans", sans-serif;
+           font-size: 1.3rem;
+           line-height: 2.2rem;
+           color: #9EABB3;
+           text-align: center;
+       }
+
+       /* place holder image styles, see https://docs.ghost.org/api/handlebars-themes/editor/ */
+       .kg-gallery-container { width: 100vw; }
+       .kg-gallery-row { width: 100vw; }
+       .kg-gallery-image { margin: 0; }
+   }
+   
+   .footnotes {
+       font-style: italic;
+       font-size: 1.3rem;
+       line-height: 1.6em;
+   }
+   
+   .footnotes li {
+       margin: 0.6rem 0;
+   }
+   
+   .footnotes p {
+       margin: 0;
+   }
+   
+   .footnotes p a:last-child {
+       text-decoration: none;
+   }
+   
+   
+   /* The author credit area after the post */
+   .post-footer {
+       position: relative;
+       margin: 6rem 0 0 0;
+       padding: 3rem 0 0 0;
+       border-top: #EBF2F6 1px solid;
+   }
+   
+   .post-footer h4 {
+       font-size: 1.8rem;
+       margin: 0;
+   }
+   
+   .post-footer p {
+       margin: 1rem 0;
+       font-size: 1.4rem;
+       line-height: 1.75em;
+   }
+   
+   /* list of author links - location / url */
+   .author-meta {
+       padding: 0;
+       margin: 0;
+       list-style: none;
+       font-size: 1.4rem;
+       line-height: 1;
+       font-style: italic;
+       color: #9EABB3;
+   }
+   
+   .author-meta a {
+       color: #9EABB3;
+   }
+   .author-meta a:hover {
+       color: #111;
+   }
+
+   .post-footer {
+       .author-meta {
+           margin: 1.6rem 0;
+
+           a {
+            text-decoration: none;
+           }
+
+           span {
+            display: inline-block;
+            margin: 0 2rem 1rem 0;
+            word-wrap: break-word;
+           }
+
+           svg {
+            height: 1.15rem;
+            fill: #BBC7CC;
+            margin-right: 0.3rem;
+           }
+       }
+   }
+   
+   /* Create some space to the right for the share links */
+   .post-footer .author {
+       margin-right: 180px;
+   }
+   
+   .post-footer h4 a {
+       color: #2e2e2e;
+       text-decoration: none;
+   }
+   
+   .post-footer h4 a:hover {
+       text-decoration: underline;
+   }
+   
+   /* Drop the share links in the space to the right.
+      Doing it like this means it's easier for the author bio
+      to be flexible at smaller screen sizes while the share
+      links remain at a fixed width the whole time */
+   .post-footer .share {
+       position: absolute;
+       top: 3rem;
+       right: 0;
+       width: 140px;
+   }
+   
+   .post-footer .share a {
+       display: inline-block;
+       margin: 1rem 1.5rem 1.6rem 0;
+       text-decoration: none;
+   }
+   
+   .post-footer .share a:last-of-type {
+       margin-right: 0;
+   }
+   
+   .post-footer .share svg {
+       height: 2rem;
+       fill: #BBC7CC;
+       transition: fill 0.3s ease;
+   }
+   
+   .post-footer .share .icon-twitter svg {   
+       &:hover {
+           fill: #1da1f2;
+       }
+   }
+   
+   .post-footer .share .icon-facebook svg {
+       &:hover {
+           fill: #4267b2;
+       }
+   }
+   
+   .post-footer .share .icon-google-plus svg {
+       &:hover {
+           fill: #dc4e41;
+       }
+   }
+   
+   .post-footer .share .icon-linkedin svg {
+       &:hover {
+           fill: #0077b5;
+       }
+   }
+   
