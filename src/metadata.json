@@ -1,0 +1,27 @@
+{
+    "title": "Andrei Dzimchuk",
+    "description": "I build solutions on Microsoft Azure and write about it here",
+    "lang": "en",
+    "url": "https://dzimchuk.net/",
+    "cover_image": "https://blogcontent.azureedge.net/2017/08/cover3.jpg",
+    "feedRss": "rss.xml",
+    "feedImage": "https://dzimchuk.net/favicon.png",
+    "github": "dzimchuk",
+    "twitter": "dzimchuk",
+    "facebook": "andrei.dzimchuk",
+    "linkedin": "andreidzimchuk",
+    "navigation": [
+        { "label": "Home", "url": "/" },
+        { "label": "Cloud Patterns", "url": "/tag/cloud-patterns/" },
+        { "label": "Service Fabric", "url": "/tag/azure-service-fabric/" },
+        { "label": "Azure AD", "url": "/tag/azure-active-directory/" },
+        { "label": "Azure Services", "url": "/tag/azure-services/" },
+        { "label": "About", "url": "/about/" }
+    ],
+    "author": {
+        "profile_image": "//www.gravatar.com/avatar/7fbe59ac3d3eaab56ec27da019d76f66?s=250&amp;d=mm&amp;r=x",
+        "url": "/",
+        "name": "Andrei Dzimchuk",
+        "bio": "Hi, I'm Andrei, I'm a software developer building cloud enabled solutions. I'm mostly focused on Azure and .NET and I try to share my experience and knowledge here with you."
+    }
+}

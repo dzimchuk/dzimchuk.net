@@ -5,7 +5,7 @@
   "main": "build.js",
   "scripts": {
     "dev": "./node_modules/.bin/gulp build",
-    "debug": "DEBUG=metalsmith* ./node_modules/.bin/gulp build",
+    "debug": "cross-env DEBUG=metalsmith* ./node_modules/.bin/gulp build",
     "production": "./node_modules/.bin/gulp build --production",
     "start": "./node_modules/.bin/gulp",
     "watch": "./node_modules/.bin/gulp watch",
@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^9.8.6",
+    "cross-env": "^7.0.2",
     "cssnano": "^4.1.10",
     "defaults": "^1.0.3",
     "del": "^5.1.0",
@@ -41,6 +42,7 @@
     "metalsmith-collections": "^0.9.0",
     "metalsmith-debug": "^1.2.0",
     "metalsmith-excerpts": "^1.2.0",
+    "metalsmith-feed": "^1.0.0",
     "metalsmith-html-minifier": "^4.0.1",
     "metalsmith-layouts": "^2.3.1",
     "metalsmith-markdown": "^1.2.0",

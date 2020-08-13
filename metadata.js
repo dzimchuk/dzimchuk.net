@@ -2,11 +2,10 @@ var defaults = require('defaults');
 var path = require('path');
 var fs = require('fs');
 
-var site = require('./site');
+var config = require('./config');
 
 module.exports = function(options) {
     options = defaults(options, {
-      author: './author.json'
     });
     
     return function(files, metalsmith, done) {
@@ -14,7 +13,7 @@ module.exports = function(options) {
         if (metadata.site){
         }
 
-        var manifest = path.join(__dirname, site.config.destination.assets, 'rev-manifest.json');
+        var manifest = path.join(__dirname, config.destination.assets, 'rev-manifest.json');
         if (fs.existsSync(manifest)){
           metadata['rev-manifest'] = require(manifest);
         }

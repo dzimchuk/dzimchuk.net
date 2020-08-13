@@ -1,16 +1,16 @@
         {{!-- The footer at the very bottom --}}
-        {{!-- <footer class="site-footer">
+         <footer class="site-footer">
             <div class="site-footer-inner">
-                <section class="copyright"><a href="{{@blog.url}}">{{@blog.title}}</a> &copy; {{date format="YYYY"}}</section>
+                <section class="copyright"><a href="{{site.url}}">{{site.title}}</a> &copy; {{date format="YYYY"}}</section>
                 <nav class="site-footer-nav">
-                    <a class="social-github hidden" href="https://github.com/" target="_blank" rel="noopener">{{> "icons/github"}}</a>
-                    {{#if @blog.twitter}}<a href="{{twitter_url @blog.twitter}}" target="_blank" rel="noopener">{{> "icons/twitter"}}</a>{{/if}}
-                    {{#if @blog.facebook}}<a href="{{facebook_url @blog.facebook}}" target="_blank" rel="noopener">{{> "icons/facebook"}}</a>{{/if}}
-                    <a class="social-linkedin hidden" href="https://www.linkedin.com/" target="_blank" rel="noopener">{{> "icons/linkedin"}}</a>
-                    <a href="https://feedly.com/i/subscription/feed/{{@blog.url}}/rss/" target="_blank" rel="noopener">{{> "icons/rss"}}</a>
+                    {{#if site.github}}<a href="{{github_url site.github}}" target="_blank" rel="noopener">{{> "icons/github"}}</a>{{/if}}
+                    {{#if site.twitter}}<a href="{{twitter_url site.twitter}}" target="_blank" rel="noopener">{{> "icons/twitter"}}</a>{{/if}}
+                    {{#if site.facebook}}<a href="{{facebook_url site.facebook}}" target="_blank" rel="noopener">{{> "icons/facebook"}}</a>{{/if}}
+                    {{#if site.linkedin}}<a href="{{linkedin_url site.linkedin}}" target="_blank" rel="noopener">{{> "icons/linkedin"}}</a>{{/if}}
+                    <a href="{{feed_url}}" target="_blank" rel="noopener">{{> "icons/rss"}}</a>
                 </nav>
             </div>
-        </footer> --}}
+        </footer>
 
     </div>
 

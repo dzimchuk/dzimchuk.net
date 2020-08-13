@@ -1,3 +1,5 @@
+const url = require('url');
+
 module.exports = function(options){
     if (this.url){
         return this.url;
@@ -12,5 +14,5 @@ module.exports = function(options){
 }
 
 function format(path, absolute){
-    return (absolute ? this.site.url : '') + '/' + path + '/';
+    return url.resolve((absolute ? this.site.url : '/'), path + '/');
 }

@@ -13,7 +13,7 @@ var args = {
     production: !!argv.production
   };
 
-var site = require('./site');
+var config = require('./config');
 
 // gulp plugins and utils
 var concat = require('gulp-concat');
@@ -54,10 +54,10 @@ gulp.task('styles', function () {
         processors.push(cssnano());
     }
     
-    let outputDir = path.join(__dirname, site.config.destination.assets);
+    let outputDir = path.join(__dirname, config.destination.assets);
     del.sync(path.join(outputDir, '*.css'));
 
-    return gulp.src(path.join(__dirname, site.config.source.styles, '**/*.scss'))
+    return gulp.src(path.join(__dirname, config.source.styles, '**/*.scss'))
         .pipe(sass().on('error', sass.logError))
         .pipe(postcss(processors))
         .pipe(concat('theme.css'))
@@ -71,10 +71,10 @@ gulp.task('styles', function () {
 });
 
 gulp.task('scripts', function() {
-    let outputDir = path.join(__dirname, site.config.destination.assets);
+    let outputDir = path.join(__dirname, config.destination.assets);
     del.sync(path.join(outputDir, '*.js'));
     
-    return gulp.src([path.join(__dirname, site.config.source.scripts, '*.js')])
+    return gulp.src([path.join(__dirname, config.source.scripts, '*.js')])
         .pipe(args.production ? uglify() : noop())
         .pipe(concat('theme.js'))
         .pipe(rev())
@@ -86,16 +86,19 @@ gulp.task('scripts', function() {
         .pipe(gulp.dest(outputDir));
 });
 
-gulp.task('watch', function () {
-    gulp.watch(['gulpfile.js', 'site.js'], gulp.series('build'));
-    gulp.watch(path.join(__dirname, site.config.source.styles, '**/*'), gulp.series('build'));
-    gulp.watch(path.join(__dirname, site.config.source.scripts, '**/*'), gulp.series('build'));
-    gulp.watch(['./metalsmith.js', './metadata.js', './partials.js', './author.json'], gulp.series('metalsmith'));
+gulp.task('watch', function (callback) {
+    gulp.watch(['gulpfile.js', 'config.js'], gulp.series('build'));
+    gulp.watch(path.posix.join(config.source.styles, '**/*'), gulp.series('build'));
+    gulp.watch(path.posix.join(config.source.scripts, '**/*'), gulp.series('build'));
+    gulp.watch(['./metalsmith.js', './metadata.js', './partials.js'], gulp.series('metalsmith'));
     gulp.watch([
-        path.join(__dirname, site.config.source.content, '**/*'),
-        path.join(__dirname, site.config.source.layouts, '**/*'),
-        path.join(__dirname, site.config.source.helpers, '**/*')
+        path.posix.join(config.source.content, '**/*'),
+        path.posix.join(config.layouts, '**/*'),
+        path.posix.join(config.helpers, '**/*'),
+        config.metadata
       ], gulp.series('metalsmith'));
+
+    callback();
 });
 
 gulp.task('serve', function(callback) {
@@ -124,6 +127,6 @@ gulp.task('build',  gulp.series('styles', 'scripts', 'metalsmith', function (don
   done();
 }));
 
-gulp.task('default',  gulp.series('build', 'watch', 'serve', function (done) {
+gulp.task('default',  gulp.series('build', gulp.parallel('watch', 'serve'), function (done) {
     done();
 }));
