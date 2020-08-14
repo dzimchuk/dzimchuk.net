@@ -17,10 +17,10 @@
     "url": "https://dzimchuk.net"
   },
   "license": "MIT",
-    "repository": {
-      "type": "git",
-      "url": "https://github.com/dzimchuk/dzimchuk.net"
-    },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dzimchuk/dzimchuk.net"
+  },
   "devDependencies": {
     "autoprefixer": "^9.8.6",
     "cross-env": "^7.0.2",
@@ -41,6 +41,7 @@
     "metalsmith": "^2.3.0",
     "metalsmith-collections": "^0.9.0",
     "metalsmith-debug": "^1.2.0",
+    "metalsmith-drafts": "^1.0.0",
     "metalsmith-excerpts": "^1.2.0",
     "metalsmith-feed": "^1.0.0",
     "metalsmith-html-minifier": "^4.0.1",

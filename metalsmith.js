@@ -12,6 +12,7 @@ var Metalsmith = require('metalsmith'),
     updateMetadata = require('./metadata.js'),
     htmlMinifier = require('metalsmith-html-minifier'),
     feed = require('metalsmith-feed'),
+    drafts = require('metalsmith-drafts'),
     config = require('./config.js'),
     fs = require('fs');
 
@@ -31,6 +32,7 @@ function initialize(ms, metadata, production){
     .ignore('metadata.json')
     .clean(true)
     .use(updateMetadata())
+    .use(drafts())
     .use(collections({
         pages: {
             pattern: 'pages/**/*.md'
