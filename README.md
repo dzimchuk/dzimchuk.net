@@ -1,5 +1,5 @@
-# Blog generator
-My blog
+# dzimchuk.net
+This is my [blog](https://dzimchuk.net) where I share my experience and knowledge in software development. It gets built with [Metalsmith](https://github.com/segmentio/metalsmith) and [gulp](https://github.com/gulpjs/gulp).
 
 ## Commands
 
