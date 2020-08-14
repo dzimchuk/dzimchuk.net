@@ -1,15 +1,15 @@
 module.exports = {
     source: {
-        content: './src/content',
+        content: './content',
         styles: './assets/sass',
         scripts: './assets/js'
     },
     destination: {
         site: './build',
-        assets: './build/assets'
+        assets: './content/assets'
     },
     layouts: './layouts',
     helpers: './helpers',
-    metadata: './src/metadata.json',
+    metadata: './content/metadata.json',
     pageSize: 5
 }

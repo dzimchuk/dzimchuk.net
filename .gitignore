@@ -62,3 +62,9 @@ typings/
 
 # build output
 build/
+
+# assets staging
+content/assets/
+
+# Visual Studio metadata
+.vs/

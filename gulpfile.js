@@ -30,7 +30,6 @@ var easyimport = require('postcss-easy-import');
 
 gulp.task('metalsmith', function(callback){
     var ms = metalsmithFactory(args.production);
-    ms.clean(false);
 
     ms.build(function(err, files) {
         if (err) {
@@ -92,7 +91,7 @@ gulp.task('watch', function (callback) {
     gulp.watch(path.posix.join(config.source.scripts, '**/*'), gulp.series('build'));
     gulp.watch(['./metalsmith.js', './metadata.js', './partials.js'], gulp.series('metalsmith'));
     gulp.watch([
-        path.posix.join(config.source.content, '**/*'),
+        path.posix.join(config.source.content, '**/*.md'),
         path.posix.join(config.layouts, '**/*'),
         path.posix.join(config.helpers, '**/*'),
         config.metadata
