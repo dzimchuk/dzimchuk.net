@@ -1,0 +1,98 @@
+<meta name="description" content="{{site.description}}" />
+<link rel="canonical" href="{{site.url}}" />
+<meta name="referrer" content="no-referrer-when-downgrade" />
+
+{{#if isPageIndex}}
+{{#if pagination.previous}}
+<link rel="prev" href="{{page_url pagination.previous absolute="true"}}" />
+{{/if}}
+{{#if pagination.next}}
+<link rel="next" href="{{page_url pagination.next absolute="true"}}" />
+{{/if}}
+{{/if}}
+
+<meta property="og:site_name" content="{{site.title}}" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="{{site.title}}" />
+<meta property="og:description" content="{{site.description}}" />
+<meta property="og:url" content="{{site.url}}" />
+<meta property="og:image" content="{{site.cover_image}}" />
+{{#if site.facebook}}
+<meta property="article:publisher" content="https://www.facebook.com/{{site.facebook}}" />
+{{/if}}
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="{{site.title}}" />
+<meta name="twitter:description" content="{{site.description}}" />
+<meta name="twitter:url" content="{{site.url}}" />
+<meta name="twitter:image" content="{{site.cover_image}}" />
+{{#if site.twitter}}
+<meta name="twitter:site" content="@{{site.twitter}}" />
+{{/if}}
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="652" />
+
+<script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "publisher": {
+  "@type": "Organization",
+  "name": "{{site.title}}",
+  "logo": {
+  "@type": "ImageObject",
+  "url": "https://blogcontent.azureedge.net/favicons/v1/favicon.ico",
+  "width": 60,
+  "height": 60
+  }
+  },
+  "url": "{{site.url}}",
+  "image": {
+  "@type": "ImageObject",
+  "url": "{{site.cover_image}}",
+  "width": 1200,
+  "height": 652
+  },
+  "mainEntityOfPage": {
+  "@type": "WebPage",
+  "@id": "{{site.url}}"
+  },
+  "description": "{{site.description}}"
+  }
+</script>
+
+<link rel="alternate" type="application/rss+xml" title="{{site.title}}" href="{{local_feed_url}}" />
+
+<script type="text/javascript">
+  var disqus_shortname = 'dzimchuk';
+</script>
+
+<script type="text/javascript">
+  var appInsights = window.appInsights || function (config) {
+    function i(config) { t[config] = function () { var i = arguments; t.queue.push(function () { t[config].apply(t, i) }) } } var t = { config: config }, u = document, e = window, o = "script", s = "AuthenticatedUserContext", h = "start", c = "stop", l = "Track", a = l + "Event", v = l + "Page", y = u.createElement(o), r, f; y.src = config.url || "https://az416426.vo.msecnd.net/scripts/a/ai.0.js"; u.getElementsByTagName(o)[0].parentNode.appendChild(y); try { t.cookie = u.cookie } catch (p) { } for (t.queue = [], t.version = "1.0", r = ["Event", "Exception", "Metric", "PageView", "Trace", "Dependency"]; r.length;)i("track" + r.pop()); return i("set" + s), i("clear" + s), i(h + a), i(c + a), i(h + v), i(c + v), i("flush"), config.disableExceptionTracking || (r = "onerror", i("_" + r), f = e[r], e[r] = function (config, i, u, e, o) { var s = f && f(config, i, u, e, o); return s !== !0 && t["_" + r](config, i, u, e, o), s }), t
+  }({
+    instrumentationKey: "1e59ee88-09cb-473e-8de3-2668229d5924"
+  });
+
+  window.appInsights = appInsights;
+  appInsights.trackPageView();
+</script>
+
+<link rel="apple-touch-icon" sizes="57x57" href="https://blogcontent.azureedge.net/favicons/v1/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="https://blogcontent.azureedge.net/favicons/v1/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="https://blogcontent.azureedge.net/favicons/v1/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="https://blogcontent.azureedge.net/favicons/v1/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="https://blogcontent.azureedge.net/favicons/v1/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="https://blogcontent.azureedge.net/favicons/v1/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="https://blogcontent.azureedge.net/favicons/v1/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="https://blogcontent.azureedge.net/favicons/v1/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://blogcontent.azureedge.net/favicons/v1/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="https://blogcontent.azureedge.net/favicons/v1/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="https://blogcontent.azureedge.net/favicons/v1/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="https://blogcontent.azureedge.net/favicons/v1/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="https://blogcontent.azureedge.net/favicons/v1/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="https://blogcontent.azureedge.net/favicons/v1/manifest.json">
+<link rel="shortcut icon" href="https://blogcontent.azureedge.net/favicons/v1/favicon.ico">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-TileImage" content="https://blogcontent.azureedge.net/favicons/v1/mstile-144x144.png">
+<meta name="msapplication-config" content="https://blogcontent.azureedge.net/favicons/v1/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">

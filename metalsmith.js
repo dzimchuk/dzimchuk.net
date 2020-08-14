@@ -29,7 +29,7 @@ function initialize(ms, metadata, production){
     })
     .source(config.source.content)
     .destination(config.destination.site)
-    .ignore('metadata.json')
+    .ignore(['metadata.json', 'rev-manifest.json', 'header_content.hbs'])
     .clean(true)
     .use(updateMetadata())
     .use(drafts())
@@ -89,7 +89,7 @@ function initialize(ms, metadata, production){
         directory: config.helpers
     }))
     .use(registerPartials({
-        directory: config.layouts + '/partials'
+        directory: [config.layouts + '/partials', config.source.content]
     }))
     .use(layouts({
         engine: 'handlebars',

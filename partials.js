@@ -8,25 +8,36 @@ module.exports = function(options) {
       directory: 'partials'
     });
     
-    return function(files, metalsmith, done) {
-        var dir = metalsmith.path(options.directory);
-        var regex = new RegExp(escapeRegExp(dir + path.sep) + '([^.]+).hbs$');
-        
-        var filelist = walkSync(dir);
-        if (filelist.length > 0) {
-          filelist.forEach(function (filename) {
-            var matches = regex.exec(filename);
-            if (!matches) {
-              return;
-            }
-            var name = matches[1].replace(/\\/, '/');
-            var template = fs.readFileSync(filename, 'utf8');
-            Handlebars.registerPartial(name, template);
-          });
+    return function (files, metalsmith, done) {
+        if (Array.isArray(options.directory)) {
+            options.directory.forEach(function (dir) {
+                processDirectory(metalsmith.path(dir));
+            })
+        }
+        else {
+            var dir = metalsmith.path(options.directory);
+            processDirectory(dir);
         }
 
         done();
     };
+}
+
+function processDirectory(dir) {
+    var regex = new RegExp(escapeRegExp(dir + path.sep) + '([^.]+).hbs$');
+
+    var filelist = walkSync(dir);
+    if (filelist.length > 0) {
+        filelist.forEach(function (filename) {
+            var matches = regex.exec(filename);
+            if (!matches) {
+                return;
+            }
+            var name = matches[1].replace(/\\/, '/');
+            var template = fs.readFileSync(filename, 'utf8');
+            Handlebars.registerPartial(name, template);
+        });
+    }
 }
 
 function escapeRegExp(string) {

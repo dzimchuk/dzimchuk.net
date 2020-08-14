@@ -1,3 +1,5 @@
+const url = require('url');
+
 module.exports = {
     page: function() {
         return this.pagination.num;
@@ -5,8 +7,8 @@ module.exports = {
     pages: function() {
         return this.pagination.pages.length;
     },
-    page_url: function(page) {
+    page_url: function (page, options) {
         var exp = /^(.*)index\.html$/;
-        return '/' + page.path.replace(exp, '$1');
+        return url.resolve((options.hash.absolute ? this.site.url : '/'), page.path.replace(exp, '$1'));
     }
 }
