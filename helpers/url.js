@@ -14,5 +14,6 @@ module.exports = function(options){
 }
 
 function format(path, absolute){
-    return url.resolve((absolute ? this.site.url : '/'), path + '/');
+    let result = url.resolve((absolute ? this.site.url : '/'), path);
+    return result.endsWith('/') ? result : result + '/';
 }

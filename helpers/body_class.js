@@ -3,7 +3,7 @@ var slugify = require('slugify');
 module.exports = function() {
     if (this.isPageIndex) // generated post index pages
     {
-        if (this.pagination.num == 1 && this.path == 'index.html')
+        if (this.pagination.num == 1 /*&& this.path == 'index.html'*/)
         {
             return 'home-template'; // home index page
         }

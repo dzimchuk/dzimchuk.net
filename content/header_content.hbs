@@ -1,5 +1,7 @@
+{{#if (isHomePage)}}
 <meta name="description" content="{{site.description}}" />
-<link rel="canonical" href="{{site.url}}" />
+{{/if}}
+<link rel="canonical" href="{{url absolute="true"}}" />
 <meta name="referrer" content="no-referrer-when-downgrade" />
 
 {{#if isPageIndex}}
@@ -11,25 +13,39 @@
 {{/if}}
 {{/if}}
 
+{{#unless (isNextPage)}}
 <meta property="og:site_name" content="{{site.title}}" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="{{site.title}}" />
-<meta property="og:description" content="{{site.description}}" />
-<meta property="og:url" content="{{site.url}}" />
+<meta property="og:title" content="{{meta_title}}" />
+{{#unless (isTagPage)}}
+<meta property="og:description" content="{{#if isPageIndex}}{{site.description}}{{else}}{{excerpt words="60"}}{{/if}}" />
+{{/unless}}
+<meta property="og:url" content="{{url absolute="true"}}" />
+{{#if (isHomePage)}}
 <meta property="og:image" content="{{site.cover_image}}" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="652" />
+{{/if}}
+
 {{#if site.facebook}}
 <meta property="article:publisher" content="https://www.facebook.com/{{site.facebook}}" />
+{{#if (isPostOrPage)}}
+<meta property="article:author" content="https://www.facebook.com/{{site.facebook}}" />
 {{/if}}
+{{/if}}
+
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="{{site.title}}" />
-<meta name="twitter:description" content="{{site.description}}" />
-<meta name="twitter:url" content="{{site.url}}" />
+<meta name="twitter:title" content="{{meta_title}}" />
+{{#unless (isTagPage)}}
+<meta name="twitter:description" content="{{#if isPageIndex}}{{site.description}}{{else}}{{excerpt words="60"}}{{/if}}" />
+{{/unless}}
+<meta name="twitter:url" content="{{url absolute="true"}}" />
+{{#if (isHomePage)}}
 <meta name="twitter:image" content="{{site.cover_image}}" />
+{{/if}}
 {{#if site.twitter}}
 <meta name="twitter:site" content="@{{site.twitter}}" />
 {{/if}}
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="652" />
 
 <script type="application/ld+json">
   {
@@ -59,6 +75,7 @@
   "description": "{{site.description}}"
   }
 </script>
+{{/unless}}
 
 <link rel="alternate" type="application/rss+xml" title="{{site.title}}" href="{{local_feed_url}}" />
 
