@@ -13,6 +13,7 @@
     "linkedin": "andreidzimchuk",
     "disqus": "dzimchuk",
     "appInsights": "1e59ee88-09cb-473e-8de3-2668229d5924",
+    "googleAnalytics": "UA-54873337-1",
     "navigation": [
         { "label": "Home", "url": "/" },
         { "label": "Cloud Patterns", "url": "/tag/cloud-patterns/" },
