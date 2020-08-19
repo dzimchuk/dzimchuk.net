@@ -1,0 +1,118 @@
+{{#if (isHomePage)}}
+<meta name="description" content="{{site.description}}" />
+{{/if}}
+<link rel="canonical" href="{{url absolute="true"}}" />
+<meta name="referrer" content="no-referrer-when-downgrade" />
+
+{{#if pagination}}
+{{#if pagination.previous}}
+<link rel="prev" href="{{page_url pagination.previous absolute="true"}}" />
+{{/if}}
+{{#if pagination.next}}
+<link rel="next" href="{{page_url pagination.next absolute="true"}}" />
+{{/if}}
+{{/if}}
+
+{{#unless (isNextPage)}}
+<meta property="og:site_name" content="{{site.title}}" />
+<meta property="og:type" content="{{#if (isPostOrPage)}}article{{else}}website{{/if}}" />
+<meta property="og:title" content="{{meta_title}}" />
+{{#unless (isTagPage)}}
+<meta property="og:description" content="{{#if isPageIndex}}{{site.description}}{{else}}{{excerpt words="60"}}{{/if}}" />
+{{/unless}}
+<meta property="og:url" content="{{url absolute="true"}}" />
+{{#if (isHomePage)}}
+<meta property="og:image" content="{{site.cover_image}}" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="652" />
+{{/if}}
+
+{{#if site.facebook}}
+<meta property="article:publisher" content="https://www.facebook.com/{{site.facebook}}" />
+{{#if (isPostOrPage)}}
+<meta property="article:author" content="https://www.facebook.com/{{site.facebook}}" />
+{{/if}}
+{{/if}}
+
+{{#if (isPostOrPage)}}
+<meta property="article:published_time" content="{{date format="YYYY-MM-DDTHH:mm:ss.SSSZ"}}" />
+<meta property="article:modified_time" content="{{date format="YYYY-MM-DDTHH:mm:ss.SSSZ"}}" />
+{{#if (hasTags)}}
+{{#each tags}}
+<meta property="article:tag" content="{{this.name}}" />
+{{/each}}
+{{/if}}
+{{/if}}
+
+<meta name="twitter:card" content="{{#if (isHomePage)}}summary_large_image{{else}}summary{{/if}}" />
+<meta name="twitter:title" content="{{meta_title}}" />
+{{#unless (isTagPage)}}
+<meta name="twitter:description" content="{{#if isPageIndex}}{{site.description}}{{else}}{{excerpt words="60"}}{{/if}}" />
+{{/unless}}
+<meta name="twitter:url" content="{{url absolute="true"}}" />
+{{#if (isHomePage)}}
+<meta name="twitter:image" content="{{site.cover_image}}" />
+{{/if}}
+
+{{#if (isPostOrPage)}}
+<meta name="twitter:label1" content="Written by" />
+<meta name="twitter:data1" content="{{site.author.name}}" />
+{{#if (hasTags)}}
+<meta name="twitter:label2" content="Filed under" />
+<meta name="twitter:data2" content="{{tags plain="true"}}" />
+{{/if}}
+{{/if}}
+
+{{#if site.twitter}}
+<meta name="twitter:site" content="@{{site.twitter}}" />
+{{#if (isPostOrPage)}}
+<meta property="twitter:creator" content="@{{site.twitter}}" />
+{{/if}}
+{{/if}}
+
+<script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "{{#if (isPostOrPage)}}Article{{else}}{{#if (isTagPage)}}Series{{else}}WebSite{{/if}}{{/if}}",
+  "publisher": {
+  "@type": "Organization",
+  "name": "{{site.title}}",
+  "logo": {
+  "@type": "ImageObject",
+  "url": "{{site.favicon}}",
+  "width": 60,
+  "height": 60
+  }
+  },
+  "url": "{{url absolute="true"}}",
+  {{#unless (isTagPage)}}
+  "description": "{{#if isPageIndex}}{{site.description}}{{else}}{{excerpt words="60"}}{{/if}}"
+  {{/unless}}
+  {{#if (isTagPage)}}
+  {{#tag}}
+  "name": "{{name}}",
+  {{/tag}}
+  {{/if}}
+  {{#if (isHomePage)}}
+  "image": {
+  "@type": "ImageObject",
+  "url": "{{site.cover_image}}",
+  "width": 1200,
+  "height": 652
+  },
+  {{/if}}
+  {{#if (isPostOrPage)}}
+  "headline": "{{meta_title}}",
+  "datePublished": "{{date format="YYYY-MM-DDTHH:mm:ss.SSSZ"}}",
+  "dateModified": "{{date format="YYYY-MM-DDTHH:mm:ss.SSSZ"}}",
+  {{#if (hasTags)}}
+  "keywords": "{{tags plain="true"}}",
+  {{/if}}
+  {{/if}}
+  "mainEntityOfPage": {
+  "@type": "WebPage",
+  "@id": "{{site.url}}"
+  }
+  }
+</script>
+{{/unless}}

@@ -82,7 +82,7 @@ function initialize(ms, metadata, production){
         sortBy: 'date',
         reverse: true,
         skipMetadata: false,
-        metadataKey: "tags", // global tag list
+        metadataKey: "tagList", // global tag list
         slug: { mode: 'rfc3986', remove: /[.]/g } // uses https://github.com/dodo/node-slug but can be replaced with a custom function
     }))
     .use(registerHelpers({
