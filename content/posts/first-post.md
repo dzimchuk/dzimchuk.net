@@ -1,6 +1,6 @@
 ---
-title: "First Post"
-date: 2014-04-18
+title: First Post
+date: 2014-04-18T18:49:33+03:00
 tags: Azure Service Fabric
 ---
 

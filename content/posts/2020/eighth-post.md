@@ -1,5 +1,5 @@
 ---
-title: "Eighth Post"
+title: Eighth Post
 date: 2020-04-24
 draft: true
 ---

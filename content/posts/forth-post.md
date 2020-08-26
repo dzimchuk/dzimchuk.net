@@ -1,6 +1,6 @@
 ---
-title: "Forth Post"
-date: 2014-04-21
+title: Forth Post
+date: 2014-04-21T18:49:33+03:00
 tags: Azure Service Fabric
 ---
 

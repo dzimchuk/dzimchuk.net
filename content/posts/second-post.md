@@ -1,6 +1,6 @@
 ---
-title: "Second Post"
-date: 2014-04-19
+title: Second Post
+date: 2014-04-19 18:49:33
 permalink: "second-post-custom"
 excerpt: "my custom excerpt"
 tags: Azure Service Fabric, Power Video Player, ASP.NET

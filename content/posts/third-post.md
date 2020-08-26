@@ -1,6 +1,6 @@
 ---
-title: "Third Post"
-date: 2014-04-20
+title: Third Post
+date: 2014-04-20T18:49:33+00:00
 tags: Azure Service Fabric
 ---
 
