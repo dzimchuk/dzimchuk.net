@@ -1,0 +1,23 @@
+---
+title: Power Video Player 2.1 released
+date: 2014-04-10 09:46:00
+permalink: power-video-player-21-released
+uuid: d0450c79-017b-4c68-aa80-fe57bc9021ec
+tags: Power Video Player
+---
+
+I’m really proud to announce that the new version of [Power Video Player](https://pvp.codeplex.com/) has been released. From a developer’s point of view the release is interesting due to a sheer amount of refactoring in various areas of the application. The core has been strengthened out and there are a bunch of dedicated components responsible for doing their part and doing it well. From the consumer’s point of view it may seem not that drastic but still it addresses a few pain points like integration with Windows 8.x and multi audio and subtitles streams support.
+
+[![PVP logo](https://blogcontent.azureedge.net/pvp_logo_sketch_thumb.png "PVP logo")](https://blogcontent.azureedge.net/pvp_logo_sketch.png)
+
+When I was talking about integration with Windows 8 I meant file association. Yes, it’s ridiculously under-thought and unpolished concept on Windows from a developer’s point of view. Before Windows Vista it was all about messing with the registry. There were a few approaches actually but the bottom line was that you created so-called program classes or document types with information on how to invoke your executable and pass arguments to it and then associated extensions with your classes (see [this documentation](http://msdn.microsoft.com/en-us/library/cc144158(VS.85).aspx) if you want to learn more).
+
+In Windows Vista a new concept called [Default Programs](http://msdn.microsoft.com/en-us/library/cc144154(v=VS.85).aspx) was introduced. You still had to register your application by putting some values and nodes into registry (which was normally done at install time) but then you were given a special interface, [IApplicationAssociationRegistration](http://msdn.microsoft.com/en-us/library/windows/desktop/bb776332(v=vs.85).aspx), that allowed you to set your program as a default one for a certain file type, check what program is set as default and so on. There was also another interface, [IApplicationAssociationRegistrationUI](http://msdn.microsoft.com/en-us/library/windows/desktop/bb776329(v=vs.85).aspx), that you could use to bring up the standard Default Programs window that was available from the Control Panel.
+
+Since Windows 8 `IApplicationAssociationRegistration` has been deprecated. And not just deprecated, on Windows 8.1 it just didn’t work. You can of course hack into the registry and do your stuff but it seems to be against the philosophy that Microsoft puts into the new generation of Windows and applications where the user is in the total control of things and apps are running in sandboxes and can’t really change any state outside of themselves without explicit approval from the user. You know what? I really like this. And what’s left to you as a developer is to respect the user’s choice and present the user the familiar and standard way to express her preference. That’s right, `IApplicationAssociationRegistrationUI` is the way to go, So if you run PVP on Windows 8 and above the only option it will give in terms of managing file association is to launch the standard Default Programs UI.
+
+The most interesting aspect of this release in my opinion is the support for [IAMStreamSelect](http://msdn.microsoft.com/en-us/library/windows/desktop/dd319793(v=vs.85).aspx) interface. Some source filters including the popular [LAV source filter](https://github.com/Nevcairiel/LAVFilters) support this interface which allows you to select desired streams of particular media type that you want the filter to output. It allows you to switch video, audio and subtitle streams. Normally there is one video stream although there can be more (PVP just supports one). There can be several audio tracks and several subtitle tracks.
+
+Note that not all containers allows you to embed subtitles. MKV does but, for example, AVI doesn’t. PVP 2.1 supports embedded subtitles only. Moreover, source (or splitter) filter must implement `IAMStreamSelect` interface and you have to have DirectVobSub (aka VSFilter, class ID {9852A670-F845-491B-9BE6-EBD841B8A613}) to be registered on your system. Pretty limited? Yes and no. LAV and DirectVobSub are quite popular and I recommend you install them. Although not directly supported by PVP, DirectVobSub allows you to configure it to load external subtitles through its Properties page.
+
+I’m sure there is more to come and PVP 2.1 is just the first step in the right direction. Meanwhile enjoy the new release and let me know what you think of it!

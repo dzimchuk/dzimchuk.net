@@ -105,7 +105,7 @@ gulp.task('serve', function(callback) {
     var serveStatic = require('serve-static');
     var finalhandler = require('finalhandler');
 
-    var serve = serveStatic(site.config.destination.site, {
+    var serve = serveStatic(config.destination.site, {
       "index": ['index.html', 'index.htm']
     });
 

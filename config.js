@@ -11,5 +11,5 @@ module.exports = {
     layouts: './layouts',
     helpers: './helpers',
     metadata: './content/metadata.json',
-    pageSize: 5
+    pageSize: 10
 }
