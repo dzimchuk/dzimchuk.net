@@ -1,6 +1,7 @@
 ---
 title: Rendering video content in WPF using a custom EVR presenter and D3DImage
-date: 2012-04-27 23:06:00
+date: 2012-04-27T23:06:00.000Z
+lastmod: 2015-04-23T16:41:47.000Z
 permalink: rendering-video-content-in-wpf-using-a-custom-evr-presenter-and-d3dimage
 uuid: 89ceb76a-2a2f-49a7-9f71-e46dc7336af5
 tags: WPF, DirectShow

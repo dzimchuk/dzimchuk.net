@@ -1,6 +1,7 @@
 ---
 title: Understanding ASP.NET 5 middleware
-date: 2015-03-16 17:01:00
+date: 2015-03-16T17:01:00.000Z
+lastmod: 2017-09-09T11:20:02.000Z
 permalink: understanding-aspnet-5-middleware
 excerpt: Principals and design approaches that we have seen in OWIN specification and some of its implementations (for Microsoft servers and frameworks the most notable is Katana) found their way into ASP.NET 5. In this post I want to focus on one of the core concepts which is middleware.
 uuid: f03b474e-e617-4d8a-8fc8-d2df5eb41168

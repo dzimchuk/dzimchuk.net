@@ -1,6 +1,7 @@
 ---
 title: Cloning Azure VMs
-date: 2017-10-23 12:02:49
+date: 2017-10-23T12:02:49.000Z
+lastmod: 2018-03-15T19:48:41.000Z
 permalink: cloning-azure-vms
 excerpt: In order to enable deployment of preconfigured environments or to scale your IAAS workloads you may need clone your VMs. The process normally involves removing computer-specific information from the machine, capturing the VM image and then using this image when provisioning new VM instances.
 uuid: fa9cbf4f-a6e1-4c55-99a0-68eaf47248c2

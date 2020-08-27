@@ -1,6 +1,7 @@
 ---
 title: When a first chance exception of type 'XXX' occurred you really have a bug
-date: 2010-09-06 06:20:00
+date: 2010-09-06T06:20:00.000Z
+lastmod: 2015-04-23T17:18:17.000Z
 permalink: when-a-first-chance-exception-of-type-xxx-occurred-you-really-have-a-bug
 uuid: 8cc4ddce-80c3-4ddb-a50b-574878ab64a3
 tags: Tips & Tricks

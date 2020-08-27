@@ -1,6 +1,7 @@
 ---
 title: Push notification flow with Azure Notification Hubs
-date: 2016-02-10 17:03:47
+date: 2016-02-10T17:03:47.000Z
+lastmod: 2018-03-18T15:10:37.000Z
 permalink: push-notification-flow-with-azure-notification-hubs
 excerpt: One of the commonly expected features of mobile apps is an ability to receive push notifications, that is, notifications that do not require the apps to be up and running and having an established connection with their backend.
 uuid: 13d990d3-e442-4bf5-865a-50fdd6344df6

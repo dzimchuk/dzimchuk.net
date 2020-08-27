@@ -1,6 +1,7 @@
 ---
 title: Insuring exclusive processing of queue messages in Azure
-date: 2014-09-15 17:57:00
+date: 2014-09-15T17:57:00.000Z
+lastmod: 2017-11-01T20:42:28.000Z
 permalink: insuring-exclusive-processing-of-queue-messages-in-azure
 excerpt: It is pretty common that you have multiple instances of your worker process grabbing messages off the queues in a competing manner. What you often want to achieve is that every single message is processed exclusively by a single instance. That single instance may successfully complete...
 uuid: 4adc0b8e-1fec-431a-8828-ae1e224f3c7c

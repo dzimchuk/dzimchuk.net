@@ -1,6 +1,7 @@
 ---
 title: Doing async the right way
-date: 2014-03-06 09:37:00
+date: 2014-03-06T09:37:00.000Z
+lastmod: 2015-04-22T18:40:46.000Z
 permalink: doing-async-the-right-way
 uuid: 191bf496-9fa6-487c-8c03-d9ae1396850f
 tags: .NET

@@ -1,6 +1,7 @@
 ---
 title: First meet-up event of Belarus Azure User Group
-date: 2015-07-25 08:52:44
+date: 2015-07-25T08:52:44.000Z
+lastmod: 2017-09-05T19:51:02.000Z
 permalink: first-meet-up-event-of-belarus-azure-user-group
 excerpt: On July, 22 2015 we've held the first meet-up event of Belarus Azure User Group where we shared experience building solution on Microsoft Azure, using various services and migrating existing solutions to the cloud. It was a special event for me because I was on stage speaking this time.
 uuid: 3cf81422-2177-454f-b034-c6a2e283dc13

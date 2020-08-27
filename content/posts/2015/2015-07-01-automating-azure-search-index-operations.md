@@ -1,6 +1,7 @@
 ---
 title: Automating Azure Search index operations
-date: 2015-07-01 16:19:48
+date: 2015-07-01T16:19:48.000Z
+lastmod: 2017-09-05T19:43:44.000Z
 permalink: automating-azure-search-index-operations
 excerpt: Last time we had a look at provisioning Azure Search service with Azure Resource Manager and PowerShell. The next step is to set up an index (or indexes) and decide how we are going to populate it. We should also index existing data for the first time once the index has been created.
 uuid: de9984a0-b4eb-43e9-a230-597c1880a9e4

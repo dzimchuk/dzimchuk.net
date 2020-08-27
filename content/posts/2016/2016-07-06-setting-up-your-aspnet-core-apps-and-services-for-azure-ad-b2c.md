@@ -1,6 +1,7 @@
 ---
 title: Setting up your ASP.NET Core apps and services for Azure AD B2C
-date: 2016-07-06 08:32:00
+date: 2016-07-06T08:32:00.000Z
+lastmod: 2017-12-18T20:09:46.000Z
 permalink: setting-up-your-aspnet-core-apps-and-services-for-azure-ad-b2c
 excerpt: So far we've been looking at corporate or organizational accounts in context of working with Azure AD. But for customer facing applications it's important to provide a way for users to register themselves and use their existing social accounts to authenticate with your applications.
 uuid: 1ebee3df-453e-45f1-92f1-b629cacf4a6d

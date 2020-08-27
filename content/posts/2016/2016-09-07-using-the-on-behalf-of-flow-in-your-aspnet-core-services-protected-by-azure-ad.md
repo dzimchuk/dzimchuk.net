@@ -1,6 +1,7 @@
 ---
 title: Using the on-behalf-of flow in your ASP.NET Core services protected by Azure AD
-date: 2016-09-07 20:25:00
+date: 2016-09-07T20:25:00.000Z
+lastmod: 2017-09-05T19:22:39.000Z
 permalink: using-the-on-behalf-of-flow-in-your-aspnet-core-services-protected-by-azure-ad
 excerpt: We've seen how various OAuth2 flows allow clients to get delegated access to resources on behalf of the users who own the resources. Modern software is built more and more with distributed architecture in mind and service to service communication is a common scenario and when it comes to security...
 uuid: 68e5de19-b142-466f-83f7-e31b4c8a9943

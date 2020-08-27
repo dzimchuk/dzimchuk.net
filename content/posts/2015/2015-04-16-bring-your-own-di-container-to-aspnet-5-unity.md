@@ -1,6 +1,7 @@
 ---
 title: Bring your own DI container to ASP.NET 5 - Unity
-date: 2015-04-16 16:29:00
+date: 2015-04-16T16:29:00.000Z
+lastmod: 2015-04-22T17:35:05.000Z
 permalink: bring-your-own-di-container-to-aspnet-5-unity
 uuid: f0486eda-f4b4-414a-810e-fbb017c36e87
 tags: ASP.NET, Dependency Injection

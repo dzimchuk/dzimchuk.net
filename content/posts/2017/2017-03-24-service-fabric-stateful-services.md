@@ -1,6 +1,7 @@
 ---
 title: Service Fabric stateful services
-date: 2017-03-24 15:31:00
+date: 2017-03-24T15:31:00.000Z
+lastmod: 2018-03-15T20:25:31.000Z
 permalink: service-fabric-stateful-services
 excerpt: Service Fabric is a great compute platform for your applications. But did you know it is also a storage platform? Stateful services programming model enables this capability. Stateful services allow you to persist data right on the same nodes where your services are executing.
 uuid: c9725aee-351f-4ec1-9a8d-b6603fdcafa5

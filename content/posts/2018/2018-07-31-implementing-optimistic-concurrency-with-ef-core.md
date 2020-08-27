@@ -1,6 +1,7 @@
 ---
 title: Implementing optimistic concurrency with EF Core
-date: 2018-07-31 17:05:00
+date: 2018-07-31T17:05:00.000Z
+lastmod: 2018-07-31T17:05:00.000Z
 permalink: implementing-optimistic-concurrency-with-ef-core
 excerpt: Entity Framework Core provides built-in support for optimistic concurrency control but it only works during the lifetime of the context when in most realistic scenarios it needs to work across a longer period that involves a roundtrip to the client app and back the server.
 uuid: ff210394-5201-44a3-ba45-5255079e0f1d

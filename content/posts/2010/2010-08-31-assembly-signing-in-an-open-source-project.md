@@ -1,6 +1,7 @@
 ---
 title: Assembly signing in an open source project
-date: 2010-08-31 08:36:00
+date: 2010-08-31T08:36:00.000Z
+lastmod: 2015-04-23T17:23:12.000Z
 permalink: assembly-signing-in-an-open-source-project
 uuid: 94f5a15f-d501-452c-9fb5-af026546934a
 tags: Practices

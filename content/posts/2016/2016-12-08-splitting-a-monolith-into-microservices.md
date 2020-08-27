@@ -1,6 +1,7 @@
 ---
 title: Splitting a monolith into microservices
-date: 2016-12-08 18:49:33
+date: 2016-12-08T18:49:33.000Z
+lastmod: 2018-03-15T19:50:06.000Z
 permalink: splitting-a-monolith-into-microservices
 excerpt: It's all about change. Business wants to try out things and back off on unsuccessful attempts as soon as possible to minimize loss. Customers expect software to constantly evolve and better solve their problems. And developers want to be able to incrementally make changes to the system...
 uuid: 6f36d588-a420-49c7-9ccd-99645f3422a5

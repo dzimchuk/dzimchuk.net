@@ -1,6 +1,7 @@
 ---
 title: Efficient way to position windows in WPF
-date: 2012-02-13 09:22:00
+date: 2012-02-13T09:22:00.000Z
+lastmod: 2015-04-23T16:44:38.000Z
 permalink: efficient-way-to-position-windows-in-wpf
 uuid: 49bf0652-8e86-4fb9-ac02-12fc806924af
 tags: WPF

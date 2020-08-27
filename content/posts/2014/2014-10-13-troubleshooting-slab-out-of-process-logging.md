@@ -1,6 +1,7 @@
 ---
 title: Troubleshooting SLAB out-of-process logging
-date: 2014-10-13 15:55:00
+date: 2014-10-13T15:55:00.000Z
+lastmod: 2015-04-22T17:56:34.000Z
 permalink: troubleshooting-slab-out-of-process-logging
 uuid: 72cd6671-6925-4978-9fa8-b5dc1f49df40
 tags: Semantic Logging

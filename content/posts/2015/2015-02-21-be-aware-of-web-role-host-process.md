@@ -1,6 +1,7 @@
 ---
 title: Be aware of Web role host process
-date: 2015-02-21 09:10:00
+date: 2015-02-21T09:10:00.000Z
+lastmod: 2017-09-09T11:03:19.000Z
 permalink: be-aware-of-web-role-host-process
 excerpt: Azure cloud service web roles have one peculiarity in regard to the way your code is hosted. The thing is although you have a single project associated with your web role it will actually be run in two separate processes.
 uuid: a9a058e9-3821-4ff1-9982-46f6b1d1786d

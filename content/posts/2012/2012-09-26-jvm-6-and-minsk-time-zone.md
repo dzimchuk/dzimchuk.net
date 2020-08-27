@@ -1,6 +1,7 @@
 ---
 title: JVM 6 and Minsk time zone
-date: 2012-09-26 11:42:00
+date: 2012-09-26T11:42:00.000Z
+lastmod: 2015-04-22T18:51:29.000Z
 permalink: jvm-6-and-minsk-time-zone
 uuid: 1ea09d7e-16e2-4b1b-bfda-dba6a26f7d16
 tags: Tips & Tricks

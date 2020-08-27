@@ -1,6 +1,7 @@
 ---
 title: Configuring ASP.NET Core applications in Service Fabric
-date: 2016-12-29 13:03:19
+date: 2016-12-29T13:03:19.000Z
+lastmod: 2017-09-05T19:18:05.000Z
 permalink: configuring-asp-net-core-applications-in-service-fabric
 excerpt: ASP.NET Core provides a flexible configuration infrastructure that supports multiple configuration sources from flat files to environment variables to whatever you can imagine as it's easy to create a provider for a new source...
 uuid: 2470112d-449b-4d54-bcf4-4a9439cf1735

@@ -1,6 +1,7 @@
 ---
 title: Single instance of a WPF app – part 5 (Remoting)
-date: 2010-10-01 05:47:00
+date: 2010-10-01T05:47:00.000Z
+lastmod: 2015-04-23T17:13:16.000Z
 permalink: single-instance-of-a-wpf-app-e28093-part-5--remoting-
 uuid: 041aee16-e9de-4e09-90f6-ebfb005d550a
 tags: WPF

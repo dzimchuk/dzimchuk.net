@@ -1,6 +1,7 @@
 ---
 title: Disable SSL certificate validation during development
-date: 2014-06-12 07:26:51
+date: 2014-06-12T07:26:51.000Z
+lastmod: 2015-04-22T18:32:51.000Z
 permalink: disable-ssl-certificate-validation-during-development
 uuid: 99486d97-d183-4230-ae30-8e0bbf6b8c0c
 tags: Tips & Tricks

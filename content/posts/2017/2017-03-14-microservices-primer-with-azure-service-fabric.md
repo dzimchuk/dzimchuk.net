@@ -1,6 +1,7 @@
 ---
 title: Microservices primer with Azure Service Fabric
-date: 2017-03-14 15:40:00
+date: 2017-03-14T15:40:00.000Z
+lastmod: 2017-09-06T04:37:53.000Z
 permalink: microservices-primer-with-azure-service-fabric
 excerpt: Not so long ago I've written a post about motivation for transforming traditional monolithic architectures into microservices. I've touched upon key characteristics of microservices and things to look out for when building them. Today I want to do a more hands-on post...
 uuid: 891f1d6a-a9a5-471b-8d43-bd8a11a5fb6a

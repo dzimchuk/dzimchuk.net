@@ -1,6 +1,7 @@
 ---
 title: Re-iterating communication options in Service Fabric
-date: 2017-05-31 15:38:15
+date: 2017-05-31T15:38:15.000Z
+lastmod: 2017-09-06T04:36:30.000Z
 permalink: re-iterating-communication-options-in-service-fabric
 excerpt: There are a few options you have to make your services talk to each other. In this post we're going to have a quick look at them and I'll give links to resources to learn more about each option. Note that we're going to look at direct communication between services.
 uuid: 58c1b0df-489e-473e-ac0b-3a78667d8074

@@ -1,6 +1,7 @@
 ---
 title: When error messages are misleading
-date: 2010-09-20 05:53:00
+date: 2010-09-20T05:53:00.000Z
+lastmod: 2015-04-23T17:16:27.000Z
 permalink: when-error-messages-are-misleading
 uuid: 879b3058-6104-4fcf-aeb9-e351b241beb4
 tags: SharePoint

@@ -1,6 +1,7 @@
 ---
 title: Please, write testable code
-date: 2014-11-10 15:45:00
+date: 2014-11-10T15:45:00.000Z
+lastmod: 2015-04-22T18:09:08.000Z
 permalink: please-write-testable-code
 uuid: a07dec8b-1e53-44d7-b853-a76452f74d79
 tags: Practices

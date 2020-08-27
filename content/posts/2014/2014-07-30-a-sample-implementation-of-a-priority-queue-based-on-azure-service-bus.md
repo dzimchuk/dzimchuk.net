@@ -1,6 +1,7 @@
 ---
 title: A sample implementation of a priority queue based on Azure Service Bus
-date: 2014-07-30 18:44:00
+date: 2014-07-30T18:44:00.000Z
+lastmod: 2017-09-05T19:03:17.000Z
 permalink: a-sample-implementation-of-a-priority-queue-based-on-azure-service-bus
 excerpt: Last time I was talking about what a priority queue is and how we can approach designing it. In this post I want to guide you through a sample implementation of such a queue that won’t require dedicated computing resources per each priority.
 uuid: 4569c252-184f-4bad-85cb-b5e340d80a11

@@ -1,6 +1,7 @@
 ---
 title: Implementing a priority queue on Microsoft Azure
-date: 2014-07-28 16:36:00
+date: 2014-07-28T16:36:00.000Z
+lastmod: 2017-09-05T19:04:30.000Z
 permalink: implementing-a-priority-queue-on-microsoft-azure
 excerpt: Queues allow you to decouple components so that they process data or perform tasks in asynchronous manner. This greatly improves scalability and responsiveness of your application. Priority queues allow publishers influence the sequence in which requests are processed.
 uuid: dbb3e6a3-605e-430b-ab97-efd47a92ee5f

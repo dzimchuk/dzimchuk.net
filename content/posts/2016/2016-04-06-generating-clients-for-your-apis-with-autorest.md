@@ -1,6 +1,7 @@
 ---
 title: Generating clients for your APIs with AutoRest
-date: 2016-04-06 13:00:00
+date: 2016-04-06T13:00:00.000Z
+lastmod: 2018-08-02T11:48:53.000Z
 permalink: generating-clients-for-your-apis-with-autorest
 excerpt: When building Web APIs it's often required to provide client adapters between various programming stacks and raw HTTP REST APIs. These 'clients' can be built manually but it's often a rather tedious task and it adds to your development efforts as you need to keep the clients in sync with...
 uuid: 0b47bef8-5092-4140-b774-00b48237d4fa

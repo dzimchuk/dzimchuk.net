@@ -1,6 +1,7 @@
 ---
 title: Azure AD B2C user profile editing issues with ASP.NET Core
-date: 2017-02-02 16:52:00
+date: 2017-02-02T16:52:00.000Z
+lastmod: 2017-12-18T20:11:48.000Z
 permalink: azure-ad-b2c-user-profile-editing-issues-with-asp-net-core
 excerpt: One of the policy types supported by Azure AD B2C is profile editing which allows users to provide their info such as address details, job title, etc. When you use the default ASP.NET Core OpenID Connect middleware to handle communication with Azure AD B2C you may run into difficulties...
 uuid: 3e419b4c-e8fb-4727-98b7-52776e33a8e0

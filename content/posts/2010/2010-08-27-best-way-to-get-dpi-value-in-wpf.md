@@ -1,6 +1,7 @@
 ---
 title: Best way to get DPI value in WPF
-date: 2010-08-27 06:25:00
+date: 2010-08-27T06:25:00.000Z
+lastmod: 2015-04-23T17:27:45.000Z
 permalink: best-way-to-get-dpi-value-in-wpf
 uuid: 23ec76ae-a58f-49ae-ac8a-c2ed86513ba8
 tags: WPF

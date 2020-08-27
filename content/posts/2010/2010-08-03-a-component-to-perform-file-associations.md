@@ -1,6 +1,7 @@
 ---
 title: A component to perform file associations
-date: 2010-08-03 06:03:00
+date: 2010-08-03T06:03:00.000Z
+lastmod: 2015-04-23T17:45:11.000Z
 permalink: a-component-to-perform-file-associations
 uuid: 4a64fb41-5c69-409d-9df8-d1f35edab78e
 tags: Windows Programming

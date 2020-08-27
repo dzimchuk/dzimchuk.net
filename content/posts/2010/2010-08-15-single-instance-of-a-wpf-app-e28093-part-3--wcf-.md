@@ -1,6 +1,7 @@
 ---
 title: Single instance of a WPF app – part 3 (WCF)
-date: 2010-08-15 09:45:00
+date: 2010-08-15T09:45:00.000Z
+lastmod: 2015-04-23T17:35:20.000Z
 permalink: single-instance-of-a-wpf-app-e28093-part-3--wcf-
 uuid: 91677380-539f-478c-af1a-69790ec4fe59
 tags: WPF

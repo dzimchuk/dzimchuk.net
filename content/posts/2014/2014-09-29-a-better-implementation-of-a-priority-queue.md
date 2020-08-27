@@ -1,6 +1,7 @@
 ---
 title: A better implementation of a priority queue
-date: 2014-09-29 16:34:00
+date: 2014-09-29T16:34:00.000Z
+lastmod: 2017-09-05T18:57:15.000Z
 permalink: a-better-implementation-of-a-priority-queue
 excerpt: In my previous post I provided a sample implementation of the Priority Queue pattern that was multiplexing messages from several queues through a dispatcher to a limited number of worker threads. While the basic idea looks good there were a couple of issues...
 uuid: 3ba95ea5-116d-49fc-9aa0-505f32e69043

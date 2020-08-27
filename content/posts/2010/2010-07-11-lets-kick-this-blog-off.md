@@ -1,6 +1,7 @@
 ---
 title: Let's kick this blog off
-date: 2010-07-11 20:57:00
+date: 2010-07-11T20:57:00.000Z
+lastmod: 2015-03-30T16:15:49.000Z
 permalink: lets-kick-this-blog-off
 uuid: 4ca67d82-2a96-4ca3-bdda-273abce7640a
 ---

@@ -1,6 +1,7 @@
 ---
 title: Setting up Azure CDN for your site
-date: 2015-05-05 17:40:46
+date: 2015-05-05T17:40:46.000Z
+lastmod: 2017-09-05T19:45:31.000Z
 permalink: setting-up-azure-cdn-for-your-site
 excerpt: Microsoft Azure provides a modern CDN service that will help boost performance of your web applications. The service acts as a globally distributed pass-through cache and you can choose the backing service it will use to fetch original files from.
 uuid: 800288ef-2070-48ff-8ef0-d588c3eecb8e

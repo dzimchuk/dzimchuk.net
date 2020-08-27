@@ -1,6 +1,7 @@
 ---
 title: Single instance of a WPF app – part 4 (WindowsFormsApplicationBase)
-date: 2010-08-16 04:52:00
+date: 2010-08-16T04:52:00.000Z
+lastmod: 2015-04-23T17:33:34.000Z
 permalink: single-instance-of-a-wpf-app-e28093-part-4--windowsformsapplicationbase-
 uuid: 56bb6150-3ee7-45cc-b181-652e0ae76c72
 tags: WPF

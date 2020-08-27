@@ -1,6 +1,7 @@
 ---
 title: ADAL distributed token cache in ASP.NET Core
-date: 2017-02-14 15:54:00
+date: 2017-02-14T15:54:00.000Z
+lastmod: 2017-09-05T19:20:53.000Z
 permalink: adal-distributed-token-cache-in-asp-net-core
 excerpt: Azure AD Authentication Library relies on its token cache for efficient token management. When you request an access token with AcquireTokenSilentAsync and there is a valid token in the cache you get it right away. Otherwise if there is a refresh token it's used to obtain a new access token...
 uuid: 7f933385-baee-42d5-a031-cefa740b2098

@@ -1,6 +1,7 @@
 ---
 title: Azure Web Apps Continuous Deployment
-date: 2015-10-05 15:46:34
+date: 2015-10-05T15:46:34.000Z
+lastmod: 2018-03-18T15:05:14.000Z
 permalink: azure-web-apps-continuous-deployment
 excerpt: Azure Web Apps provide a continuous deployment feature that allows you to quickly set up a continuous build and deployment process from your code repository. It implements a pull model when your repository is cloned to your web app, changes are pulled and the application is built when...
 uuid: 09d165c9-1a9b-4d5e-8056-4e46ffcd5db5

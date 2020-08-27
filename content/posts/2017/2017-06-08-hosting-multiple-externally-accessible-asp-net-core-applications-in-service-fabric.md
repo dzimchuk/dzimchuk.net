@@ -1,6 +1,7 @@
 ---
 title: Hosting multiple externally accessible ASP.NET Core applications in Service Fabric
-date: 2017-06-08 15:51:00
+date: 2017-06-08T15:51:00.000Z
+lastmod: 2017-09-06T04:36:18.000Z
 permalink: hosting-multiple-externally-accessible-asp-net-core-applications-in-service-fabric
 excerpt: This is a really quick post to answer a question that I was asked recently about how does one host multiple services or applications in Service Fabric so that they can be accessed from outside on the same port.
 uuid: 62d81f6c-d487-43f9-86a9-f2acda5b6039

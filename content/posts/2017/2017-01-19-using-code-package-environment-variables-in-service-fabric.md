@@ -1,6 +1,7 @@
 ---
 title: Using code package environment variables in Service Fabric
-date: 2017-01-19 15:07:41
+date: 2017-01-19T15:07:41.000Z
+lastmod: 2017-09-05T19:16:28.000Z
 permalink: using-code-package-environment-variables-in-service-fabric
 excerpt: In my previous post on configuring ASP.NET Core applications in Service Fabric I gave an example of how you could set a correct web host environment which allows you to adjust configuration and behavior of various components based on the current environment (staging, production, etc).
 uuid: 1c790f3f-8588-483c-8db1-3ffcc0adf9cb

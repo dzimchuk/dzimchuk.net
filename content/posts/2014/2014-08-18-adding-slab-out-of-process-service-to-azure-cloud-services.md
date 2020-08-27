@@ -1,6 +1,7 @@
 ---
 title: Adding SLAB out-of-process service to Azure cloud services
-date: 2014-08-18 17:37:00
+date: 2014-08-18T17:37:00.000Z
+lastmod: 2017-09-09T11:01:59.000Z
 permalink: adding-slab-out-of-process-service-to-azure-cloud-services
 excerpt: One great feature that Semantic Logging Application Block provides is an ability to use out-of-process service to listen to your messages. The idea is to move the logging sinks to another process so that messages don’t get lost if your application process crashes or it is terminated unexpectedly.
 uuid: 2bee1142-9750-4cb4-a241-e8df7af5de86

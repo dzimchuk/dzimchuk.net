@@ -1,6 +1,7 @@
 ---
 title: Configuring ASP.NET Core Data Protection in a distributed environment
-date: 2018-07-20 15:32:52
+date: 2018-07-20T15:32:52.000Z
+lastmod: 2018-07-20T15:32:52.000Z
 permalink: configuring-asp-net-core-data-protection-in-distributed-environment
 excerpt: The ASP.NET Core data protection stack is designed to serve as the long-term replacement for the <machineKey> element in ASP.NET 1.x - 4.x. It's simple to configure and use, yet it provides powerful capabilities such as automatic algorithm selection, key lifetime management and protection at rest.
 uuid: e9a88234-23ab-4326-ab36-eafdcc895ec1

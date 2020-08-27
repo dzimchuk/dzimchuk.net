@@ -1,6 +1,7 @@
 ---
 title: Uploading a file over HTTP in .NET
-date: 2010-11-11 06:56:00
+date: 2010-11-11T06:56:00.000Z
+lastmod: 2015-04-23T17:10:03.000Z
 permalink: uploading-a-file-over-http-in-net
 uuid: e35697e1-f193-4cfc-9b6e-fed9b6eeb7bf
 tags: .NET

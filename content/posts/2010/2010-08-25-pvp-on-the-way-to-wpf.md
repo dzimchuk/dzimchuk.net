@@ -1,6 +1,7 @@
 ---
 title: 'PVP: on the way to WPF'
-date: 2010-08-25 21:49:00
+date: 2010-08-25T21:49:00.000Z
+lastmod: 2015-04-23T17:31:16.000Z
 permalink: pvp-on-the-way-to-wpf
 uuid: d916a4ca-498d-4f0d-8536-b06b820d1a87
 tags: Power Video Player

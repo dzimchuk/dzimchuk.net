@@ -1,6 +1,7 @@
 ---
 title: Event correlation in Application Insights
-date: 2015-09-21 13:20:30
+date: 2015-09-21T13:20:30.000Z
+lastmod: 2017-09-05T19:44:41.000Z
 permalink: event-correlation-in-application-insights
 excerpt: Application Insights uses several contextual properties for event correlation. The most generic one is Operation Id that allows us to analyze a series of events and traces as part of a single operation. Depending on the application type there can be additional correlation properties.
 uuid: e3e346b4-43f1-4bc9-8a99-c9fcad84529a

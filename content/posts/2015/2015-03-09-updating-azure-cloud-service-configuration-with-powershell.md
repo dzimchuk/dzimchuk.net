@@ -1,6 +1,7 @@
 ---
 title: Updating Azure cloud service configuration with PowerShell
-date: 2015-03-09 14:48:00
+date: 2015-03-09T14:48:00.000Z
+lastmod: 2017-09-09T11:00:28.000Z
 permalink: updating-azure-cloud-service-configuration-with-powershell
 excerpt: In this post I want to give you another example of automating DevOps activities. This time we're going update configuration settings of a running Azure cloud service. I am talking about settings we specify in .cscfg files.
 uuid: ff32983b-3247-42f8-9639-2278c55c6443

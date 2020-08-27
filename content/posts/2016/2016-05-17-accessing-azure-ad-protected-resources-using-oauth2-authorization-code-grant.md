@@ -1,6 +1,7 @@
 ---
 title: Accessing Azure AD protected resources using OAuth2 Authorization Code Grant
-date: 2016-05-17 09:57:00
+date: 2016-05-17T09:57:00.000Z
+lastmod: 2017-09-05T19:27:26.000Z
 permalink: accessing-azure-ad-protected-resources-using-oauth2-authorization-code-grant
 excerpt: OAuth2 Authorization Code Grant is an interactive authorization flow that enables users to give their consent for client applications to access their resources. It's meant to be used with confidential clients which are the clients that are able to keep their credentials safe.
 uuid: a77d68ca-94c7-4f3c-befa-8c43c71056c9

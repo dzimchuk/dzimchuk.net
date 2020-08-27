@@ -1,6 +1,7 @@
 ---
 title: Accessing Azure AD protected resources using OpenID Connect
-date: 2016-06-23 20:47:00
+date: 2016-06-23T20:47:00.000Z
+lastmod: 2017-09-05T19:26:10.000Z
 permalink: accessing-azure-ad-protected-resources-using-openid-connect
 excerpt: Last time we had a look at the canonical OAuth2 Authorization Grant and tested it with ASP.NET Cored based API and web applications. This time let's have a look at the user identity side of the story and the OpenID Connect protocol that reveals the identity to client applications.
 uuid: 075debb0-35ed-4058-bb4e-01131b0999fc

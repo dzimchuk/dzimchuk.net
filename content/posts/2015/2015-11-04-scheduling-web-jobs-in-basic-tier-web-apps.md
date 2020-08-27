@@ -1,6 +1,7 @@
 ---
 title: Scheduling web jobs in Basic tier web apps
-date: 2015-11-04 15:19:44
+date: 2015-11-04T15:19:44.000Z
+lastmod: 2017-09-05T19:33:52.000Z
 permalink: scheduling-web-jobs-in-basic-tier-web-apps
 excerpt: You have an application application that is deployed to an Azure Web App running in Basic App Service hosting plan. You have a couple of web jobs scheduled with cron expressions. One day you noticed that these schedules never fired...
 uuid: 5e4eb45f-8cff-44a0-8d72-274f1698fb92

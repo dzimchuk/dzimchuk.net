@@ -1,6 +1,7 @@
 ---
 title: WPF skin engine – part 1
-date: 2011-07-08 06:13:00
+date: 2011-07-08T06:13:00.000Z
+lastmod: 2015-04-23T16:57:19.000Z
 permalink: wpf-skin-engine-part-1
 uuid: 4b4b3168-99b7-4938-9619-a89fc341d731
 tags: WPF

@@ -1,6 +1,7 @@
 ---
 title: Reliable domain events
-date: 2018-07-05 17:29:17
+date: 2018-07-05T17:29:17.000Z
+lastmod: 2018-07-07T11:37:24.000Z
 permalink: reliable-domain-events
 excerpt: There is a common problem that developers face when implementing domain events. How do we make them reliable? That is, how can we make sure they are consistent with the state of the aggregates that triggered them? The ultimate solution might be event sourcing but it's not always feasible.
 uuid: 44e3f9fd-965f-413d-89aa-04c1484d9966

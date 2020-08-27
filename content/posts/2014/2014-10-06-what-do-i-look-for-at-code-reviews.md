@@ -1,6 +1,7 @@
 ---
 title: What do I look for at code reviews?
-date: 2014-10-06 18:47:00
+date: 2014-10-06T18:47:00.000Z
+lastmod: 2015-04-22T17:54:49.000Z
 permalink: what-do-i-look-for-at-code-reviews
 uuid: 377b8945-7102-48e7-bc2a-565a50df8720
 tags: Practices

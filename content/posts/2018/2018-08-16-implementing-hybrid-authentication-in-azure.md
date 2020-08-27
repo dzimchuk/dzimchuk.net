@@ -1,6 +1,7 @@
 ---
 title: Implementing hybrid authentication in Azure
-date: 2018-08-16 16:25:00
+date: 2018-08-16T16:25:00.000Z
+lastmod: 2018-08-16T18:20:44.000Z
 permalink: implementing-hybrid-authentication-in-azure
 excerpt: Providing SSO across on-premises applications and those running in the cloud (yours and 3rd party), enabling access to applications with organizational as well as individual credentials are all examples of what is called hybrid authentication. How would you approach implementing it in your solution?
 uuid: 5241ebca-13f6-456f-8880-d8e9f40299eb

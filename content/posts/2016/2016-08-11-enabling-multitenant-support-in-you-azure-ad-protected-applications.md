@@ -1,6 +1,7 @@
 ---
 title: Enabling multitenant support in you Azure AD protected applications
-date: 2016-08-11 10:20:00
+date: 2016-08-11T10:20:00.000Z
+lastmod: 2017-09-05T19:23:19.000Z
 permalink: enabling-multitenant-support-in-you-azure-ad-protected-applications
 excerpt: Azure AD is a multitenant directory and it comes as no surprise that it supports scenarios of applications defined in one tenant to be accessible by users from other tenants (directories). In this post we're going to look at...
 uuid: 69832d75-41e5-4691-8376-2151169e5702

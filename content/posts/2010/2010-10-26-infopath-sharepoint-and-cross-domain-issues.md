@@ -1,6 +1,7 @@
 ---
 title: InfoPath, SharePoint and cross domain issues
-date: 2010-10-26 05:32:00
+date: 2010-10-26T05:32:00.000Z
+lastmod: 2015-04-23T17:11:40.000Z
 permalink: infopath-sharepoint-and-cross-domain-issues
 uuid: 75c72319-c239-4c31-a3d6-c7d19dbce718
 tags: SharePoint

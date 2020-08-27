@@ -1,6 +1,7 @@
 ---
 title: What if you need to run a plug-in in full trust?
-date: 2011-08-30 09:41:00
+date: 2011-08-30T09:41:00.000Z
+lastmod: 2015-04-23T16:53:36.000Z
 permalink: what-if-you-need-to-run-a-plug-in-in-full-trust
 uuid: cb07b0dd-094b-411a-8c98-e2d30039cc56
 tags: .NET

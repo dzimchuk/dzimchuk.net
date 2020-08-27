@@ -1,6 +1,7 @@
 ---
 title: SQL Server ‘Auto Close’ and ‘Auto Shrink’ properties
-date: 2011-03-24 11:32:00
+date: 2011-03-24T11:32:00.000Z
+lastmod: 2015-04-23T17:04:26.000Z
 permalink: sql-server-auto-close-and-auto-shrink-properties
 uuid: d40c9c12-3fec-4383-acfa-307a365a85e8
 tags: Tips & Tricks

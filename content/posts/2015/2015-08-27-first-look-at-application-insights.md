@@ -1,6 +1,7 @@
 ---
 title: First look at Application Insights
-date: 2015-08-27 15:34:44
+date: 2015-08-27T15:34:44.000Z
+lastmod: 2017-09-05T19:44:03.000Z
 permalink: first-look-at-application-insights
 excerpt: It’s all about correlation and digestion of the captured data. An exception or a database call or a custom event they all happen as part of some sort of an operation. It can be a web request processing or a user performing...
 uuid: 17915501-a5ca-4a7f-8960-82f8eace1947

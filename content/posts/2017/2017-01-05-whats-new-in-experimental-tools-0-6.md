@@ -1,6 +1,7 @@
 ---
 title: What's new in Experimental Tools 0.6
-date: 2017-01-05 07:44:00
+date: 2017-01-05T07:44:00.000Z
+lastmod: 2017-09-05T19:47:00.000Z
 permalink: whats-new-in-experimental-tools-0-6
 excerpt: It's been a couple of months since I introduced Experimental Tools extension for Visual Studio 2015 and above. While the 2017 version is being cooked and I've decided to make a quick tour of the features that have been added to it over this time.
 uuid: 4f2fb724-e8df-4274-9280-0ca7b1f95c44

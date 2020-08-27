@@ -1,6 +1,7 @@
 ---
 title: Cryptographic failure while signing assembly… Access is denied.
-date: 2011-09-07 09:50:00
+date: 2011-09-07T09:50:00.000Z
+lastmod: 2015-04-23T16:49:57.000Z
 permalink: cryptographic-failure-while-signing-assembly-access-is-denied
 uuid: b61aea7d-d1e9-4ae5-89d5-666f8cadde42
 tags: Tips & Tricks

@@ -1,6 +1,7 @@
 ---
 title: Getting to know the new ASP.NET 5 configuration framework
-date: 2015-04-01 18:50:00
+date: 2015-04-01T18:50:00.000Z
+lastmod: 2017-09-09T11:21:40.000Z
 permalink: getting-to-know-the-new-aspnet-5-configuration-framework
 excerpt: .NET applications traditionally relied on `System.Configuration` components for accessing and managing configurations from the machine wide settings down to application and user settings. The new release of .NET revisits the configuration story by bringing on a brand new configuration framework...
 uuid: 7e2f0537-161f-4d11-8b84-f087ebf7493e

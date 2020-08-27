@@ -1,6 +1,7 @@
 ---
 title: Managing program settings – a general purpose property bag
-date: 2010-07-19 09:30:00
+date: 2010-07-19T09:30:00.000Z
+lastmod: 2015-04-23T17:47:22.000Z
 permalink: managing-program-settings-a-general-purpose-property-bag
 uuid: 7fe44b90-1a8c-4fc2-92fa-5189a9bb8ff9
 tags: Power Video Player

@@ -1,6 +1,7 @@
 ---
 title: Single instance of a WPF app – part 2 (WM_COPYDATA)
-date: 2010-08-14 00:28:00
+date: 2010-08-14T00:28:00.000Z
+lastmod: 2015-04-23T17:37:54.000Z
 permalink: single-instance-of-a-wpf-app-e28093-part-2--wmcopydata-
 uuid: 2396b28d-d7d2-49c4-9f1c-4c7d94ec5a94
 tags: WPF

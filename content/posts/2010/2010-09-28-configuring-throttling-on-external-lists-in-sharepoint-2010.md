@@ -1,6 +1,7 @@
 ---
 title: Configuring throttling on external lists in SharePoint 2010
-date: 2010-09-28 06:19:00
+date: 2010-09-28T06:19:00.000Z
+lastmod: 2015-04-23T17:14:20.000Z
 permalink: configuring-throttling-on-external-lists-in-sharepoint-2010
 uuid: aab90f68-c393-4a68-978e-2b62e46b5456
 tags: SharePoint

@@ -1,6 +1,7 @@
 ---
 title: Power Video Player 2.1 released
-date: 2014-04-10 09:46:00
+date: 2014-04-10T09:46:00.000Z
+lastmod: 2015-04-22T18:34:23.000Z
 permalink: power-video-player-21-released
 uuid: d0450c79-017b-4c68-aa80-fe57bc9021ec
 tags: Power Video Player

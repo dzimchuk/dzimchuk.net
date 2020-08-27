@@ -1,6 +1,7 @@
 ---
 title: PVP 2.0 has been released
-date: 2013-01-30 09:01:00
+date: 2013-01-30T09:01:00.000Z
+lastmod: 2015-04-23T16:33:45.000Z
 permalink: pvp-20-has-been-released
 uuid: aa3ec0fc-e1a9-4761-8931-79f66dd99a9f
 tags: Power Video Player

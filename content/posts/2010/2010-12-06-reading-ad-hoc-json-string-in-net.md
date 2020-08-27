@@ -1,6 +1,7 @@
 ---
 title: Reading ad-hoc JSON string in .NET
-date: 2010-12-06 06:27:00
+date: 2010-12-06T06:27:00.000Z
+lastmod: 2015-04-23T17:08:24.000Z
 permalink: reading-ad-hoc-json-string-in-net
 uuid: 3711e836-ce8e-4abf-ac07-15ad8d1bc635
 tags: Tips & Tricks, .NET

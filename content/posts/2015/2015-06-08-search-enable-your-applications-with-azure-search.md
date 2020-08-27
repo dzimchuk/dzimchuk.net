@@ -1,6 +1,7 @@
 ---
 title: Search enable your applications with Azure Search
-date: 2015-06-08 17:55:21
+date: 2015-06-08T17:55:21.000Z
+lastmod: 2017-09-05T19:43:09.000Z
 permalink: search-enable-your-applications-with-azure-search
 excerpt: Azure Search is a search as a service offering that gives developers total control over indexing and searching of their content. It’s the control that sets Azure Search apart from public search offerings such as Google Custom Search.
 uuid: 6e803b05-431b-4f89-ae30-91a9f59520b7

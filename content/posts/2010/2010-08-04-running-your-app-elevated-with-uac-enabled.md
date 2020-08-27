@@ -1,6 +1,7 @@
 ---
 title: Running your app elevated with UAC enabled
-date: 2010-08-04 05:30:00
+date: 2010-08-04T05:30:00.000Z
+lastmod: 2015-04-23T17:42:25.000Z
 permalink: running-your-app-elevated-with-uac-enabled
 uuid: feff3c9e-1222-4ba6-9300-64b7a1980c21
 tags: Windows Programming

@@ -1,6 +1,7 @@
 ---
 title: Setting up HTTPS endpoints in ASP.NET Core services in Service Fabric
-date: 2017-01-26 15:25:00
+date: 2017-01-26T15:25:00.000Z
+lastmod: 2017-09-05T19:14:49.000Z
 permalink: setting-up-https-endpoints-in-asp-net-core-services-in-service-fabric
 excerpt: There are a few options for setting up HTTPS access for public facing ASP.NET Core services in Service Fabric. Your choice depends on the web server and whether or not you want to add a web gateway to your topology.
 uuid: 803452e9-af34-4626-b96e-a5d241d84bfc

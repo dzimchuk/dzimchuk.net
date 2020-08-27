@@ -1,6 +1,7 @@
 ---
 title: Protecting your APIs with Azure Active Directory
-date: 2016-04-25 14:01:00
+date: 2016-04-25T14:01:00.000Z
+lastmod: 2017-09-05T19:29:46.000Z
 permalink: protecting-your-apis-with-azure-active-directory
 excerpt: When building web APIs you inevitably have to decide on your security strategy. When making this important decision you want to go with a solution that is rock solid, scales well and enables modern work flows for users accessing your APIs...
 uuid: 8715f911-9d72-4562-ac48-aa191678e113

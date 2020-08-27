@@ -1,6 +1,7 @@
 ---
 title: Application and user permissions in Azure AD
-date: 2016-05-03 12:52:00
+date: 2016-05-03T12:52:00.000Z
+lastmod: 2017-09-05T19:28:18.000Z
 permalink: application-and-user-permissions-in-azure-ad
 excerpt: Last time we had a tour over the experience of having your APIs protected by Azure AD. In this post I'd like to dive a little deeper into how you can better control access with roles that you can assigned to users and applications.
 uuid: 1366d198-5e3d-4538-bf6f-a626dbee1e61

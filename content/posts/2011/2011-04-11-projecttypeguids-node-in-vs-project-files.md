@@ -1,6 +1,7 @@
 ---
 title: ‘ProjectTypeGuids’ node in VS project files
-date: 2011-04-11 09:51:00
+date: 2011-04-11T09:51:00.000Z
+lastmod: 2015-04-23T16:58:50.000Z
 permalink: projecttypeguids-node-in-vs-project-files
 uuid: 5fd0487e-dfb8-41c8-9fa2-d3b8d7b62113
 tags: Tips & Tricks

@@ -1,6 +1,7 @@
 ---
 title: WCF error helpers
-date: 2014-07-01 16:31:00
+date: 2014-07-01T16:31:00.000Z
+lastmod: 2015-04-22T18:29:17.000Z
 permalink: wcf-error-helpers
 uuid: f234e41f-b828-44d3-8d85-81e547c2ae78
 tags: WCF

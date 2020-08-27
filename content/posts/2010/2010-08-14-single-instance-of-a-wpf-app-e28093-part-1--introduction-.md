@@ -1,6 +1,7 @@
 ---
 title: Single instance of a WPF app – part 1 (introduction)
-date: 2010-08-14 00:26:00
+date: 2010-08-14T00:26:00.000Z
+lastmod: 2015-04-23T17:39:24.000Z
 permalink: single-instance-of-a-wpf-app-e28093-part-1--introduction-
 uuid: 67bc1e3c-1d09-4599-a432-8481c6344de1
 tags: WPF

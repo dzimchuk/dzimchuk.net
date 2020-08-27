@@ -1,6 +1,7 @@
 ---
 title: Service Fabric application lifecycle management using PowerShell
-date: 2017-04-06 15:11:00
+date: 2017-04-06T15:11:00.000Z
+lastmod: 2017-09-06T04:36:44.000Z
 permalink: service-fabric-application-lifecycle-management-using-powershell
 excerpt: This post is a collection of notes that I took as I was familiarizing myself with lifecycle management of Service Fabric applications. As I was going through the process I learned more about versioning and packaging, deployment and upgrade scenarios.
 uuid: 7f8cd9a4-3f4a-4a0a-925d-4f01f2c5dffa

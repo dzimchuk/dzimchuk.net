@@ -1,6 +1,7 @@
 ---
 title: Implementing External Configuration Store Pattern on Azure
-date: 2015-03-03 16:39:00
+date: 2015-03-03T16:39:00.000Z
+lastmod: 2017-09-05T18:54:55.000Z
 permalink: implementing-external-configuration-store-pattern-on-azure
 excerpt: Configuration management is an important part of running and evolving public facing services when down time is not tolerated and you need maximum flexibility in adjusting settings of running services. Implementing External Configuration Store Pattern opens up some great possibilities for you like...
 uuid: 244f734f-be81-45d1-aedc-ebfda40bf0e6

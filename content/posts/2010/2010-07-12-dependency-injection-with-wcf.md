@@ -1,6 +1,7 @@
 ---
 title: Dependency injection with WCF
-date: 2010-07-12 20:40:00
+date: 2010-07-12T20:40:00.000Z
+lastmod: 2015-04-23T17:48:37.000Z
 permalink: dependency-injection-with-wcf
 uuid: bd99a820-37aa-4c2d-b469-b6b3ff88b57b
 tags: Dependency Injection, WCF

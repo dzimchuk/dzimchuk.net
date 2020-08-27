@@ -1,6 +1,7 @@
 ---
 title: Managing database schema and seeding data with EF Core migrations
-date: 2018-03-15 19:16:28
+date: 2018-03-15T19:16:28.000Z
+lastmod: 2018-03-27T14:35:34.000Z
 permalink: managing-database-schema-and-seeding-data-with-ef-core-migrations
 excerpt: This post is a quick reference on using EF Core migrations to apply incremental changes to the database including schema updates and static data. It covers preparing your data access projects for migrations, using EF Core CLI and some common practices that you may find useful.
 uuid: e5d2cfdb-ff72-4ea7-aefc-597bc22b2f13

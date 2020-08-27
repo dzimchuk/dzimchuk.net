@@ -1,6 +1,7 @@
 ---
 title: Tracing and logging with Application Insights
-date: 2015-09-07 17:00:36
+date: 2015-09-07T17:00:36.000Z
+lastmod: 2017-09-05T19:44:19.000Z
 permalink: tracing-and-logging-with-application-insights
 excerpt: Besides rich telemetry that is collected by Application Insights modules transparently for your applications you also want to make your custom tracing and logging messages part of the overall correlated diagnostics data so you could have even better insights into what's happening...
 uuid: 5f04977e-11d1-48e5-a7e8-895103b03706

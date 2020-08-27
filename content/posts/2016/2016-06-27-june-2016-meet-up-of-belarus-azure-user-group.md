@@ -1,6 +1,7 @@
 ---
 title: June, 2016 meet-up of Belarus Azure User Group
-date: 2016-06-27 18:07:00
+date: 2016-06-27T18:07:00.000Z
+lastmod: 2017-09-05T19:49:15.000Z
 permalink: june-2016-meet-up-of-belarus-azure-user-group
 excerpt: Last week on June'21 we've had another meet-up event of our local Azure User Group where people interested in learning how Azure can help them build great solutions of tomorrow share their experience and adventures. This time around we talked about Azure Active Directory and efficient file storage.
 uuid: d703bf83-3508-49af-a4e5-f5d8f2d9c9f1

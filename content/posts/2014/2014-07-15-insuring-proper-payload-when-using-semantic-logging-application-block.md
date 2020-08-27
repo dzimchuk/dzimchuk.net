@@ -1,6 +1,7 @@
 ---
 title: Insuring proper payload when using Semantic Logging Application Block
-date: 2014-07-15 15:22:00
+date: 2014-07-15T15:22:00.000Z
+lastmod: 2017-09-05T19:07:34.000Z
 permalink: insuring-proper-payload-when-using-semantic-logging-application-block
 excerpt: I and my team have been using SLAB on our project where we create cloud services running on Azure. It’s important for publicly faced services to log everything so it's possible while analyzing that data to have a decent idea of what happened and how our services were used.
 uuid: 4ac023af-ab6a-4a45-901a-7b15f98dfdf2

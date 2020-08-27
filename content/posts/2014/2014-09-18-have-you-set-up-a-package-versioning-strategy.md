@@ -1,6 +1,7 @@
 ---
 title: Have you set up a package versioning strategy?
-date: 2014-09-18 15:34:00
+date: 2014-09-18T15:34:00.000Z
+lastmod: 2015-04-22T18:12:32.000Z
 permalink: have-you-set-up-a-package-versioning-strategy
 uuid: 9ef39173-db96-4714-9ce9-ab576bcfdbbb
 tags: Practices

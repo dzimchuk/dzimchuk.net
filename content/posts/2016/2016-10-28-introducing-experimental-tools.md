@@ -1,6 +1,7 @@
 ---
 title: Introducing Experimental Tools
-date: 2016-10-28 14:27:00
+date: 2016-10-28T14:27:00.000Z
+lastmod: 2017-09-05T19:47:41.000Z
 permalink: introducing-experimental-tools
 excerpt: Recently I've started working on a new pet project called Experimental Tools. The idea is to build a Visual Studio extension that provides a number of useful refactorings, code analyzers and fixes that make our everyday work more enjoyable by removing common chores when writing code.
 uuid: c8bef6df-1f8f-4be7-8173-db6955f9ee7e

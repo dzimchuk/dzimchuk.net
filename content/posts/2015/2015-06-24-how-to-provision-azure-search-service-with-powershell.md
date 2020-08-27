@@ -1,6 +1,7 @@
 ---
 title: How to provision Azure Search service with PowerShell
-date: 2015-06-24 15:46:01
+date: 2015-06-24T15:46:01.000Z
+lastmod: 2017-09-05T19:43:25.000Z
 permalink: how-to-provision-azure-search-service-with-powershell
 excerpt: Azure Search Management API is built on top of Azure Resource Manager which is a new way of managing resource in Azure that you probably hear about more and more these days. The idea behind it is that instead of managing individual resources you start thinking in terms of your applications...
 uuid: 606fc0eb-c5d2-4e5b-a5b9-4dea9bc66ac6

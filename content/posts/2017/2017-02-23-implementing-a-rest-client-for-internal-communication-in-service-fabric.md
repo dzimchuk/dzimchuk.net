@@ -1,6 +1,7 @@
 ---
 title: Implementing a REST client for internal communication in Service Fabric
-date: 2017-02-23 15:41:00
+date: 2017-02-23T15:41:00.000Z
+lastmod: 2017-09-05T19:14:16.000Z
 permalink: implementing-a-rest-client-for-internal-communication-in-service-fabric
 excerpt: In this post we're going to look at specifics of building a REST client for service to service communication within a Service Fabric cluster. We're going to discuss endpoint resolution and communication components and how we can use them with AutoRest generated clients and ADAL.
 uuid: 16143e4e-56c8-4d88-b60f-1af40fe69c0a

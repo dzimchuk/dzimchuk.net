@@ -1,6 +1,7 @@
 ---
 title: Presenting Application Insights at Belarus Azure Day 2015
-date: 2015-12-16 04:22:56
+date: 2015-12-16T04:22:56.000Z
+lastmod: 2017-09-05T19:50:23.000Z
 permalink: presenting-application-insights-at-belarus-azure-day-2015
 excerpt: On December, 13 2015 we’ve held a whole day live event dedicated to all things Azure. 8 speakers from Belarus, Ukraine and Russia presented on a wide array of topics from working efficiently with Azure storage and Service Bus to trendy container and microservices technologies to usage analytics...
 uuid: 4ec2af15-e23d-4902-a616-ea00ab63a28f

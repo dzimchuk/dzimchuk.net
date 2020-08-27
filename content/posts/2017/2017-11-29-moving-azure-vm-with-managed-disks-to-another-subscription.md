@@ -1,6 +1,7 @@
 ---
 title: Moving Azure VM with managed disks to another subscription
-date: 2017-11-29 21:00:30
+date: 2017-11-29T21:00:30.000Z
+lastmod: 2018-10-05T11:50:22.000Z
 permalink: moving-azure-vm-with-managed-disks-to-another-subscription
 excerpt: The problem is that it's not currently supported. The only way around this is to export your managed disks and recreate your VM. If you just use managed data disks (and the OS one is unmanaged) then you don't have to recreate the VM. But in both cases you're going to experience some downtime...
 uuid: 756f2b59-d611-49a2-a0e3-cff24fb2eb52

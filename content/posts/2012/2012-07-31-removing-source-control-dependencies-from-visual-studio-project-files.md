@@ -1,6 +1,7 @@
 ---
 title: Removing source control dependencies from Visual Studio project files
-date: 2012-07-31 09:48:00
+date: 2012-07-31T09:48:00.000Z
+lastmod: 2015-04-23T16:37:43.000Z
 permalink: removing-source-control-dependencies-from-visual-studio-project-files
 uuid: 79fc6674-e76b-47ff-9b1c-0bafb24230db
 tags: Tips & Tricks

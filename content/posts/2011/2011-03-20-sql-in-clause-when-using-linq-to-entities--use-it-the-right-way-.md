@@ -1,6 +1,7 @@
 ---
 title: SQL ‘IN’ clause when using Linq to Entities (use it the right way!)
-date: 2011-03-20 12:00:00
+date: 2011-03-20T12:00:00.000Z
+lastmod: 2015-04-23T17:06:13.000Z
 permalink: sql-in-clause-when-using-linq-to-entities--use-it-the-right-way-
 uuid: b4ccbc7a-32aa-4788-a2e4-1a2b7221ef47
 tags: SQL

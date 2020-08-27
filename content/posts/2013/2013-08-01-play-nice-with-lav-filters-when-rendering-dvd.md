@@ -1,6 +1,7 @@
 ---
 title: Play nice with LAV filters when rendering DVD
-date: 2013-08-01 08:58:00
+date: 2013-08-01T08:58:00.000Z
+lastmod: 2015-04-22T18:43:10.000Z
 permalink: play-nice-with-lav-filters-when-rendering-dvd
 uuid: c1399190-5cac-45a3-8192-65cb24fe5b0a
 tags: Power Video Player, DirectShow

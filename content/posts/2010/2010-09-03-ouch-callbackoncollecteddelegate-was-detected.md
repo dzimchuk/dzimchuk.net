@@ -1,6 +1,7 @@
 ---
 title: Ouch! CallbackOnCollectedDelegate was detected.
-date: 2010-09-03 03:28:00
+date: 2010-09-03T03:28:00.000Z
+lastmod: 2015-04-23T17:20:15.000Z
 permalink: ouch-callbackoncollecteddelegate-was-detected
 uuid: 00423ab7-1fff-48de-b8f8-35c3da14c83c
 tags: Tips & Tricks

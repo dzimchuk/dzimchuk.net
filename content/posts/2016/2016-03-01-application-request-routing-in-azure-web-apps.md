@@ -1,6 +1,7 @@
 ---
 title: Application request routing in Azure Web Apps
-date: 2016-03-01 15:24:03
+date: 2016-03-01T15:24:03.000Z
+lastmod: 2018-03-18T15:04:15.000Z
 permalink: application-request-routing-in-azure-web-apps
 excerpt: Azure Web Apps by default enable so-called sticky sessions when subsequent requests that are made within an established session get processed by the same instance of an app that served the very first request of the session. Web Apps rely on the IIS extension called Application Request Routing...
 uuid: 3e863dc5-db69-457f-83f6-7569e4af80fb

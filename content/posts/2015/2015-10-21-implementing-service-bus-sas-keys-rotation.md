@@ -1,6 +1,7 @@
 ---
 title: Implementing Service Bus SAS keys rotation
-date: 2015-10-21 15:46:35
+date: 2015-10-21T15:46:35.000Z
+lastmod: 2017-09-09T11:11:53.000Z
 permalink: implementing-service-bus-sas-keys-rotation
 excerpt: Shared Access Signature (SAS) authentication provides a simple and flexible option to authenticate requests to Service Bus. You can define access rules on the entire namespace as well as individual entities such as queues, relays, topics and Event Hubs. While this is also possible with ACS...
 uuid: de36c93c-89d3-4804-9ce8-5d1bb03d8384

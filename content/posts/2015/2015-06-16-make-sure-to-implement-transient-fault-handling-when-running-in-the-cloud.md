@@ -1,6 +1,7 @@
 ---
 title: Make sure to implement transient fault handling when running in the cloud
-date: 2015-06-16 18:17:13
+date: 2015-06-16T18:17:13.000Z
+lastmod: 2017-09-05T18:53:40.000Z
 permalink: make-sure-to-implement-transient-fault-handling-when-running-in-the-cloud
 excerpt: Applications running in the cloud or just making use of various external services are likely to face temporary failures when trying to communicate with these services. These failures could be network connectivity issues or request timeouts when external services are overloaded.
 uuid: 9be243d4-faca-4b69-acb2-9f1a87fd7186

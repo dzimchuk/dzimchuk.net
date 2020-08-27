@@ -1,6 +1,7 @@
 ---
 title: WPF skin engine (aka Skinner) updated to 1.1
-date: 2013-03-11 10:58:00
+date: 2013-03-11T10:58:00.000Z
+lastmod: 2015-04-22T18:44:20.000Z
 permalink: wpf-skin-engine--aka-skinner--updated-to-11
 uuid: b119c130-4b1e-402e-bcb6-d85337a96b9e
 tags: WPF

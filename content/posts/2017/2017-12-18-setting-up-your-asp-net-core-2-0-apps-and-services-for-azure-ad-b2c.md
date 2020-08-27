@@ -1,6 +1,7 @@
 ---
 title: Setting up your ASP.NET Core 2.0 apps and services for Azure AD B2C
-date: 2017-12-18 20:03:34
+date: 2017-12-18T20:03:34.000Z
+lastmod: 2018-03-15T19:47:38.000Z
 permalink: setting-up-your-asp-net-core-2-0-apps-and-services-for-azure-ad-b2c
 excerpt: It's been over 1.5 years since I'd posted on integrating ASP.NET Core applictions with Azure AD B2C. As I was upgrading my sample to ASP.NET Core 2.0 it became obvious that changes that I had to make were not only limited to the revamped authentication middleware and security related APIs...
 uuid: 658a26f2-44a0-446e-929e-adb8a55f338b

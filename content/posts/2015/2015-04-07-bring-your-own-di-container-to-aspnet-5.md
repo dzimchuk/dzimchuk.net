@@ -1,6 +1,7 @@
 ---
 title: Bring your own DI container to ASP.NET 5
-date: 2015-04-07 17:05:00
+date: 2015-04-07T17:05:00.000Z
+lastmod: 2015-05-11T16:36:36.000Z
 permalink: bring-your-own-di-container-to-aspnet-5
 uuid: 0141eccb-54f8-457e-9ebb-618964850e39
 tags: ASP.NET, Dependency Injection

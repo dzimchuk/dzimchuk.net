@@ -1,6 +1,7 @@
 ---
 title: Be prepared for downstream failures by implementing the Circuit Breaker pattern
-date: 2017-06-30 10:29:45
+date: 2017-06-30T10:29:45.000Z
+lastmod: 2018-03-15T19:49:11.000Z
 permalink: be-prepared-for-downstream-failures-by-implementing-the-circuit-breaker-pattern
 excerpt: When building distributed applications we need to make sure that when we talk to a remote services or our microservices talk to each other we can handle downstream call failures and either recover automatically or gracefully degrade our own service instead of failing outright.
 uuid: fa59b81f-ac3b-4b14-8214-a4ce784ed06a

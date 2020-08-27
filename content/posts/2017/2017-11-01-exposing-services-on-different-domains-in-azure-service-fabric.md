@@ -1,6 +1,7 @@
 ---
 title: Exposing services on different domains in Azure Service Fabric
-date: 2017-11-01 15:31:08
+date: 2017-11-01T15:31:08.000Z
+lastmod: 2018-03-15T19:48:22.000Z
 permalink: exposing-services-on-different-domains-in-azure-service-fabric
 excerpt: Sometimes we want to expose multiple public facing services on different domain names. For instance, we could have store.contoso.com running our e-commerce site and api.constoso.com enabling 3rd party integrations. Let's see how we can acheive that in a Service Fabric cluster running in Azure.
 uuid: 1628d490-05c3-4f3c-93c5-e09cc0e201fc

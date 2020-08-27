@@ -1,6 +1,7 @@
 ---
 title: Global Azure Bootcamp 2017
-date: 2017-04-25 11:06:19
+date: 2017-04-25T11:06:19.000Z
+lastmod: 2017-09-06T04:42:30.000Z
 permalink: global-azure-bootcamp-2017
 excerpt: On April 22, 2017 we've held a community Global Azure Bootcamp event in Minsk together with 250+ similar events that were organized by user groups around the globe. Each user group organizes their own one day deep dive class on Azure the way they see fit and how it works for their members.
 uuid: 5a8a22dd-a111-48a1-85d9-7e63ccddead2
