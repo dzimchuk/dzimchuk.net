@@ -94,7 +94,7 @@ function initialize(ms, metadata, production){
     .use(layouts({
         engine: 'handlebars',
         directory: config.layouts,
-        pattern: "**/*.html",
+        pattern: ["**/*.html", "**/*.xml", "**/*.xsl"],
         default: 'post.hbs'
     }))
     .use(feed({

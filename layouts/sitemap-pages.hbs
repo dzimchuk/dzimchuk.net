@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+{{#if site.sitemap.stylesheet}}
+<?xml -stylesheet type="text/xsl" href="{{site.url}}{{site.sitemap.stylesheet}}" ?>
+{{/if}}
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  {{#list collections.pages}}
+  <url>
+    <loc>{{url absolute="true"}}</loc>
+    <lastmod>{{date}}</lastmod>
+  </url>
+  {{/list}}
+  <url>
+    <loc>{{site.url}}</loc>
+    <lastmod>{{now}}</lastmod>
+  </url>
+</urlset>

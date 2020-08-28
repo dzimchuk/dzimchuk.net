@@ -1,0 +1,3 @@
+---
+layout: sitemap-stylesheet.hbs
+---
