@@ -4,6 +4,9 @@ module.exports = {
     date: function (options) {
         return formatDate(this.date, options);
     },
+    lastmod: function (options) {
+        return formatDate(this.lastmod || this.date, options);
+    },
     now: function (options) {
         return formatDate(new Date(), options);
     }

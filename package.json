@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "./node_modules/.bin/gulp build",
     "debug": "cross-env DEBUG=metalsmith* ./node_modules/.bin/gulp build",
+    "metadata": "cross-env DEBUG=metalsmith:metadata ./node_modules/.bin/gulp build",
     "production": "./node_modules/.bin/gulp build --production",
     "start": "./node_modules/.bin/gulp",
     "watch": "./node_modules/.bin/gulp watch",
