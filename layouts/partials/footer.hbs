@@ -1,3 +1,4 @@
+    {{#unless (isAuxiliaryPage)}}
         {{!-- The footer at the very bottom --}}
          <footer class="site-footer">
             <div class="site-footer-inner">
@@ -11,6 +12,7 @@
                 </nav>
             </div>
         </footer>
+    {{/unless}}
 
     </div>
 
@@ -31,7 +33,9 @@
 </script>
     {{/if}}
 
+    {{#unless (isAuxiliaryPage)}}
     {{> analytics}}
+    {{/unless}}
 
 </body>
 </html>

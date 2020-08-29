@@ -10,5 +10,8 @@ module.exports = {
     },
     isNextPage: function () {
         return this.pagination && this.pagination.num > 1;
+    },
+    isAuxiliaryPage: function () {
+        return this.collection && !this.collection.includes('posts') && !this.collection.includes('pages');
     }
 }
