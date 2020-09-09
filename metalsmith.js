@@ -29,7 +29,7 @@ function initialize(ms, metadata, production){
     })
     .source(config.source.content)
     .destination(config.destination.site)
-    .ignore(['metadata.json', 'rev-manifest.json', '*.hbs'])
+    .ignore(['metadata.json', 'rev-manifest.json', '*.hbs', ...metadata.ignore])
     .clean(true)
     .use(updateMetadata())
     .use(drafts())

@@ -31,6 +31,7 @@
         "stylesheet": "sitemap.xsl",
         "index": "sitemap.xml"
     },
+    "ignore": ["media"],
     "author": {
         "profile_image": "//www.gravatar.com/avatar/7fbe59ac3d3eaab56ec27da019d76f66?s=250&amp;d=mm&amp;r=x",
         "url": "/",
