@@ -13,6 +13,7 @@ var Metalsmith = require('metalsmith'),
     htmlMinifier = require('metalsmith-html-minifier'),
     feed = require('metalsmith-feed'),
     drafts = require('metalsmith-drafts'),
+    auxPages = require('./auxiliaryPages.js'),
     config = require('./config.js'),
     fs = require('fs');
 
@@ -112,7 +113,8 @@ function initialize(ms, metadata, production){
         author: metadata.author.name,
         image_url: metadata.feedImage,
         ttl: 60
-    })); 
+    }))
+    .use(auxPages()); 
 
     if (production) {
         ms.use(htmlMinifier({

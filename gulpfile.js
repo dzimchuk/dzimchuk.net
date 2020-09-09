@@ -89,7 +89,7 @@ gulp.task('watch', function (callback) {
     gulp.watch(['gulpfile.js', 'config.js'], gulp.series('build'));
     gulp.watch(path.posix.join(config.source.styles, '**/*'), gulp.series('build'));
     gulp.watch(path.posix.join(config.source.scripts, '**/*'), gulp.series('build'));
-    gulp.watch(['./metalsmith.js', './metadata.js', './partials.js'], gulp.series('metalsmith'));
+    gulp.watch(['./metalsmith.js', './metadata.js', './partials.js', './auxiliaryPages.js'], gulp.series('metalsmith'));
     gulp.watch([
         path.posix.join(config.source.content, '**/*.md'),
         path.posix.join(config.layouts, '**/*'),
