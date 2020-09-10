@@ -46,6 +46,6 @@ jobs:
           azcliversion: latest
           inlineScript: |
             az storage blob delete-batch -s web-backup --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} --sas-token "${{ secrets.BACKUP_CONTAINER_SAS_TOKEN }}"
-            az storage blob copy start-batch --destination-container web-backup --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} --sas-token "${{ secrets.BACKUP_CONTAINER_SAS_TOKEN }}" --source-container $web --source-account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} --source-sas "${{ secrets.WEB_CONTAINER_SAS_TOKEN }}"
-            az storage blob delete-batch -s $web --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} --sas-token "${{ secrets.WEB_CONTAINER_SAS_TOKEN }}"
-            az storage blob upload-batch -d $web -s build --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} --sas-token "${{ secrets.WEB_CONTAINER_SAS_TOKEN }}" --content-cache-control "must-revalidate, max-age=30" --validate-content
+            az storage blob copy start-batch --destination-container web-backup --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} --sas-token "${{ secrets.BACKUP_CONTAINER_SAS_TOKEN }}" --source-container \$web --source-account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} --source-sas "${{ secrets.WEB_CONTAINER_SAS_TOKEN }}"
+            az storage blob delete-batch -s \$web --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} --sas-token "${{ secrets.WEB_CONTAINER_SAS_TOKEN }}"
+            az storage blob upload-batch -d \$web -s build --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} --sas-token "${{ secrets.WEB_CONTAINER_SAS_TOKEN }}" --content-cache-control "must-revalidate, max-age=30" --validate-content
