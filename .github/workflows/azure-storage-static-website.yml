@@ -1,0 +1,51 @@
+name: Azure Storage Static Website CI/CD
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+    steps:
+      - uses: actions/checkout@v2
+        with:
+            submodules: true
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+            node-version: ${{ matrix.node-version }}
+      - run: npm ci
+      - run: npm run production
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+            name: build-artifact
+            path: build
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: build-artifact
+          path: build
+      #- name: Check artifacts
+      #  shell: bash
+      #  run: |
+      #    value=`cat build/robots.txt`
+      #    echo The result is $value
+      - name: Upload to Azure Storage Static Website
+        uses: Azure/cli@v1.0.0
+        with:
+          azcliversion: latest
+          inlineScript: |
+            az storage blob delete-batch -s web-backup --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} --sas-token "${{ secrets.BACKUP_CONTAINER_SAS_TOKEN }}"
+            az storage blob copy start-batch --destination-container web-backup --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} --sas-token "${{ secrets.BACKUP_CONTAINER_SAS_TOKEN }}" --source-container $web --source-account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} --source-sas "${{ secrets.WEB_CONTAINER_SAS_TOKEN }}"
+            az storage blob delete-batch -s $web --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} --sas-token "${{ secrets.WEB_CONTAINER_SAS_TOKEN }}"
+            az storage blob upload-batch -d $web -s build --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} --sas-token "${{ secrets.WEB_CONTAINER_SAS_TOKEN }}" --content-cache-control "must-revalidate, max-age=30" --validate-content
