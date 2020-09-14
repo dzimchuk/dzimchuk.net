@@ -2,7 +2,7 @@
         {{!-- The footer at the very bottom --}}
          <footer class="site-footer">
             <div class="site-footer-inner">
-                <section class="copyright"><a href="{{site.url}}">{{site.title}}</a> &copy; {{date format="YYYY"}}</section>
+                <section class="copyright"><a href="{{site.url}}">{{site.title}}</a> &copy; {{now format="YYYY"}}</section>
                 <nav class="site-footer-nav">
                     {{#if site.github}}<a href="{{github_url site.github}}" target="_blank" rel="noopener">{{> "icons/github"}}</a>{{/if}}
                     {{#if site.twitter}}<a href="{{twitter_url site.twitter}}" target="_blank" rel="noopener">{{> "icons/twitter"}}</a>{{/if}}
