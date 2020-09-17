@@ -89,7 +89,7 @@ You can also set up a load balancer rule to expose the port that the reverse pro
 
 - Exposing Kestrel or Node based services to the outside world.
 - Exposing Kestrel or Node services over HTTPS (you will need to configure a certificate for the reverse proxy). SSL termination occurs at the reverse proxy. The proxy then uses HTTP to forward requests to your services. As of runtime 5.6 you can enable HTTPS [all the way](https://docs.microsoft.com/en-us/azure/service-fabric/service-fabric-reverseproxy-configure-secure-communication) to your services.
-- Exposing stateful services to the outside world. Stateful services can't be directly exposed as there is no way for the load balancer to know which nodes replicas of a particular partition are running on. You need to either provide a stateless façade as mentioned [here](https://dzimchuk.net/service-fabric-stateful-services/) or use the reverse proxy.
+- Exposing stateful services to the outside world. Stateful services can't be directly exposed as there is no way for the load balancer to know which nodes replicas of a particular partition are running on. You need to either provide a stateless façade as mentioned [here](/service-fabric-stateful-services/) or use the reverse proxy.
 
 ![Exposing service to the outside world using the reverse proxy](https://blogcontent.azureedge.net/2017/05/SF-reverse-proxy-external.png)
 

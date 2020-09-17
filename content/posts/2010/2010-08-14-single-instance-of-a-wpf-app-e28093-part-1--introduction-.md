@@ -46,7 +46,7 @@ Do you know of other mechanisms? Please share your experience!
 
 Otherwise follow me:
 
-*   [part 2 (WM_COPYDATA)](Single-instance-of-a-WPF-app-e28093-part-2-(WM_COPYDATA))
-*   [part 3 (WCF)](Single-instance-of-a-WPF-app-e28093-part-3-(WCF))
-*   [part 4 (WindowsFormsApplicationBase)](Single-instance-of-a-WPF-app-e28093-part-4-(WindowsFormsApplicationBase))
-*   [part 5 (Remoting)](Single-instance-of-a-WPF-app-e28093-part-5-(Remoting))
+*   [part 2 (WM_COPYDATA)](/single-instance-of-a-wpf-app-e28093-part-2--wmcopydata-)
+*   [part 3 (WCF)](/single-instance-of-a-wpf-app-e28093-part-3--wcf-)
+*   [part 4 (WindowsFormsApplicationBase)](/single-instance-of-a-wpf-app-e28093-part-4--windowsformsapplicationbase-)
+*   [part 5 (Remoting)](/single-instance-of-a-wpf-app-e28093-part-5--remoting-)

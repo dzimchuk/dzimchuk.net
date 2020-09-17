@@ -7,13 +7,13 @@ uuid: 041aee16-e9de-4e09-90f6-ebfb005d550a
 tags: WPF
 ---
 
-When I blogged about a [WCF solution](Single-instance-of-a-WPF-app-e28093-part-3-(WCF)) some time ago I mentioned another option to implement this feature by using a fast Remoting channel. That sprang up in my mind again and I decided to give it a try. As a result I got a very neat and fast solution. Interested? Read on!
+When I blogged about a [WCF solution](/single-instance-of-a-wpf-app-e28093-part-3--wcf-) some time ago I mentioned another option to implement this feature by using a fast Remoting channel. That sprang up in my mind again and I decided to give it a try. As a result I got a very neat and fast solution. Interested? Read on!
 
 .NET Framework 2.0 introduced a new channel called IPC. It is designed for interprocess and interdomain communication within a single box. It is based on Named Pipes and is supposed to be faster than TCP and HTTP channels. In my WCF solution I also used a Named Pipes binding but it was almost 2 timers slower than my first solution that was based on WM_COPYDATA Windows message. Can I get a decent result with IPC Remoting channel?
 
 ## Usage
 
-The usage of the `SingleInstance` helper remains unchanged. See [WCF solution](Single-instance-of-a-WPF-app-e28093-part-3-(WCF)) for details.
+The usage of the `SingleInstance` helper remains unchanged. See [WCF solution](/single-instance-of-a-wpf-app-e28093-part-3--wcf-) for details.
 
 ## Service Activation
 

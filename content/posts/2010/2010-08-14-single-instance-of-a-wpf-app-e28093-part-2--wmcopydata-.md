@@ -11,7 +11,7 @@ When I started on the [Power Video Player](http://pvp.codeplex.com/) in 2003 I 
 
 Later on in 2004 I was porting PVP to .NET and implemented the design as a handy component that you can use in a Windows Forms application. You can get the code from [CodePlex](http://pvp.codeplex.com/SourceControl/list/changesets) and look for a class called `SingleInstance`.
 
-Now that I’m contemplating the next generation of PVP which is going to be a WPF application I need to decide how I’m going to implement single instancing. I’ve already touched on the options in my [introductory post](Single-instance-of-a-WPF-app-e28093-part-1-(introduction)).
+Now that I’m contemplating the next generation of PVP which is going to be a WPF application I need to decide how I’m going to implement single instancing. I’ve already touched on the options in my [introductory post](/single-instance-of-a-wpf-app-e28093-part-1--introduction-).
 
 As this design has served me well over the years it will be the 1st option I will consider. By explaining what’s going on inside `SingleInstance` class I will also do a favor to the folks who want to a use the Windows Forms’ version.
 

@@ -7,7 +7,7 @@ uuid: 56bb6150-3ee7-45cc-b181-652e0ae76c72
 tags: WPF
 ---
 
-In my [intoductory post](Single-instance-of-a-WPF-app-e28093-part-1-(introduction)) I mentioned another way to implement a single instance WPF application by making use of `Microsoft.VisualBasic.ApplicationServices.WindowsFormsApplicationBase` class. This scenario is also covered in the [great book on WPF](http://www.apress.com/book/view/9781430272052) by Matthew MacDonald and I thought my story wouldn’t be complete without looking at this option.
+In my [intoductory post](/single-instance-of-a-wpf-app-e28093-part-1--introduction-) I mentioned another way to implement a single instance WPF application by making use of `Microsoft.VisualBasic.ApplicationServices.WindowsFormsApplicationBase` class. This scenario is also covered in the [great book on WPF](http://www.apress.com/book/view/9781430272052) by Matthew MacDonald and I thought my story wouldn’t be complete without looking at this option.
 
 `Microsoft.VisualBasic.ApplicationServices` namespace lives in Microsoft.VisualBasic assembly and contains classes to facilitate [Visual Basic Application Model](http://msdn.microsoft.com/en-us/library/w3xx6ewx(VS.80).aspx), which is essentially a bunch of useful helpers that allow you to conveniently perform various tasks at the startup and shutdown of a Windows Forms application.
 

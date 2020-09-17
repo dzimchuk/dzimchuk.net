@@ -7,7 +7,7 @@ uuid: 91677380-539f-478c-af1a-69790ec4fe59
 tags: WPF
 ---
 
-Last time I blogged about a way to implement a single instance feature using [WM_COPYDATA](Single-instance-of-a-WPF-app-e28093-part-2-(WM_COPYDATA)) Win32 mechanism. It involves a bit of PInvoke but still works perfectly well with WPF. This implementation dates back to .NET 1.1 and to be more precise – the old Win32 days as it was inspired by [Joseph M. Newcomer's article](http://www.flounder.com/nomultiples.htm).
+Last time I blogged about a way to implement a single instance feature using [WM_COPYDATA](/single-instance-of-a-wpf-app-e28093-part-2--wmcopydata-) Win32 mechanism. It involves a bit of PInvoke but still works perfectly well with WPF. This implementation dates back to .NET 1.1 and to be more precise – the old Win32 days as it was inspired by [Joseph M. Newcomer's article](http://www.flounder.com/nomultiples.htm).
 
 A lot of things have changed since then. An eager mind is always up to something new so I’ve decided to consider an alternative. Can the current standard communication framework from Microsoft offer a better option to meet my [requirements](Single-instance-of-a-WPF-app-e28093-part-1-(introduction))?
 

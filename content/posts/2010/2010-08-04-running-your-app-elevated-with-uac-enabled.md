@@ -7,7 +7,7 @@ uuid: feff3c9e-1222-4ba6-9300-64b7a1980c21
 tags: Windows Programming
 ---
 
-In my previous post about [a component for file associations](A-component-to-perform-file-associations) I described the way to do initial registration and mentioned the fact that it must be done with Administrator permissions as (especially with Default Programs) we need to put a bunch a stuff under HKEY_LOCAL_MACHINE registry key.
+In my previous post about [a component for file associations](/a-component-to-perform-file-associations) I described the way to do initial registration and mentioned the fact that it must be done with Administrator permissions as (especially with Default Programs) we need to put a bunch a stuff under HKEY_LOCAL_MACHINE registry key.
 
 Although this registration is normally done when you install [PVP](http://pvp.codeplex.com/) and as the installer elevates the process anyway, I added 2 command line switched to pvp.exe so you could re-register and un-register it without an installer:
 

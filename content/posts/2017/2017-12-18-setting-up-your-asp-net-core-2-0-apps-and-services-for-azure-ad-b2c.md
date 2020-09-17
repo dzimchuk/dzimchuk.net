@@ -8,7 +8,7 @@ uuid: 658a26f2-44a0-446e-929e-adb8a55f338b
 tags: Azure Active Directory, ASP.NET
 ---
 
-It's been over 1.5 years since I'd posted an [article](https://dzimchuk.net/setting-up-your-aspnet-core-apps-and-services-for-azure-ad-b2c/) on integrating ASP.NET Core 1.x applictions with Azure AD B2C. As I was upgrading my sample application to ASP.NET Core 2.0 it became obvious that changes that I had to make were not only limited to the revamped authentication middleware and security related APIs (a great summary of which can be found in [this](https://github.com/aspnet/Announcements/issues/262) issue on GitHub). Azure AD B2C has greatly evolved too and now it supports separate API and client apps, delegated access configured with scopes and proper access tokens.
+It's been over 1.5 years since I'd posted an [article](/setting-up-your-aspnet-core-apps-and-services-for-azure-ad-b2c/) on integrating ASP.NET Core 1.x applictions with Azure AD B2C. As I was upgrading my sample application to ASP.NET Core 2.0 it became obvious that changes that I had to make were not only limited to the revamped authentication middleware and security related APIs (a great summary of which can be found in [this](https://github.com/aspnet/Announcements/issues/262) issue on GitHub). Azure AD B2C has greatly evolved too and now it supports separate API and client apps, delegated access configured with scopes and proper access tokens.
 
 It's too many changes that have literally rendered my previous post obsolete and prompted me to write a new version of it.
 

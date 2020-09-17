@@ -30,7 +30,7 @@ By partitioning your state horizontally you marshal requests to partitions that 
 
 ![Partition replicas are spread across the cluster](https://blogcontent.azureedge.net/2017/03/Service-Fabric-partitions.png)
 
-In order to call an endpoint of a particular partition you need to resolve its current address within the cluster. I've already touched upon endpoint resolution process [before](https://dzimchuk.net/implementing-a-rest-client-for-internal-communication-in-service-fabric/) so might want to check out that post. You normally use infrastructure client components such as `ServicePartitionResolver` or a more sophisticated `ServicePartitionClient` to do the job and you need to pass a `ServicePartitionKey` to them to identify the partition.
+In order to call an endpoint of a particular partition you need to resolve its current address within the cluster. I've already touched upon endpoint resolution process [before](/implementing-a-rest-client-for-internal-communication-in-service-fabric/) so might want to check out that post. You normally use infrastructure client components such as `ServicePartitionResolver` or a more sophisticated `ServicePartitionClient` to do the job and you need to pass a `ServicePartitionKey` to them to identify the partition.
 
 Now it becomes obvious that you need a consistent way to create partition keys otherwise you won't be able to access data. There can be many approaches to accomplish that and I will describe one later in this post. But before we move on to a practical example I would like to mention another aspect of communication with stateful services.
 
@@ -44,7 +44,7 @@ You may also define different node types in your cluster. It allows you to have 
 
 ## Example of a stateful service
 
-In the microservice primer [post](https://dzimchuk.net/microservices-primer-with-azure-service-fabric/) I've described a sample solution called BookFast that allows organizations to provide facilities and accommodations for rental and customers to book them through the system. One of the core services of the solution is the actual booking service.
+In the microservice primer [post](/microservices-primer-with-azure-service-fabric/) I've described a sample solution called BookFast that allows organizations to provide facilities and accommodations for rental and customers to book them through the system. One of the core services of the solution is the actual booking service.
 
 The booking service is responsible for accepting new booking requests, keeping track of bookings made and availability of accommodations. Given the anticipated massive load of requests from all over the globe it makes this service a perfect candidate to be turned into a stateful one. We can spread facilities over multiple partitions and have the façade stateless service (which in this case is an MVC web app) dispatch booking requests to target partitions depending on the facility the requests are made for.
 

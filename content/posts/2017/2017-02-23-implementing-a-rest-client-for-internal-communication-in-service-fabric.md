@@ -60,7 +60,7 @@ Finally, you need a way to tell `ServicePartitionClient` how to handle errors an
 
 ## Common infrastructure classes and AutoRest
 
-I've already [blogged](https://dzimchuk.net/generating-clients-for-your-apis-with-autorest/) about using AutoRest to generate clients against Swagger documentation provided by RESTful services. I recommend this approach (or any alternative such as [swagger-codegen](https://github.com/swagger-api/swagger-codegen)) as it removes grinding chore of writing ceremony code around `HttpClient`.
+I've already [blogged](/generating-clients-for-your-apis-with-autorest/) about using AutoRest to generate clients against Swagger documentation provided by RESTful services. I recommend this approach (or any alternative such as [swagger-codegen](https://github.com/swagger-api/swagger-codegen)) as it removes grinding chore of writing ceremony code around `HttpClient`.
 
 AutoRest generates representations (models), the actual wrapper around `HttpClient` and the interface that this wrapper implements. Now, to be realistic, you normally build additional proxy components on top of this generated code as you have to at least handle HTTP error responses and perform additional mapping.
 
@@ -236,7 +236,7 @@ internal class FacilityCommunicationClientFactory :
 }
 ```
 
-Remember that communication clients get cached and we want to make sure to check and refresh access tokens if they happen to get stale. I rely on ADAL with its internal token cache and refresh logic to handle tokens. I've recently [blogged](https://dzimchuk.net/adal-distributed-token-cache-in-asp-net-core/) about ADAL's cache and the possible implementation of the access token provider.
+Remember that communication clients get cached and we want to make sure to check and refresh access tokens if they happen to get stale. I rely on ADAL with its internal token cache and refresh logic to handle tokens. I've recently [blogged](/adal-distributed-token-cache-in-asp-net-core/) about ADAL's cache and the possible implementation of the access token provider.
 
 > We are talking about internal communication and you may have a valid question why we need tokens when communicating to internal services. Often you need to create a security context for the call and I agree that with internal services going full OAuth2 is an overkill. Even if an internal service is also exposed to the outside world we may choose to implement separate endpoints for internal and external communication. But in this case it was a migration of a stand alone service which already relied on JWT tokens to construct a security context. It's a viable approach when you're not ready to change the internals of the service.
 

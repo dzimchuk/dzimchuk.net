@@ -8,7 +8,7 @@ uuid: 891f1d6a-a9a5-471b-8d43-bd8a11a5fb6a
 tags: Azure Service Fabric, Design and Architecture
 ---
 
-Not so long ago I've written a [post](https://dzimchuk.net/splitting-a-monolith-into-microservices/) about motivation for transforming traditional monolithic architectures into microservices. I've touched upon key characteristics of microservices and things to look out for when building them. Today I want to do a more hands-on post on turning an existing application into a microservices application.
+Not so long ago I've written a [post](/splitting-a-monolith-into-microservices/) about motivation for transforming traditional monolithic architectures into microservices. I've touched upon key characteristics of microservices and things to look out for when building them. Today I want to do a more hands-on post on turning an existing application into a microservices application.
 
 ## Existing solution
 
@@ -58,7 +58,7 @@ There is a contracts project defining service domain model and business interfac
 
 ![Microservice components](https://blogcontent.azureedge.net/2017/03/Microservice-components-updated.png)
 
-Services rely on versioned configuration packages and per-environment configuration supported by Service Fabric. I've written a couple of posts on how you can [integrate](https://dzimchuk.net/configuring-asp-net-core-applications-in-service-fabric/) configuration packages with ASP.NET Core configuration and how to [override](https://dzimchuk.net/using-code-package-environment-variables-in-service-fabric/) code package's environment variables.
+Services rely on versioned configuration packages and per-environment configuration supported by Service Fabric. I've written a couple of posts on how you can [integrate](/configuring-asp-net-core-applications-in-service-fabric/) configuration packages with ASP.NET Core configuration and how to [override](/using-code-package-environment-variables-in-service-fabric/) code package's environment variables.
 
 ## Integration
 
@@ -72,7 +72,7 @@ BookFast mostly relies on request-response through RESTful services. Even though
 
 With microservices managed in a cluster there is one more task to accomplish before we can communicate with a service - discovery. Services can be moved around a cluster in response to node upgrades or failures, resource usage optimization and so on. Even though Service Fabric provides us with a naming service and convenient client side components for service discovery writing this boilerplate code can be rather tedious.
 
-I've given details on implementing a client library for internal communication in Service Fabric in [this post](https://dzimchuk.net/implementing-a-rest-client-for-internal-communication-in-service-fabric/). All BookFast services follow this approach.
+I've given details on implementing a client library for internal communication in Service Fabric in [this post](/implementing-a-rest-client-for-internal-communication-in-service-fabric/). All BookFast services follow this approach.
 
 ## Common components
 
