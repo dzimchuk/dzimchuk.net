@@ -1,7 +1,10 @@
 module.exports = function(options){
-    var exp = /^\<p\>(.*)\<\/p\>$/;
-    var excerpt = this.excerpt.replace(exp, '$1').trim();
-    
+    var expParagrapgh = /^\<p\>(.*)\<\/p\>$/;
+    var excerpt = this.excerpt.replace(expParagrapgh, '$1').trim();
+
+    var expLinks = /\<a\s[^\>]+\>(.*?)\<\/a\>/g;
+    excerpt = excerpt.replace(expLinks, '$1').trim();
+
     var words = options.hash.words;
 
     var splitted = excerpt.split(' ');
