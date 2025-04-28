@@ -16,7 +16,7 @@ I'm going to use my playground solution called BookFast that I often use to try 
 
 ![Existing BookFast solution](https://blogcontent.azureedge.net/2017/03/BookFast---Monolith.png)
 
-It's an ASP.NET Core application that allows organizations to provide their facilities and accommodations to be booked by customers. The application features [MVC based UI](https://github.com/dzimchuk/book-fast) and provides [RESTful API](https://github.com/dzimchuk/book-fast-api) that enables other clients to communicate with it. It relies on a bunch of Azure services such as SQL databases and storage, Azure AD for organizational accounts and Azure AD B2C for customer authentication, Azure Search, Application Insights, etc.
+It's an ASP.NET Core application that allows organizations to provide their facilities and accommodations to be booked by customers. The application features [MVC based UI](https://github.com/dzimchuk/book-fast-ui) and provides [RESTful API](https://github.com/dzimchuk/book-fast-api) that enables other clients to communicate with it. It relies on a bunch of Azure services such as SQL databases and storage, Azure AD for organizational accounts and Azure AD B2C for customer authentication, Azure Search, Application Insights, etc.
 
 Although it's split by a pure technical separation of concerns (UI, API, etc) which enables independent scalability of these components, the individual components are essentially monoliths. You can't add or update a feature without redeploying the whole thing, you can't scale features independently, features start having interdependencies which make the solution rigid to change over time.
 
