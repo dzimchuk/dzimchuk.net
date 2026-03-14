@@ -18,7 +18,7 @@ var config = require('./config');
 // gulp plugins and utils
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
-var sass = require('gulp-sass');
+var sass = require('gulp-sass')(require('sass'));
 var postcss = require('gulp-postcss');
 
 // postcss plugins
