@@ -1,8 +1,9 @@
-const url = require('url');
-
 module.exports = function(options){
     if (this.url){
         return this.url;
+    }
+    else if (this.permalink){
+        return format.call(this, this.permalink, options.hash.absolute);
     }
     else if (this.path){
         var exp = /^(.*)index\.html$/;
@@ -14,6 +15,9 @@ module.exports = function(options){
 }
 
 function format(path, absolute){
-    let result = url.resolve((absolute ? this.site.url : '/'), path);
+    let result = absolute
+        ? new URL(path, this.site.url).toString()
+        : '/' + path.replace(/^\/+/, '');
+
     return result.endsWith('/') ? result : result + '/';
 }

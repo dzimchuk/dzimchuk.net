@@ -1,18 +1,19 @@
 var Metalsmith = require('metalsmith'),
-    markdown   = require('metalsmith-markdown'),
-    excerpts = require('metalsmith-excerpts'),
-    collections = require('metalsmith-collections'),
+    markdown   = require('@metalsmith/markdown'),
+    excerpts = require('./plugins/excerpts.js'),
+    collections = require('./plugins/collections.js'),
     pagination = require('metalsmith-pagination'),
-    permalinks  = require('metalsmith-permalinks'),
+    permalinks  = require('@metalsmith/permalinks'),
     tags = require('metalsmith-tags'),
     registerPartials = require('./partials.js'),
     registerHelpers = require('metalsmith-register-helpers'),
-    layouts = require('metalsmith-layouts'),
+    layouts = require('@metalsmith/layouts'),
     debug = require('metalsmith-debug'),
     updateMetadata = require('./metadata.js'),
-    htmlMinifier = require('metalsmith-html-minifier'),
-    feed = require('metalsmith-feed'),
-    drafts = require('metalsmith-drafts'),
+    updateFilePaths = require('./plugins/updateFilePaths.js'),
+    htmlMinifier = require('./plugins/htmlMinifier.js'),
+    feed = require('./plugins/feed.js'),
+    drafts = require('@metalsmith/drafts'),
     auxPages = require('./auxiliaryPages.js'),
     config = require('./config.js'),
     fs = require('fs');
@@ -45,6 +46,7 @@ function initialize(ms, metadata, production){
         }
     }))
     .use(markdown())
+    .use(updateFilePaths())
     .use(excerpts())
     .use(permalinks({
         pattern: ':title',
@@ -93,10 +95,29 @@ function initialize(ms, metadata, production){
         directory: [config.layouts + '/partials', config.source.content]
     }))
     .use(layouts({
-        engine: 'handlebars',
+        transform: 'handlebars',
         directory: config.layouts,
-        pattern: ["**/*.html", "**/sitemap*.xml", "**/sitemap*.xsl", "robots.txt"],
-        default: 'post.hbs'
+        pattern: "**/*.html",
+        default: 'post.hbs',
+        extname: '.html'
+    }))
+    .use(layouts({
+        transform: 'handlebars',
+        directory: config.layouts,
+        pattern: "**/sitemap*.xml",
+        extname: '.xml'
+    }))
+    .use(layouts({
+        transform: 'handlebars',
+        directory: config.layouts,
+        pattern: "**/sitemap*.xsl",
+        extname: '.xsl'
+    }))
+    .use(layouts({
+        transform: 'handlebars',
+        directory: config.layouts,
+        pattern: "robots.txt",
+        extname: '.txt'
     }))
     .use(feed({
         collection: 'posts',
@@ -117,10 +138,7 @@ function initialize(ms, metadata, production){
     .use(auxPages()); 
 
     if (production) {
-        ms.use(htmlMinifier({
-            "removeAttributeQuotes": false,
-            "keepClosingSlash": true
-        }));
+        ms.use(htmlMinifier());
     }
 
     return ms.use(debug()); // set environment variable DEBUG=metalsmith:*

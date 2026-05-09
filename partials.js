@@ -1,12 +1,11 @@
 var fs = require('fs');
 var path = require('path');
-var defaults = require('defaults');
 var Handlebars = require('handlebars');
 
 module.exports = function(options) {
-    options = defaults(options, {
-      directory: 'partials'
-    });
+    options = Object.assign({
+        directory: 'partials'
+    }, options);
     
     return function (files, metalsmith, done) {
         if (Array.isArray(options.directory)) {
