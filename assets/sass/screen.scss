@@ -1,21 +1,21 @@
-@import 'normalize';
+@use 'normalize';
 
-@import 'variables';
+@use 'variables';
 
-@import 'general';
-@import 'utilities';
+@use 'general';
+@use 'utilities';
 
-@import 'header';
-@import 'main-nav';
-@import 'main';
-@import 'post';
-@import 'comments';
-@import 'author';
-@import 'thirdparty';
-@import 'pagination';
-@import 'footer';
+@use 'header';
+@use 'main-nav';
+@use 'main';
+@use 'post';
+@use 'comments';
+@use 'author';
+@use 'thirdparty';
+@use 'pagination';
+@use 'footer';
 
-@import 'tablet';
-@import 'mobile';
+@use 'tablet';
+@use 'mobile';
 
-@import 'animations';
+@use 'animations';

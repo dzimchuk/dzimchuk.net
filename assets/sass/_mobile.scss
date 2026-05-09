@@ -1,8 +1,10 @@
+@use "variables";
+
 /* ==========================================================================
    Media Queries - Smaller than 500px
    ========================================================================== */
 
-@media only screen and (max-width: $mobile-width-threshold) {
+@media only screen and (max-width: variables.$mobile-width-threshold) {
 
     .inner,
     .pagination {
