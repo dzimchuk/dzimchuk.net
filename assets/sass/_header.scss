@@ -1,3 +1,5 @@
+@use "variables";
+
 .main-header {
     position: relative;
     display: table;
@@ -11,7 +13,7 @@
     overflow: hidden;
 
     .inner {
-        width: $content-width;
+        width: variables.$content-width;
     }
 
     &.no-cover {
@@ -28,7 +30,7 @@
     }
 }
 
-@media only screen and (max-width: $mobile-width-threshold) {
+@media only screen and (max-width: variables.$mobile-width-threshold) {
     .main-header {
         &.post-head {
             &.no-cover {

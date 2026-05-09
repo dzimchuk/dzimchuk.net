@@ -1,3 +1,5 @@
+@use "variables";
+
 .main-nav {
     position: fixed;
     z-index: 1500;
@@ -11,8 +13,8 @@
 
     .nav-wrapper {
         position: relative;
-        width: $content-width;
-        max-width: $content-max-width;
+        width: variables.$content-width;
+        max-width: variables.$content-max-width;
         margin: 0 auto;
     }
 
@@ -61,7 +63,7 @@
     }
 }
 
-@media only screen and (max-width: $tablet-width-threshold) {
+@media only screen and (max-width: variables.$tablet-width-threshold) {
     .main-nav {
         .nav-wrapper {
             width: 90%;
@@ -103,7 +105,7 @@
     }
 }
 
-@media only screen and (max-width: $mobile-width-threshold) {
+@media only screen and (max-width: variables.$mobile-width-threshold) {
     .main-nav {
         padding: 1.6rem 0;
     }

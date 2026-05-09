@@ -1,5 +1,3 @@
-const url = require('url');
-
 module.exports = {
     page: function() {
         return this.pagination.num;
@@ -9,6 +7,9 @@ module.exports = {
     },
     page_url: function (page, options) {
         var exp = /^(.*)index\.html$/;
-        return url.resolve((options.hash.absolute ? this.site.url : '/'), page.path.replace(exp, '$1'));
+        var path = page.permalink || page.path.replace(exp, '$1');
+        return options.hash.absolute
+            ? new URL(path, this.site.url).toString()
+            : '/' + path.replace(/^\/+/, '');
     }
 }

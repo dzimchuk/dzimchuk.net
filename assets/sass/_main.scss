@@ -1,3 +1,5 @@
+@use "variables";
+
 /* ==========================================================================
    Main - The main styles for the the theme
    ========================================================================== */
@@ -47,8 +49,8 @@
 /* Every post, on every page, gets this style on its <article> tag */
 .post {
     position: relative;
-    width: $content-width;
-    max-width: $content-max-width;
+    width: variables.$content-width;
+    max-width: variables.$content-max-width;
     margin: 4rem auto;
     padding-bottom: 4rem;
     border-bottom: #EBF2F6 1px solid;
