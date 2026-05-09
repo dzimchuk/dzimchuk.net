@@ -11,6 +11,7 @@ var Metalsmith = require('metalsmith'),
     debug = require('metalsmith-debug'),
     updateMetadata = require('./metadata.js'),
     updateFilePaths = require('./plugins/updateFilePaths.js'),
+    legacyPostLinks = require('./plugins/legacyPostLinks.js'),
     htmlMinifier = require('./plugins/htmlMinifier.js'),
     feed = require('./plugins/feed.js'),
     drafts = require('@metalsmith/drafts'),
@@ -46,6 +47,7 @@ function initialize(ms, metadata, production){
         }
     }))
     .use(markdown())
+    .use(legacyPostLinks())
     .use(updateFilePaths())
     .use(excerpts())
     .use(permalinks({
