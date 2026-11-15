@@ -10,7 +10,7 @@ tags: Public Speaking
 
 On July, 22 2015 we've held the [first meet-up](https://www.facebook.com/events/950090191709618/) event of [Belarus Azure User Group](https://www.facebook.com/groups/AzureBelarus/) where we shared experience building solution on Microsoft Azure, using various services and migrating existing solutions to the cloud. It was a special event for me because I was on stage speaking this time.
 
-![Belarus Azure User Group 1st meet-up](https://blogcontent.azureedge.net/9e487299-0cc8-42c6-b195-35add9bf35bc.jpeg)
+![Belarus Azure User Group 1st meet-up](/media/9e487299-0cc8-42c6-b195-35add9bf35bc.jpeg)
 
 I was talking about Azure Search, the service that I've been learning recently. It was a 'getting to know' kind of session with lots of demos. My goal was to show people what's possible with the current version of the service and how they do regular things like provisioning and creating various service objects in an automated way, how to implement common functionality that one would expect to see on a search page and how different language analyzers improve user experience with full text search. The scripts and demo app can be found on [GitHub](https://github.com/dzimchuk/azure-search).
 

@@ -12,7 +12,7 @@ Sometimes we want to expose multiple public facing services on different domain 
 
 Azure Load Balancer supports multiple front end IP configurations and it allows us to choose which IP configuration to use with a specific load balancing rule. For every custom domain we will have a separate public IP address (and the corresponding load balancer IP configuration) and for every service we will have a dedicated load balancing rule.
 
-![SF-Expose-Services-On-Different-Domains](https://blogcontent.azureedge.net/2017/11/SF-Expose-Services-On-Different-Domains.png)
+![SF-Expose-Services-On-Different-Domains](/media/2017/11/SF-Expose-Services-On-Different-Domains.png)
 
 Each public service must be exposed on a well-known port. For instance, the e-commerce web application is exposed on port 8080 and the API app is exposed on port 8081. The idea is to configure load balancing rules to expose these services on their dedicated public IP addresses. The e-commerce application will be made available on VIP1 on port 80 (shown in blue) and the API on VIP2 on port 80 as well (shown in purple). You will probably use port 443 in real life but the idea stays the same.
 

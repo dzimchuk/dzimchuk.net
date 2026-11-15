@@ -13,26 +13,31 @@ var Metalsmith = require('metalsmith'),
     updateFilePaths = require('./plugins/updateFilePaths.js'),
     legacyPostLinks = require('./plugins/legacyPostLinks.js'),
     htmlMinifier = require('./plugins/htmlMinifier.js'),
+    mediaUrl = require('./plugins/mediaUrl.js'),
     feed = require('./plugins/feed.js'),
     drafts = require('@metalsmith/drafts'),
     auxPages = require('./auxiliaryPages.js'),
     config = require('./config.js'),
     fs = require('fs');
 
-module.exports = function(production){
+module.exports = function(production, options){
     let ms = new Metalsmith(process.cwd());
     let metadata = JSON.parse(fs.readFileSync(config.metadata, {encoding: 'utf8'}));
     
-    return initialize(ms, metadata, production);
+    return initialize(ms, metadata, production, Object.assign({mediaUrl: config.mediaUrl}, options));
 };
 
-function initialize(ms, metadata, production){
+function initialize(ms, metadata, production, options){
+    const media = mediaUrl.resolveMediaUrl(options.mediaUrl, metadata.url);
+    // media is only published with the site when it's served from the site itself
+    const ignoreMedia = media.directory === null ? [config.source.media] : [];
+
     ms.metadata({
         site: metadata
     })
     .source(config.source.content)
     .destination(config.destination.site)
-    .ignore(['metadata.json', 'rev-manifest.json', '*.hbs', ...metadata.ignore])
+    .ignore(['metadata.json', 'rev-manifest.json', '*.hbs', ...metadata.ignore, ...ignoreMedia])
     .clean(true)
     .use(updateMetadata())
     .use(drafts())
@@ -137,7 +142,12 @@ function initialize(ms, metadata, production){
         image_url: metadata.feedImage,
         ttl: 60
     }))
-    .use(auxPages()); 
+    .use(auxPages())
+    .use(mediaUrl({
+        url: media.url,
+        directory: media.directory,
+        source: config.source.media
+    }));
 
     if (production) {
         ms.use(htmlMinifier());

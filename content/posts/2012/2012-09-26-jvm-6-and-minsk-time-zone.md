@@ -24,7 +24,7 @@ The [official documentation by JetBrains](http://confluence.jetbrains.net/displa
 
 TeamCity installs JVM 6 (file versions are 6.0.310.5, dated Feb 17, 2012) but there was a stupid political decision to stay on DST (summer time) forever a year ago in Belarus and perhaps that version of JVM was still expecting old time zone information for Minsk from the operating system.
 
-Microsoft released updates to Windows last fall and what used to be Minsk time zone (GMT+2) became Kaliningrad/Minsk time zone (GMT+3). This actually screws up JVM that’s installed with TeamCity (in fact, Microsoft was pretty fast releasing those time zone updates but… they never made it for Windows Phone 7.x ![Nyah-Nyah](https://blogcontent.azureedge.net/wlEmoticon-nyahnyah.png "Nyah-Nyah")).
+Microsoft released updates to Windows last fall and what used to be Minsk time zone (GMT+2) became Kaliningrad/Minsk time zone (GMT+3). This actually screws up JVM that’s installed with TeamCity (in fact, Microsoft was pretty fast releasing those time zone updates but… they never made it for Windows Phone 7.x ![Nyah-Nyah](/media/wlEmoticon-nyahnyah.png "Nyah-Nyah")).
 
 Oracle provides [time zone updater](http://www.oracle.com/technetwork/java/javase/tzupdater-readme-136440.html) tool and it should be aware of the Minsk time zone change of 2011\. However, after I applied version 1.3.48 (July, 2012) I didn’t see any changes regarding Minsk time zone. Running the tool in test mode (-t) doesn’t report any issues but it did before applying changes. But the worst part is when it did there was no issue regarding Minsk which should indicate that JVM shipped with TeamCity should already be up to date. But it’s not.
 

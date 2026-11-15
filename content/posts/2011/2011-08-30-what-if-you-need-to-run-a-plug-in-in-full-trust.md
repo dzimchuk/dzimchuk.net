@@ -36,7 +36,7 @@ The one you choose is really dependent on your situation but in my situation I p
 
 It’s really easy when you sign your application (or plugin consuming library) with the same key you sign plugins.
 
-> You can choose a strategy you like (one key for all apps, a separate key for an app. a separate key for a lib). It just depends on the level you’re ready to make your life harder ![Smile](https://blogcontent.azureedge.net/wlEmoticon-smile_1.png "Smile") .
+> You can choose a strategy you like (one key for all apps, a separate key for an app. a separate key for a lib). It just depends on the level you’re ready to make your life harder ![Smile](/media/wlEmoticon-smile_1.png "Smile") .
 
 Then you can come up with an extension method like this:
 

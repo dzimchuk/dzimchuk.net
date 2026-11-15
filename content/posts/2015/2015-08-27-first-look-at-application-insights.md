@@ -116,7 +116,7 @@ Let's deploy FixItApp to Azure Web Apps and try to create a FixIt task. Once the
 
 There are multiple ways (or I would say angles) that you can look at the data. On the main blade in the Overview section of the portal you can see grouped totals for server side data (number of server requests, server response time, number of failed requests) as well as client side data (browser page load time).
 
-![Grouped totals for server side data](https://blogcontent.azureedge.net/e22840c1-b067-4f44-bdca-5515cadba545.png)
+![Grouped totals for server side data](/media/e22840c1-b067-4f44-bdca-5515cadba545.png)
 
 ## Server Side Events
 
@@ -126,27 +126,27 @@ Remember, these are correlated events that originated from the same user operati
 2.  POST Task/Create when the form was submitted
 3.  GET Task/Success to show the acknowledgment page
 
-![POST operation events](https://blogcontent.azureedge.net/264be366-926d-4d64-9f67-e48922054469.png)
+![POST operation events](/media/264be366-926d-4d64-9f67-e48922054469.png)
 
 There were 2 dependency calls, one to the Azure SQL database to persist the task and another one to Azure Blob storage to upload an image.
 
 You can drill down further to any of these items but let's close the Server Requests blade and try the Search tool instead.
 
-![Search tool icon](https://blogcontent.azureedge.net/29ebda01-8414-43cd-ab2d-42b4f7bb772d.png)
+![Search tool icon](/media/29ebda01-8414-43cd-ab2d-42b4f7bb772d.png)
 
 It will open up a chronological list of events:
 
-![Search tool blade](https://blogcontent.azureedge.net/27d0e936-fae8-4e6a-9163-d97c170159a5.png)
+![Search tool blade](/media/27d0e936-fae8-4e6a-9163-d97c170159a5.png)
 
 Just like on the main blade you can set a time filter to narrow down on the particular operation or a time period. The filter that you set on the main blade is automatically propagated to child blades such this one. On the Search blade each event is assigned a particular type and you can also set a filter for event types. On the screenshot above I am interested in server requests, dependency calls and exceptions.
 
 Now from this list it's not obvious that these events belong to the same user operation but if you know the application you can kind of guess that there was a GET, then a POST, then two dependency calls and the final GET. But let's drill down on the POST request.
 
-![POST request details](https://blogcontent.azureedge.net/86e78dfb-359e-4f32-a7cc-0d65d438c669.png)
+![POST request details](/media/86e78dfb-359e-4f32-a7cc-0d65d438c669.png)
 
 Lot's of info here! But why is there only one dependency call to the database? Let's check out Related Items that state there were 4 telemetry events associated with the request:
 
-![4 telemetry events that are related to POST request](https://blogcontent.azureedge.net/af46ebee-4b1e-4b0e-8496-bc49ec0c2611.png)
+![4 telemetry events that are related to POST request](/media/af46ebee-4b1e-4b0e-8496-bc49ec0c2611.png)
 
 Indeed, no call to Azure Blob storage is mentioned here. We can see two custom traces coming from the [Logger](https://github.com/dzimchuk/azure-app-insights/blob/master/C%23/MyFixIt.Logging/Logger.cs) through the adapter. We haven't seen them on the Search blade because I filtered them out.
 
@@ -154,11 +154,11 @@ Why hasn't a call to Azure Blob storage been associated with the request is a go
 
 Let's drill down to the call to Azure Blob storage:
 
-![Dependency call to Azure Blob storage](https://blogcontent.azureedge.net/a80576da-6c19-4ab8-8d2f-3a1bfef752dc.png)
+![Dependency call to Azure Blob storage](/media/a80576da-6c19-4ab8-8d2f-3a1bfef752dc.png)
 
 You can see the URL of the remote service, call status and duration. Pretty useful! Drilling down to the database call gives you the SQL statement that was issues:
 
-![Dependency call to SQL Azure](https://blogcontent.azureedge.net/996a87d5-579f-4ef4-9dbd-1f0eb4379e99.png)
+![Dependency call to SQL Azure](/media/996a87d5-579f-4ef4-9dbd-1f0eb4379e99.png)
 
 Again, using links in the Related Items section allows you to explore data that was either associated with an operation or happened in the same time period.
 
@@ -166,11 +166,11 @@ Again, using links in the Related Items section allows you to explore data that 
 
 Let's add page views to the event type filter on the Search blade:
 
-![Search blade with client side events](https://blogcontent.azureedge.net/546b3936-61b7-4239-8da6-09ccd5e97bd0.png)
+![Search blade with client side events](/media/546b3936-61b7-4239-8da6-09ccd5e97bd0.png)
 
 Alright, there are 2 page views as expected, one for the form and one for the successful status message. Page view events bring us quite a lot of interesting data too:
 
-![Page view event details](https://blogcontent.azureedge.net/a3cf4cee-8365-46d3-a1a6-32d8ea3aa0e7.png)
+![Page view event details](/media/a3cf4cee-8365-46d3-a1a6-32d8ea3aa0e7.png)
 
 You can use this data to analyze how people are using your application. If you are familiar with tools like Google Analytics or Yandex Metrika you have an idea of what kind of knowledge you can draw from this data. In fact Application Insights provides you with the Usage blade that allows you to drill down from the client side collected data down to related server side events we saw earlier. This is something that cannot be achieved with client side only analytic tool.
 

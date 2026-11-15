@@ -20,13 +20,13 @@ So what can we do with existing Azure offering to implement a priority queue?
 
 One thing that springs to mind is to replace a queue with another storage option that would allow us to set priorities on messages. For example, what if we take the messages from the queue (Service Bus or Storage) and put them in Table Storage? We can assign the priority value to PartitionKey and use timestamps in the form of [ticks](http://msdn.microsoft.com/en-us/library/system.datetimeoffset.utcticks(v=vs.110).aspx) for row keys. This way our messages are going to be sorted by priority and the time they were scheduled so we can implement an algorithm to get the messages we want first.
 
-[![Priority Queue design based on alternative storage](https://blogcontent.azureedge.net/PriorityQueue_TS_thumb.png "Priority Queue design based on alternative storage")](https://blogcontent.azureedge.net/PriorityQueue_TS.png)
+[![Priority Queue design based on alternative storage](/media/PriorityQueue_TS_thumb.png "Priority Queue design based on alternative storage")](/media/PriorityQueue_TS.png)
 
 However, as we move away from the native queue implementation we are now faced with technical challenges of implementing message locking, multiple deliveries in case of failures, dead lettering and so on. While it is doable you have to keep in mind that you are probably going poll the storage excessively generating unwanted traffic and cost.
 
 A better approach is to assign a separate queue to a priority (similar to what [Patterns & Practices](http://msdn.microsoft.com/en-us/library/dn589794.aspx) team recommends) given that the number of the priorities is limited and generally small. But instead of dispatching messages of different priorities to dedicated roles we can implement a mechanism to dispatch them to worker threads running within a role instance.
 
-[![Priority Queue designed based on multiple queues](https://blogcontent.azureedge.net/PriorityQueue_MultiQueue_thumb.png "Priority Queue designed based on multiple queues")](https://blogcontent.azureedge.net/PriorityQueue_MultiQueue.png)
+[![Priority Queue designed based on multiple queues](/media/PriorityQueue_MultiQueue_thumb.png "Priority Queue designed based on multiple queues")](/media/PriorityQueue_MultiQueue.png)
 
 There are two important things to notice here. First, the message receiver should be able to quickly scan though all available queues for a message with the highest priority. It should also be able to block waiting for a message when there are no pending messages in any of the queues. Second, the dispatcher should keep track of the worker threads and have means to notify the engine to postpone getting new messages when all worker threads are busy. Normally, it won’t make sense to schedule more CPU bound tasks than you have CPUs available in your role instance. Of course, you can schedule more IO bound tasks if they are properly implemented. So this is something that should be adjustable and configurable,
 

@@ -16,7 +16,7 @@ I am going to demonstrate this pattern on a sample Azure cloud service. I’m go
 
 Let’s start with moving our configuration settings to external files. In my sample I’m going to use XML files but of course you’re not limited to file formats or schema. You may even choose to store your configuration in a database of some sort.
 
-[![External configuration files](https://blogcontent.azureedge.net/image_thumb_5.png "External configuration files")](https://blogcontent.azureedge.net/image_5.png)
+[![External configuration files](/media/image_thumb_5.png "External configuration files")](/media/image_5.png)
 
 Note that we have separate configuration files per deployment type. It’s just an example, you may come up with an organization that better suites your needs. To give you an idea of what an external configuration file may look like:
 
@@ -61,7 +61,7 @@ I won’t post it here due its length but you may really want to spend some time
 
 .\Upload-Configuration.ps1 -deployment Cloud
 
-[![Running Upload-Configuration.ps1](https://blogcontent.azureedge.net/image_thumb_6.png "Running Upload-Configuration.ps1")](https://blogcontent.azureedge.net/image_6.png)
+[![Running Upload-Configuration.ps1](/media/image_thumb_6.png "Running Upload-Configuration.ps1")](/media/image_6.png)
 
 Because we have just uploaded the configuration for the first time it has been assigned version 1 as you can tell from the blob name (Cloud/01.xml). It also uses the deployment option as part of the path. Again, this is just an example. You may choose a more sophisticated naming scheme. On one project where we successfully implement the pattern we include date in the blob path for easier search and use an accompanying table storage index table for quick access programmatically.
 
@@ -177,10 +177,10 @@ Once again, remember that you want to handle the event in the process that actua
 
 When we deploy our application to Azure and open up a web link we can see that it shows initial value:
 
-[![Initial value](https://blogcontent.azureedge.net/image_thumb_7.png "Initial value")](https://blogcontent.azureedge.net/image_7.png)
+[![Initial value](/media/image_thumb_7.png "Initial value")](/media/image_7.png)
 
 Let’s change ‘TestSetting’ value in the external configuration file to ‘updated value’ and upload it. The PowerShell script will assign version 2 this time (Cloud/02.xml). Then let’s go to the portal and enter ‘2’ for ConfigurationVersion on both web and worker roles. After we hit ‘Save’ our roles are going under transitioning that we can notice on the Instances tab:
 
-[![The deployment is transitioning](https://blogcontent.azureedge.net/image_thumb_8.png "The deployment is transitioning")](https://blogcontent.azureedge.net/image_8.png)
+[![The deployment is transitioning](/media/image_thumb_8.png "The deployment is transitioning")](/media/image_8.png)
 
 While the roles are in the transitioning state they are still responsive. If we keep hitting refresh on the browser it will keep returning the initial value and at some point it will start returning the ‘updated value’.

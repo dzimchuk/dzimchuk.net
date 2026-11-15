@@ -88,7 +88,7 @@ A better name for group 2 events would probably be `AsynchronousEvent` as they c
 
 Let's have a look at the flow of processing a command (e.g. a web request) that involves working with several aggregates and handling their events.
 
-![Reliable events flow](https://blogcontent.azureedge.net/2018/07/reliable-events.png)
+![Reliable events flow](/media/2018/07/reliable-events.png)
 
 Normally command and event handlers perform 4 distinct tasks when processing requests or events:
 
@@ -198,7 +198,7 @@ The `EventsAvailableNotification` is used to send a message to the eventual even
 
 Let's now consider the second part of the reliable events flow which is dispatching of persisted asynchronous events.
 
-![reliable-events-dispatcher](https://blogcontent.azureedge.net/2018/07/reliable-events-dispatcher.png)
+![reliable-events-dispatcher](/media/2018/07/reliable-events-dispatcher.png)
 
 Steps 1 and 2 on the diagram are what we've already seen the `SaveChangesAsync` extension method. This is when the job of the original command handler is done and the rest of the processing happens asynchronously relative to the original operation.
 
@@ -218,7 +218,7 @@ However, asynchronous events can also be used within the same bounded context th
 
 So you create asynchronous events for these kinds of operations (both integration as well as just asynchronous) but you should *not* create event handlers for them!
 
-![handling-integration-events](https://blogcontent.azureedge.net/2018/07/handling-integration-events.png)
+![handling-integration-events](/media/2018/07/handling-integration-events.png)
 
 The thing is that the reliable events dispatcher is a singleton process (per bounded context) and it should not wait for the completion of our asynchronous operations. Its job is to drain the pending events queue from the database as quick as possible by sending those events to a robust messaging system (such as Azure Service Bus). That's why there is basically only [one handler](https://github.com/dzimchuk/book-fast-service-fabric/blob/master/Common/BookFast.ServiceBus/IntegrationEventPublisher.cs) for integration/asynchronous events that just sends them to the messaging system.
 

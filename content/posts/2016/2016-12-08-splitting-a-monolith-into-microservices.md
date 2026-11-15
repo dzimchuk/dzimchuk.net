@@ -14,7 +14,7 @@ It's all about change. Business wants to try out things and back off on unsucces
 
 Traditionally, we've been splitting our solutions into horizontal layers to separate technical concerns and make solutions maintainable. However, our models, application services, data storage adapters and other components belonging to separate functional areas have been stacked together at appropriate layers. Often data was stored in some common storage such as SQL database and it so tempting easy for one service to reach out and join data belonging to another service introducing additional coupling.
 
-![Monolithic architecture diagram](https://blogcontent.azureedge.net/2016/12/Monolith_Architecture.png)
+![Monolithic architecture diagram](/media/2016/12/Monolith_Architecture.png)
 
 As time goes by, the system may become infected with unhealthy interdependencies when service boundaries are blurred. It's common for one service to start using a data source interface of another or for code related to a certain logic or function to be spread over multiple places. It becomes increasingly harder to make changes to such systems without affecting many seemingly unrelated components and it all adds up to the stabilization cost.
 
@@ -30,7 +30,7 @@ They work in today's fast paced world because they can be independently develope
 
 Being built around a business capability is the key characteristic to keep in mind when it comes to reconsidering your existing monolithic solution and trying to identify those service boundaries (often referred to as bounded context) for your future microservices.
 
-![Microservices architecture diagram](https://blogcontent.azureedge.net/2016/12/Microservices_Architecture.png)
+![Microservices architecture diagram](/media/2016/12/Microservices_Architecture.png)
 
 Each service contains all the necessary components to fulfill its purpose. These components can be public and internal API endpoints, background processes, automation scripts, etc. Besides business capability services your solution can also include infrastructure oriented or cross cutting concerns services such as discovery and health monitoring services, telemetry collecting services, etc.
 
@@ -44,7 +44,7 @@ Another thing to watch out for is shared code which makes it so easy to couple y
 
 Microservices can be as simple as a single routine (and it's getting quite common with recent serverless trends) but they can get quite complicated. For example, internally a microservice can have a well defined layered architecture.
 
-![Microservice zoomed-in](https://blogcontent.azureedge.net/2016/12/Microservice_ZoomIn.png)
+![Microservice zoomed-in](/media/2016/12/Microservice_ZoomIn.png)
 
 It's different from the monolith in that the model, logic, persistence and representation are bound to a particular context.
 

@@ -65,7 +65,7 @@ What if we don't want to couple with a particular identity provider?
 
 A feasible answer to questions 3 and 4 mentioned earlier would be implementing a federation gateway between your application and identity providers.
 
-![Federated-authentication--generic-](https://blogcontent.azureedge.net/2018/08/Federated-authentication--generic-.png)
+![Federated-authentication--generic-](/media/2018/08/Federated-authentication--generic-.png)
 
 The gateway has two purposes:
 

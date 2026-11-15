@@ -10,7 +10,7 @@ tags: Public Speaking
 
 Last week on June'21 we've had another meet-up event of our local [Azure User Group](https://www.facebook.com/groups/AzureBelarus/) where people interested in learning how Azure can help them build great solutions of tomorrow share their experience and adventures. This time around we talked about Azure Active Directory and efficient file storage.
 
-![Belarus Azure User Group Meet-up June, 2016](https://blogcontent.azureedge.net/13483340_1648264195499198_8170106575116231490_o.jpg)
+![Belarus Azure User Group Meet-up June, 2016](/media/13483340_1648264195499198_8170106575116231490_o.jpg)
 
 I labeled my talk "Azure AD for developers" as I was trying to demonstrate how relatively easy it is for developers to take advantage of Azure AD when implementing security requirements that are common in today's applications. I used my playground app BookFast that I've already mentioned in various posts. We've had a look at federated sign-in both for corporate users through v1 endpoints, then we had a glance at customer sign-in using v2 endpoints of [Azure B2C](https://azure.microsoft.com/en-us/services/active-directory-b2c/) and we also learned how we can delegate access to remote services. By building on top of the robust, secure and scalable identity infrastructure developers have more time to focus on delivering astonishing user experience and features in their applications and at the same time have a good sleep knowing that hundreds of security experts at Microsoft are taking care of their identity story. This is what 'standing on the shoulders of giants', as [Scott Hanselman](http://www.hanselman.com/blog/WeAreAbstractingOnTheShouldersOfGiants.aspx) often puts it, really is and this is what keeps me thrilled as I look forward.
 

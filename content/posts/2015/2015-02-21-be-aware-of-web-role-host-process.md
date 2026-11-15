@@ -47,7 +47,7 @@ Awesome! Now we’ve got a harness set up. Hit F5 to verify everything works.
 
 Let’s add a setting to our role. Right-click on your role, select Properties and add a TestSetting on the Settings page:
 
-[![Adding a TestSetting](https://blogcontent.azureedge.net/image_thumb.png "Adding a TestSetting")](https://blogcontent.azureedge.net/image.png)
+[![Adding a TestSetting](/media/image_thumb.png "Adding a TestSetting")](/media/image.png)
 
 Not let’s add a simple component that we will initialize with our TestSetting:
 
@@ -111,7 +111,7 @@ app.Run(async context =>
 
 If we run our application we are going to see the following:
 
-[![No value has been set](https://blogcontent.azureedge.net/image_thumb_1.png "No value has been set")](https://blogcontent.azureedge.net/image_1.png)
+[![No value has been set](/media/image_thumb_1.png "No value has been set")](/media/image_1.png)
 
 It may seem naïve to you but trust me it happens. We have just misplaced our initialization code and we run it in another process than the one that actually needs it. Let’s move the initialization to our OWIN start-up class:
 
@@ -140,7 +140,7 @@ public class Startup
 
 Now it runs as expected:
 
-[![Value has been set](https://blogcontent.azureedge.net/image_thumb_2.png "Value has been set")](https://blogcontent.azureedge.net/image_2.png)
+[![Value has been set](/media/image_thumb_2.png "Value has been set")](/media/image_2.png)
 
 ## But you need to take care of RoleEntryPoint configuration too
 
@@ -237,7 +237,7 @@ public class Startup
 
 Good, we’re ready to go! Hit F5 and our application runs. Let’s go check out the table storage:
 
-[![SLAB logging output](https://blogcontent.azureedge.net/image_thumb_3.png "SLAB logging output")](https://blogcontent.azureedge.net/image_3.png)
+[![SLAB logging output](/media/image_thumb_3.png "SLAB logging output")](/media/image_3.png)
 
 As I mentioned there is a lot of contextual information, you can add keywords to your events but what I really like about Azure table storage sink is that you can create create custom payloads for your events that will be serialized as JSON and also a column will be added per each property you want to include with it.
 
@@ -280,7 +280,7 @@ When you RDP to your role instance you can find the hosting applications in %ROL
 
 Let’s go and add a folder called Startup (it can be named whatever you like) to our project and add a .cmd as well as PowerShell script to it:
 
-[![A startup task files](https://blogcontent.azureedge.net/image_thumb_4.png "A startup task files")](https://blogcontent.azureedge.net/image_4.png)
+[![A startup task files](/media/image_thumb_4.png "A startup task files")](/media/image_4.png)
 
 The reason we need a .cmd batch file is because we can’t run PowerShell scripts directly as cloud service roles’ startup tasks. The batch file is pretty simple:
 

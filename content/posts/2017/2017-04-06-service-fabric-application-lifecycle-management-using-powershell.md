@@ -135,11 +135,11 @@ Hopefully it will be addressed soon.
 
 Now we have 2 application types registered in the cluster and the currently active application created from version 1.0.0:
 
-![Two registered application types](https://blogcontent.azureedge.net/2017/04/application_types.png)
+![Two registered application types](/media/2017/04/application_types.png)
 
 If we dig down on the details of version 1.0.1 type we're going to see the expected hierarchy of package and manifest versions:
 
-![Hierarchy of package and manifest versions](https://blogcontent.azureedge.net/2017/04/versioning.png)
+![Hierarchy of package and manifest versions](/media/2017/04/versioning.png)
 
 Now we're ready to start a monitored rolling upgrade of the application.
 
@@ -151,7 +151,7 @@ Start-ServiceFabricApplicationUpgrade -ApplicationName fabric:/BookFast -Applica
 
 The upgrade is performed one upgrade domain at a time. Service Fabric performs health checks before moving to the next upgrade domain. We also chose to roll back to the previous version of the application if the upgrade fails at any point. Most of the upgrade parameters and timeouts are configurable. You can get more details on upgrade parameters [here](https://docs.microsoft.com/en-us/azure/service-fabric/service-fabric-application-upgrade-parameters).
 
-![Rolling upgrade](https://blogcontent.azureedge.net/2017/04/rolling_upgrade.png)
+![Rolling upgrade](/media/2017/04/rolling_upgrade.png)
 
 The status of the rolling upgrade can also be monitored with PowerShell:
 

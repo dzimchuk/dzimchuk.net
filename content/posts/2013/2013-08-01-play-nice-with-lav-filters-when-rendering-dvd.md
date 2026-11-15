@@ -17,17 +17,17 @@ In this post I want to talk about one single issue when PVP is unable to playbac
 
 Here’s what a filter graph looks like:
 
-[![DVD filter graph with unrendered video and subpicture streams](https://blogcontent.azureedge.net/dvd_lav_thumb.png "DVD filter graph with unrendered video and subpicture streams")](https://blogcontent.azureedge.net/dvd_lav.png)
+[![DVD filter graph with unrendered video and subpicture streams](/media/dvd_lav_thumb.png "DVD filter graph with unrendered video and subpicture streams")](/media/dvd_lav.png)
 
 As you can see DVD graph builder picked up LAV Video Decoder to decode video stream however it couldn’t connect it to the render (and this case this Enhanced Video Renderer that PVP flags as preferred on systems running Windows Vista and above). What’s really strange here is that there is no obstacle to render decoder’s output (NV12) by EVR:
 
-[![Output video format of LAV Video Decoder](https://blogcontent.azureedge.net/pvp_lav_video_thumb.png "Output video format of LAV Video Decoder")](https://blogcontent.azureedge.net/pvp_lav_video.png)
+[![Output video format of LAV Video Decoder](/media/pvp_lav_video_thumb.png "Output video format of LAV Video Decoder")](/media/pvp_lav_video.png)
 
 Inability to render a video stream is fatal when trying to play DVDs. Other streams can be ignored but it clearly makes no sense without video.
 
 One other issue with this graph is unrendered subpicture stream. It may seem as a minor issue but I was surprised that connecting DVD Navigator’s output subpicture pin to LAV’s input one using intelligent connect also fixes up the video stream that gets happily connected to the renderer. There can be a quirk in the automatic algorithm because this graph looks a bit different from the ones I’ve usually seen before, for example:
 
-[![DVD filter grpah when using Microsoft's decoder](https://blogcontent.azureedge.net/dvd_ms_thumb.png "DVD filter grpah when using Microsoft's decoder")](https://blogcontent.azureedge.net/dvd_ms.png)
+[![DVD filter grpah when using Microsoft's decoder](/media/dvd_ms_thumb.png "DVD filter grpah when using Microsoft's decoder")](/media/dvd_ms.png)
 
 I’ve substituted LAV Video Decoder with Microsoft’s DTV-DVD Video decoder and ships with Windows Vista and above and now I see a familiar picture. What’s different is a subpicture stream from the source filter (subtype DVD_SUBPICTURE) gets transformed to a AI44 stream by the video decoder that gets eventually connected to the video renderer. The video renderer then merges this stream with the video stream.
 

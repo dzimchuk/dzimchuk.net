@@ -23,7 +23,7 @@ For an application to be recognized and protected by Azure AD it needs to be reg
 3. Sign-on URL. This is not important for API apps.
 4. App ID URI. This is an important setting that uniquely defines you application. It will also be the value of the 'resource' that consumers will request access tokens for. It has to be a valid URI and you normally use your tenant address as part of it. My test tenant is 'devunleashed.onmicrosoft.com' so I set the app ID URI to 'https://devunleashed.onmicrosoft.com/book-fast-api'.
 
-![New Azure AD dialog](https://blogcontent.azureedge.net/azuread-book-fast-api-create.png)
+![New Azure AD dialog](/media/azuread-book-fast-api-create.png)
 
 That's it. We have just created the app that can be accessed by other apps on behalf of their users. This is an important point! Azure AD by default configures apps so that they provide a delegated permission for other apps to access them on behalf of the signed in user.
 
@@ -138,7 +138,7 @@ I can't finish this post without demonstrating a client application calling our 
 
 First, I'm going to demonstrate the [Client Credentials Grant](https://tools.ietf.org/html/rfc6749#page-40) flow that is used for server-to-server internal calls.
 
-![OAuth2 Client Credential Grant](https://blogcontent.azureedge.net/OAuth2_Client_Credentials_Grant.png)
+![OAuth2 Client Credential Grant](/media/OAuth2_Client_Credentials_Grant.png)
 
 This flow is meant to be used with confidential clients, i.e. clients that are running on the server as opposed to those running on user devices (which are often referred to as 'public clients'). Confidential clients provide their client ID and client secret in the requests for access tokens. The resources they ask tokens for are accessed from their application's context rather than from their user's (resource owner's) context. That makes perfect sense as there are no user credentials involved.
 
@@ -228,7 +228,7 @@ There is no user! It should remind us of the intended use of the Client Credenti
 
 Remember that Azure AD access tokens are [JWT](https://jwt.io/)? And as such they consist of 2 Based64 endcoded JSON parts (header and payload) plus a signature. You can easily decode them, for example, with the Text Wizard tool in [Fiddler](http://www.telerik.com/fiddler):
 
-![Azure AD access token decoded with Text Wizard](https://blogcontent.azureedge.net/azuread-book-fast-access-token.png)
+![Azure AD access token decoded with Text Wizard](/media/azuread-book-fast-access-token.png)
 
 And here's the readable part:
 
@@ -352,11 +352,11 @@ When developing new applications you should *not* use this flow as it requires y
 
 This flow can be used though in legacy applications that are being re-architectured (such as adopting Azure AD and delegated access to services) as an intermediate solution.
 
-![OAuth2 Resource Owner Credentials Grant](https://blogcontent.azureedge.net/OAuth2-Resource_Owner_Password_Credentials_Grant.png)
+![OAuth2 Resource Owner Credentials Grant](/media/OAuth2-Resource_Owner_Password_Credentials_Grant.png)
 
 Ok, back to the 'Configure' page of the client app! We need to give it a delegated permission to call Book Fast API. Use 'Add application' button to find and add 'book-fast-api' to the list of apps and then select the delegated permission.
 
-![Giving the client a delegated permission to access book-fast-api](https://blogcontent.azureedge.net/azuread-book-fast-delegated-permission2.png)
+![Giving the client a delegated permission to access book-fast-api](/media/azuread-book-fast-delegated-permission2.png)
 
 Note that the 'Access book-fast-api' permission is coming from the `oauth2Permissions` collection that we saw in the API's app manifest earlier.
 

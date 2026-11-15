@@ -12,7 +12,7 @@ Shared Access Signature (SAS) authentication provides a simple and flexible opti
 
 In addition to managing SAS token expiration a common requirement is the ability to revoke issued tokens to prevent further undesired access to Service Bus entities and make consumers undergo a procedure of requesting new tokens.
 
-![Service Bus, consumer and a SAS token service](https://blogcontent.azureedge.net/53a9fd59-e3ed-4623-8a38-614cf0911632.png)
+![Service Bus, consumer and a SAS token service](/media/53a9fd59-e3ed-4623-8a38-614cf0911632.png)
 
 SAS tokens include a signature which is a keyed hash (HMAC-SHA256) of the resource URL and the expiration period. By changing both primary and secondary keys of the authorization policy that is used for issued tokens we effectively invalidate these tokens.
 
@@ -22,7 +22,7 @@ It is also recommended to implement rotation of SAS keys on a regular basis so t
 
 It turns out the expiration period should not exceed the rotation one otherwise there will be a chance for a token to span over more than 2 rotation periods after which both keys will be changed.
 
-![SAS key rotation periods and token lifetimes](https://blogcontent.azureedge.net/5a77c79b-a101-406d-9dc7-1cfd94823367.png)
+![SAS key rotation periods and token lifetimes](/media/5a77c79b-a101-406d-9dc7-1cfd94823367.png)
 
 Consumers should request new tokens before their existing ones expire to insure uninterrupted access to Service Bus.
 
@@ -30,7 +30,7 @@ Consumers should request new tokens before their existing ones expire to insure 
 
 Let's implement a simple [proof of concept](https://github.com/dzimchuk/SASRotation). We're going to define separate Read, Write and Manage authorization policies on a Service Bus queue:
 
-![Authorization policies of a Service Bus queue](https://blogcontent.azureedge.net/7cc5408e-bbba-4828-a556-aa7cbda30c73.png)
+![Authorization policies of a Service Bus queue](/media/7cc5408e-bbba-4828-a556-aa7cbda30c73.png)
 
 Our POC will contain a token service similar to the one shown above that will be issuing separate SAS tokens for read and write operations against a Service Bus queue:
 
@@ -62,7 +62,7 @@ public class TokenController : ApiController
 
 The service uses a connection string of the Manage policy to get queue description and locate a Read or Write authorization rule.
 
-![Service Bus queue authorization policy's connection strings](https://blogcontent.azureedge.net/b246fa20-ee54-456f-8ce9-c8f913c87c7d.png)
+![Service Bus queue authorization policy's connection strings](/media/b246fa20-ee54-456f-8ce9-c8f913c87c7d.png)
 
 It will then use the rule's primary key to create a SAS token using `SharedAccessSignatureTokenProvider.GetSharedAccessSignature` method.
 
@@ -199,7 +199,7 @@ class Program
 
 We use `MessagingFactory` to construct a `QueueClient` instance as it has an overload accepting a token provider. The sender will keep sending messages until it gets `UnauthorizedAccessException` which could be due an expired token or due to updated encryption keys in the Read policy.
 
-![Sender output](https://blogcontent.azureedge.net/1431be4d-c08c-4ea3-a347-600c3e3dd227.png)
+![Sender output](/media/1431be4d-c08c-4ea3-a347-600c3e3dd227.png)
 
 You can actually differentiate these two situations. When a SAS token expires you get an error like:
 

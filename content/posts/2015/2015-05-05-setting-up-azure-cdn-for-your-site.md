@@ -70,7 +70,7 @@ To support such versioned resource names it requires you to make changes in your
 
 An alternative solution is to use query strings. Azure CDN supports them but you need to explicitly enable this feature.
 
-[![Query string support in Azure CDN](https://blogcontent.azureedge.net/0f9793fa-91a6-4b5c-9c87-e367689a501b.png "Query string support in Azure CDN")](https://blogcontent.azureedge.net/a7114226-be5a-45ca-9e37-883f037edbfd.png)
+[![Query string support in Azure CDN](/media/0f9793fa-91a6-4b5c-9c87-e367689a501b.png "Query string support in Azure CDN")](/media/a7114226-be5a-45ca-9e37-883f037edbfd.png)
 
 When enabled requests for the same resource name but with different query strings will be cached separately.
 
@@ -96,7 +96,7 @@ Last-Modified: Mon, 04 May 2015 19:24:06 GMTX-Cache: HIT
 
 If you use Azure Blob Storage as the backing service you can define `Cache-Control` as a properly of a blob:
 
-[![Azure blob properties allow you to specify Cache-Control value](https://blogcontent.azureedge.net/428f2bf5-a7df-4259-b090-8b7c6e72940d.png "Azure blob properties allow you to specify Cache-Control value")](https://blogcontent.azureedge.net/666a84d0-2469-4fae-8049-2f2d18986cff.png)
+[![Azure blob properties allow you to specify Cache-Control value](/media/428f2bf5-a7df-4259-b090-8b7c6e72940d.png "Azure blob properties allow you to specify Cache-Control value")](/media/666a84d0-2469-4fae-8049-2f2d18986cff.png)
 
 ```
 HTTP/1.1 200 OK
@@ -148,7 +148,7 @@ Azure Blob Storage does support CORS however you can't easily set it up on the p
 
 All but very simple sites will require SSL. And it is not enabled in Azure CDN endpoints by default.
 
-![Enable HTTPS in Azure CDN endpoint](https://blogcontent.azureedge.net/51a0b56c-d94c-4fe5-b9a4-2d81593b5694.png)
+![Enable HTTPS in Azure CDN endpoint](/media/51a0b56c-d94c-4fe5-b9a4-2d81593b5694.png)
 
 I highly recommend you enable it right away when you set up an endpoint because provisioning it may take several hours and it will be that moment when you need it yesterday.
 

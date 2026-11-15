@@ -73,6 +73,6 @@ There are a couple of issues with this approach though:
 
 Whatever option you choose don't forget to set up a load balancing rule (and the corresponding probe rule) for your application port:
 
-![Application port load balancing rule](https://blogcontent.azureedge.net/2017/06/LBRule.png)
+![Application port load balancing rule](/media/2017/06/LBRule.png)
 
 If you use Network Security Groups (NSGs) in your cluster you will also need to add a rule to allow inbound traffic to your port.

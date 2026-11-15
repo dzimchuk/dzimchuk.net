@@ -11,7 +11,7 @@ I wanted to create a WPF resource dictionary and put it in a separate assembly f
 
 However, I knew it should be there, I’ve tried another project that was specifically created using one of the WPF templates and the items were there:
 
-[![WPF specific items](https://blogcontent.azureedge.net/WPF%20specific%20items_thumb.png "WPF specific items")](https://blogcontent.azureedge.net/WPF%20specific%20items.png)
+[![WPF specific items](/media/WPF%20specific%20items_thumb.png "WPF specific items")](/media/WPF%20specific%20items.png)
 
 I tried adding WPF assemblies to my class library references (PresentationCore, PresentationFramework, System.Xaml, WindowsBase) but it didn’t make Visual Studio realize I need WPF specific items. I didn’t find a way to set it within a standard project’s settings dialog.
 

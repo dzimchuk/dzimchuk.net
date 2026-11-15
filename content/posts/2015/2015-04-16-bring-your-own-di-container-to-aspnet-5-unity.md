@@ -169,7 +169,7 @@ public static class UnityRegistration
 
 ```
 
-As with scoped child containers we need to add `EnumerableResolutionExtension` to the top level container. Note that we also register top level service provider and service scope factory. They are going to be used by the hosting [infrastructure](https://blogcontent.azureedge.net/ContainerMiddlewareSequence.png). The `Register` method needs to support all registration types (type, instance, factory) and life time modes (transient, singleton, scoped). In Unity object life time is controlled by the life time manager and we provide an appropriate instance of it with each registration.
+As with scoped child containers we need to add `EnumerableResolutionExtension` to the top level container. Note that we also register top level service provider and service scope factory. They are going to be used by the hosting [infrastructure](/media/ContainerMiddlewareSequence.png). The `Register` method needs to support all registration types (type, instance, factory) and life time modes (transient, singleton, scoped). In Unity object life time is controlled by the life time manager and we provide an appropriate instance of it with each registration.
 
 ## Show time
 

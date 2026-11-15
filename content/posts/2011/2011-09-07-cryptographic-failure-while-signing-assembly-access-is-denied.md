@@ -17,11 +17,11 @@ So, basically the user account you’re running under can’t access crypto keys
 
 It was fun to discover that [SourceGear Vault](http://www.sourcegear.com/) that I use as a private source control system might probably have run into some issues and had to give their server’s pool identity explicit permissions:
 
-[![permissions to MachineKeys for VaultAppPool](https://blogcontent.azureedge.net/machinekeys_vaultapppool._thumb.png "permissions to MachineKeys for VaultAppPool")](https://blogcontent.azureedge.net/machinekeys_vaultapppool..png)
+[![permissions to MachineKeys for VaultAppPool](/media/machinekeys_vaultapppool._thumb.png "permissions to MachineKeys for VaultAppPool")](/media/machinekeys_vaultapppool..png)
 
 They might have their own reasons though. Still, IUSR and NETWORK SERVICE accounts were given full control too however my local Administrators group wasn’t:
 
-[![permissions to MachineKeys for Administrators](https://blogcontent.azureedge.net/machinekeys_administrators._thumb.png "permissions to MachineKeys for Administrators")](https://blogcontent.azureedge.net/machinekeys_administrators..png)
+[![permissions to MachineKeys for Administrators](/media/machinekeys_administrators._thumb.png "permissions to MachineKeys for Administrators")](/media/machinekeys_administrators..png)
 
 Note that my user is a member of above mentioned Administrators group and this group is the owner of this folder. This, however, isn’t enough for a member of the group to be able to give the group necessary permissions. It might have something to do with UAC, I wouldn’t say and frankly too lazy to check (as 2 system restarts are required, one when disabling UAC and another one when enabling it back again).
 
@@ -30,4 +30,4 @@ So, the proper procedure will be:
 1.  Take ownership (click that Advanced button and you’ll see). Assign the ownership to your user.
 2.  Then you can give your user read (or full control if you don’t mind) permissions on that folder.
 
-I just wrote it as a reminder for myself. Hope next time I reinstall there will be one WTF less ![Smile](https://blogcontent.azureedge.net/wlEmoticon-smile_2.png "Smile").
+I just wrote it as a reminder for myself. Hope next time I reinstall there will be one WTF less ![Smile](/media/wlEmoticon-smile_2.png "Smile").

@@ -45,11 +45,11 @@ So InfoPath Designer was kind enough to save the fully resolved path to the mach
 
 In order to fix this particular issue we have to create a mapping. Go to the Central Administration –> System Settings –> Configure Alternative Access Mappings:
 
-[![Alternate Access Mappings screen](https://blogcontent.azureedge.net/sp_aam_thumb.png "Alternate Access Mappings screen")](https://blogcontent.azureedge.net/sp_aam.png) 
+[![Alternate Access Mappings screen](/media/sp_aam_thumb.png "Alternate Access Mappings screen")](/media/sp_aam.png) 
 
 Here we need to add another internal URL (_http://dzimchuk.mydomain.com:82_) that would map to the public _http://dzimchuk:82_:
 
-[![Add new mapping](https://blogcontent.azureedge.net/sp_aam_add_thumb.png "Add new mapping")](https://blogcontent.azureedge.net/sp_aam_add.png)
+[![Add new mapping](/media/sp_aam_add_thumb.png "Add new mapping")](/media/sp_aam_add.png)
 
 That’s it.
 
@@ -59,11 +59,11 @@ Ok, that was useful but what if really wanted to call a service from another dom
 
 Go on and create a new data connection library on your site. Then open the form in InfoPath Designer and convert the submission external connection to a connection file:
 
-[![Convert connection to connection file](https://blogcontent.azureedge.net/sp_ip_convert_thumb.png "Convert connection to connection file")](https://blogcontent.azureedge.net/sp_ip_convert.png)
+[![Convert connection to connection file](/media/sp_ip_convert_thumb.png "Convert connection to connection file")](/media/sp_ip_convert.png)
 
 Here you have to enter an address of your connection library (you can use regular spaces instead of %20) and the filename of the connection. The path to the connection file is actually stored in a relative form (‘concept’ is a relative path to my site, that is _http://dzimchuk:82/concept_):
 
-[![Converted connection](https://blogcontent.azureedge.net/sp_ip_converted_thumb.png "Converted connection")](https://blogcontent.azureedge.net/sp_ip_converted.png)
+[![Converted connection](/media/sp_ip_converted_thumb.png "Converted connection")](/media/sp_ip_converted.png)
 
 This is really useful when you want to re-use your form on different servers and that’s why storing your external connections  as connection files is a recommended way in these scenarios.
 
@@ -71,13 +71,13 @@ Republish the form.
 
 Now if you go to the connection library you will see the connection file. However, it’s not ready to be used yet. Site administrator must approve it first:
 
-[![Connection file](https://blogcontent.azureedge.net/sp_udx_approve_thumb.png "Connection file")](https://blogcontent.azureedge.net/sp_udx_approve.png) 
+[![Connection file](/media/sp_udx_approve_thumb.png "Connection file")](/media/sp_udx_approve.png) 
 
 This makes the whole lotta sense as it’s up to a site (or site collection) administrator (owner) to allow or disallow connections especially when they are to be used to cross domain calls.
 
 But even that’s not enough! Your farm administrator should allow InfoPath forms to make cross domain calls explicitly. This is done in Central Administration –> General Application Settings –> InfoPath Forms Services –> Configure InfoPath Forms Services:
 
-[![Enable cross domain calls](https://blogcontent.azureedge.net/sp_ip_cross_domain_thumb.png "Enable cross domain calls")](https://blogcontent.azureedge.net/sp_ip_cross_domain.png)
+[![Enable cross domain calls](/media/sp_ip_cross_domain_thumb.png "Enable cross domain calls")](/media/sp_ip_cross_domain.png)
 
 Now it works.
 

@@ -24,7 +24,7 @@ It brings an additional artifact to the game called 'ID token' that is client si
 
 This flow is very similar to the OAuth2 Authorization Code Grant and we get the ID token when we redeem the authorization code against the token endpoint.
 
-![OpenID Connect Authorization Code flow](https://blogcontent.azureedge.net/OpenIDConnect-AuthorizationCodeFlow.png)
+![OpenID Connect Authorization Code flow](/media/OpenIDConnect-AuthorizationCodeFlow.png)
 
 We identify the flow we want with the `response_type` parameter in the request to the authorization endpoint. For the current flow we just want to get a code back so we set it to `code` and get the ID token later from the token endpoint. This is somewhat more secure as the 'ID token' is retrieved as a result of the server to server call. Also note the `scope` parameter that must include `openid` value to indicate to the authorization server that we are talking OpenID Connect.
 
@@ -36,7 +36,7 @@ Even though the response from the authorization framework is presented as a 302 
 
 This flow is pretty close to the OAuth2 Implicit Grant and is to be used by non-confidential clients such JavaScript or native applications. The idea is that access and ID tokens are returned directly from the authorization endpoint and clients are not authenticated.
 
-![OpenID Connect Implicit flow](https://blogcontent.azureedge.net/OpenIDConnect-ImplicitFlow.png)
+![OpenID Connect Implicit flow](/media/OpenIDConnect-ImplicitFlow.png)
 
 In OpenID Connect the `response_type` should be set to either `id_token` or `id_token token` to enable the flow. If we don't need to call other services and we just want to perform a federated authentication we can only request 'id_token' from the endpoint.
 
@@ -46,7 +46,7 @@ Tokens are returned in the URI fragment (notice the # sign) and thus remain seen
 
 As the name implies this flow allows us to decide when we want to return any of the artifacts. The acceptable values for the `response_type` parameter are `code id_token`, `code token` or `code id_token token`.
 
-![OpenID Connect Hybrid flow](https://blogcontent.azureedge.net/OpenIDConnect-HybridFlow.png)
+![OpenID Connect Hybrid flow](/media/OpenIDConnect-HybridFlow.png)
 
 Sometimes we want to get the ID token earlier with a response from the authorization endpoint to be able to set up a security context in our client applications before we call the token endpoint.
 

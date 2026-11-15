@@ -14,7 +14,7 @@ Besides rich telemetry that is collected by Application Insights modules transpa
 
 Just like the [last time](/post/first-look-at-application-insights) I'm going to be using the [FixItApp](https://github.com/dzimchuk/azure-app-insights) sample application. It contains a simple [Logger](https://github.com/dzimchuk/azure-app-insights/blob/master/C%23/MyFixIt.Logging/Logger.cs) component that uses `System.Diagnostics.Trace` to log generic messages of various severity and also provides a way to trace performance of of data layer calls. The easiest way to make it send messages to Application Insights is to install an adapter package. There are adapters for popular logging solutions such as [System.Diagnostics.Trace](https://www.nuget.org/packages/Microsoft.ApplicationInsights.TraceListener/), [NLog](https://www.nuget.org/packages/Microsoft.ApplicationInsights.NLogTarget/) and [Log4Net](https://www.nuget.org/packages/Microsoft.ApplicationInsights.Log4NetAppender/) that have been provided by Microsoft. The adapter packages add proper hooks and you should see your messages in Application Insights. They are going to be marked as 'Trace' in the Search blade and will basically contain the message string that you format and a few pieces of contextual data such as severity level, event time and device Id:
 
-![Custom trace message captured with the adapter](https://blogcontent.azureedge.net/a41174b9-031a-4e76-98b5-a76bee374dc6.png)
+![Custom trace message captured with the adapter](/media/a41174b9-031a-4e76-98b5-a76bee374dc6.png)
 
 ```
 internal class Logger : ILogger
@@ -32,7 +32,7 @@ internal class Logger : ILogger
 
 But wouldn't it be nice if you could split the long formatted string into logical components and present them in a more structured way?
 
-![Custom trace message captured with TelemetryClient](https://blogcontent.azureedge.net/ece74dbf-f54e-495b-80c9-23adb1e633fd.png)
+![Custom trace message captured with TelemetryClient](/media/ece74dbf-f54e-495b-80c9-23adb1e633fd.png)
 
 This is possible with Application Insight's native API:
 
@@ -65,7 +65,7 @@ The key is to use `TelemetryClient` from Microsoft.ApplicationInsights NuGet pac
 
 When you use the `TraceListener` adapter to log exceptions they will still look like long formatted strings:
 
-![Logged exception](https://blogcontent.azureedge.net/18b8a6f3-76ff-48e0-817f-3135a3de018d.png)
+![Logged exception](/media/18b8a6f3-76ff-48e0-817f-3135a3de018d.png)
 
 ```
 internal class Logger : ILogger
@@ -104,7 +104,7 @@ internal class AiLogger : ILogger
 
 You will get a much richer representation of the exception with additional contextual information, stack trace and custom data that you decide to include with your error message:
 
-![Exception that has been logged with TelemetryClient](https://blogcontent.azureedge.net/355f51ea-52cd-43ee-9163-df0bb9c2057a.png)
+![Exception that has been logged with TelemetryClient](/media/355f51ea-52cd-43ee-9163-df0bb9c2057a.png)
 
 Check out a complete implementation of the FixItApp logger [here](https://github.com/dzimchuk/azure-app-insights/blob/master/C%23/MyFixIt.Logging/AILogger.cs).
 
@@ -184,11 +184,11 @@ internal class LoggingTaskService : ITaskService
 
 This time we use `TrackEvent` method of `TelemetryClient` and construct an `EventTelemetry` object. On the 'Custom events' blade we can see the events as they happened on the graph and we can drill down to the related telemetry:
 
-![Custom events blade on the portal](https://blogcontent.azureedge.net/e8eb599b-2731-417b-83c3-f9bcc06b7315.png)
+![Custom events blade on the portal](/media/e8eb599b-2731-417b-83c3-f9bcc06b7315.png)
 
 `LoggingTaskService` includes arbitrary properties just like the `AiLogger` does in tracing calls. For example, when a task is submitted it includes its title and owner name. When an event instance is viewed this data is available in the Custom Data section:
 
-![Custom event](https://blogcontent.azureedge.net/6f01160d-a9b5-4b08-991c-26fb1588253b.png)
+![Custom event](/media/6f01160d-a9b5-4b08-991c-26fb1588253b.png)
 
 Note that although the Elapsed property is part of Custom Data it is actually added into a separate collection called Metrics:
 

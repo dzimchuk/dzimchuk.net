@@ -303,4 +303,4 @@ But for my video player application I see no reason to lose this bit of performa
 
 The code:
 
-[SingleInstanceApp2.zip (72.25 kb)](https://blogcontent.azureedge.net/2010%2f8%2fSingleInstanceApp2.zip)
+[SingleInstanceApp2.zip (72.25 kb)](/media/2010/8/SingleInstanceApp2.zip)

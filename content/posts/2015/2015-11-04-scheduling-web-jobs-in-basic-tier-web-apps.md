@@ -80,7 +80,7 @@ HTTP/1.1 202 Accepted
 
 You have to authenticate when making requests to Kudu. When you run them in the browser it will send your cookie but you can also use Basic authentication to run them from anywhere else. You need to use your deployment credentials which are associated with your live account. Now this is another twisted thing, please see [this article](https://github.com/projectkudu/kudu/wiki/Deployment-credentials) for the explanation. The twisted part is that you define or reset your deployment credentials on one of your web app's settings blade but it's going to work with all apps as it's an account-wide setting.
 
-![Deployment credentials reset blade](https://blogcontent.azureedge.net/f898b5ca-67c0-4895-a015-d7439b795e1d.png)
+![Deployment credentials reset blade](/media/f898b5ca-67c0-4895-a015-d7439b795e1d.png)
 
 Once you have your credentials all you need is to Base64 encode them:
 
@@ -99,11 +99,11 @@ One important thing to note about Azure Scheduler is that there can be only one 
 
 Yes, it's another twist. If you try to set up a job on the portal input controls for Basic authentication credentials will be grayed out:
 
-![Grayed out input controls for Basic credentials](https://blogcontent.azureedge.net/1482bbfe-1f2e-4c00-95e4-d7f6bdafaac3.png)
+![Grayed out input controls for Basic credentials](/media/1482bbfe-1f2e-4c00-95e4-d7f6bdafaac3.png)
 
 But you can still define the Authorization header directly:
 
-![Custom job HTTP headers](https://blogcontent.azureedge.net/3d8b3eff-cbce-4e0f-8cb5-06967dc939bd.png)
+![Custom job HTTP headers](/media/3d8b3eff-cbce-4e0f-8cb5-06967dc939bd.png)
 
 Is it a bug? Or a temporary workaround? Whatever it is you may also want to automate your schedule creation and you can do that with PowerShell:
 

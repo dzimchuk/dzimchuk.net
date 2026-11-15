@@ -16,7 +16,7 @@ In this post I’m going walk you through adding search capabilities to your app
 
 It can be done either on the new preview portal or programmatically using [Azure Management API](https://azure.microsoft.com/en-us/documentation/articles/search-get-started-management-api/).
 
-![Azure Search on the Portal](https://blogcontent.azureedge.net/585efac3-a870-474f-9d7a-ae8af9fd5a91.png)
+![Azure Search on the Portal](/media/585efac3-a870-474f-9d7a-ae8af9fd5a91.png)
 
 There are currently two pricing tiers: Standard (starts with $250/mo, dedicated resources, scalable up to 36 search units, up to 15 million documents per partitions, up to 12 partitions per service) and Free (shared resources, no scale, max 50Mb of storage, 10K documents and 3 indexes, enough for a blog ;)).
 

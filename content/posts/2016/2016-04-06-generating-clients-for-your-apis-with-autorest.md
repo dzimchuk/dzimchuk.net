@@ -167,7 +167,7 @@ services.ConfigureSwaggerDocument(options =>
 
 Swashbuckle can also extract XML comments that you can add to your action methods as well as to models. XML comments are extracted by default but you need to enable emission of build artifacts in by going to your MVC project's Properties and selecting 'Produce output on build' option on the Build page. 
 
-![ASP.NET Core app build properties page](https://blogcontent.azureedge.net/AspNetCoreProduceArtifacts.png)
+![ASP.NET Core app build properties page](/media/AspNetCoreProduceArtifacts.png)
 
 By default the artifacts (.dll, .pdb and the desired .xml) will be put into 'artifacts' folder in your solution under corresponding project, build configuration and framework type folders. When you publish and choose to create NuGet packages for your code the artifacts will be in approot\packages\{YourProjectName}\{PackageVersion}\lib\{FrameworkType} folder. Why is this important? Because you need to provide a path to the XML file to Swashbuckle and with ASP.NET Core these paths are going to be different depending on whether you just locally build or publish.
 

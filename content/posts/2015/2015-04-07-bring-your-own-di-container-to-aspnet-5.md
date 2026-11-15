@@ -31,7 +31,7 @@ Service scope is created by service scope factory which is responsible for creat
 
 How are all of the components mentioned above used in the request processing pipeline? The answer is in [ContainerMiddleware](https://github.com/aspnet/Hosting/blob/1.0.0-beta3/src/Microsoft.AspNet.RequestContainer/ContainerMiddleware.cs) from [Microsoft.AspNet.RequestContainer](https://github.com/aspnet/Hosting/tree/1.0.0-beta3/src/Microsoft.AspNet.RequestContainer) package. For each request it will use a request provider encapsulating your top level container to create a service scope factory. It will then request a new scope from the factory and assign a service provider that it gets from it to the `RequestServices` property of `HttpContext`. Remember, this service provider wraps a scoped container.
 
-[![ContainerMiddleware Sequence Diagram](https://blogcontent.azureedge.net/ContainerMiddlewareSequence_thumb.png "ContainerMiddleware Sequence Diagram")](https://blogcontent.azureedge.net/ContainerMiddlewareSequence.png)
+[![ContainerMiddleware Sequence Diagram](/media/ContainerMiddlewareSequence_thumb.png "ContainerMiddleware Sequence Diagram")](/media/ContainerMiddlewareSequence.png)
 
 When all subsequent middleware run and return the scope is disposed which disposes its scoped container and any objects it tracks. The above diagram is based on Beta 3\. As I am writing this post some level of refactoring has been done in the hosting infrastructure and the `ContainerMiddleware` has been moved to [Microsoft.AspNet.Hosting](https://github.com/aspnet/Hosting) package. Still the concepts and interactions are still valid.
 

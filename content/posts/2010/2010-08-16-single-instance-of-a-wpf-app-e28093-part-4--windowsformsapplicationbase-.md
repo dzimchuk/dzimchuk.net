@@ -105,4 +105,4 @@ class App : Application
 
 What about performance? It passed my test within 25 seconds. Almost as fast as the [WM_COPYDATA](Single-instance-of-a-WPF-app-e28093-part-2-(WM_COPYDATA)) solution and considerably faster than the [WCF one](Single-instance-of-a-WPF-app-e28093-part-3-(WCF)) that uses named pipes.
 
-[SingleInstanceApp3.zip (101.54 kb)](https://blogcontent.azureedge.net/2010%2f8%2fSingleInstanceApp3.zip)
+[SingleInstanceApp3.zip (101.54 kb)](/media/2010/8/SingleInstanceApp3.zip)

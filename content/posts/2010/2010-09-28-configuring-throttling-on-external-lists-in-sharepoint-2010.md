@@ -36,7 +36,7 @@ Get-SPServiceApplicationProxy |
 
 Fire up PowerShell and execute it:
 
-[![Getting ServiceApplicationProxy](https://blogcontent.azureedge.net/sp_throttle1_thumb.png "Getting ServiceApplicationProxy")](https://blogcontent.azureedge.net/sp_throttle1.png)
+[![Getting ServiceApplicationProxy](/media/sp_throttle1_thumb.png "Getting ServiceApplicationProxy")](/media/sp_throttle1.png)
 
 There is a special link in the start menu called SharePoints Management Shell that launches PowerShell like this (ignore the line breaks):
 
@@ -58,7 +58,7 @@ Get-SPBusinessDataCatalogThrottleConfig
    -ServiceApplicationProxy $bdcAppProxy
 ```
 
-[![Displaying default throttling value](https://blogcontent.azureedge.net/sp_throttle2_thumb.png "Displaying default throttling value")](https://blogcontent.azureedge.net/sp_throttle2.png)
+[![Displaying default throttling value](/media/sp_throttle2_thumb.png "Displaying default throttling value")](/media/sp_throttle2.png)
 
 It turns out that Get-SPBusinessDataCatalogThrottleConfig returns a throttle ID, that we can use in corresponding calls to Set-SPBusinessDataCatalogThrottleConfig so let’s increase the throttling value as suggested in the above mentioned post:
 
@@ -73,7 +73,7 @@ Set-SPBusinessDataCatalogThrottleConfig
 
 We can verify it has been applied:
 
-[![Verifying that the new throttling value has been applied](https://blogcontent.azureedge.net/sp-throttle3_thumb.png "Verifying that the new throttling value has been applied")](https://blogcontent.azureedge.net/sp-throttle3.png)
+[![Verifying that the new throttling value has been applied](/media/sp-throttle3_thumb.png "Verifying that the new throttling value has been applied")](/media/sp-throttle3.png)
 
 Now our list successfully gets data from that table.
 

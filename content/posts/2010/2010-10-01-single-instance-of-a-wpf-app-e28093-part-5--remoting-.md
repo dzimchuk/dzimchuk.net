@@ -173,4 +173,4 @@ Don’t get me wrong, WCF is fast as hell but it loses because the service model
 
 Is this solution a winner? I guess so, 10% (2 seconds) loss compared to WM_COPYDATA is really negligible in this case, it’s like ~7 ms of the startup time. But the code is much smaller and there is no direct PInvoke.
 
-[SingleInstanceApp4.zip (154.96 kb)](https://blogcontent.azureedge.net/2010%2f10%2fSingleInstanceApp4.zip)
+[SingleInstanceApp4.zip (154.96 kb)](/media/2010/10/SingleInstanceApp4.zip)
