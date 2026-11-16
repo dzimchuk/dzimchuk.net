@@ -11,6 +11,7 @@ var Metalsmith = require('metalsmith'),
     debug = require('metalsmith-debug'),
     updateMetadata = require('./metadata.js'),
     updateFilePaths = require('./plugins/updateFilePaths.js'),
+    normalizeFileKeys = require('./plugins/normalizeFileKeys.js'),
     legacyPostLinks = require('./plugins/legacyPostLinks.js'),
     htmlMinifier = require('./plugins/htmlMinifier.js'),
     mediaUrl = require('./plugins/mediaUrl.js'),
@@ -101,6 +102,7 @@ function initialize(ms, metadata, production, options){
     .use(registerPartials({
         directory: [config.layouts + '/partials', config.source.content]
     }))
+    .use(normalizeFileKeys())
     .use(layouts({
         transform: 'handlebars',
         directory: config.layouts,
