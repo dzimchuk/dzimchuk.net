@@ -16,7 +16,7 @@ It's too many changes that have literally rendered my previous post obsolete and
 
 A sample application is available on [GitHub](https://github.com/dzimchuk/azure-ad-b2c-asp-net-core). It consists of a Web API project (which is pretty much the default template armored with JWT Bearer authentication middleware) and an MVC client that calls the API and displays a list of claims it receives in the ID token.
 
-![Test application output](https://blogcontent.azureedge.net/2017/12/AppCallResult1.png)
+![Test application output](/media/2017/12/AppCallResult1.png)
 
 The application uses the [Hybrid Flow](http://openid.net/specs/openid-connect-core-1_0.html#HybridFlowAuth) and supports common customer facing scenarios such as self sign-up, profile editing and password reset. It demoes configuration of the ASP.NET Core authentication middleware for OpenID Connect and the Microsoft Authentication Library (MSAL).
 
@@ -24,13 +24,13 @@ The application uses the [Hybrid Flow](http://openid.net/specs/openid-connect-co
 
 Just like you do in the regular Azure AD you can now register separate applications in B2C to represent your APIs and client applications. You can further fine-tune what delegated permissions are required by the clients and you get normal [access tokens](https://docs.microsoft.com/en-us/azure/active-directory-b2c/active-directory-b2c-access-tokens) in additional to ID and refresh tokens from Azure AD B2C (for those who are new to B2C, in the past you had to use the same app for APIs and clients and use ID tokens in place of access tokens when calling your APIs).
 
-![API app ID](https://blogcontent.azureedge.net/2017/12/APIApp_ID.png)
+![API app ID](/media/2017/12/APIApp_ID.png)
 
 One important setting to make sure to specify for the API app is the `App ID Uri`. This Uri is going to be used as a prefix for custom scopes that your API exposes and that should be requested by clients.
 
 You declare your custom scopes in the "Published scopes" section of the API app.
 
-![API app published scopes](https://blogcontent.azureedge.net/2017/12/APIApp_PublishedScopes.png)
+![API app published scopes](/media/2017/12/APIApp_PublishedScopes.png)
 
 Combined with the App ID our sample published scope will be 
 
@@ -42,13 +42,13 @@ This is the value that should be included as part of the `scope` parameter by th
 
 For the client app it's important to specify reply Url(s) which should contain those to be specified when making requested to the directory.
 
-![Web app settings](https://blogcontent.azureedge.net/2017/12/WebApp_ReturnUri.png)
+![Web app settings](/media/2017/12/WebApp_ReturnUri.png)
 
 If your client is confidential (that is, a server side application) you need to generate client keys in the appropriate section of the blade. Full client credentials are required by the Authorization Code and the Hybrid flows.
 
 Finally, you assign exposed scopes of APIs that need to be available to clients.
 
-![Web app required access](https://blogcontent.azureedge.net/2017/12/WebApp_RequiredAccess.png)
+![Web app required access](/media/2017/12/WebApp_RequiredAccess.png)
 
 ### Create and configure B2C policies
 
@@ -129,13 +129,13 @@ as the `authorize` endpoint.
 
 While we're at it, it's essential that we properly configure claims to be included in tokens when using all planned policies. Each policy has the same set of settings and first of all it's important to include the `Object ID` claim which is the unique identifier of the user. 
 
-![Selecting what claims to include in responses](https://blogcontent.azureedge.net/2017/12/PolicyClaims.png)
+![Selecting what claims to include in responses](/media/2017/12/PolicyClaims.png)
 
 It's important to enable it in all policies that are going to be used in your application and here is why. Different scenarios such as profile editing or password reset are handled by redirecting the user to the `authorize` endpoint. And upon return the application is supposed to reconstruct the security context and follow the OpenID Connect spec to redeem the authorization code (yes, all these scenarios are piggy backed on the standard flows). User ID is the essential claim to be present in all responses from the `authorize` endpoint. For example, it's used as part of the token's cache key which we're going to talk about later in this post.
 
 There are a couple of more settings affecting claims which are specified at the policy level:
 
-![Additional policy settings](https://blogcontent.azureedge.net/2017/12/SubAndPolicySettings.png)
+![Additional policy settings](/media/2017/12/SubAndPolicySettings.png)
 
 The first one is the `sub` claim that often represents the user ID. Because we've already included the Object ID (`oid` claim mapped to `http://schemas.microsoft.com/identity/claims/objectidentifier` claim type used in .NET) we can disable it (that's why you see the unsupported message for the `nameidentifier` .NET claim in the sample application).
 
@@ -442,7 +442,7 @@ public IActionResult Profile()
 
 This will successfully redirect the user to the profile editing page:
 
-![Azure AD B2C profile editing page](https://blogcontent.azureedge.net/2017/01/b2c_edit_profile.png)
+![Azure AD B2C profile editing page](/media/2017/01/b2c_edit_profile.png)
 
 If the user hits 'Continue' she will be redirected back to the application with the regular authentication response containing state, nonce, authorization code and ID token (depending on the OpenID Connect flow).
 
@@ -486,7 +486,7 @@ There is nothing we need to do in regards to the security context because profil
 
 Password reset is another essential self-service flow supported by Azure AD B2C. However as any other flow it's handled by sending the user to the `authorize` endpoint and because the 'Sign up or sign in' policy does not support it (for the time being) we're going to get sent back to the middleware with an error: `AADB2C90118: The user has forgotten their password.` when the user clicks 'Forgot your password?'.
 
-![Forgot your password link on the sign-in page](https://blogcontent.azureedge.net/2017/12/PasswordReset0.png)
+![Forgot your password link on the sign-in page](/media/2017/12/PasswordReset0.png)
 
 You can handle it again in the `OnMessageReceived` by redirecting to the dedicated action:
 
@@ -524,10 +524,10 @@ public IActionResult ResetPassword()
 
 Azure AD B2C will verify the user by sending a code to her email:
 
-![User verification page](https://blogcontent.azureedge.net/2017/12/PasswordReset_1.png)
+![User verification page](/media/2017/12/PasswordReset_1.png)
 
 And finally let the user provide a new password for her account:
 
-![Password reset page](https://blogcontent.azureedge.net/2017/12/PasswordReset2.png)
+![Password reset page](/media/2017/12/PasswordReset2.png)
 
 This has been a lengthy post but I wanted to cover most of the essential stuff you need to know to integrate your solutions with Azure AD B2C. As has been mentioned, the full demo application can be found [here](https://github.com/dzimchuk/azure-ad-b2c-asp-net-core).

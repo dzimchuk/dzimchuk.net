@@ -9,7 +9,7 @@ tags: Power Video Player
 
 I’m really proud to announce that the new version of [Power Video Player](https://pvp.codeplex.com/) has been released. From a developer’s point of view the release is interesting due to a sheer amount of refactoring in various areas of the application. The core has been strengthened out and there are a bunch of dedicated components responsible for doing their part and doing it well. From the consumer’s point of view it may seem not that drastic but still it addresses a few pain points like integration with Windows 8.x and multi audio and subtitles streams support.
 
-[![PVP logo](https://blogcontent.azureedge.net/pvp_logo_sketch_thumb.png "PVP logo")](https://blogcontent.azureedge.net/pvp_logo_sketch.png)
+[![PVP logo](/media/pvp_logo_sketch_thumb.png "PVP logo")](/media/pvp_logo_sketch.png)
 
 When I was talking about integration with Windows 8 I meant file association. Yes, it’s ridiculously under-thought and unpolished concept on Windows from a developer’s point of view. Before Windows Vista it was all about messing with the registry. There were a few approaches actually but the bottom line was that you created so-called program classes or document types with information on how to invoke your executable and pass arguments to it and then associated extensions with your classes (see [this documentation](http://msdn.microsoft.com/en-us/library/cc144158(VS.85).aspx) if you want to learn more).
 

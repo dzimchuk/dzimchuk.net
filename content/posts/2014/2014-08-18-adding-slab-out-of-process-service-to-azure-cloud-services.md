@@ -64,7 +64,7 @@ As you can see some work will be required at runtime. Moreover, as I mentioned a
 
 In your role projects you can add a folder called ‘Startup’ or ‘Extras’ that will include the logging service archive and the runtime startup script:
 
-[![Startup folder of a cloud service role containing SLAB out-of-process service](https://blogcontent.azureedge.net/LoggingService_StartupFolder_thumb.png "Startup folder of a cloud service role containing SLAB out-of-process service")](https://blogcontent.azureedge.net/LoggingService_StartupFolder.png)
+[![Startup folder of a cloud service role containing SLAB out-of-process service](/media/LoggingService_StartupFolder_thumb.png "Startup folder of a cloud service role containing SLAB out-of-process service")](/media/LoggingService_StartupFolder.png)
 
 All included files are configured to ‘Copy always’ or ‘Copy if newer’ in the project’s settings. This way they will be included in the deployment package. Packing the logging service itself in a Zip archive makes perfect sense as you don’t have to worry about each individual file that the service consists of, you just want the whole package to get deployed. The ‘SemanticLogging-svc.xml’ file is the template configuration file that will get updated on startup.
 

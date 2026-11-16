@@ -20,11 +20,11 @@ There is a setting in web.config called 'UseQueues' that needs to be set to `tru
 
 Run the application and create a FixIt task. Make sure to add a picture to upload with it. Then open up the Application Insights Search blade and look for the POST web request event. On the event properties blade click the three dots button to show all properties.
 
-![Web request properties](https://blogcontent.azureedge.net/0a78334c-815a-4d93-b48d-feaefdd8f15f.png)
+![Web request properties](/media/0a78334c-815a-4d93-b48d-feaefdd8f15f.png)
 
 Among others you can see correlation properties such as Operation Id, Session Id and User Id. Right from this blade you can search for telemetry events that are associated with these properties. Right-click the Operation Id property and select Search.
 
-![Search by Operation Id (no database call trace message)](https://blogcontent.azureedge.net/61290539-d7ff-4a96-89ef-3a0e10ae7f9f.png)
+![Search by Operation Id (no database call trace message)](/media/61290539-d7ff-4a96-89ef-3a0e10ae7f9f.png)
 
 There are the request event itself, our custom Create event from [LoggingTaskService](https://github.com/dzimchuk/azure-app-insights/blob/master/C%23/MyFixIt/Services/LoggingTaskService.cs), a custom trace for the image upload call and two dependency calls to Azure blob storage. This is the same telemetry you would get if you chose 'Show all telemetry for this request' link on the POST request overview blade that's shown above.
 
@@ -169,11 +169,11 @@ internal class CorrelatingTelemetryInitializer : ITelemetryInitializer
 
 We're ready to test our solution. Run the same task creation operation as before and check out the POST request on the portal.
 
-![Search by Operation Id (this time it shows the database call trace message)](https://blogcontent.azureedge.net/d2afbdaa-7c5a-40a7-affc-1417e8c92504.png)
+![Search by Operation Id (this time it shows the database call trace message)](/media/d2afbdaa-7c5a-40a7-affc-1417e8c92504.png)
 
 This time the database call that was done by the WebJob is listed as part of request events. What's really cool is that when we see this single trace we can navigate to a web request that happened on the web server that eventually triggered this operation.
 
-![Database call trace event with the link to web request](https://blogcontent.azureedge.net/b156cc4f-596e-4408-bd96-df143b237a42.png)
+![Database call trace event with the link to web request](/media/b156cc4f-596e-4408-bd96-df143b237a42.png)
 
 Now it needs to be understood that sometimes it may not be desirable. We're seeing the event as part of a request while it's technically not and may have well happened on another machine. Whether you want to propagate Operation Id to background tasks or not will depend on your particular scenario. You may choose a custom property instead of Operation Id that you can set when calling Track* methods on `TelemetryClient`. You will be able to search by the custom property on the portal.
 

@@ -28,7 +28,7 @@ Scalability of stateful services is achieved with partitions. Contrast this to s
 
 By partitioning your state horizontally you marshal requests to partitions that contain data related to these requests. Each partition consists of a replica set with a single primary replica and multiple active secondary replicas. In other words, you have the same state replication as described above with a single partition. Service Fabric makes sure to distribute replicas of partitions across nodes so that secondary replicas of a partition do not end up on the same node as the primary replica.
 
-![Partition replicas are spread across the cluster](https://blogcontent.azureedge.net/2017/03/Service-Fabric-partitions.png)
+![Partition replicas are spread across the cluster](/media/2017/03/Service-Fabric-partitions.png)
 
 In order to call an endpoint of a particular partition you need to resolve its current address within the cluster. I've already touched upon endpoint resolution process [before](/implementing-a-rest-client-for-internal-communication-in-service-fabric/) so might want to check out that post. You normally use infrastructure client components such as `ServicePartitionResolver` or a more sophisticated `ServicePartitionClient` to do the job and you need to pass a `ServicePartitionKey` to them to identify the partition.
 
@@ -38,7 +38,7 @@ Partitioning strategy that you choose for services is an implementation detail. 
 
 Normally you would expose stateless services in front of your internal stateful services. The stateless services play the role of façade for the stateful ones. They can scale independently and will take care of endpoint resolution and calling the appropriate partitions of your stateful services.
 
-![Stateless façade for stateful services](https://blogcontent.azureedge.net/2017/03/SF-internal-communication--stateless-facade--1-.png)
+![Stateless façade for stateful services](/media/2017/03/SF-internal-communication--stateless-facade--1-.png)
 
 You may also define different node types in your cluster. It allows you to have machines of different size and set placement rules for the cluster manager. Moreover, if you set instance count for your stateless façade services to -1 it will make the cluster manager deploy one instance to each machine with respect to placement rules. You can easily scale the façade by adding more nodes of the appropriate type to the cluster.
 
@@ -48,7 +48,7 @@ In the microservice primer [post](/microservices-primer-with-azure-service-fabri
 
 The booking service is responsible for accepting new booking requests, keeping track of bookings made and availability of accommodations. Given the anticipated massive load of requests from all over the globe it makes this service a perfect candidate to be turned into a stateful one. We can spread facilities over multiple partitions and have the façade stateless service (which in this case is an MVC web app) dispatch booking requests to target partitions depending on the facility the requests are made for.
 
-![Booking stateful service](https://blogcontent.azureedge.net/2017/03/BookFast---SF---stateful.png)
+![Booking stateful service](/media/2017/03/BookFast---SF---stateful.png)
 
 Facilities are identified with Guids and I've used a simple partitioning scheme where a partition is determined by the first character of the `Guid` string representation. This gives us 16 partitions (0-9, A-F) and we can implement a common helper method to calculate the partition number:
 

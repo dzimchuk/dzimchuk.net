@@ -30,7 +30,7 @@ Any application that can sign in users requires access to the user's profile. Th
 
 When the application is configured as multitenant and a user from another tenant tries to sign in she is presented with a consent page and once she has given her consent for the app from another tenant to access whatever the resources it declares it requires, Azure AD takes care of provisioning a ServicePrincipal for the app in the user's tenant and registering the permissions.
 
-![Multitenant consent page](https://blogcontent.azureedge.net/multitenant-consent-page.png)
+![Multitenant consent page](/media/multitenant-consent-page.png)
 
 ServicePrincipal is a representative of an application in a particular tenant. The application itself can be defined in the same or other tenant but if the consent was given to it to access resources in a particular tenant, Azure AD creates a ServicePrincipal there (if one does not exist yet) and registers the permission(s) given. You can read about Applications and ServicePrincipals [here](https://azure.microsoft.com/en-us/documentation/articles/active-directory-application-objects/).
 

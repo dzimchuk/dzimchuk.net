@@ -29,7 +29,8 @@ const sass = gulpSass(dartSass);
 const argv = minimist(process.argv.slice(2));
 const args = {
     build: !!argv.build,
-    production: !!argv.production
+    production: !!argv.production,
+    mediaUrl: typeof argv['media-url'] === 'string' && argv['media-url'] ? argv['media-url'] : config.mediaUrl
 };
 
 function cleanAssets(outputDir, extension) {
@@ -43,7 +44,7 @@ function cleanAssets(outputDir, extension) {
 }
 
 gulp.task('metalsmith', function(callback) {
-    const ms = metalsmithFactory(args.production);
+    const ms = metalsmithFactory(args.production, {mediaUrl: args.mediaUrl});
 
     ms.build(function(err) {
         if (err) {

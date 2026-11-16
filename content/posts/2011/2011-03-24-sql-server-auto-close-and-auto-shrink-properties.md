@@ -9,7 +9,7 @@ tags: Tips & Tricks
 
 One day I got really annoyed by my laptop performing sluggishly. It was strange and annoying and wasn’t fun and I had no idea what was causing it. I have a lot of stuff installed for my development needs but no shitware and other pop-up-tray-assistance-wizards. And I have SQL Server Express that I use as a repository for Vault and my primary database system for my development.
 
-So I just shrugged each time I had to wait a little more than usual, the laptop was performing well for most of the time and it does today. Although the rest of the article will be focused on SQL Server I do not make a statement that it’s a resource hog. Well it can be ![Smile](https://blogcontent.azureedge.net/wlEmoticon-smile.png "Smile") but it’s just not the point of this post.
+So I just shrugged each time I had to wait a little more than usual, the laptop was performing well for most of the time and it does today. Although the rest of the article will be focused on SQL Server I do not make a statement that it’s a resource hog. Well it can be ![Smile](/media/wlEmoticon-smile.png "Smile") but it’s just not the point of this post.
 
 So one day I opened up an Event Viewer in order to find details about a crashed app and guess what? I couldn’t find it! The Application log was full of messages reported by SQL Server and all of those messages were alike:
 
@@ -57,4 +57,4 @@ Official [recommendation](http://technet.microsoft.com/en-us/library/bb409862.as
 
 ## Conclusion
 
-There is no ultimate rule. Recommendations and factors that can influence your decision are given above. Analyze, try. For example, I got a Vault database with both ‘Auto Close’ and ‘Auto Shrink’ options ON. But it’s not bothering me with those annoying messages. It gets open when needed and closed after that. It’s not hogging my resources when I don’t work with it and I’m fine with it ![Smile](https://blogcontent.azureedge.net/wlEmoticon-smile.png "Smile").
+There is no ultimate rule. Recommendations and factors that can influence your decision are given above. Analyze, try. For example, I got a Vault database with both ‘Auto Close’ and ‘Auto Shrink’ options ON. But it’s not bothering me with those annoying messages. It gets open when needed and closed after that. It’s not hogging my resources when I don’t work with it and I’m fine with it ![Smile](/media/wlEmoticon-smile.png "Smile").

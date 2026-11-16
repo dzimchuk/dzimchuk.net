@@ -10,7 +10,7 @@ tags: Public Speaking
 
 On December, 13 2015 we’ve held a whole day live [event](http://azureday.by/) dedicated to all things Azure. 8 speakers from Belarus, Ukraine and Russia presented on a wide array of topics from working efficiently with Azure storage and Service Bus to trendy container and microservices technologies to usage analytics with Application Insights and Mobile Engagement.
 
-![Belarus Azure Day 2015](https://blogcontent.azureedge.net/bc2aefdc-01ad-4946-bcb6-0bdc835844c9.png)
+![Belarus Azure Day 2015](/media/bc2aefdc-01ad-4946-bcb6-0bdc835844c9.png)
 
 Here’s the full list of topics and presenters:
 

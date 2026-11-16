@@ -17,7 +17,7 @@ These issues have the same root cause – an attempt to implement strict priorit
 
 In the new solution we will allocate a number of worker threads. Each of these threads will be getting messages off of the assigned queue and processing them. When the thread is finished processing a message it will try to get another one from the queue blocking if none is available. Prioritization is achieved by assigning different number of worker threads to the queues of different priority. For example, a top priority queue will be served by 4 threads and the one with the lowest priority will be processed by a single thread. Yes, we lose straight prioritization but in most cases it is not really needed. In fact, we are closer to the [original description](http://msdn.microsoft.com/en-us/library/dn589794.aspx) of the pattern where it is proposed to assign more ‘horse power’ to higher priority queues by marshaling them to worker roles running on VMs with higher spec. In our case we will assign more threads on the same box to process messages with higher priority.
 
-[![A better priority queue design](https://blogcontent.azureedge.net/better_priority_queue_thumb.png "A better priority queue design")](https://blogcontent.azureedge.net/better_priority_queue.png)
+[![A better priority queue design](/media/better_priority_queue_thumb.png "A better priority queue design")](/media/better_priority_queue.png)
 
 Of course, the kind of CPU being used on the machine and the nature of tasks (CPU-bound or IO-bound) will play a huge difference in scalability of the proposed solution. If your tasks are mostly IO-bound and you [properly implement asynchrony](post/Doing-async-the-right-way) you can go with fewer cores than if your tasks were CPU-bound.
 

@@ -132,7 +132,7 @@ if (User.Identity.IsAuthenticated)
 
 This will successfully redirect the user to the profile editing page:
 
-![Azure AD B2C profile editing page](https://blogcontent.azureedge.net/2017/01/b2c_edit_profile.png)
+![Azure AD B2C profile editing page](/media/2017/01/b2c_edit_profile.png)
 
 If the user hits 'Continue' she will be redirected back to the application with the regular authentication response containing state, nonce, authorization code and ID token (depending on the OpenID Connect flow).
 

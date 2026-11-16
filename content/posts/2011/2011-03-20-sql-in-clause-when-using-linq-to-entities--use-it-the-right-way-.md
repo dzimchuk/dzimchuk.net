@@ -9,7 +9,7 @@ tags: SQL
 
 We all know what ‘IN’ clause is about – we want records where a field value matches one of the specified variants. Let’s imagine the following model although it may seem artificial at first but it actually reflects a situation you can find in a goods tracking software:
 
-[![Income/Outcome model](https://blogcontent.azureedge.net/income_outcome_model_thumb.png "Income/Outcome model")](https://blogcontent.azureedge.net/income_outcome_model.png)
+[![Income/Outcome model](/media/income_outcome_model_thumb.png "Income/Outcome model")](/media/income_outcome_model.png)
 
 So we have income and outcome documents. Each document has a header and a number of items. An outcome item also has a link to a corresponding income document, or technically a header of an income document. That link is important because for one of our business reports we want to show what items have been sold and who were their suppliers. Well, there can be lots of other purposes but that’s not the focus of the post.
 

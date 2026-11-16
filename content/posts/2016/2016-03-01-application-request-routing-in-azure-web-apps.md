@@ -38,9 +38,9 @@ app.Use(next => async context =>
 
 Now that we have a test app let's create a [JMeter](http://jmeter.apache.org/) script (test plan) that would emulate a user's activity of selecting a genre and adding a few albums from that genre to his shopping cart.
 
-![JMeter test plan](https://blogcontent.azureedge.net/7418b978-7717-41e9-9fca-1e2a8253549a.png)
+![JMeter test plan](/media/7418b978-7717-41e9-9fca-1e2a8253549a.png)
 
-I used JMeter's capability to record web tests. Once the basic scenario has been recorded you normally clean up the calls you are not interested in and add post request processors and controllers to fully implement the behavior that you need. You can download the completed test plan from [here](https://blogcontent.azureedge.net/2016/03/MusicStore.jmx).
+I used JMeter's capability to record web tests. Once the basic scenario has been recorded you normally clean up the calls you are not interested in and add post request processors and controllers to fully implement the behavior that you need. You can download the completed test plan from [here](/media/2016/03/MusicStore.jmx).
 
 On step 1 the user navigates to `/Store/Browse` path and passes `?Genre=Rock` query string parameter. The CSS extractor locates URLs to each album on the page and saves them in JMeter variables that will be used by the ForEach controller on step 2\. For the first 10 albums the ForEach controller first opens an album's page and then adds the album to the shopping cart. In the end we open the cart and verify that total sum is $89.90.
 
@@ -149,7 +149,7 @@ Date: Tue, 01 Mar 2016 12:51:48 GMT
 
 We can see that again 2 different instances are processing requests from the test threads but there are no ARR affinity cookies any more. As a result subsequent requests get dispatched to different instances and shopping carts get filled up in an ad-hoc manner and of course in the end our test assertions fail.
 
-![JMeter failed assertions](https://blogcontent.azureedge.net/88cf9591-b6f4-4ec7-b1b1-68fe06dbace3.png)
+![JMeter failed assertions](/media/88cf9591-b6f4-4ec7-b1b1-68fe06dbace3.png)
 
 ## Distributed session store to the rescue!
 

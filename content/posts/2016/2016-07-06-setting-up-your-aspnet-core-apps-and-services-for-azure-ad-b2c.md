@@ -16,11 +16,11 @@ So far we've been looking at corporate or organizational accounts in context of 
 
 You still create B2C directories just like the regular directories on the classic portal.
 
-![Creating an Azure AD B2C directory](https://blogcontent.azureedge.net/AzureAD_B2C.png)
+![Creating an Azure AD B2C directory](/media/AzureAD_B2C.png)
 
 Even though you have some tabs and you may try to configure from here, chances are it's not going to work. Things are pretty much in flux and rememver Azure AD B2C is itself in preview. So you gotta head to the new portal straight after to manage your newly created directory. Just make sure to select your B2C directory in the upper right corner.
 
-![B2C app settings](https://blogcontent.azureedge.net/AzureAD_B2C_App.png)
+![B2C app settings](/media/AzureAD_B2C_App.png)
 
 The apps have pretty standard settings that you've probably got used to: Application (client) ID, secret (key), return URLs, etc. One important thing to note is that if you want to implement a delegated access scenario when you have a client app and some remote services both the app and the services will shared the same application in Azure AD B2C. I'm not sure if it will stay the same but for now this is way the things are.
 

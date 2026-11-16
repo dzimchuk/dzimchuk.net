@@ -20,7 +20,7 @@ Service Fabric promotes a different approach where each service can have an opti
 
 [Per environment configuration](https://docs.microsoft.com/en-us/azure/service-fabric/service-fabric-manage-multiple-environment-app-configuration) is achieved with configuration package overrides at the application level combined with the ability to provide per environment values for desired settings.
 
-![Service packages and config overrides](https://blogcontent.azureedge.net/2016/12/Service-Fabric-Service-Packages.png)
+![Service packages and config overrides](/media/2016/12/Service-Fabric-Service-Packages.png)
 
 To make it play nice with ASP.NET Core we just need to add a custom configuration provider to the configuration builder and make sure to set up a proper execution environment when building the host.
 

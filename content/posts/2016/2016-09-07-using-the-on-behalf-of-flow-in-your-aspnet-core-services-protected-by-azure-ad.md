@@ -16,7 +16,7 @@ Well, in many cases this may not be an issue at all. For instance, internal task
 
 This is where the on-behalf-of flow defined by the [OAuth2 Token Exchange](https://tools.ietf.org/html/draft-ietf-oauth-token-exchange-02) extensions can be really handy.
 
-![On-behalf-Of flow](https://blogcontent.azureedge.net/OnBehalfOf.png)
+![On-behalf-Of flow](/media/OnBehalfOf.png)
 
 Service A accepts an access token obtained as a result of some OAuth2 or OpenID Connect dance on the web client and uses it as a user assertion when it makes a call to the authority (in our case Azure AD) to obtain its own access token (*) for the downstream service B. This new access token will carry the same security context as the original one but it will be issued specifically for Service A to call service B.
 
@@ -94,11 +94,11 @@ services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 The on-behalf-of flow is supported by v1 endpoints in Azure AD at the time of writing. On the classic portal we need to configure the delegated permission both on the web app to access Service A:
 
-![Granting web application delegated access to Service A](https://blogcontent.azureedge.net/azuread-servicea.png)
+![Granting web application delegated access to Service A](/media/azuread-servicea.png)
 
 As well as on Service A to access Service B:
 
-![Granting Service A delegated access to Service B](https://blogcontent.azureedge.net/azuread-serviceb.png)
+![Granting Service A delegated access to Service B](/media/azuread-serviceb.png)
 
 By default all applications in Azure AD has a 'user_impersonation' delegated permission (defined in their manifests) that can be assigned to other applications. You can define your own permission, of course.
 

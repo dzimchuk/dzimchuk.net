@@ -83,7 +83,7 @@ The backend may also add application ID as a tag during registration with a Noti
 
 A 'channel' may sound somewhat fuzzy but what I mean here is a process to enable push notifications for an app instance. It's not about subscribing to app specific events but rather about performing all of the registration steps that are necessary to make an app instance push-capable. These steps should normally be carried out when the user signs in.
 
-![Registering for push notifications](https://blogcontent.azureedge.net/b77f1186-1a1b-4b93-a870-6ea2aaafd3f2.png)
+![Registering for push notifications](/media/b77f1186-1a1b-4b93-a870-6ea2aaafd3f2.png)
 
 A mobile app requests a handle from its native PNS and calls a register endpoint on its backend. Besides the handle the app sends its application ID and a value indicating its platform type (Android, Apple, etc). The platform type is necessary as the backend needs to use a platform specific template when registering with a Notification Hub. In fact this template selection 'switch' that will happen during registration will be the only place where we actually care about the platform.
 
@@ -97,13 +97,13 @@ This process is repeated when the mobile app needs to refresh its PNS handle or 
 
 This step is about updating the app’s registration when the user enables or disables a notification for an app specific event or topic. It should normally be done over a separate endpoint that your backend exposes.
 
-![Subscribing to a topic](https://blogcontent.azureedge.net/091a7975-3029-4c6b-96a4-9c1d4ac7304d.png)
+![Subscribing to a topic](/media/091a7975-3029-4c6b-96a4-9c1d4ac7304d.png)
 
 An app specific event should be represented as a tag and this tag needs to be added to the Notification Hub registration as well as persisted in the local registry. Note that there is an alternative registration procedure called **Installation**. It has certain advantages over a regular registration that I describe in this post, such as partial updates, automatic installationId insertion as a tag, etc., you can find more details [here](https://azure.microsoft.com/en-us/documentation/articles/notification-hubs-registration-management/)). It should be noted that the workflow that I describe here pretty much covers everything you can achieve with installations.
 
 ## Handling sign-off
 
-![Handling sign-off](https://blogcontent.azureedge.net/13d91898-e7fc-4043-ab50-bcd5386c6358.png)
+![Handling sign-off](/media/13d91898-e7fc-4043-ab50-bcd5386c6358.png)
 
 The backend should provide an endpoint for the mobile app to unregister when the user signs off. All it needs to pass in is its application ID. The backend will be able to look up the app's registration ID in the local registry and remove its registration from the Notification Hub. The backend should keep the app's record in the local registry (mainly for tags) so it can re-create proper subscriptions the next time the user signs in on that device. This is totally optional though.
 

@@ -58,7 +58,7 @@ private void Read(XmlReader reader)
 
 Here’s the output of the sample:
 
-[![JSON string read as XML](https://blogcontent.azureedge.net/json_xml_thumb.png "JSON string read as XML")](https://blogcontent.azureedge.net/json_xml.png)
+[![JSON string read as XML](/media/json_xml_thumb.png "JSON string read as XML")](/media/json_xml.png)
 
 Looking at this output we can construct the following XML document:
 
@@ -95,6 +95,6 @@ Although official documentation states that `System.Runtime.Serialization.Json` 
 
 In the 3.5 version that namespace is missing. However, it is found in System.ServiceModel.Web assembly (basically because new JSON serializer was implemented for WCF needs first). So you will need to reference all these 3 assemblies:
 
-[![Referenced assemblies (.NET 3.5)](https://blogcontent.azureedge.net/json_35_thumb.png "Referenced assemblies (.NET 3.5)")](https://blogcontent.azureedge.net/json_35.png)
+[![Referenced assemblies (.NET 3.5)](/media/json_35_thumb.png "Referenced assemblies (.NET 3.5)")](/media/json_35.png)
 
 If you target .NET 4 you need to just reference System.Runtime.Serialization.dll.

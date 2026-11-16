@@ -10,7 +10,7 @@ tags: Azure Active Directory, ASP.NET
 
 OAuth2 [Authorization Code Grant](http://tools.ietf.org/html/rfc6749#page-24) is an interactive authorization flow that enables users to give their consent for client applications to access their resources. It's meant to be used with confidential clients which are the clients that are able to keep their credentials safe. A traditional server-side web application is a confidential client. The flow requires a user agent (a browser or a web view) to handle redirections.
 
-![OAuth2 Authorization Code Grant](https://blogcontent.azureedge.net/OAuth2-Authorization-Code-Grant-updated2.png)
+![OAuth2 Authorization Code Grant](/media/OAuth2-Authorization-Code-Grant-updated2.png)
 
 At the end of the post we're going to look closer at actual messages that are being exchanged between participants but for now I'd like to point out a few important aspects of the flow:
 - Client applications do not gather user credentials. This is great for client applications as they don't have to manage user credentials and keep them safe. They don't have to handle password resets, multi-factor auth and so on. They can rely on identity providers to implement those tasks in compliance with the industry's best practices. And it's great for the users as the flow enables a choice of identity providers which enables reuse of their existing identities.
@@ -50,7 +50,7 @@ I've also got a consuming app provisioned in Azure AD. I've generated a client s
 
 In order to give a non-admin user from my tenant access to Azure portal I need to add him as a co-administrator to my subscription. This is somewhat inconvenient but hopefully will go away as the AD team is working on v2 endpoints and the new app registration portal.
 
-![Adding a delegated permission in Azure AD as a non-admin user](https://blogcontent.azureedge.net/azuread-book-fast-delegated-permission-non-admin.png)
+![Adding a delegated permission in Azure AD as a non-admin user](/media/azuread-book-fast-delegated-permission-non-admin.png)
 
 ## Configuring OAuth2 in ASP.NET Core client app
 
@@ -144,7 +144,7 @@ Any middleware that's capable of performing any kind of authentication should be
 
 There are a bunch of Azure AD specific settings. You can obtain `AuthorizationEndpoint` and `TokenEndpoint` addresses for your tenant from the portal. `ClientId` and `ClientSecret` of your client app are self-explanatory. The `CallbackPath` is the relative address that Azure AD will post the authorization code to. We don't have to provide an existing route for it, the middleware will take care of handling it. However we *do* have to properly configure the reply URL for the client app in Azure AD, e.g.:
 
-![Reply URL option for the client app](https://blogcontent.azureedge.net/azuread-book-fast-oauth-client-reply-url.png)
+![Reply URL option for the client app](/media/azuread-book-fast-oauth-client-reply-url.png)
 
 `resource` parameter is the App ID of BookFast API, e.g. 'https://devunleashed.onmicrosoft.com/book-fast-api'.
 
@@ -211,7 +211,7 @@ Once redirected to Azure AD the user experience depends on various factors: whet
 
 If none of the above is true the user will be asked for her credentials and consent:
 
-![Azure AD consent page](https://blogcontent.azureedge.net/azuread-book-fast-consent-page-newfella.png)
+![Azure AD consent page](/media/azuread-book-fast-consent-page-newfella.png)
 
 You recognize 'Access book-fast-api' permission that we added to the API app and assigned to the client app. There is also 'Sign you in and read your profile' permission that is coming from 'Azure Active Directory' app and is added automatically to every application that you provision in Azure AD. This permission gives a read access to a user profile to your client app and is required for any app that needs to authenticate users.
 

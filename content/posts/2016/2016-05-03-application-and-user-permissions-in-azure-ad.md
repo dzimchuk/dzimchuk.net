@@ -12,7 +12,7 @@ tags: Azure Active Directory, ASP.NET
 
 I'm still going to be using my [BookFast API](https://github.com/dzimchuk/book-fast-api) playground app and there are 2 activities that we're going to look at today:
 
-![User and application initiated activities in BookFast](https://blogcontent.azureedge.net/azuread_roles_bookfast.png)
+![User and application initiated activities in BookFast](/media/azuread_roles_bookfast.png)
 
 1. (shown in red) A user tries to create a new facility in the system.
 2. (shown in green) A background process tries to process a batch update request that may involve creation of new facilities and updating of the existing ones.
@@ -125,7 +125,7 @@ Now we need to upload the modified manifest back to the BookFast API app by usin
 
 Assigning the role to the consumer app representing the importer process can be done on the portal on the 'Configure' tab of the consumer app:
 
-![Granting application level permission in Azure AD](https://blogcontent.azureedge.net/azuread_app_permission.png)
+![Granting application level permission in Azure AD](/media/azuread_app_permission.png)
 
 It's worth noting that the assignment has to be done by an administrator.
 
@@ -291,7 +291,7 @@ Note that `allowedMemberTypes` is actually a collection and we could have reused
 
 Once the updated manifest for book-fast-api has been uploaded administrators can start assigning users to it on the 'Users' tab of the API app. When assigning a user the administrator is presented with a dialog to choose a role to assign the user to:
 
-![Assigning a user to an app role in Azure AD](https://blogcontent.azureedge.net/azuread_user_assignment_3.png)
+![Assigning a user to an app role in Azure AD](/media/azuread_user_assignment_3.png)
 
 Using Graph API we can now see user assignments:
 

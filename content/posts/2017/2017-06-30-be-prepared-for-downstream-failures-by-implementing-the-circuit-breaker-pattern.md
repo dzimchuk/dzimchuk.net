@@ -87,6 +87,6 @@ services.AddSingleton<IBookingService, CircuitBreakingBookingProxy>(serviceProvi
 
 Full implementation of the circuit breaker decorator is available [here](https://github.com/dzimchuk/book-fast-service-fabric/blob/master/BookFast.Web.Proxy/CircuitBreakingBookingProxy.cs).
 
-![Circuit Breaker error stack trace](https://blogcontent.azureedge.net/2017/06/circuit_breaker_stack_trace.png)
+![Circuit Breaker error stack trace](/media/2017/06/circuit_breaker_stack_trace.png)
 
 When the circuit breaker is in the open state Polly will throw `BrokenCircuitException` immediately. In our case we translate both `HttpOperationException` and `BrokenCircuitException` to our custom exception type `RemoteServiceFailedException` that can be propagated higher up to business components.

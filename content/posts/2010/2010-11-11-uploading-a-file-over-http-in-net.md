@@ -26,7 +26,7 @@ client.UploadValues("http://dzimchuk-mbl:14393/", null, data);
 
 is going to produce the following request:
 
-[![WebClient's UploadValues method's request](https://blogcontent.azureedge.net/upload_values_thumb.png "WebClient's UploadValues method's request")](https://blogcontent.azureedge.net/upload_values.png) 
+[![WebClient's UploadValues method's request](/media/upload_values_thumb.png "WebClient's UploadValues method's request")](/media/upload_values.png) 
 
 Not really what we’re looking for. We want to send our stuff as `multipart/form-data` so that we could send dictionary values as well as binary content of a file in one request as just separate parts.
 
@@ -45,7 +45,7 @@ client.UploadFile("http://dzimchuk-mbl:14393/",
 
 and here’s the request:
 
-[![WebClient's UploadFile method's request](https://blogcontent.azureedge.net/upload_file_thumb.png "WebClient's UploadFile method's request")](https://blogcontent.azureedge.net/upload_file.png)
+[![WebClient's UploadFile method's request](/media/upload_file_thumb.png "WebClient's UploadFile method's request")](/media/upload_file.png)
 
 Yep, the request is not properly formatted. You’re going to get away with it with IIS and .NET stack but it’s likely to fail on other servers like Tomcat, for example.
 
@@ -74,10 +74,10 @@ form.SendFile(@"d:\hello.txt");
 
 See we upload a text file together with additional dictionary of parameters. And here’s the request:
 
-[![Uploading with MultipartForm](https://blogcontent.azureedge.net/upload_correct_thumb.png "Uploading with MultipartForm")](https://blogcontent.azureedge.net/upload_correct.png)
+[![Uploading with MultipartForm](/media/upload_correct_thumb.png "Uploading with MultipartForm")](/media/upload_correct.png)
 
 By default it sets the content type of the uploaded file to `text/xml` but if you need to upload a binary file you can specify ‘binary’ for the `FileContentType` property.
 
 You can find a slightly brushed up version of `MultipartForm` class below.
 
-[MultipartForm.zip (3.35 kb)](https://blogcontent.azureedge.net/2010%2f11%2fMultipartForm.zip)
+[MultipartForm.zip (3.35 kb)](/media/2010/11/MultipartForm.zip)

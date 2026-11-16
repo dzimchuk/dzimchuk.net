@@ -11,7 +11,7 @@ When using [SLAB](http://msdn.microsoft.com/en-us/library/dn440729%28v=pandp.60%
 
 The situation is different when using in-process listeners. In this case you will get a runtime error when trying to invoke a logging method that has issues. This will give you a clue of what's going on but you probably don't want to wait till you start getting runtime errors.
 
-[![Troubleshooting SLAB](https://blogcontent.azureedge.net/Depositphotos_35132287_xs_thumb.jpg "Troubleshooting SLAB")](https://blogcontent.azureedge.net/Depositphotos_35132287_xs.jpg)
+[![Troubleshooting SLAB](/media/Depositphotos_35132287_xs_thumb.jpg "Troubleshooting SLAB")](/media/Depositphotos_35132287_xs.jpg)
 
 The good news is that SLAB provides a special utility called `EventSourceAnalyzer` that can verify various rules and conventions that you are expected to follow when creating your custom event source. The analyzer is available as a NuGet package called EnterpriseLibrary.SemanticLogging.EventSourceAnalyzer and is supposed to be used as part of your unit test suite like this:
 

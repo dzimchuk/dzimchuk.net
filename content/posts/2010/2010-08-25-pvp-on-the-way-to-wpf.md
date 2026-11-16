@@ -22,7 +22,7 @@ Answers on  these questions also make an impact on the way PVP source code will
 
 To answer this question let’s take a look at the high level component diagram that represents PVP:
 
-[![PVP's current components (Windows Forms)](https://blogcontent.azureedge.net/pvp_current_thumb.png "PVP's current components (Windows Forms)")](https://blogcontent.azureedge.net/pvp_current.png)
+[![PVP's current components (Windows Forms)](/media/pvp_current_thumb.png "PVP's current components (Windows Forms)")](/media/pvp_current.png)
 
 Wow! Pretty modular! Let me take a moment and explain each component.
 
@@ -67,7 +67,7 @@ Apparently, **pvp**, **theme** and **AdvancedUI** projects are going away as the
 
 The following figure illustrates the first step:
 
-[![PVP: refactoring of the core](https://blogcontent.azureedge.net/pvp_refactored_thumb.png "PVP: refactoring of the core")](https://blogcontent.azureedge.net/pvp_refactored.png)
+[![PVP: refactoring of the core](/media/pvp_refactored_thumb.png "PVP: refactoring of the core")](/media/pvp_refactored.png)
 
 Components in green are unchanged while those in yellow should undergo a certain level of refactoring. First off, the core should become a totally independent component. It will be responsible for interaction with DirectShow but it should not contain any logic to interact with the hosting environment.
 
@@ -77,7 +77,7 @@ The windows logic moves to the new **media** component which is technology depen
 
 The next step will be to replace all Windows Forms related components with WPF related ones:
 
-[![PVP components - WPF](https://blogcontent.azureedge.net/pvp_components_wpf_thumb.png "PVP components - WPF")](https://blogcontent.azureedge.net/pvp_components_wpf.png)
+[![PVP components - WPF](/media/pvp_components_wpf_thumb.png "PVP components - WPF")](/media/pvp_components_wpf.png)
 
 Again, green ones are unchanged compared to the previous version but the yellow ones are either changed or completely new.
 

@@ -12,7 +12,7 @@ In my previous [post](/configuring-asp-net-core-applications-in-service-fabric/)
 
 While everything from that post still stands there is a better way to set host environment as code packages also support environment variables which are set for the host process and which can be overwritten with per-environment values similar to configuration packages.
 
-![Service Fabric configuration](https://blogcontent.azureedge.net/2017/01/Service-Fabric-configuration.png)
+![Service Fabric configuration](/media/2017/01/Service-Fabric-configuration.png)
 
 So if we consider the host environment example again the first thing that you need to do is to add `ASPNETCORE_ENVIRONMENT` in your service manifest:
 

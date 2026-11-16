@@ -14,7 +14,7 @@ Not so long ago I've written a [post](/splitting-a-monolith-into-microservices/)
 
 I'm going to use my playground solution called BookFast that I often use to try out things and demonstrate concepts that I write about on this blog.
 
-![Existing BookFast solution](https://blogcontent.azureedge.net/2017/03/BookFast---Monolith.png)
+![Existing BookFast solution](/media/2017/03/BookFast---Monolith.png)
 
 It's an ASP.NET Core application that allows organizations to provide their facilities and accommodations to be booked by customers. The application features [MVC based UI](https://github.com/dzimchuk/book-fast-ui) and provides [RESTful API](https://github.com/dzimchuk/book-fast-api) that enables other clients to communicate with it. It relies on a bunch of Azure services such as SQL databases and storage, Azure AD for organizational accounts and Azure AD B2C for customer authentication, Azure Search, Application Insights, etc.
 
@@ -31,7 +31,7 @@ When identifying service boundaries for our future microservices first of all we
 
 Besides business services, as we develop our microservices application we naturally start seeing new services with a pure technical purpose such as indexers, synchronizers, registers, etc. But it's important to start with business capabilities.
 
-![BookFast microservices](https://blogcontent.azureedge.net/2017/03/BookFast---SF.png)
+![BookFast microservices](/media/2017/03/BookFast---SF.png)
 
 With microservices we greatly increase complexity of our system but it should not scare us away because at the same time we solve the most important problem - being able to evolve our system fast in response to the constant stream of changes coming from customers, stakeholders and so on.
 
@@ -45,7 +45,7 @@ You can check out a complete re-architectured application [here](https://github.
 
 Do not be misled by the word *micro* - your microservice still deserves a solid architecture with proper layers and dependency discipline. If you look at any of the BookFast microservices you will find that it normally consists of a few projects:
 
-![Microservice projects](https://blogcontent.azureedge.net/2017/03/microservice-projects.png)
+![Microservice projects](/media/2017/03/microservice-projects.png)
 
 There is a host project (e.g. BookFast.Facility) which:
 
@@ -56,7 +56,7 @@ When a service instance is created it is asked to provide a collection of endpoi
 
 There is a contracts project defining service domain model and business interfaces. These are *not* external contracts but the internal model of the service. There are also business and data projects implementing appropriate layers.
 
-![Microservice components](https://blogcontent.azureedge.net/2017/03/Microservice-components-updated.png)
+![Microservice components](/media/2017/03/Microservice-components-updated.png)
 
 Services rely on versioned configuration packages and per-environment configuration supported by Service Fabric. I've written a couple of posts on how you can [integrate](/configuring-asp-net-core-applications-in-service-fabric/) configuration packages with ASP.NET Core configuration and how to [override](/using-code-package-environment-variables-in-service-fabric/) code package's environment variables.
 
@@ -80,7 +80,7 @@ You should be careful with shared or common components as they can easily introd
 
 There are a handful of infrastructural common components in BookFast:
 
-![Common components](https://blogcontent.azureedge.net/2017/03/microservices-common-components.png)
+![Common components](/media/2017/03/microservices-common-components.png)
 
 - BookFast.Framework - defines common infrastructure interfaces such as `ICompositionModule`, etc.
 - BookFast.Rest - helps integrate access token retrieval with AutoRest generated clients.
@@ -95,6 +95,6 @@ This is not strictly related to microservices but I would like to talk about the
 
 Effectively we end up with an application with unclear feature boundaries. It may or may not impact maintainability of the application depending on the maturity level of the team and practices that have been followed. But I think if we applied a similar vertical slicing to the web application as we did to the rest of the system with microservices we would end up with a better organized application. Instead of mechanically splitting components based on their purpose we could split them by features. Each feature would have its controllers, models and views.
 
-![Web app features](https://blogcontent.azureedge.net/2017/03/web-app-features.png)
+![Web app features](/media/2017/03/web-app-features.png)
 
 I highly recommend you check out [this article](https://msdn.microsoft.com/en-us/magazine/mt763233.aspx) on the topic. BookFast uses this approach and relies on OdeToCode.AddFeatureFolders package to configure the view engine to support new conventions.

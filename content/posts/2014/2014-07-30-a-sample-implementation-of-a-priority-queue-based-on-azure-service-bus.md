@@ -10,7 +10,7 @@ tags: Cloud Patterns, Azure Service Bus
 
 [Last time](post/Implementing-a-priority-queue-on-Microsoft-Azure) I was talking about what a priority queue is and how we can approach designing it. In this post I want to guide you through a sample implementation of such a queue that won’t require dedicated computing resources per each priority. The queue is going to be based on Microsoft Azure Service Bus but the approach can be adapted to other queue offerings.
 
-[![Priority Queue based on multiple queues](https://blogcontent.azureedge.net/PriorityQueue_MultiQueue_thumb_1.png "Priority Queue based on multiple queues")](https://blogcontent.azureedge.net/PriorityQueue_MultiQueue_1.png)
+[![Priority Queue based on multiple queues](/media/PriorityQueue_MultiQueue_thumb_1.png "Priority Queue based on multiple queues")](/media/PriorityQueue_MultiQueue_1.png)
 
 There are a few important notes about the design.
 

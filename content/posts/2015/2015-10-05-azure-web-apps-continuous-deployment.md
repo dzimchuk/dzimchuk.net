@@ -18,17 +18,17 @@ The pull model is simpler as you get continuous deployment right from your code 
 
 Once you create a web app you navigate to its Setting blade and locate the Continuous Deployment option. You have a bunch of supported source options from local GIT repo to hosted GIT or Mercurial repos. You can also pull from OneDrive and Dropbox folders so you can implement a hybrid model where you build and prepare packages and put them on OneDrive or Dropbox and then have Azure pull those packages and extract them into wwwroot. Check out [this post](https://alexandrebrisebois.wordpress.com/2015/09/15/azure-adventures-deploying-a-jsp-web-app-to-azure-app-service/) on how you could deploy a Java based web application from DropBox using a pre-built WAR file.
 
-![Azure App Services Continuous Deployment - Source Selection](https://blogcontent.azureedge.net/43eddbfe-fd3d-4462-85a8-b8f4ea2025f9.png)
+![Azure App Services Continuous Deployment - Source Selection](/media/43eddbfe-fd3d-4462-85a8-b8f4ea2025f9.png)
 
 For now let’s pick Bitbucket and set up a repository and branch that we want to pull source code from. Azure will set up a clone repository in your web app that you can check out either through Kudu console or by connecting to your web app over FTP and navigating to %home%/site/repository:
 
-![Repository folder](https://blogcontent.azureedge.net/2a20ee6f-ec2d-443c-a8d7-0c9ebe4c4de6.png)
+![Repository folder](/media/2a20ee6f-ec2d-443c-a8d7-0c9ebe4c4de6.png)
 
 Once cloned the initial deployment will be triggered. Subsequent deployments will be triggered when new commits are added to the branch that you specified when you paired with web app with a repository. The notification mechanism may vary. For example, as of time of this writing integration with Bitbucket is implemented through its [POST services](https://confluence.atlassian.com/bitbucket/manage-bitbucket-cloud-services-221449732.html) but in the future it will be transformed to [Web Hooks](https://confluence.atlassian.com/bitbucket/manage-webhooks-735643732.html).
 
 Deployment logs and auto generated scripts can be found in %home%/site/deployments folder. Deployment log will usually contain messages about generating the deployment script or executing a custom one for your repo, output of the deployment script and KuduSync process.
 
-![Deployment log](https://blogcontent.azureedge.net/c632c89c-2db7-46fd-91fb-2819d49fb3df.png)
+![Deployment log](/media/c632c89c-2db7-46fd-91fb-2819d49fb3df.png)
 
 ## Deployment script
 

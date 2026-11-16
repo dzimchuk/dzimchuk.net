@@ -378,4 +378,4 @@ The last thing that we do after we’ve sent the command line arguments is shut 
 
 Phew! Confused? Don’t be, just check out the sample code.
 
-[SingleInstanceApp.zip (41.33 kb)](https://blogcontent.azureedge.net/2010%2f8%2fSingleInstanceApp.zip)
+[SingleInstanceApp.zip (41.33 kb)](/media/2010/8/SingleInstanceApp.zip)

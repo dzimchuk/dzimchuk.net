@@ -17,7 +17,7 @@ This is one of the components of my application and despite the fact that except
 
 To find the place where the exception originated I modified Visual Studio’s exception rules (Debug –> Exceptions):
 
-[![Exceptions dialog of the VS debugger](https://blogcontent.azureedge.net/exceptions_dlg_thumb.png "image")](https://blogcontent.azureedge.net/exceptions_dlg.png) 
+[![Exceptions dialog of the VS debugger](/media/exceptions_dlg_thumb.png "image")](/media/exceptions_dlg.png) 
 
 See by default during the debugging session Visual Studio will break the execution when your application code doesn’t catch an exception. But we also can make it break at the time the exception gets thrown.
 

@@ -10,7 +10,7 @@ tags: Public Speaking
 
 On April 22, 2017 we've held a community [Global Azure Bootcamp](https://global.azurebootcamp.net/) event in Minsk together with 250+ similar events that were organized by user groups around the globe. Each user group organizes their own one day deep dive class on Azure the way they see fit and how it works for their members.
 
-![Global Azure Bootcamp 2017](https://blogcontent.azureedge.net/2017/09/GlobalAzureBootcamp2017.png)
+![Global Azure Bootcamp 2017](/media/2017/09/GlobalAzureBootcamp2017.png)
 
 We've had 7 great sessions that covered various aspects of modern day development on Azure from data injection and processing to hybrid solutions to microservices and IoT. Here's the full list of talks in their chronological order:
 

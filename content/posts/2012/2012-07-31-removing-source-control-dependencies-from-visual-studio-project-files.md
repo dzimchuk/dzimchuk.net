@@ -32,10 +32,10 @@ I’ve found 3 options:
 
 Ok, so removing SCC bindings from your projects is a pain in the neck when you have lots of them. You will have to open them, then unbind and save them. But if you don’t have some old provider installed you will see VS complaining and not offering you an option to remove bindings. Instead it will just offer you to open your projects ‘temporarily offline’.
 
-So I’ve written this little tool that’s going to save your day. Just output your old stuff somewhere, remove read-only attributes recursively and run the tool passing it a root path where you’d put your stuff. The tool should be able to remove all SCC specific things but I might have missed something. Well, you have the tool, you can add what I’ve missed ![Winking smile](https://blogcontent.azureedge.net/wlEmoticon-winkingsmile.png "Winking smile")
+So I’ve written this little tool that’s going to save your day. Just output your old stuff somewhere, remove read-only attributes recursively and run the tool passing it a root path where you’d put your stuff. The tool should be able to remove all SCC specific things but I might have missed something. Well, you have the tool, you can add what I’ve missed ![Winking smile](/media/wlEmoticon-winkingsmile.png "Winking smile")
 
 Have a nice day!
 
-[VSSCRemove.zip (68.32 kb)](https://blogcontent.azureedge.net/2012%2f07%2fVSSCRemove.zip)
+[VSSCRemove.zip (68.32 kb)](/media/2012/07/VSSCRemove.zip)
 
 **UPDATE: The tool is now hosted at [Github](https://github.com/dzimchuk/VSSCRemove)<a>.</a>**

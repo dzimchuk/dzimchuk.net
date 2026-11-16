@@ -20,7 +20,7 @@ Every time you register a listener you return the actual endpoint address from `
 2. Try to call the service using the returned address.
 3. Handle possible errors and decide whether we need to repeat steps 1-3 as the target service may have been moved to another node by the time we tried to reach it. Also, implementing Retry and Circuit Breaker patterns are going to help mitigate transient errors and avoid bombarding services that are experiencing issues.
 
-![Internal communication in Service Fabric](https://blogcontent.azureedge.net/2017/02/SF-internal-communication.png)
+![Internal communication in Service Fabric](/media/2017/02/SF-internal-communication.png)
 
 Service Fabric provides components that help you communicate with the naming service. First of all, it's `FabricClient` which is central component for communication with Service Fabric infrastructure. It implements internal optimizations such as caching and it's highly recommended to share and re-use a `FabricClient` instance within your service.
 

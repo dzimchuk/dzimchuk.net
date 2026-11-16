@@ -9,13 +9,13 @@ tags: Power Video Player
 
 It’s been [quite a while](PVP-on-the-way-to-WPF.aspx) since I’d planned to port PVP to WPF and in the end I’m happy to announce it has actually happened. Version 2.0 is available as always at [CodePlex](http://pvp.codeplex.com/) as an MSI distributable package as well as source code.
 
-[![Power Video Player](https://blogcontent.azureedge.net/2013%2f01%2fpvp3d_resized.png "Power Video Player")](https://blogcontent.azureedge.net/2013%2f01%2fpvp3d_resized.png)
+[![Power Video Player](/media/2013/01/pvp3d_resized.png "Power Video Player")](/media/2013/01/pvp3d_resized.png)
 
 ## The Why?
 
 I guess it’s a valid question because there was already something that looked pretty much like it and provided nearly the same set of functionality as the new version does. So was it plainly about changing presentation platform? Yes and no. Yes, because I wanted to go away from raster graphics that suck when displayed under DPI that is different from the actual resolution of those graphics. Besides, WPF gives much more flexible and richer ways to achieve your goals with great binding support and templates.
 
-The ‘no’ part is as important as the ‘yes’ one if not more. The legacy player was written in the days when I was enthusiastically learning Windows Forms and as a consequence its implementation might not adhere to the best design practices you might have on your mind (let’s just leave it at this ![Winking smile](https://blogcontent.azureedge.net/wlEmoticon-winkingsmile_2.png "Winking smile")).
+The ‘no’ part is as important as the ‘yes’ one if not more. The legacy player was written in the days when I was enthusiastically learning Windows Forms and as a consequence its implementation might not adhere to the best design practices you might have on your mind (let’s just leave it at this ![Winking smile](/media/wlEmoticon-winkingsmile_2.png "Winking smile")).
 
 > Note, I’m not saying there is anything wrong with Windows Forms. Instead, I’m putting the emphasis on ‘learning’.
 

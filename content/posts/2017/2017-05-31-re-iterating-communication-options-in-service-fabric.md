@@ -14,7 +14,7 @@ There are a few options you have to make your services talk to each other. In th
 
 The first option is to make your services resolve endpoints of others directly through the Naming service.
 
-![Endpoint resolution through the Name service](https://blogcontent.azureedge.net/2017/02/SF-internal-communication.png)
+![Endpoint resolution through the Name service](/media/2017/02/SF-internal-communication.png)
 
 Service Fabric SDK provides you with `ServicePartitionResolver` component that makes it easy to resolve a remote service endpoint by its canonical name, i.e. `fabric:/app/service`. It works both for stateless and stateful services and across applications as well. The SDK also provides `ServicePartitionClient` that implements caching of resoled endpoints and Retry pattern when you call them.
 
@@ -56,7 +56,7 @@ internal class FacilityProxy : IFacilityService
 
 Another option is setting up the [reverse proxy](https://docs.microsoft.com/en-us/azure/service-fabric/service-fabric-reverseproxy) in your node type(s). Once configured the proxy is running on all nodes in those node types where you chose to enable it. Your services simply issue calls to `localhost:[reverseProxyPort]` and let the proxy handle remote service endpoint resolution and calling of the remote service.
 
-![Endpoint resolution with Reverse proxy](https://blogcontent.azureedge.net/2017/05/SF-reverse-proxy.png)
+![Endpoint resolution with Reverse proxy](/media/2017/05/SF-reverse-proxy.png)
 
 You specify application and service names together with partition keys in the URL when calling the reverse proxy:
 
@@ -91,7 +91,7 @@ You can also set up a load balancer rule to expose the port that the reverse pro
 - Exposing Kestrel or Node services over HTTPS (you will need to configure a certificate for the reverse proxy). SSL termination occurs at the reverse proxy. The proxy then uses HTTP to forward requests to your services. As of runtime 5.6 you can enable HTTPS [all the way](https://docs.microsoft.com/en-us/azure/service-fabric/service-fabric-reverseproxy-configure-secure-communication) to your services.
 - Exposing stateful services to the outside world. Stateful services can't be directly exposed as there is no way for the load balancer to know which nodes replicas of a particular partition are running on. You need to either provide a stateless façade as mentioned [here](/service-fabric-stateful-services/) or use the reverse proxy.
 
-![Exposing service to the outside world using the reverse proxy](https://blogcontent.azureedge.net/2017/05/SF-reverse-proxy-external.png)
+![Exposing service to the outside world using the reverse proxy](/media/2017/05/SF-reverse-proxy-external.png)
 
 In [this](https://github.com/dzimchuk/book-fast-service-fabric/tree/ReverseProxy) version of BookFast I've implemented service client libraries and consuming proxies so that they can be used with the reverse proxy. Note that the client libraries are universal, i.e. they can be used both through the `ServicePartitionClient` or through the reverse proxy.
 
@@ -118,6 +118,6 @@ For non-default services you can specify their DNS name as a new `-ServiceDnsNam
 
 Consuming services will then use the DNS name in the URL when calling other services. The DNS service provides mapping between DNS names and canonical service names. Once the canonical name is determined the DNS service resolves the actual endpoint address through the Naming service and returns the address to the caller.
 
-![Endpoint resolution using Service Fabric DNS service](https://blogcontent.azureedge.net/2017/05/SF-DNS-service.png)
+![Endpoint resolution using Service Fabric DNS service](/media/2017/05/SF-DNS-service.png)
 
 It's a pretty straight forward way to call stateless services and will also be useful especially in 'lift and shift' scenarios. It won't work with stateful services though as you need to be able to resolve a particular partition and replica to communicate with.

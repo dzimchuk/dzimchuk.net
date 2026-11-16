@@ -31,10 +31,10 @@ As of version 0.2 there are 4 refactorings:
 
 The first 3 ones are built around the constructor functionality and are there to improve your experience when you do dependency injection. You can declare a field and have it initialized in an existing constructor or you can have a new constructor added for the field. It works the other way around too. When you have a constructor parameter and it hasn't been used to initialize a field yet you can have a new field declared and initialized for you.
 
-![Add new constructor and initialize field refactoring](https://blogcontent.azureedge.net/AddConstructorAndInitializeField.png)
+![Add new constructor and initialize field refactoring](/media/AddConstructorAndInitializeField.png)
 
 The type access modifier changer may not at the same level of usefulness but it's a very common usage pattern when you add a new type and you have a policy of declaring explicit access modifiers. By default Visual Studio's template creates types with default implicit modifiers. Yes, you can create your own templates but I prefer to just Ctrl.+ on a declaration and select an option I need:
 
-![Change type access modifier refactoring](https://blogcontent.azureedge.net/ChangeTypeAccessModifier.png)
+![Change type access modifier refactoring](/media/ChangeTypeAccessModifier.png)
 
 If that sounds interesting you can download the extension from [the galley]((https://visualstudiogallery.msdn.microsoft.com/8ea7527b-98c9-4571-a43d-0b4851a010c3)) or install it from VS. Don't hesitate to leave a feedback! The extension is going to auto-update itself as I publish new versions. You can also check out [the code](https://github.com/dzimchuk/experimental-tools) and of course contributions are welcome!

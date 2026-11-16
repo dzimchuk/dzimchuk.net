@@ -126,7 +126,7 @@ When typing in the command after you specify the gallery template name you will 
 
 It takes a while to provision a new service:
 
-![Provisining a new resource group with Azure Search service](https://blogcontent.azureedge.net/a43115c1-fd32-4d39-8e0d-b2856faa95a5.png)
+![Provisining a new resource group with Azure Search service](/media/a43115c1-fd32-4d39-8e0d-b2856faa95a5.png)
 
 ## Provision a new service to an existing Resource Group
 

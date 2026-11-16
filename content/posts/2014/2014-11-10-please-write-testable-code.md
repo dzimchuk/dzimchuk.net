@@ -9,7 +9,7 @@ tags: Practices
 
 I was reviewing a rather big pull request lately and felt very uncomfortable as there were quite a few changes and additions but I didn’t see any tests. When reviewing code you don’t always follow the actual code logic but rather seek for evidence of best practices and proven principals being respected. One such proven practice is unit testing.
 
-[![Quality](https://blogcontent.azureedge.net/Depositphotos_53986487_xs_thumb.jpg "Quality")](https://blogcontent.azureedge.net/Depositphotos_53986487_xs.jpg)
+[![Quality](/media/Depositphotos_53986487_xs_thumb.jpg "Quality")](/media/Depositphotos_53986487_xs.jpg)
 
 When I ran into the following piece:
 

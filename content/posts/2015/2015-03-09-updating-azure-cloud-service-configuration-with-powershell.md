@@ -20,7 +20,7 @@ If we need to update a particular setting we first need to get the whole configu
 
 Get-AzureDeployment -ServiceName $cloudService -Slot $slot
 
-[![Get-AzureDeployment output](https://blogcontent.azureedge.net/Get-AzureDeployment_thumb.png "Get-AzureDeployment output")](https://blogcontent.azureedge.net/Get-AzureDeployment.png)
+[![Get-AzureDeployment output](/media/Get-AzureDeployment_thumb.png "Get-AzureDeployment output")](/media/Get-AzureDeployment.png)
 
 Looking at the output we can see that Configuration property contains an XML document that represents our service configuration defined in .cscfg file. Updating a specific setting of a particular role now boils down to updating the XML document and uploading it with Set-AzureDeployment cmdlet.
 
