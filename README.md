@@ -29,3 +29,18 @@ Images and other files live in `content/media` and are referenced from content a
 [azure-storage-static-website.yml](.github/workflows/azure-storage-static-website.yml) runs on every push to `master`.
 It builds with `--media-url=https://blogcontent.azureedge.net/` and uploads the site to the `$web` container.
 Media files are uploaded manually to the container behind the `blogcontent.azureedge.net` CDN endpoint.
+
+### DigitalOcean App Platform
+
+[digitalocean-app-platform.yml](.github/workflows/digitalocean-app-platform.yml) is run manually (`workflow_dispatch`).
+It builds the site, including media (default `media_url` input: `https://dzimchuk.net/media/`), force-pushes the build output to the `do-site` branch and deploys the static site defined in [app.yaml](app.yaml) using
+[digitalocean/app_action](https://github.com/digitalocean/app_action). App Platform doesn't build anything, it only serves the prebuilt files from its CDN.
+
+Setup:
+
+1. Create a DigitalOcean [personal access token](https://docs.digitalocean.com/reference/api/create-personal-access-token/)
+   with App Platform create/read/update scopes and add it as the `DIGITALOCEAN_ACCESS_TOKEN` repository secret.
+1. Run the workflow. The first run creates the app, subsequent runs update it.
+   Use `/media/` as `media_url` to test on the `*.ondigitalocean.app` domain before switching the custom domain.
+
+The app spec is applied as a whole on every run, so custom domains must be configured in `app.yaml` rather than only in the control panel.
