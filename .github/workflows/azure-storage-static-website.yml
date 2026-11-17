@@ -1,8 +1,12 @@
 name: Azure Storage Static Website CI/CD
 
 on:
-  push:
-    branches: [ master ]
+  workflow_dispatch:
+    inputs:
+      media_url:
+        description: Base URL media (content/media) is served from
+        required: true
+        default: https://blogcontent.azureedge.net/
 
 jobs:
   build:
@@ -19,7 +23,9 @@ jobs:
         with:
             node-version: ${{ matrix.node-version }}
       - run: npm ci
-      - run: npm run production -- --media-url=https://blogcontent.azureedge.net/
+      - run: npm run production -- --media-url="$MEDIA_URL"
+        env:
+          MEDIA_URL: ${{ inputs.media_url }}
       - name: Upload build artifacts
         uses: actions/upload-artifact@v6
         with:

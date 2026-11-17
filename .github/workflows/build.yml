@@ -1,0 +1,27 @@
+name: Build
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [24]
+    steps:
+      - uses: actions/checkout@v6
+        with:
+            submodules: true
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v6
+        with:
+            node-version: ${{ matrix.node-version }}
+      - run: npm ci
+      - run: npm run production
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v6
+        with:
+            name: build-artifact
+            path: build
