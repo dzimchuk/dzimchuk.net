@@ -4,13 +4,38 @@ region: nyc
 alerts:
   - rule: DEPLOYMENT_FAILED
   - rule: DOMAIN_FAILED
-# domains:
-#   - domain: dzimchuk.net
-#     type: PRIMARY
-#     zone: dzimchuk.net
-#   - domain: www.dzimchuk.net
-#     type: ALIAS
-#     zone: dzimchuk.net
+domains:
+  - domain: dzimchuk.net
+    type: PRIMARY
+    zone: dzimchuk.net
+  - domain: www.dzimchuk.net
+    type: ALIAS
+    zone: dzimchuk.net
+ingress:
+  rules:
+    - component:
+        name: blog
+      match:
+        path:
+          prefix: /
+    - match:
+        authority:
+          exact: ${STARTER_DOMAIN}
+        path:
+          prefix: /
+      redirect:
+        authority: dzimchuk.net
+        redirect_code: 301
+        scheme: https
+    - match:
+        authority:
+          exact: www.dzimchuk.net
+        path:
+          prefix: /
+      redirect:
+        authority: dzimchuk.net
+        redirect_code: 301
+        scheme: https
 static_sites:
   - name: blog
     git:
