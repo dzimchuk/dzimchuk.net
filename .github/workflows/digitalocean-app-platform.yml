@@ -52,7 +52,7 @@ jobs:
         uses: actions/download-artifact@v6
         with:
           name: do-build-artifact
-          path: ${{ runner.temp }}/site/build
+          path: ${{ runner.temp }}/site
       - name: Publish to deploy branch
         working-directory: ${{ runner.temp }}/site
         env:
@@ -68,6 +68,6 @@ jobs:
         uses: digitalocean/app_action/deploy@v2
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-          app_spec_location: app.yaml
+          app_spec_location: .do/app.yaml
           print_build_logs: true
           print_deploy_logs: true

@@ -17,6 +17,5 @@ static_sites:
       repo_clone_url: https://github.com/dzimchuk/dzimchuk.net.git
       branch: do-site
     environment_slug: html
-    output_dir: build
     index_document: index.html
     error_document: 404.html
