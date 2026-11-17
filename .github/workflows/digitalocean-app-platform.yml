@@ -66,6 +66,10 @@ jobs:
           git push --force "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "HEAD:refs/heads/$DEPLOY_BRANCH"
       - name: Deploy to App Platform
         uses: digitalocean/app_action/deploy@v2
+        env:
+          # The action expands ${VAR} references in the app spec from the environment and would
+          # blank out App Platform's ${STARTER_DOMAIN}; map it to itself to keep it intact.
+          STARTER_DOMAIN: ${STARTER_DOMAIN}
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
           app_spec_location: .do/app.yaml
