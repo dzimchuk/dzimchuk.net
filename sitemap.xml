@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="https://dzimchuk.net/sitemap.xsl" ?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap>
+    <loc>https://dzimchuk.net/sitemap-pages.xml</loc>
+    <lastmod>2026-11-17T14:20:45.302+00:00</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://dzimchuk.net/sitemap-posts.xml</loc>
+    <lastmod>2026-11-17T14:20:45.302+00:00</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://dzimchuk.net/sitemap-tags.xml</loc>
+    <lastmod>2026-11-17T14:20:45.302+00:00</lastmod>
+  </sitemap>
+</sitemapindex>

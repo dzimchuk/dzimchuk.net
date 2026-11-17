@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="https://dzimchuk.net/sitemap.xsl" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://dzimchuk.net/about/</loc>
+    <lastmod>2019-02-15T12:08:49.000+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://dzimchuk.net/</loc>
+    <lastmod>2026-11-17T14:20:45.299+00:00</lastmod>
+  </url>
+</urlset>

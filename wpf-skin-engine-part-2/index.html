@@ -1,0 +1,168 @@
+﻿<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><title>WPF skin engine – part 2</title><meta name=HandheldFriendly content=True><meta name=viewport content="width=device-width,initial-scale=1"><link rel=stylesheet type=text/css href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400"><link rel=stylesheet type=text/css href=/assets/theme-0c0984d3fd.css><link rel=canonical href=https://dzimchuk.net/wpf-skin-engine-part-2/ ><meta name=referrer content=no-referrer-when-downgrade><meta property=og:site_name content="Andrei Dzimchuk"><meta property=og:type content=article><meta property=og:title content="WPF skin engine – part 2"><meta property=og:description content="This is a follow-up post to the previous one about the Skinner library. In this post I want to focus on a few technical peculiarities of the library and explain why certain things were done the way they were done."><meta property=og:url content=https://dzimchuk.net/wpf-skin-engine-part-2/ ><meta property=article:publisher content=https://www.facebook.com/andrei.dzimchuk><meta property=article:author content=https://www.facebook.com/andrei.dzimchuk><meta property=article:published_time content=2011-07-11T05:57:00.000+00:00><meta property=article:modified_time content=2015-04-23T16:54:57.000+00:00><meta property=article:tag content=WPF><meta name=twitter:card content=summary><meta name=twitter:title content="WPF skin engine – part 2"><meta name=twitter:description content="This is a follow-up post to the previous one about the Skinner library. In this post I want to focus on a few technical peculiarities of the library and explain why certain things were done the way they were done."><meta name=twitter:url content=https://dzimchuk.net/wpf-skin-engine-part-2/ ><meta name=twitter:label1 content="Written by"><meta name=twitter:data1 content="Andrei Dzimchuk"><meta name=twitter:label2 content="Filed under"><meta name=twitter:data2 content=WPF><meta name=twitter:site content=@dzimchuk><meta property=twitter:creator content=@dzimchuk><script type=application/ld+json>{
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "publisher": {
+      "@type": "Organization",
+      "name": "Andrei Dzimchuk",
+      "logo": {
+      "@type": "ImageObject",
+      "url": "https://dzimchuk.net/media/favicons/v1/favicon.ico",
+      "width": 60,
+      "height": 60
+      }
+      },
+      "url": "https://dzimchuk.net/wpf-skin-engine-part-2/",
+      "description": "This is a follow-up post to the previous one about the Skinner library. In this post I want to focus on a few technical peculiarities of the library and explain why certain things were done the way they were done."
+      "headline": "WPF skin engine – part 2",
+      "datePublished": "2011-07-11T05:57:00.000+00:00",
+      "dateModified": "2015-04-23T16:54:57.000+00:00",
+      "keywords": "WPF",
+      "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://dzimchuk.net/"
+      }
+      }</script><link rel=alternate type=application/rss+xml title="Andrei Dzimchuk" href=https://dzimchuk.net/rss.xml><script type=text/javascript>var disqus_shortname = 'dzimchuk';</script><link rel=apple-touch-icon sizes=57x57 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-57x57.png><link rel=apple-touch-icon sizes=60x60 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-60x60.png><link rel=apple-touch-icon sizes=72x72 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-72x72.png><link rel=apple-touch-icon sizes=76x76 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-76x76.png><link rel=apple-touch-icon sizes=114x114 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-114x114.png><link rel=apple-touch-icon sizes=120x120 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-120x120.png><link rel=apple-touch-icon sizes=144x144 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-144x144.png><link rel=apple-touch-icon sizes=152x152 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-152x152.png><link rel=apple-touch-icon sizes=180x180 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-180x180.png><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/android-chrome-192x192.png sizes=192x192><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/favicon-96x96.png sizes=96x96><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/favicon-16x16.png sizes=16x16><link rel=manifest href=https://dzimchuk.net/favicons/v1/manifest.json><link rel="shortcut icon" href=https://dzimchuk.net/media/favicons/v1/favicon.ico><meta name=msapplication-TileColor content=#da532c><meta name=msapplication-TileImage content=https://dzimchuk.net/media/favicons/v1/mstile-144x144.png><meta name=msapplication-config content=https://dzimchuk.net/favicons/v1/browserconfig.xml><meta name=theme-color content=#ffffff></head><body class="post-template tag-wpf"><div class=site-wrapper><header class="main-header post-head no-cover"><nav class="main-nav clearfix"><div class=nav-wrapper><ul class=nav role=menu><li class=nav-home role=menuitem><a href=/ >Home</a></li><li class=nav-cloud-patterns role=menuitem><a href=/tag/cloud-patterns/ >Cloud Patterns</a></li><li class=nav-service-fabric role=menuitem><a href=/tag/azure-service-fabric/ >Service Fabric</a></li><li class=nav-azure-ad role=menuitem><a href=/tag/azure-active-directory/ >Azure AD</a></li><li class=nav-azure-services role=menuitem><a href=/tag/azure-services/ >Azure Services</a></li><li class=nav-about role=menuitem><a href=/about/ >About</a></li></ul><a href=javascript:void(0); class=nav-hamburger-open><svg role=img xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=open-menu-icon><title id=open-menu-icon>Open menu</title><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path></svg></a><a href=javascript:void(0); class=nav-hamburger-close><svg role=img xmlns=http://www.w3.org/2000/svg viewBox="0 0 352 512" aria-labelledby=close-menu-icon><title id=close-menu-icon>Close menu</title><path fill=currentColor d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg></a></div></nav></header><main class=content role=main><article class="post tag-wpf"><header class=post-header><h1 class=post-title>WPF skin engine – part 2</h1><section class=post-meta><time class=post-date datetime=2011-07-11>11 July 2011</time> on <a href=/tag/wpf/ >WPF</a></section></header><section class=post-content><p>This is a follow-up post to the <a href=WPF-skin-engine-part-1>previous one</a> about the Skinner library. In this post I want to focus on a few technical peculiarities of the library and explain why certain things were done the way they were done.</p><h2 id=loading-a-skin>Loading a skin</h2><p>I already mentioned that Skinner does scanning for available skins on a separate thread and in a dedicated domain that it shuts down when scanning is over. It insures we don’t keep potentially large number of assemblies in the main application’s domain and it also helps us implement a sort of a hot pluggability, when you can add/remove skin assemblies at runtime and refresh the list of available skins by calling <code>ISkinManager.Scan()</code> again.</p><p>My initial desire was also to load a chosen skin through a dedicated domain. Here’s how you might have implemented it:</p><pre><code>internal class Loader : MarshalByRefObject
+{
+    public static LoadResult Load(Uri packUri)
+    {
+        LoadResult result = new LoadResult();
+        AppDomain domain = null;
+        Stream stream = null;
+
+        try
+        {
+            domain = 
+              AppDomain.CreateDomain(&quot;Skinner.Loader.Domain&quot;);
+            Loader loader = 
+              (Loader)domain.CreateInstanceAndUnwrap(
+                     Assembly.GetExecutingAssembly().FullName,
+                     typeof(Loader).FullName);
+
+            stream =  GetStream(packUri);
+            result.SkinResourceDictionary = Load(stream);
+        }
+        catch (Exception e)
+        {
+            result.Error = e;
+        }
+        finally
+        {
+            if (stream != null)
+                stream.Dispose();
+            if (domain != null)
+                AppDomain.Unload(domain);
+        }
+
+        return result;
+    }
+
+    private static ResourceDictionary Load(Stream stream)
+    {
+        // details are omitted
+    }
+
+    private Stream GetStream(Uri packUri)
+    {
+        var streamInfo = Application.GetResourceStream(packUri);
+        return streamInfo.Stream;
+    }
+}
+</code></pre><p>So we instantiate an instance of the loader in another domain and call <code>GetStream(Uri packUri)</code> through remoting. Getting a resource dictionary from a stream can be done with <code>Baml2006Reader</code>:</p><pre><code>private static ResourceDictionary Load(Stream stream)
+{
+    var reader = new Baml2006Reader(stream);
+    return (ResourceDictionary)XamlReader.Load(reader);
+}
+</code></pre><p>However, <code>Baml2006Reader</code> is available in .NET 4 so if we needed to target earlier versions we could resort to the known undocumented way that boils down to calling an internal static <code>LoadBaml</code> method on <code>XamlReader</code><span style="font-family: Calibri;">through reflection:</span></p><pre><code>private static ResourceDictionary Load(Stream stream)
+{
+    var pc = new ParserContext();
+    var readerType = typeof(System.Windows.Markup.XamlReader);
+    var method = readerType.GetMethod(&quot;LoadBaml&quot;, 
+       BindingFlags.NonPublic | BindingFlags.Static);
+    return (ResourceDictionary)method.Invoke(null, 
+       new object[] { stream, pc, null, false });
+}
+</code></pre><p>The abstract <code>Stream</code> class derives from <code>MarshalByRefObject</code> and we might have expected that WPF’s implementation supported remote calls. However, it doesn’t. Although the proxy is successfully created it can’t be used to read BAML.</p><p>Running that code in the current domain without remoting works great. However, in this case it’s preferable to use a convenient <code>Application.LoadComponent</code> method that takes a relative pack Uri and returns a <code>ResourceDictionary</code> instance to you. This is how Skinner ultimate loads resource dictionaries.</p><p>Note that for this to work, XAML that is references by the pack Uri is expected to have the <code>ResourceDictionary</code> element as it root.</p><h2 id=resolving-resource-location>Resolving resource location</h2><p><code>Application.LoadComponent</code> method expects a relative Uri. As a skin’s resource is located in a different assembly than Skinner, that relative Uri must contain the skin’s assembly name.</p><p>However, when you specify a Uri in the <code>SkinDescription</code> you can omit the assembly name. Skinner will kindly reformat your Uri and actually send a normalized version in <code>SkinFound</code> event.</p><p>One more important thing is physical skins’ assemblies location. Skinner uses MEF for scanning and configures the composition container to scan in the main application’s directory (<code>AppDomain.CurrentDomain.SetupInformation.ApplicationBase</code>) as well as in the special ‘skins’ directory that is located under the main application’s directory. I think it’s sufficient for most purpose but if for any reason you don’t like this convention you can always update Skinner to meet your requirements.</p><p>Still, when you place skins’ assemblies under ‘skins’ directory the default assembly resolution will fail. Skinner addresses this by reacting to <code>AppDomain.AssemblyResolve</code> event and trying to load a requested assembly from the ‘skins’ subdirectory:</p><pre><code>internal class SkinManager : ISkinManager
+{
+    private readonly Regex _regexAssemblyName = 
+       new Regex(@&quot;^(?&lt;name&gt;.+),.+$&quot;);
+    private readonly Regex _regexAssemblyResources = 
+       new Regex(@&quot;^[^\.]+\.resources&quot;);
+
+    public SkinManager()
+    {
+        AppDomain.CurrentDomain.AssemblyResolve += 
+            (sender, args) =&gt;
+            {
+                return ResolveAssembly(args.Name);
+            };
+    }
+
+    private Assembly ResolveAssembly(string name)
+    {
+        Assembly assembly = null;
+
+        try
+        {
+            string assemblyName = GetAssemblyFileName(name);
+            if (!string.IsNullOrEmpty(assemblyName))
+                assembly = 
+                   Assembly.LoadFrom(GetAssemblyFileName(name));
+        }
+        catch { }
+
+        return assembly;
+    }
+
+    private string GetAssemblyFileName(string name)
+    {
+        if (_regexAssemblyResources.IsMatch(name))
+            return null; // ignore additional requests for 
+                         // AssemblyName.resources
+
+        string assmeblyName = name;
+        Match m = _regexAssemblyName.Match(name);
+        if (m.Success)
+            assmeblyName = m.Groups[&quot;name&quot;].Value;
+
+        // try to find an assembly in the &#39;skins&#39; subdirectory
+        string dir = 
+           Path.Combine(AppDomain.CurrentDomain.
+              SetupInformation.ApplicationBase, &quot;skins&quot;);
+
+        string assumedAssembly = 
+            Path.Combine(dir, 
+               string.Format(&quot;{0}.dll&quot;, assmeblyName));
+
+        if (!File.Exists(assumedAssembly))
+        {
+            try
+            {
+                var matchedFiles = 
+                    Directory.GetFiles(dir, 
+                        string.Format(&quot;{0}.*&quot;, assmeblyName));
+                if (matchedFiles.Length &gt; 0)
+                    assumedAssembly = matchedFiles[0];
+            }
+            catch { }
+        }
+
+        return assumedAssembly;
+    }
+}
+</code></pre><p>If the missing assembly is TestSkins2 (the actual file can be TestSkin2.dll but it can be an .exe just as well) its name will come in the form of ‘TestSkins2, Culture=neutral’. However, we need to pass a concrete file name to <code>Assembly.LoadFrom</code> so we do our best to find one.</p></section><footer class=post-footer><figure class=author-image><a class=img href=/ style="background-image: url(//www.gravatar.com/avatar/7fbe59ac3d3eaab56ec27da019d76f66?s&#x3D;250&amp;amp;d&#x3D;mm&amp;amp;r&#x3D;x)"><span class=hidden>Andrei Dzimchuk's Picture</span></a></figure><section class=author><h4><a href=/ >Andrei Dzimchuk</a></h4><p>Hi, I&#x27;m Andrei, I&#x27;m a software developer building cloud enabled solutions. I&#x27;m mostly focused on Azure and .NET and I try to share my experience and knowledge here with you.</p><div class=author-meta></div></section><section class=share><h4>Share this post</h4><a class=icon-facebook href="https://www.facebook.com/sharer/sharer.php?u=https://dzimchuk.net/wpf-skin-engine-part-2/" rel="noopener noreferrer nofollow" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;"><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=facebook-icon role=img><title id=facebook-icon>Facebook</title><path d="M448 56.7v398.5c0 13.7-11.1 24.7-24.7 24.7H309.1V306.5h58.2l8.7-67.6h-67v-43.2c0-19.6 5.4-32.9 33.5-32.9h35.8v-60.5c-6.2-.8-27.4-2.7-52.2-2.7-51.6 0-87 31.5-87 89.4v49.9h-58.4v67.6h58.4V480H24.7C11.1 480 0 468.9 0 455.3V56.7C0 43.1 11.1 32 24.7 32h398.5c13.7 0 24.8 11.1 24.8 24.7z"></path></svg> </a><a class=icon-linkedin href="http://www.linkedin.com/shareArticle?mini=true&amp;url=https://dzimchuk.net/wpf-skin-engine-part-2/&amp;title=WPF%20skin%20engine%20%E2%80%93%20part%202" rel="noopener noreferrer nofollow" onclick="window.open(this.href, 'linkedin-share','width=490,height=530');return false;"><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=linkedin-icon role=img><title id=linkedin-icon>LinkedIn</title><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg></a></section></footer><section class=post-comments><div id=disqus_thread></div><script>var disqus_config = function () {
+                    this.page.url = 'https://dzimchuk.net/wpf-skin-engine-part-2/';
+                    this.page.identifier = '5d538657-8986-482a-a9bf-374c8f7ddaac';
+                    this.page.title = 'WPF skin engine – part 2';
+                };
+                (function() {
+                    var d = document, s = d.createElement('script');
+                    s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
+                })();</script></section></article></main><footer class=site-footer><div class=site-footer-inner><section class=copyright><a href=https://dzimchuk.net/ >Andrei Dzimchuk</a> &copy; 2026</section><nav class=site-footer-nav><a href=https://github.com/dzimchuk target=_blank rel=noopener><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 496 512" aria-labelledby=github-icon role=img><title id=github-icon>GitHub</title><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg></a><a href=https://www.linkedin.com/in/andreidzimchuk target=_blank rel=noopener><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=linkedin-icon role=img><title id=linkedin-icon>LinkedIn</title><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg></a><a href=https://feedly.com/i/subscription/feed/https://dzimchuk.net/rss.xml target=_blank rel=noopener><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=rss-icon role=img><title id=rss-icon>RSS</title><path d="M128.081 415.959c0 35.369-28.672 64.041-64.041 64.041S0 451.328 0 415.959s28.672-64.041 64.041-64.041 64.04 28.673 64.04 64.041zm175.66 47.25c-8.354-154.6-132.185-278.587-286.95-286.95C7.656 175.765 0 183.105 0 192.253v48.069c0 8.415 6.49 15.472 14.887 16.018 111.832 7.284 201.473 96.702 208.772 208.772.547 8.397 7.604 14.887 16.018 14.887h48.069c9.149.001 16.489-7.655 15.995-16.79zm144.249.288C439.596 229.677 251.465 40.445 16.503 32.01 7.473 31.686 0 38.981 0 48.016v48.068c0 8.625 6.835 15.645 15.453 15.999 191.179 7.839 344.627 161.316 352.465 352.465.353 8.618 7.373 15.453 15.999 15.453h48.068c9.034-.001 16.329-7.474 16.005-16.504z"></path></svg></a></nav></div></footer></div><script src=https://code.jquery.com/jquery-3.2.1.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script type=text/javascript src=/assets/theme-4b97c15618.js></script><script>$(function () {
+    var $postContent = $(".post-content");
+    $postContent.fitVids();
+  });</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-JYXGZ70WJH"></script><script>window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-JYXGZ70WJH');</script></body></html>

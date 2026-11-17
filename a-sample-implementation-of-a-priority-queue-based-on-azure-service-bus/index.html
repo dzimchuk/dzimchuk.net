@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><title>A sample implementation of a priority queue based on Azure Service Bus</title><meta name=HandheldFriendly content=True><meta name=viewport content="width=device-width,initial-scale=1"><link rel=stylesheet type=text/css href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400"><link rel=stylesheet type=text/css href=/assets/theme-0c0984d3fd.css><link rel=canonical href=https://dzimchuk.net/a-sample-implementation-of-a-priority-queue-based-on-azure-service-bus/ ><meta name=referrer content=no-referrer-when-downgrade><meta property=og:site_name content="Andrei Dzimchuk"><meta property=og:type content=article><meta property=og:title content="A sample implementation of a priority queue based on Azure Service Bus"><meta property=og:description content="Last time I was talking about what a priority queue is and how we can approach designing it. In this post I want to guide you through a sample implementation of such a queue that won’t require dedicated computing resources per each priority."><meta property=og:url content=https://dzimchuk.net/a-sample-implementation-of-a-priority-queue-based-on-azure-service-bus/ ><meta property=article:publisher content=https://www.facebook.com/andrei.dzimchuk><meta property=article:author content=https://www.facebook.com/andrei.dzimchuk><meta property=article:published_time content=2014-07-30T18:44:00.000+00:00><meta property=article:modified_time content=2017-09-05T19:03:17.000+00:00><meta property=article:tag content="Cloud Patterns"><meta property=article:tag content="Azure Service Bus"><meta name=twitter:card content=summary><meta name=twitter:title content="A sample implementation of a priority queue based on Azure Service Bus"><meta name=twitter:description content="Last time I was talking about what a priority queue is and how we can approach designing it. In this post I want to guide you through a sample implementation of such a queue that won’t require dedicated computing resources per each priority."><meta name=twitter:url content=https://dzimchuk.net/a-sample-implementation-of-a-priority-queue-based-on-azure-service-bus/ ><meta name=twitter:label1 content="Written by"><meta name=twitter:data1 content="Andrei Dzimchuk"><meta name=twitter:label2 content="Filed under"><meta name=twitter:data2 content="Cloud Patterns, Azure Service Bus"><meta name=twitter:site content=@dzimchuk><meta property=twitter:creator content=@dzimchuk><script type=application/ld+json>{
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "publisher": {
+      "@type": "Organization",
+      "name": "Andrei Dzimchuk",
+      "logo": {
+      "@type": "ImageObject",
+      "url": "https://dzimchuk.net/media/favicons/v1/favicon.ico",
+      "width": 60,
+      "height": 60
+      }
+      },
+      "url": "https://dzimchuk.net/a-sample-implementation-of-a-priority-queue-based-on-azure-service-bus/",
+      "description": "Last time I was talking about what a priority queue is and how we can approach designing it. In this post I want to guide you through a sample implementation of such a queue that won’t require dedicated computing resources per each priority."
+      "headline": "A sample implementation of a priority queue based on Azure Service Bus",
+      "datePublished": "2014-07-30T18:44:00.000+00:00",
+      "dateModified": "2017-09-05T19:03:17.000+00:00",
+      "keywords": "Cloud Patterns, Azure Service Bus",
+      "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://dzimchuk.net/"
+      }
+      }</script><link rel=alternate type=application/rss+xml title="Andrei Dzimchuk" href=https://dzimchuk.net/rss.xml><script type=text/javascript>var disqus_shortname = 'dzimchuk';</script><link rel=apple-touch-icon sizes=57x57 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-57x57.png><link rel=apple-touch-icon sizes=60x60 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-60x60.png><link rel=apple-touch-icon sizes=72x72 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-72x72.png><link rel=apple-touch-icon sizes=76x76 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-76x76.png><link rel=apple-touch-icon sizes=114x114 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-114x114.png><link rel=apple-touch-icon sizes=120x120 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-120x120.png><link rel=apple-touch-icon sizes=144x144 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-144x144.png><link rel=apple-touch-icon sizes=152x152 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-152x152.png><link rel=apple-touch-icon sizes=180x180 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-180x180.png><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/android-chrome-192x192.png sizes=192x192><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/favicon-96x96.png sizes=96x96><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/favicon-16x16.png sizes=16x16><link rel=manifest href=https://dzimchuk.net/favicons/v1/manifest.json><link rel="shortcut icon" href=https://dzimchuk.net/media/favicons/v1/favicon.ico><meta name=msapplication-TileColor content=#da532c><meta name=msapplication-TileImage content=https://dzimchuk.net/media/favicons/v1/mstile-144x144.png><meta name=msapplication-config content=https://dzimchuk.net/favicons/v1/browserconfig.xml><meta name=theme-color content=#ffffff></head><body class="post-template tag-cloud-patterns tag-azure-service-bus"><div class=site-wrapper><header class="main-header post-head no-cover"><nav class="main-nav clearfix"><div class=nav-wrapper><ul class=nav role=menu><li class=nav-home role=menuitem><a href=/ >Home</a></li><li class=nav-cloud-patterns role=menuitem><a href=/tag/cloud-patterns/ >Cloud Patterns</a></li><li class=nav-service-fabric role=menuitem><a href=/tag/azure-service-fabric/ >Service Fabric</a></li><li class=nav-azure-ad role=menuitem><a href=/tag/azure-active-directory/ >Azure AD</a></li><li class=nav-azure-services role=menuitem><a href=/tag/azure-services/ >Azure Services</a></li><li class=nav-about role=menuitem><a href=/about/ >About</a></li></ul><a href=javascript:void(0); class=nav-hamburger-open><svg role=img xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=open-menu-icon><title id=open-menu-icon>Open menu</title><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path></svg></a><a href=javascript:void(0); class=nav-hamburger-close><svg role=img xmlns=http://www.w3.org/2000/svg viewBox="0 0 352 512" aria-labelledby=close-menu-icon><title id=close-menu-icon>Close menu</title><path fill=currentColor d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg></a></div></nav></header><main class=content role=main><article class="post tag-cloud-patterns tag-azure-service-bus"><header class=post-header><h1 class=post-title>A sample implementation of a priority queue based on Azure Service Bus</h1><section class=post-meta><time class=post-date datetime=2014-07-30>30 July 2014</time> on <a href=/tag/cloud-patterns/ >Cloud Patterns</a>, <a href=/tag/azure-service-bus/ >Azure Service Bus</a></section></header><section class=post-content><p><a href=/implementing-a-priority-queue-on-microsoft-azure/ >Last time</a> I was talking about what a priority queue is and how we can approach designing it. In this post I want to guide you through a sample implementation of such a queue that won&#x2019;t require dedicated computing resources per each priority. The queue is going to be based on Microsoft Azure Service Bus but the approach can be adapted to other queue offerings.</p><p><a href=https://dzimchuk.net/media/PriorityQueue_MultiQueue_1.png><img src=https://dzimchuk.net/media/PriorityQueue_MultiQueue_thumb_1.png alt="Priority Queue based on multiple queues" title="Priority Queue based on multiple queues"></a></p><p>There are a few important notes about the design.</p><p>First, the receiver should implement a logic to get a prioritized messaged. It can be a simple iteration over queues from the one with the highest priority to the one with the lowest one. This is the way the receiver works in my sample. On the other hand, we can implement a sophisticated logic that would throttle messages of the same priority giving a chance for other messages to get processed too even if there is a peak of high priority requests. The logic is totally up to you.</p><p>Second, the receiver should be smart enough to wait for new messages on completion threads when there are no pending messages currently available in the queues. We don&#x2019;t want excessive polling and we don&#x2019;t want extra delays due to sleep intervals.</p><p>Then the dispatcher should take the number of processors or (better put) cores available to your machine and block the pump from getting more messages when all worker threads are busy.</p><blockquote><p>I&#x2019;m going to show a lot of code in this post but you can just grab the <a href=https://bitbucket.org/dzimchuk/priorityqueue>solution from Bitbucket</a> and play with it on your own.</p></blockquote><p>Ok, let&#x2019;s start with the pump:</p><pre><code>public Task Start(CancellationToken cancellationToken)
+{
+    return Task.Run(async () =&gt;
+    {
+        while (true)
+        {
+            var message = await receiver.GetMessageAsync(cancellationToken);
+            await dispatcher.DispatchAsync(message, cancellationToken);
+        }
+    }, cancellationToken);
+}
+</code></pre><p>This can be as simple as that. It gets a message from the receiver and then it passes it over to the dispatcher. It may not necessarily need to start on a separate thread depending on the hosting environment as it is ultimately an endless loop but it can be convenient to start the pump and continue with some other tasks. I also propagate cancellation tokens throughout my components so I can shut down as quickly as possible.</p><p>All right, let&#x2019;s have a look at the receiver:</p><pre><code>public async Task&lt;IMessage&gt; GetMessageAsync(
+    CancellationToken cancellationToken)
+{
+    IMessage message;
+
+    do
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+
+        message = await TryGetMessageAsync(cancellationToken);
+
+        if (message == null)
+            await WaitAsync(cancellationToken);
+    } while (message == null);
+
+    return message;
+}
+</code></pre><p>Another loop that first tries to get the prioritized message and blocks waiting if there are no messages in any queues. As mentioned earlier I implemented a simple algorithm for prioritizing messages:</p><pre><code>private readonly IEnumerable&lt;MessageQueue&gt; queues;
+
+public MessageReceiver(IEnumerable&lt;MessageQueue&gt; queues)
+{
+    this.queues = queues.OrderBy(c =&gt; c.Priority).ToList();
+}
+
+private async Task&lt;IMessage&gt; TryGetMessageAsync(
+    CancellationToken cancellationToken)
+{
+    foreach (var queue in queues)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+
+        var message = await queue.ReceiveAsync(TimeSpan.Zero);
+        if (message != null)
+            return message;
+    }
+
+    return null;
+}
+</code></pre><p>There is a lot of room for tweaking the behavior so it fits the needs of your solution. But let&#x2019;s keep it simple for the sample. The receiver should also be able to &#x2018;fall asleep&#x2019; if there are no pending messages:</p><pre><code>private readonly ConcurrentDictionary&lt;int, Task&gt; awaiters = 
+    new ConcurrentDictionary&lt;int, Task&gt;();
+
+private Task WaitAsync(CancellationToken cancellationToken)
+{
+    foreach (var queue in queues)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+
+        Task awaiter;
+        if (awaiters.TryGetValue(queue.Priority, out awaiter))
+        {
+            if (!IsAwaitCompleted(awaiter))
+            {
+                continue;
+            }
+        }
+
+        awaiter = queue.ReceiveAsync(TimeSpan.MaxValue)
+            .ContinueWith(async prev =&gt;
+            {
+                if (prev.Exception != null)
+                {
+                    Logger.Instance.WriteException(prev.Exception);
+                }
+                else
+                {
+                    await prev.Result.AbandonAsync();
+                    Logger.Instance
+                        .WriteMessage(EventId.AbandonByWaiter, 
+                            &quot;Abandoned on wait {0}&quot;, 
+                                prev.Result.GetData());
+                }
+        }, cancellationToken);
+
+        awaiters[queue.Priority] = awaiter;
+    }
+
+    return Task.WhenAny(awaiters.Values);
+}
+
+private static bool IsAwaitCompleted(Task awaiter)
+{
+    return awaiter.IsCompleted || awaiter.IsCanceled || 
+        awaiter.IsFaulted;
+}
+</code></pre><p>As you can see I&#x2019;m not playing with timers or sleeps as I want the solution to respond as soon as a message is available. The awaiters should abandon the messages because they are going to be received through the prioritization mechanism. There is some minimal extra overhead in terms of network traffic but it looks like a reasonable trade-off to accomplish our goal.</p><p>Let&#x2019;s dive into the dispatcher now:</p><pre><code>private readonly AsyncSemaphore semaphore = new AsyncSemaphore(ProcessorCount.Cores);
+
+public async Task DispatchAsync(IMessage message, 
+    CancellationToken cancellationToken)
+{
+    if (message == null)
+        throw new ArgumentNullException(&quot;message&quot;);
+
+    var slot = semaphore.WaitAsync();
+    if (slot.IsCompleted)
+    {
+        var dispatchedMessage = new DispatchedMessage
+                                        {
+                                            Message = message,
+                                            CancellationToken = cancellationToken
+                                        };
+        Task.Factory.StartNew(DoDispatchAsync, dispatchedMessage, cancellationToken);
+    }
+    else
+    {
+        await message.AbandonAsync();
+        await WaitForSlotAndReleaseAsync(slot);
+    }
+}
+</code></pre><p>The dispatcher should allow a worker thread to process a message but if all worker threads are busy it should block the pump from getting new messages. My sample assumes the worker are going to be doing mostly compute bound work so the number of worker is limited to the <a href=http://stackoverflow.com/questions/1542213/how-to-find-the-number-of-cpu-cores-via-net-c>number of CPU cores available on the machine</a>. I use an asynchronous implementation of a Semaphore to throttle the dispatcher.</p><blockquote><p>If you haven&#x2019;t yet, you should check out an awesome <a href=http://blogs.msdn.com/b/pfxteam/archive/2012/02/12/10266983.aspx>blog series</a> by <a href=http://social.msdn.microsoft.com/profile/stephen%20toub%20-%20msft/ >Stephen Toub</a> on implementing thread synchronization primitives in terms of TPL async model. There are samples for manual and auto reset events, semaphore, reader/writer locks and the others. I highly recommend you go through this stuff!</p></blockquote><p>So when a worker thread (a slot) is available we just dispatch. We don&#x2019;t wait for the task to complete as we want to continue reading and processing new messages if we have capacity. Note that I moved from a traditional usage of a semaphore where I first have to wait for the slot to be available and then continue with my task. I did that because I need to first release the message before I block waiting. If I release the message it can be picked up by another instance of my worker role for example.</p><p>Once again, I recommend that you check out the <a href=https://bitbucket.org/dzimchuk/priorityqueue>complete solution</a> at <a href=https://bitbucket.org/ >Bitbucket</a>. It contains integration tests for the receiver and the dispatcher so you can see it in action running against real Service Bus queues.</p><p>Let&#x2019;s have a look at a sample output from the test:</p><p>7/30/2014 11:59:17 PM Message pump started.<br>7/30/2014 11:59:18 PM #processors: 4<br>7/30/2014 11:59:19 PM Wait for 18000ms<br>7/30/2014 11:59:19 PM #messages: 10<br>7/30/2014 11:59:20 PM Working on [p1 message 2]<br>7/30/2014 11:59:20 PM Abandoned on wait<br>7/30/2014 11:59:20 PM Abandoned on wait<br>7/30/2014 11:59:20 PM Working on [p1 message 3]<br>7/30/2014 11:59:20 PM Abandoned on wait<br>7/30/2014 11:59:20 PM Working on [p1 message 1]<br>7/30/2014 11:59:20 PM Working on [p2 message 1]<br>7/30/2014 11:59:20 PM Waiting for worker<br>7/30/2014 11:59:24 PM Completed p1 message 2<br>7/30/2014 11:59:24 PM Completed p1 message 3<br>7/30/2014 11:59:24 PM Working on [p2 message 2]<br>7/30/2014 11:59:24 PM Completed p1 message 1<br>7/30/2014 11:59:24 PM Working on [p2 message 3]<br>7/30/2014 11:59:24 PM Completed p2 message 1<br>7/30/2014 11:59:25 PM Working on [p3 message 2]<br>7/30/2014 11:59:25 PM Working on [p3 message 3]<br>7/30/2014 11:59:25 PM Waiting for worker<br>7/30/2014 11:59:28 PM Completed p2 message 2<br>7/30/2014 11:59:28 PM Completed p2 message 3<br>7/30/2014 11:59:29 PM Working on [p3 message 4]<br>7/30/2014 11:59:29 PM Completed p3 message 2<br>7/30/2014 11:59:29 PM Working on [p3 message 1]<br>7/30/2014 11:59:29 PM Completed p3 message 3<br>7/30/2014 11:59:33 PM Completed p3 message 4<br>7/30/2014 11:59:33 PM Completed p3 message 1<br>7/30/2014 11:59:38 PM Message pump stopped.</p><p>We are dealing with a 4 core CPU and we sent 10 messages at once: 4 to the lowest priority queue (3), 3 to the middle priority queue (2) and again 3 to the high priority queue. You see 3 &#x2018;Abandoned on wait&#x2019; messages because the receiver was waiting on all of the three queues before we started sending messages. Then we can see the first 4 messages got dispatched and then the dispatcher throttled the process by waiting for an available worker. The worker became available in approximately 4 seconds (which is a message processing time I set in my tests) and the pump continued to get more messages. Note that the messages got dispatched according to their priority.</p></section><footer class=post-footer><figure class=author-image><a class=img href=/ style="background-image: url(//www.gravatar.com/avatar/7fbe59ac3d3eaab56ec27da019d76f66?s&#x3D;250&amp;amp;d&#x3D;mm&amp;amp;r&#x3D;x)"><span class=hidden>Andrei Dzimchuk's Picture</span></a></figure><section class=author><h4><a href=/ >Andrei Dzimchuk</a></h4><p>Hi, I&#x27;m Andrei, I&#x27;m a software developer building cloud enabled solutions. I&#x27;m mostly focused on Azure and .NET and I try to share my experience and knowledge here with you.</p><div class=author-meta></div></section><section class=share><h4>Share this post</h4><a class=icon-facebook href="https://www.facebook.com/sharer/sharer.php?u=https://dzimchuk.net/a-sample-implementation-of-a-priority-queue-based-on-azure-service-bus/" rel="noopener noreferrer nofollow" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;"><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=facebook-icon role=img><title id=facebook-icon>Facebook</title><path d="M448 56.7v398.5c0 13.7-11.1 24.7-24.7 24.7H309.1V306.5h58.2l8.7-67.6h-67v-43.2c0-19.6 5.4-32.9 33.5-32.9h35.8v-60.5c-6.2-.8-27.4-2.7-52.2-2.7-51.6 0-87 31.5-87 89.4v49.9h-58.4v67.6h58.4V480H24.7C11.1 480 0 468.9 0 455.3V56.7C0 43.1 11.1 32 24.7 32h398.5c13.7 0 24.8 11.1 24.8 24.7z"></path></svg> </a><a class=icon-linkedin href="http://www.linkedin.com/shareArticle?mini=true&amp;url=https://dzimchuk.net/a-sample-implementation-of-a-priority-queue-based-on-azure-service-bus/&amp;title=A%20sample%20implementation%20of%20a%20priority%20queue%20based%20on%20Azure%20Service%20Bus" rel="noopener noreferrer nofollow" onclick="window.open(this.href, 'linkedin-share','width=490,height=530');return false;"><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=linkedin-icon role=img><title id=linkedin-icon>LinkedIn</title><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg></a></section></footer><section class=post-comments><div id=disqus_thread></div><script>var disqus_config = function () {
+                    this.page.url = 'https://dzimchuk.net/a-sample-implementation-of-a-priority-queue-based-on-azure-service-bus/';
+                    this.page.identifier = '4569c252-184f-4bad-85cb-b5e340d80a11';
+                    this.page.title = 'A sample implementation of a priority queue based on Azure Service Bus';
+                };
+                (function() {
+                    var d = document, s = d.createElement('script');
+                    s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
+                })();</script></section></article></main><footer class=site-footer><div class=site-footer-inner><section class=copyright><a href=https://dzimchuk.net/ >Andrei Dzimchuk</a> &copy; 2026</section><nav class=site-footer-nav><a href=https://github.com/dzimchuk target=_blank rel=noopener><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 496 512" aria-labelledby=github-icon role=img><title id=github-icon>GitHub</title><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg></a><a href=https://www.linkedin.com/in/andreidzimchuk target=_blank rel=noopener><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=linkedin-icon role=img><title id=linkedin-icon>LinkedIn</title><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg></a><a href=https://feedly.com/i/subscription/feed/https://dzimchuk.net/rss.xml target=_blank rel=noopener><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=rss-icon role=img><title id=rss-icon>RSS</title><path d="M128.081 415.959c0 35.369-28.672 64.041-64.041 64.041S0 451.328 0 415.959s28.672-64.041 64.041-64.041 64.04 28.673 64.04 64.041zm175.66 47.25c-8.354-154.6-132.185-278.587-286.95-286.95C7.656 175.765 0 183.105 0 192.253v48.069c0 8.415 6.49 15.472 14.887 16.018 111.832 7.284 201.473 96.702 208.772 208.772.547 8.397 7.604 14.887 16.018 14.887h48.069c9.149.001 16.489-7.655 15.995-16.79zm144.249.288C439.596 229.677 251.465 40.445 16.503 32.01 7.473 31.686 0 38.981 0 48.016v48.068c0 8.625 6.835 15.645 15.453 15.999 191.179 7.839 344.627 161.316 352.465 352.465.353 8.618 7.373 15.453 15.999 15.453h48.068c9.034-.001 16.329-7.474 16.005-16.504z"></path></svg></a></nav></div></footer></div><script src=https://code.jquery.com/jquery-3.2.1.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script type=text/javascript src=/assets/theme-4b97c15618.js></script><script>$(function () {
+    var $postContent = $(".post-content");
+    $postContent.fitVids();
+  });</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-JYXGZ70WJH"></script><script>window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-JYXGZ70WJH');</script></body></html>

@@ -1,0 +1,194 @@
+﻿<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><title>Setting up your ASP.NET Core apps and services for Azure AD B2C</title><meta name=HandheldFriendly content=True><meta name=viewport content="width=device-width,initial-scale=1"><link rel=stylesheet type=text/css href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400"><link rel=stylesheet type=text/css href=/assets/theme-0c0984d3fd.css><link rel=canonical href=https://dzimchuk.net/setting-up-your-aspnet-core-apps-and-services-for-azure-ad-b2c/ ><meta name=referrer content=no-referrer-when-downgrade><meta property=og:site_name content="Andrei Dzimchuk"><meta property=og:type content=article><meta property=og:title content="Setting up your ASP.NET Core apps and services for Azure AD B2C"><meta property=og:description content="So far we&#x27;ve been looking at corporate or organizational accounts in context of working with Azure AD. But for customer facing applications it&#x27;s important to provide a way for users to register themselves and use their existing social accounts to authenticate with your applications."><meta property=og:url content=https://dzimchuk.net/setting-up-your-aspnet-core-apps-and-services-for-azure-ad-b2c/ ><meta property=article:publisher content=https://www.facebook.com/andrei.dzimchuk><meta property=article:author content=https://www.facebook.com/andrei.dzimchuk><meta property=article:published_time content=2016-07-06T08:32:00.000+00:00><meta property=article:modified_time content=2017-12-18T20:09:46.000+00:00><meta property=article:tag content="Azure Active Directory"><meta property=article:tag content=ASP.NET><meta name=twitter:card content=summary><meta name=twitter:title content="Setting up your ASP.NET Core apps and services for Azure AD B2C"><meta name=twitter:description content="So far we&#x27;ve been looking at corporate or organizational accounts in context of working with Azure AD. But for customer facing applications it&#x27;s important to provide a way for users to register themselves and use their existing social accounts to authenticate with your applications."><meta name=twitter:url content=https://dzimchuk.net/setting-up-your-aspnet-core-apps-and-services-for-azure-ad-b2c/ ><meta name=twitter:label1 content="Written by"><meta name=twitter:data1 content="Andrei Dzimchuk"><meta name=twitter:label2 content="Filed under"><meta name=twitter:data2 content="Azure Active Directory, ASP.NET"><meta name=twitter:site content=@dzimchuk><meta property=twitter:creator content=@dzimchuk><script type=application/ld+json>{
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "publisher": {
+      "@type": "Organization",
+      "name": "Andrei Dzimchuk",
+      "logo": {
+      "@type": "ImageObject",
+      "url": "https://dzimchuk.net/media/favicons/v1/favicon.ico",
+      "width": 60,
+      "height": 60
+      }
+      },
+      "url": "https://dzimchuk.net/setting-up-your-aspnet-core-apps-and-services-for-azure-ad-b2c/",
+      "description": "So far we&#x27;ve been looking at corporate or organizational accounts in context of working with Azure AD. But for customer facing applications it&#x27;s important to provide a way for users to register themselves and use their existing social accounts to authenticate with your applications."
+      "headline": "Setting up your ASP.NET Core apps and services for Azure AD B2C",
+      "datePublished": "2016-07-06T08:32:00.000+00:00",
+      "dateModified": "2017-12-18T20:09:46.000+00:00",
+      "keywords": "Azure Active Directory, ASP.NET",
+      "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://dzimchuk.net/"
+      }
+      }</script><link rel=alternate type=application/rss+xml title="Andrei Dzimchuk" href=https://dzimchuk.net/rss.xml><script type=text/javascript>var disqus_shortname = 'dzimchuk';</script><link rel=apple-touch-icon sizes=57x57 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-57x57.png><link rel=apple-touch-icon sizes=60x60 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-60x60.png><link rel=apple-touch-icon sizes=72x72 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-72x72.png><link rel=apple-touch-icon sizes=76x76 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-76x76.png><link rel=apple-touch-icon sizes=114x114 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-114x114.png><link rel=apple-touch-icon sizes=120x120 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-120x120.png><link rel=apple-touch-icon sizes=144x144 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-144x144.png><link rel=apple-touch-icon sizes=152x152 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-152x152.png><link rel=apple-touch-icon sizes=180x180 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-180x180.png><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/android-chrome-192x192.png sizes=192x192><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/favicon-96x96.png sizes=96x96><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/favicon-16x16.png sizes=16x16><link rel=manifest href=https://dzimchuk.net/favicons/v1/manifest.json><link rel="shortcut icon" href=https://dzimchuk.net/media/favicons/v1/favicon.ico><meta name=msapplication-TileColor content=#da532c><meta name=msapplication-TileImage content=https://dzimchuk.net/media/favicons/v1/mstile-144x144.png><meta name=msapplication-config content=https://dzimchuk.net/favicons/v1/browserconfig.xml><meta name=theme-color content=#ffffff></head><body class="post-template tag-azure-active-directory tag-aspnet"><div class=site-wrapper><header class="main-header post-head no-cover"><nav class="main-nav clearfix"><div class=nav-wrapper><ul class=nav role=menu><li class=nav-home role=menuitem><a href=/ >Home</a></li><li class=nav-cloud-patterns role=menuitem><a href=/tag/cloud-patterns/ >Cloud Patterns</a></li><li class=nav-service-fabric role=menuitem><a href=/tag/azure-service-fabric/ >Service Fabric</a></li><li class=nav-azure-ad role=menuitem><a href=/tag/azure-active-directory/ >Azure AD</a></li><li class=nav-azure-services role=menuitem><a href=/tag/azure-services/ >Azure Services</a></li><li class=nav-about role=menuitem><a href=/about/ >About</a></li></ul><a href=javascript:void(0); class=nav-hamburger-open><svg role=img xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=open-menu-icon><title id=open-menu-icon>Open menu</title><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path></svg></a><a href=javascript:void(0); class=nav-hamburger-close><svg role=img xmlns=http://www.w3.org/2000/svg viewBox="0 0 352 512" aria-labelledby=close-menu-icon><title id=close-menu-icon>Close menu</title><path fill=currentColor d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg></a></div></nav></header><main class=content role=main><article class="post tag-azure-active-directory tag-aspnet"><header class=post-header><h1 class=post-title>Setting up your ASP.NET Core apps and services for Azure AD B2C</h1><section class=post-meta><time class=post-date datetime=2016-07-06>06 July 2016</time> on <a href=/tag/azure-active-directory/ >Azure Active Directory</a>, <a href=/tag/aspnet/ >ASP.NET</a></section></header><section class=post-content><p>So far we&#39;ve been looking at corporate or organizational accounts in context of working with Azure AD. But for customer facing applications it&#39;s important to provide a way for users to register themselves and use their existing accounts in various well-known services to authenticate with your applications. Today we&#39;re going to look at Azure AD B2C, the service designed specifically to serve individuals consuming your apps, and how to configure it in your ASP.NET Core web applications.</p><p><strong>Update:</strong> this post describes ASP.NET Core 1.x and is somewhat out of date. Please check out <a href=/setting-up-your-asp-net-core-2-0-apps-and-services-for-azure-ad-b2c/ >this</a> post instead.</p><h2 id=setting-up-a-directory>Setting up a directory</h2><p>You still create B2C directories just like the regular directories on the classic portal.</p><p><img src=https://dzimchuk.net/media/AzureAD_B2C.png alt="Creating an Azure AD B2C directory"></p><p>Even though you have some tabs and you may try to configure from here, chances are it&#39;s not going to work. Things are pretty much in flux and rememver Azure AD B2C is itself in preview. So you gotta head to the new portal straight after to manage your newly created directory. Just make sure to select your B2C directory in the upper right corner.</p><p><img src=https://dzimchuk.net/media/AzureAD_B2C_App.png alt="B2C app settings"></p><p>The apps have pretty standard settings that you&#39;ve probably got used to: Application (client) ID, secret (key), return URLs, etc. One important thing to note is that if you want to implement a delegated access scenario when you have a client app and some remote services both the app and the services will shared the same application in Azure AD B2C. I&#39;m not sure if it will stay the same but for now this is way the things are.</p><p>I&#39;m going to use a sample solution of two ASP.NET Core applications that you can clone from <a href=https://github.com/dzimchuk/azure-ad-b2c-asp-net-core>GitHub</a>.</p><h2 id=configuring-api-application>Configuring API application</h2><p>Azure AD B2C uses v2 endpoints and its tokens are still in JWT format, same as organizational v1 endpoints. That means we need <code>Microsoft.AspNetCore.Authentication.JwtBearer</code> middleware and its configuration looks almost identical to the <a href=/protecting-your-apis-with-azure-active-directory>one</a> we used for the classic directory.</p><pre><code>public void Configure(IApplicationBuilder app, IOptions&lt;AuthenticationOptions&gt; authOptions)
+{
+    app.UseJwtBearerAuthentication(new JwtBearerOptions
+    {
+        AutomaticAuthenticate = true,
+        AutomaticChallenge = true,
+
+        MetadataAddress = 
+            $&quot;{authOptions.Value.Authority}/.well-known/openid-configuration?p={authOptions.Value.SignInOrSignUpPolicy}&quot;,
+        Audience = authOptions.Value.Audience,
+
+        Events = new JwtBearerEvents
+                 {
+                     OnAuthenticationFailed = ctx =&gt;
+                                              {
+                                                  ctx.SkipToNextMiddleware();
+                                                  return Task.FromResult(0);
+                                              }
+                 }
+    });
+
+    app.UseMvc();
+}
+</code></pre><p>Except for one thing: instead of setting the authority, which is our tenant&#39;s URL in the classic directory, we specify the full URL to the OpenID Connect metadata endpoint. And the reason for that is that query string parameter, called <code>p</code>, that identifies a policy. In Azure AD B2C policies define the end user experience and enable much greater customization options than the ones available in the classic directory. <a href=https://azure.microsoft.com/en-us/documentation/articles/active-directory-b2c-reference-policies/ >Official documentation</a> covers policies and other concepts in great details so I suggest you have a look at it.</p><p>In Azure AD B2C the policy is a required parameter in requests to authorization and token endpoints. For instance, if we query the metadata endpoint we get the following output:</p><pre><code>HTTP/1.1 200 OK
+Cache-Control: private
+Content-Type: application/json; charset=utf-8
+Server: Microsoft-IIS/8.5
+Set-Cookie: x-ms-cpim-slice=001-000; domain=microsoftonline.com; path=/; secure; HttpOnly
+Set-Cookie: x-ms-cpim-trans=; expires=Mon, 04-Jul-2016 20:02:00 GMT; path=/; secure; HttpOnly
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+X-XSS-Protection: 1; mode=block
+Set-Cookie: x-ms-gateway-slice=001-000; path=/; secure; HttpOnly
+Set-Cookie: stsservicecookie=cpim_te; path=/; secure; HttpOnly
+X-Powered-By: ASP.NET
+Date: Tue, 05 Jul 2016 20:01:58 GMT
+Content-Length: 1208
+
+{
+  &quot;issuer&quot;: &quot;https://login.microsoftonline.com/bc2fb659-725b-48d8-b571-7420094e41cc/v2.0/&quot;,
+  &quot;authorization_endpoint&quot;: &quot;https://login.microsoftonline.com/devunleashedb2c.onmicrosoft.com/oauth2/v2.0/authorize?p=b2c_1_testsignupandsigninpolicy&quot;,
+  &quot;token_endpoint&quot;: &quot;https://login.microsoftonline.com/devunleashedb2c.onmicrosoft.com/oauth2/v2.0/token?p=b2c_1_testsignupandsigninpolicy&quot;,
+  &quot;end_session_endpoint&quot;: &quot;https://login.microsoftonline.com/devunleashedb2c.onmicrosoft.com/oauth2/v2.0/logout?p=b2c_1_testsignupandsigninpolicy&quot;,
+  &quot;jwks_uri&quot;: &quot;https://login.microsoftonline.com/devunleashedb2c.onmicrosoft.com/discovery/v2.0/keys?p=b2c_1_testsignupandsigninpolicy&quot;,
+  &quot;response_modes_supported&quot;: [
+    &quot;query&quot;,
+    &quot;fragment&quot;,
+    &quot;form_post&quot;
+  ],
+  &quot;response_types_supported&quot;: [
+    &quot;code&quot;,
+    &quot;id_token&quot;,
+    &quot;code id_token&quot;
+  ],
+  &quot;scopes_supported&quot;: [
+    &quot;openid&quot;
+  ],
+  &quot;subject_types_supported&quot;: [
+    &quot;pairwise&quot;
+  ],
+  &quot;id_token_signing_alg_values_supported&quot;: [
+    &quot;RS256&quot;
+  ],
+  &quot;token_endpoint_auth_methods_supported&quot;: [
+    &quot;client_secret_post&quot;
+  ],
+  &quot;claims_supported&quot;: [
+    &quot;oid&quot;,
+    &quot;newUser&quot;,
+    &quot;idp&quot;,
+    &quot;emails&quot;,
+    &quot;name&quot;,
+    &quot;sub&quot;
+  ]
+}
+</code></pre><p>Not only does it provide policy specific endpoints, it also gives information about claims that I configured to be inluded in tokens for this specific policy.</p><h2 id=configuring-a-web-client-application>Configuring a web client application</h2><p>In ASP.NET Core web client we use the same pair of cookies and OpenID Connect middleware that we used <a href=/accessing-azure-ad-protected-resources-using-openid-connect>before</a> and we are also going take advantage of ADAL library to help us with token management. As you probably rememeber one of the reasons we use ADAL is to support Azure AD specific requirements. In case of the class directory this is the <code>resource</code> parameter however it&#39;s not relevant anymore in Azure AD B2C. Here we have another required parameter: <code>p</code> and thus we need a special version of ADAL that supports it.</p><p>Another special case with Azure AD B2C is that its token endpoints do not issue access tokens. Yup, they will give ID tokens with optional refresh tokens and you&#39;re supposed to use ID tokens as access tokens when calling your API apps. The standard OpenID Connect middleware cannot be used to redeem the authorization code as it will fail to find access token in the response.</p><pre><code>&quot;dependencies&quot;: {
+    &quot;Microsoft.AspNetCore.Authentication.Cookies&quot;: &quot;1.0.0&quot;,
+    &quot;Microsoft.AspNetCore.Authentication.OpenIdConnect&quot;: &quot;1.0.0&quot;,
+    &quot;Microsoft.Experimental.IdentityModel.Clients.ActiveDirectory&quot;: &quot;4.0.209160138-alpha&quot;
+}
+</code></pre><p>It&#39;s called &#39;experimental&#39; and Azure AD team likely is going to switch or focus its efforts on the new libaray called <a href=https://www.nuget.org/packages/Microsoft.Identity.Client>MSAL</a> for all v2 endpoints including B2C. So you definitely want to keep an eye on that but meanwhile we&#39;re going use the experimental ADAL package.</p><pre><code>app.UseCookieAuthentication(new CookieAuthenticationOptions
+{
+    AutomaticAuthenticate = true
+});
+
+var openIdConnectOptions = new OpenIdConnectOptions
+{
+    AuthenticationScheme = Constants.OpenIdConnectAuthenticationScheme,
+    AutomaticChallenge = true,
+
+    Authority = authOptions.Value.Authority,
+    ClientId = authOptions.Value.ClientId,
+    ClientSecret = authOptions.Value.ClientSecret,
+    PostLogoutRedirectUri = authOptions.Value.PostLogoutRedirectUri,
+
+    ConfigurationManager = new PolicyConfigurationManager(authOptions.Value.Authority, 
+        new[] { b2cPolicies.Value.SignInOrSignUpPolicy, b2cPolicies.Value.EditProfilePolicy }),
+    Events = CreateOpenIdConnectEventHandlers(authOptions.Value, b2cPolicies.Value),
+
+    ResponseType = OpenIdConnectResponseType.CodeIdToken,
+    TokenValidationParameters = new TokenValidationParameters
+    {
+        NameClaimType = &quot;name&quot;
+    },
+
+    SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme
+};
+
+openIdConnectOptions.Scope.Add(&quot;offline_access&quot;);
+</code></pre><p>If you&#39;ve been following my posts on working with Azure AD or have been playing with on your own most of the parameters should be familiar to you. I will just describe the settings that are unique to Azure AD B2C. If we want to get refresh tokens we need to add a special scope <code>offline_access</code> and we also need to implement a configuration manager that takes into account policies when making requests to metadata endpoints. Remember that the default behavior is to simply append <code>.well-known/openid-configuration</code> to the authority parameter and it&#39;s not enough in this case.</p><p>A possible implementation of the <code>PolicyConfigurationManager</code> can be found in official samples and <a href=https://github.com/dzimchuk/azure-ad-b2c-asp-net-core/blob/master/TestApp/Infrastructure/PolicyConfigurationManager.cs>here</a> you can find the one I used in my demo solution.</p><p><code>CreateOpenIdConnectEventHandlers</code> allows us to intercept the flow by subscribing to various events:</p><pre><code>private static IOpenIdConnectEvents CreateOpenIdConnectEventHandlers(B2CAuthenticationOptions authOptions, B2CPolicies policies)
+{
+    return new OpenIdConnectEvents
+    {
+        OnRedirectToIdentityProvider = context =&gt; SetIssuerAddressAsync(context, policies.SignInOrSignUpPolicy),
+        OnRedirectToIdentityProviderForSignOut = context =&gt; SetIssuerAddressForSignOutAsync(context, policies.SignInOrSignUpPolicy),
+        OnAuthorizationCodeReceived = async context =&gt;
+        {
+          var credential = new ClientCredential(authOptions.ClientId, authOptions.ClientSecret);
+          var authenticationContext = new AuthenticationContext(authOptions.Authority);
+          var result = await authenticationContext.AcquireTokenByAuthorizationCodeAsync(context.TokenEndpointRequest.Code,
+                             new Uri(context.TokenEndpointRequest.RedirectUri, UriKind.RelativeOrAbsolute), credential,
+                             new[] { authOptions.ClientId }, context.Ticket.Principal.FindFirst(Constants.AcrClaimType).Value);
+
+          context.HandleCodeRedemption();
+        },
+        OnAuthenticationFailed = context =&gt;
+        {
+            context.HandleResponse();
+            context.Response.Redirect(&quot;/home/error&quot;);
+            return Task.FromResult(0);
+        }
+    };
+}
+
+private static async Task SetIssuerAddressAsync(RedirectContext context, string defaultPolicy)
+{
+    var configuration = await GetOpenIdConnectConfigurationAsync(context, defaultPolicy);
+    context.ProtocolMessage.IssuerAddress = configuration.AuthorizationEndpoint;
+}
+
+private static async Task SetIssuerAddressForSignOutAsync(RedirectContext context, string defaultPolicy)
+{
+    var configuration = await GetOpenIdConnectConfigurationAsync(context, defaultPolicy);
+    context.ProtocolMessage.IssuerAddress = configuration.EndSessionEndpoint;
+}
+
+private static async Task&lt;OpenIdConnectConfiguration&gt; GetOpenIdConnectConfigurationAsync(RedirectContext context, string defaultPolicy)
+{
+    var manager = (PolicyConfigurationManager)context.Options.ConfigurationManager;
+    var policy = context.Properties.Items.ContainsKey(Constants.B2CPolicy) ? context.Properties.Items[Constants.B2CPolicy] : defaultPolicy;
+    var configuration = await manager.GetConfigurationByPolicyAsync(CancellationToken.None, policy);
+    return configuration;
+}
+</code></pre><p>As you can see we need to set the correct endpoint addresses including the policy parameter when the user gets redirected to the authorization and sign-out pages. We use our custom <code>PolicyConfigurationManager</code> to determine the correct endpoints based on the <code>Constants.B2CPolicy</code> property that is set by the <a href=https://github.com/dzimchuk/azure-ad-b2c-asp-net-core/blob/master/TestApp/Controllers/AccountController.cs>AccountController</a> in response to appropriate actions: sign in, sign up, edit profile or sign out. Please check out the code to get a better picture of how things work.</p><p><code>OnAuthorizationCodeReceived</code> is where we redeem the authorization code using the experimental version of ADAL. We need a policy parameter and <code>Constants.AcrClaimType</code> corresponds to <code>http://schemas.microsoft.com/claims/authnclassreference</code> claim that is present in ID tokens issued by Azure AD B2C and this claim contains the name of the active policy. Finally, we need to notify the OpenID Connect middleware that we&#39;ve managed code redemption by calling <code>context.HandleCodeRedemption()</code>.</p></section><footer class=post-footer><figure class=author-image><a class=img href=/ style="background-image: url(//www.gravatar.com/avatar/7fbe59ac3d3eaab56ec27da019d76f66?s&#x3D;250&amp;amp;d&#x3D;mm&amp;amp;r&#x3D;x)"><span class=hidden>Andrei Dzimchuk's Picture</span></a></figure><section class=author><h4><a href=/ >Andrei Dzimchuk</a></h4><p>Hi, I&#x27;m Andrei, I&#x27;m a software developer building cloud enabled solutions. I&#x27;m mostly focused on Azure and .NET and I try to share my experience and knowledge here with you.</p><div class=author-meta></div></section><section class=share><h4>Share this post</h4><a class=icon-facebook href="https://www.facebook.com/sharer/sharer.php?u=https://dzimchuk.net/setting-up-your-aspnet-core-apps-and-services-for-azure-ad-b2c/" rel="noopener noreferrer nofollow" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;"><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=facebook-icon role=img><title id=facebook-icon>Facebook</title><path d="M448 56.7v398.5c0 13.7-11.1 24.7-24.7 24.7H309.1V306.5h58.2l8.7-67.6h-67v-43.2c0-19.6 5.4-32.9 33.5-32.9h35.8v-60.5c-6.2-.8-27.4-2.7-52.2-2.7-51.6 0-87 31.5-87 89.4v49.9h-58.4v67.6h58.4V480H24.7C11.1 480 0 468.9 0 455.3V56.7C0 43.1 11.1 32 24.7 32h398.5c13.7 0 24.8 11.1 24.8 24.7z"></path></svg> </a><a class=icon-linkedin href="http://www.linkedin.com/shareArticle?mini=true&amp;url=https://dzimchuk.net/setting-up-your-aspnet-core-apps-and-services-for-azure-ad-b2c/&amp;title=Setting%20up%20your%20ASP.NET%20Core%20apps%20and%20services%20for%20Azure%20AD%20B2C" rel="noopener noreferrer nofollow" onclick="window.open(this.href, 'linkedin-share','width=490,height=530');return false;"><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=linkedin-icon role=img><title id=linkedin-icon>LinkedIn</title><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg></a></section></footer><section class=post-comments><div id=disqus_thread></div><script>var disqus_config = function () {
+                    this.page.url = 'https://dzimchuk.net/setting-up-your-aspnet-core-apps-and-services-for-azure-ad-b2c/';
+                    this.page.identifier = '1ebee3df-453e-45f1-92f1-b629cacf4a6d';
+                    this.page.title = 'Setting up your ASP.NET Core apps and services for Azure AD B2C';
+                };
+                (function() {
+                    var d = document, s = d.createElement('script');
+                    s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
+                })();</script></section></article></main><footer class=site-footer><div class=site-footer-inner><section class=copyright><a href=https://dzimchuk.net/ >Andrei Dzimchuk</a> &copy; 2026</section><nav class=site-footer-nav><a href=https://github.com/dzimchuk target=_blank rel=noopener><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 496 512" aria-labelledby=github-icon role=img><title id=github-icon>GitHub</title><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg></a><a href=https://www.linkedin.com/in/andreidzimchuk target=_blank rel=noopener><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=linkedin-icon role=img><title id=linkedin-icon>LinkedIn</title><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg></a><a href=https://feedly.com/i/subscription/feed/https://dzimchuk.net/rss.xml target=_blank rel=noopener><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=rss-icon role=img><title id=rss-icon>RSS</title><path d="M128.081 415.959c0 35.369-28.672 64.041-64.041 64.041S0 451.328 0 415.959s28.672-64.041 64.041-64.041 64.04 28.673 64.04 64.041zm175.66 47.25c-8.354-154.6-132.185-278.587-286.95-286.95C7.656 175.765 0 183.105 0 192.253v48.069c0 8.415 6.49 15.472 14.887 16.018 111.832 7.284 201.473 96.702 208.772 208.772.547 8.397 7.604 14.887 16.018 14.887h48.069c9.149.001 16.489-7.655 15.995-16.79zm144.249.288C439.596 229.677 251.465 40.445 16.503 32.01 7.473 31.686 0 38.981 0 48.016v48.068c0 8.625 6.835 15.645 15.453 15.999 191.179 7.839 344.627 161.316 352.465 352.465.353 8.618 7.373 15.453 15.999 15.453h48.068c9.034-.001 16.329-7.474 16.005-16.504z"></path></svg></a></nav></div></footer></div><script src=https://code.jquery.com/jquery-3.2.1.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script type=text/javascript src=/assets/theme-4b97c15618.js></script><script>$(function () {
+    var $postContent = $(".post-content");
+    $postContent.fitVids();
+  });</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-JYXGZ70WJH"></script><script>window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-JYXGZ70WJH');</script></body></html>

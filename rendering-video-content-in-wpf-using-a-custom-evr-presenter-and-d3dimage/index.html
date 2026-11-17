@@ -1,0 +1,381 @@
+﻿<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><title>Rendering video content in WPF using a custom EVR presenter and D3DImage</title><meta name=HandheldFriendly content=True><meta name=viewport content="width=device-width,initial-scale=1"><link rel=stylesheet type=text/css href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400"><link rel=stylesheet type=text/css href=/assets/theme-0c0984d3fd.css><link rel=canonical href=https://dzimchuk.net/rendering-video-content-in-wpf-using-a-custom-evr-presenter-and-d3dimage/ ><meta name=referrer content=no-referrer-when-downgrade><meta property=og:site_name content="Andrei Dzimchuk"><meta property=og:type content=article><meta property=og:title content="Rendering video content in WPF using a custom EVR presenter and D3DImage"><meta property=og:description content="&lt;span style&#x3D;&quot;text-decoration: underline;&quot;&gt;Note:&lt;/span&gt; if you&amp;#x2019;re not interested in low level control on your DirectShow graph and don&amp;#x2019;t need to render DVD content, just stick to &lt;code&gt;MediaElement&lt;/code&gt; or &lt;code&gt;VideoDrawing+MediaPlayer&lt;/code&gt;. This post is about how to render video yourself in your own filter graph."><meta property=og:url content=https://dzimchuk.net/rendering-video-content-in-wpf-using-a-custom-evr-presenter-and-d3dimage/ ><meta property=article:publisher content=https://www.facebook.com/andrei.dzimchuk><meta property=article:author content=https://www.facebook.com/andrei.dzimchuk><meta property=article:published_time content=2012-04-27T23:06:00.000+00:00><meta property=article:modified_time content=2015-04-23T16:41:47.000+00:00><meta property=article:tag content=WPF><meta property=article:tag content=DirectShow><meta name=twitter:card content=summary><meta name=twitter:title content="Rendering video content in WPF using a custom EVR presenter and D3DImage"><meta name=twitter:description content="&lt;span style&#x3D;&quot;text-decoration: underline;&quot;&gt;Note:&lt;/span&gt; if you&amp;#x2019;re not interested in low level control on your DirectShow graph and don&amp;#x2019;t need to render DVD content, just stick to &lt;code&gt;MediaElement&lt;/code&gt; or &lt;code&gt;VideoDrawing+MediaPlayer&lt;/code&gt;. This post is about how to render video yourself in your own filter graph."><meta name=twitter:url content=https://dzimchuk.net/rendering-video-content-in-wpf-using-a-custom-evr-presenter-and-d3dimage/ ><meta name=twitter:label1 content="Written by"><meta name=twitter:data1 content="Andrei Dzimchuk"><meta name=twitter:label2 content="Filed under"><meta name=twitter:data2 content="WPF, DirectShow"><meta name=twitter:site content=@dzimchuk><meta property=twitter:creator content=@dzimchuk><script type=application/ld+json>{
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "publisher": {
+      "@type": "Organization",
+      "name": "Andrei Dzimchuk",
+      "logo": {
+      "@type": "ImageObject",
+      "url": "https://dzimchuk.net/media/favicons/v1/favicon.ico",
+      "width": 60,
+      "height": 60
+      }
+      },
+      "url": "https://dzimchuk.net/rendering-video-content-in-wpf-using-a-custom-evr-presenter-and-d3dimage/",
+      "description": "&lt;span style&#x3D;&quot;text-decoration: underline;&quot;&gt;Note:&lt;/span&gt; if you&amp;#x2019;re not interested in low level control on your DirectShow graph and don&amp;#x2019;t need to render DVD content, just stick to &lt;code&gt;MediaElement&lt;/code&gt; or &lt;code&gt;VideoDrawing+MediaPlayer&lt;/code&gt;. This post is about how to render video yourself in your own filter graph."
+      "headline": "Rendering video content in WPF using a custom EVR presenter and D3DImage",
+      "datePublished": "2012-04-27T23:06:00.000+00:00",
+      "dateModified": "2015-04-23T16:41:47.000+00:00",
+      "keywords": "WPF, DirectShow",
+      "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://dzimchuk.net/"
+      }
+      }</script><link rel=alternate type=application/rss+xml title="Andrei Dzimchuk" href=https://dzimchuk.net/rss.xml><script type=text/javascript>var disqus_shortname = 'dzimchuk';</script><link rel=apple-touch-icon sizes=57x57 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-57x57.png><link rel=apple-touch-icon sizes=60x60 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-60x60.png><link rel=apple-touch-icon sizes=72x72 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-72x72.png><link rel=apple-touch-icon sizes=76x76 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-76x76.png><link rel=apple-touch-icon sizes=114x114 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-114x114.png><link rel=apple-touch-icon sizes=120x120 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-120x120.png><link rel=apple-touch-icon sizes=144x144 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-144x144.png><link rel=apple-touch-icon sizes=152x152 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-152x152.png><link rel=apple-touch-icon sizes=180x180 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-180x180.png><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/android-chrome-192x192.png sizes=192x192><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/favicon-96x96.png sizes=96x96><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/favicon-16x16.png sizes=16x16><link rel=manifest href=https://dzimchuk.net/favicons/v1/manifest.json><link rel="shortcut icon" href=https://dzimchuk.net/media/favicons/v1/favicon.ico><meta name=msapplication-TileColor content=#da532c><meta name=msapplication-TileImage content=https://dzimchuk.net/media/favicons/v1/mstile-144x144.png><meta name=msapplication-config content=https://dzimchuk.net/favicons/v1/browserconfig.xml><meta name=theme-color content=#ffffff></head><body class="post-template tag-wpf tag-directshow"><div class=site-wrapper><header class="main-header post-head no-cover"><nav class="main-nav clearfix"><div class=nav-wrapper><ul class=nav role=menu><li class=nav-home role=menuitem><a href=/ >Home</a></li><li class=nav-cloud-patterns role=menuitem><a href=/tag/cloud-patterns/ >Cloud Patterns</a></li><li class=nav-service-fabric role=menuitem><a href=/tag/azure-service-fabric/ >Service Fabric</a></li><li class=nav-azure-ad role=menuitem><a href=/tag/azure-active-directory/ >Azure AD</a></li><li class=nav-azure-services role=menuitem><a href=/tag/azure-services/ >Azure Services</a></li><li class=nav-about role=menuitem><a href=/about/ >About</a></li></ul><a href=javascript:void(0); class=nav-hamburger-open><svg role=img xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=open-menu-icon><title id=open-menu-icon>Open menu</title><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path></svg></a><a href=javascript:void(0); class=nav-hamburger-close><svg role=img xmlns=http://www.w3.org/2000/svg viewBox="0 0 352 512" aria-labelledby=close-menu-icon><title id=close-menu-icon>Close menu</title><path fill=currentColor d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg></a></div></nav></header><main class=content role=main><article class="post tag-wpf tag-directshow"><header class=post-header><h1 class=post-title>Rendering video content in WPF using a custom EVR presenter and D3DImage</h1><section class=post-meta><time class=post-date datetime=2012-04-27>27 April 2012</time> on <a href=/tag/wpf/ >WPF</a>, <a href=/tag/directshow/ >DirectShow</a></section></header><section class=post-content><h3 id=preface>Preface</h3><blockquote><p><span style="text-decoration: underline;">Note:</span> if you’re not interested in low level control on your DirectShow graph and don’t need to render DVD content, just stick to <code>MediaElement</code> or <code>VideoDrawing+MediaPlayer</code>. This post is about how to render video yourself in your own filter graph.</p></blockquote><p>I was thinking about porting Power Video Player to WPF long ago and was gathering necessary information that would help cut tough corners for a while. One of the things that I thought was absolutely clear is the way I was going to port the core engine part that relies heavily on PInvoke and native windows management. I didn’t even imagine how much I was wrong.</p><p>The basic mechanism that the core’s been using to present the video consists of creating a native window that’s made a child of some managed container (say <code>UserControl</code>) and passing its HWND to one of the renderers. While the core was doing quite a job managing sizing and aspect ration handling it was completely up to the stock renderer (and PVP supported VMR, VMR9, both windowless and not, EVR and even the legacy VideoRenderer) to actually draw the picture on the window (ok, windowed renderers create their own windows on top of yours but never mind, the PVP engine is able to handle all the gory details).</p><p>So the initial idea was to retain that very mechanism once WPF provides convenient <code>HwndHost</code> component that can host any native window. <code>HwndHost</code> is actually a <code>FrameworkElement</code> so it naturally fits into WPF elements’ tree (it does however have implications in terms of mouse and keyboard events handling but this is the least important problem).</p><blockquote><p>Edited: On another thought, not too least. What about touch? WPF 4 has first class support for touch but <code>HwndHost</code> is an interop layer to the legacy technology and is restrictive in various ways as you’re going to see soon.</p></blockquote><p>Well, it works. Under certain circumstances, however. Basically, it’s going to work as long as you don’t try to make your main window look different from the standard window. You know, in order to remove the ugly default thick border and make your window skinned (which is a common requirement for a video play application) you have to set <code>WindowStyle</code> to <code>None</code> and <code>Background</code> to <code>Transparent</code>. But what’s essential is that you have to set <code>AllowsTransparency</code> property of your window to True. And once you’ve done that, your <code>HwndHost</code> becomes invisible (not black, green or white, but totally transparent). And anything that’s drawn by its children is invisible too.</p><p>This odd behavior made me spend some time investigating and experimenting and in the end it turned out to be a known issue, I like <a href=http://social.msdn.microsoft.com/forums/en-US/wpf/thread/6f9dd3b5-af92-4076-9b4e-1a770dd52f70/ >this thread for an explanation</a>. So once you enable WPF’s transparency you start using the new mechanism that is incompatible with Win32 standard one. Among the proposed advises there are:</p><ul><li>Don’t host legacy child HWND controls.  Try to find a WPF equivalent.</li><li>Write a WPF equivalent of the HWND control (HTML content seems to be a popular request).</li><li>Don’t use per-pixel alpha.  Consider applying a HREGION instead.</li><li>Place your HWND control in a regular top-level window that has the app window as its owner.  Position the control window where you want it.</li><li>Use a timer and call Win32’s PrintWindow (or send a WM_PRINT) to capture the HWND control to a bitmap, and display that bitmap in WPF.</li><li>Try to wrap the containing window in a WS_EX_COMPOSITED window and respond to WM_PAINT to capture a bitmap and display the bitmap in WPF.</li><li>Hook the HWND control’s window proc and respond to WM_PAINT by capturing the bitmap and displaying it in WPF.</li></ul><p>All suggestions make sense and can applied when appropriate. Last 3 items, for example, are perfectly suitable for people who want to display legacy stuff on some fancy tooltips… They didn’t, however, give a direct or indirect solution to my situation, but… They actually gave me a hint. No, not just a hint. They opened my eyes and made me reconsider my priorities. Do I want to carry the burden supporting legacy platforms in my library? What benefits do I get? What if I leave my legacy stuff as is and set out exploring something new?</p><h2 id=the-new-solution>The new solution</h2><p>As WPF uses DirectX for rendering and video renderers also use DirectX I had a feeling it should be possible to somehow make the renderers communicate with WPF. I even spent an evening learning how to do 3D drawing in WPF as I thought it might get me closer to what I was looking for.</p><p>However, I soon came to realize that WPF manages its own Direct3D surfaces and you can’t easily access them from outside. But, there is one useful component called D3DImage which allows us to provide an arbitrary Direct3D surface to WPF and the latter would copy its content to its own surfaces.</p><p>I’ve found walkthrough articles available on MSDN really useful to understand how to properly use D3DImage. I encourage you to take a look at them too: <a href=http://msdn.microsoft.com/en-us/library/cc656716.aspx>Creating Direct3D9 Content for Hosting in WPF</a> and <a href=http://msdn.microsoft.com/en-us/library/cc656785.aspx>Hosting Direct3D9 Content in WPF</a>.</p><p>The second essential part of the solution is to somehow grab video frames from the renderer and pass them to D3DImage. Both VMR and EVR can be extended with a customer presenter that is actually responsible for managing DirectX stuff and actually presenting the frames. As EVR is the preferred video renderer on Vista and Windows 7 (and it will be on Windows 8 as it is the renderer that Media Foundation uses) I put my attention to it.</p><p>By the way I added support for EVR to PVP about 2.5 years ago and I remembered issues I had with its default presenter that didn’t properly update the areas of the media window surrounding the destination rectangle. The solution I came with by then was to resize the media window to fit the destination rectangle. Digging deeper and providing my own custom presenter seemed like an overkill. And it was.</p><p>However, Microsoft provided a sample of the custom EVR presenter and a description on <a href="http://msdn.microsoft.com/en-us/library/windows/desktop/bb530107(v=vs.85).aspx">How to Write an EVR Presenter</a>. If you’re really interested in the topic I highly recommend you spend some time with this lengthy article. The presenter provided in the sample doesn’t fully implement <code>IMFVideoDisplayControl</code> but overall is a good starting point for your own implementation as its <code>D3DPresentEngine</code> class is designed to be extended (that is, subclassed) and it provides a bunch of essential virtual functions for you to override.</p><p>In a nutshell the presenter maintains two queues of video sample objects and each of them has an underlying Direct3D surface. The first queue contains ‘free’ samples that are fed to video mixer to actually draw frames on their surfaces. EVR notifies the presenter when it needs to provide a sample to the mixer.</p><p>Once the mixer finishes drawing the frame on the surface, the sample is put into another queue. That second queue contains samples that are ready to be presented at specified timestamps. The queue is managed by the special component of the presenter called scheduler that monitors the queue on a separate thread. Once it’s time to present a sample the scheduler calls <code>D3DPresentEngine</code> passing it the sample. The way the sample is actually presented is the responsibility of <code>D3DPresentEngine</code> and this is where we fit in as we are able to override presentation details by subclassing <code>D3DPresentEngine</code>.</p><p>I gave you this short description so that the rest of the post would make sense to you. There are a lot of subtle details like implementing various interfaces that are needed to properly interact with EVR, managing repaints, returning presented samples to the first queue, etc. Once again, if you’re interested in the topic I encourage you to study the article on MSDN and follow its description in the code sample.</p><blockquote><p>Note, there is open source project called <a href=http://mfnet.sourceforge.net/ >Media Foundation .Net</a> that ported the sample to managed code. I didn’t try it though as I was concerned about performance of too frequent interactions between EVR and the managed presenter. However, you might be interested in trying it out. Still, I stuck to the native C++ Microsoft sample.</p></blockquote><blockquote><p>Another note: there is well known <a href=http://wpfmediakit.codeplex.com/ >WPF MediaKit project</a> that uses the same approach but in a special way. I’m going to get to it later in this post but I have to say looking at the sample provided on the project’s page kind of assured me that the whole idea was worth investing my time into it.</p></blockquote><h2 id=initial-approach>Initial approach</h2><p>Looking at <code>D3DPresentEngine</code> you would notice it stores a pointer to Direct3D surface of the most recent sample in a private variable called <code>m_pSurfaceRepaint</code>. Moreover, it increments a reference count on it effectively preventing the sample from returning to the first queue (thanks to <code>IMFTrackedSample</code> interface, yes, please check out the MSDN article).</p><p>It needs <code>m_pSurfaceRepaint</code> to be able to repaint the last frame in response to <code>IMFVideoDisplayControl-&gt;Repaint()</code> which can be called (and is recommended to be called) when a video window receives WM_PAINT message.</p><p>And this is actually the frame that we want to pass to D3DImage. However, here’s a gotcha. The surface pointed to by <code>m_pSurfaceRepaint</code> belongs to the sample that can be fed to the mixer any time so that it draws another frame on it. So it can’t be safely used as a back buffer for D3DImage. Instead, we want to maintain our own surface, called ‘return’ surface and copy the content of the most recent frame to it when the most recent frame changes.</p><p>So in our derived class (let’s call it <code>PvpPresentEngine</code>) we override <code>OnCreateVideoSamples</code> function that is called by D3DPresentEngine whenever it recreates video samples which can happen due to variety of reasons. Note that before recreating samples it calls <code>OnReleaseResources()</code> which we should also override to delete previous Direct3D resource that we might have allocated.</p><pre><code>void PvpPresentEngine::OnReleaseResources()
+{
+    SafeRelease(&amp;m_pReturnSurface);
+    SafeRelease(&amp;m_pRecentSurface);
+}
+
+HRESULT PvpPresentEngine::OnCreateVideoSamples(
+                            D3DPRESENT_PARAMETERS&amp; pp)
+{
+    int hr = this-&gt;m_pDevice-&gt;CreateRenderTarget(
+                                 pp.BackBufferWidth, 
+                                 pp.BackBufferHeight, 
+                                 pp.BackBufferFormat, 
+                                 pp.MultiSampleType, 
+                                 pp.MultiSampleQuality, 
+                                 true, 
+                                 &amp;m_pReturnSurface, 
+                                 NULL);
+
+    return hr;
+}
+</code></pre><p>We are passed a reference to <code>D3DPRESENT_PARAMETERS</code> structure so we know the configuration of D3D surface to create (we want our ‘return’ surface to be fully compatible with the surfaces of video samples that the presenter maintains in its two queues). Whenever it recreates its sample we’re going to recreate our return surface.</p><p>You might have noticed a pointer to some recent surface (<code>m_pRecentSurface</code>). What is it? It’s actually a pointer to the same most recent frame/surface (<code>m_pSurfaceRepaint</code>) but we maintain our own copy of the pointer. We receive it in the overridden <code>PresentSwapChain</code> function:</p><pre><code>HRESULT PvpPresentEngine::PresentSwapChain(
+                        IDirect3DSwapChain9* pSwapChain, 
+                        IDirect3DSurface9* pSurface)
+{
+    EnterCriticalSection(&amp;m_ObjectLock);
+
+    if (m_pRecentSurface != pSurface)//&#39;borrow&#39; the latest surface
+    {
+        CopyComPointer(m_pRecentSurface, pSurface);
+        m_bNewSurfaceArrived = TRUE;
+    }
+
+    LeaveCriticalSection(&amp;m_ObjectLock);
+    return S_OK;
+}
+</code></pre><p><code>CopyComPointer</code> increments a reference count on the new pointer and decrements it on the old one. This is a pretty convenient function that helps us keep the surface from being returned to the queue of available ones:</p><pre><code>template &lt;class T&gt;
+void CopyComPointer(T* &amp;dest, T *src)
+{
+    if (dest)
+    {
+        dest-&gt;Release();
+    }
+    dest = src;
+    if (dest)
+    {
+        dest-&gt;AddRef();
+    }
+}
+</code></pre><p>We also use a critical section as <code>PresentSwapChain</code> is called on the scheduler’s thread while we consume the surface on WPF’s composition thread.</p><p>On WPF’s end we subscribe to <code>CompositionTarget.Rendering</code> event and try to get the latest surface there:</p><pre><code>private void CompositionTarget_Rendering(object sender, 
+                                         EventArgs e)
+{
+    RenderingEventArgs args = (RenderingEventArgs)e;
+
+    // It&#39;s possible for Rendering to call back twice 
+    // in the same frame 
+    // so only render when we haven&#39;t already rendered 
+    // in this frame.
+
+    if (_d3dImage.IsFrontBufferAvailable &amp;&amp; 
+        _lastRender != args.RenderingTime)
+    {
+        bool newSurfaceArrived;
+       _pvpPresenter.HasNewSurfaceArrived(out newSurfaceArrived);
+        if (newSurfaceArrived)
+        {
+            _d3dImage.Lock();
+
+            IntPtr pSurface;
+            _pvpPresenter.GetBackBufferNoRef(out pSurface);
+
+            if (pSurface != null)
+            {
+                // Repeatedly calling SetBackBuffer with the 
+                // same IntPtr is a no-op. 
+                // There is no performance penalty.
+                _d3dImage.SetBackBuffer(
+                      D3DResourceType.IDirect3DSurface9, 
+                      pSurface);
+
+                _d3dImage.AddDirtyRect(
+                      new Int32Rect(0, 
+                                    0, 
+                                    _d3dImage.PixelWidth, 
+                                    _d3dImage.PixelHeight));
+            }
+
+            _d3dImage.Unlock();
+        }
+
+        _lastRender = args.RenderingTime;
+    }
+}
+</code></pre><p>This C# part pretty much mimics the sample available <a href=http://msdn.microsoft.com/en-us/library/cc656785.aspx>at MSDN</a>. <code>_pvpPresenter</code> is a reference to RCW over my native presenter.</p><p>It’s important to note that we first check if a new frame is available and only if it is we lock D3DImage in order give it new content. We do the rendering right in <code>GetBackBufferNoRef()</code> and we confirm to D3DImage recommendation to render on the back buffer only when it’s locked.</p><p>As to the native implementation it is as follows:</p><pre><code>HRESULT PvpPresentEngine::HasNewSurfaceArrived(
+                                     BOOL *newSurfaceArrived)
+{
+    EnterCriticalSection(&amp;m_ObjectLock);
+
+    *newSurfaceArrived = m_bNewSurfaceArrived;
+
+    LeaveCriticalSection(&amp;m_ObjectLock);
+    return S_OK;
+}
+
+HRESULT PvpPresentEngine::GetBackBufferNoRef(
+                               IDirect3DSurface9 **ppSurface)
+{
+    EnterCriticalSection(&amp;m_ObjectLock);
+
+    HRESULT hr = S_OK;
+    *ppSurface = NULL;
+
+    if (m_bNewSurfaceArrived &amp;&amp; m_pRecentSurface != NULL)
+    {
+        hr = D3DXLoadSurfaceFromSurface(m_pReturnSurface,
+                                        NULL,
+                                        NULL,
+                                        m_pRecentSurface,
+                                        NULL,
+                                        NULL,
+                                        D3DX_FILTER_NONE,
+                                        0);
+
+        m_bNewSurfaceArrived = FALSE;
+
+        if (SUCCEEDED(hr))
+        {
+            *ppSurface = m_pReturnSurface;
+        }
+    }
+
+    LeaveCriticalSection(&amp;m_ObjectLock);
+    return hr;
+}
+</code></pre><p>As you can see we again have to lock before we copy the latest fame to <code>m_pReturnSurface</code> and return the latter to WPF because the latest surface may be swapped any time by the presenter’s scheduler thread.</p><p>Although we try not to waste resources and don’t copy the buffers if no new recent frame has arrived (this is achieved with a simple <code>m_bNewSurfaceArrived</code> flag and an extra <code>HasNewSurfaceArrived</code> call), there is still a lot thread locking going on which results in dropped frames. For instance, the presenter thread can’t swap the latest frame while we are still copying and returning the previous one to D3DImage. And at the same time the presenter keeps adding new ready sample to the scheduler’s queue. However, when the scheduler’s thread is unlocked again it sees that queued frames have missed their presentation time and it needs to go on and drop them.</p><h2 id=second-attempt>Second attempt</h2><p>To minimize the influence of locking let’s introduce two additional queues and a pool of return surfaces. The pools will consist of 3 or 4 surfaces that will be stored in either queue. The first queue (called <code>m_AvailableSurfaces</code>) will contain surfaces available for rendering on by the scheduler’s thread. The second queue (called <code>m_RenderedSurfaces</code>) will contain surfaces that are ready to be sent to D3DImage.</p><p>Here’s how the initialization part has transformed:</p><pre><code>void PvpPresentEngineQueued::OnReleaseResources()
+{
+    m_RenderedSurfaces.Clear();
+    m_AvailableSurfaces.Clear();
+
+    SafeRelease(&amp;m_pReturnSurface);
+}
+
+HRESULT PvpPresentEngineQueued::OnCreateVideoSamples(
+                                  D3DPRESENT_PARAMETERS&amp; pp)
+{
+    HRESULT hr = S_OK;
+
+    for(int i = 0; i &lt; 4; i++)
+    {
+        IDirect3DSurface9 *pSurface = NULL;
+        int hr = this-&gt;m_pDevice-&gt;
+                CreateRenderTarget(pp.BackBufferWidth, 
+                                   pp.BackBufferHeight, 
+                                   pp.BackBufferFormat, 
+                                   pp.MultiSampleType, 
+                                   pp.MultiSampleQuality, 
+                                   true, 
+                                   &amp;pSurface, 
+                                   NULL);
+        if(FAILED(hr))
+        {
+            break;
+        }
+
+        hr = m_AvailableSurfaces.Queue(pSurface);
+        pSurface-&gt;Release();
+
+        if(FAILED(hr))
+        {
+            break;
+        }
+    }
+
+    hr = this-&gt;m_pDevice-&gt;CreateRenderTarget(pp.BackBufferWidth, 
+                                          pp.BackBufferHeight, 
+                                          pp.BackBufferFormat, 
+                                          pp.MultiSampleType, 
+                                          pp.MultiSampleQuality, 
+                                          true, 
+                                          &amp;m_pReturnSurface, 
+                                          NULL);
+
+    return hr;
+}
+</code></pre><p>The queues will be stored in <code>ThreadSafeQueue</code> objects. This handy class is already provided in the sample and is used by the scheduler as well. The class maintains its own critical section so all <code>Queue()</code> and <code>Dequeue()</code> operations are synchronized. Moreover, when we store a pointer in the queue it increments its reference count and it decrements it when we remove an item from the queue. So we have to call Release() on an item when we store it in the queue and are done with it.</p><p>You should probably have noticed that we still maintain the <code>m_pReturnSurface</code>. This is still the only surface we return to D3DImage. If we returned surfaces from the pool it would explode D3DImage literally. Its memory consumption would grow to gigabytes in seconds and the application would crash. We escape this problem by making sure that the back buffer stays the same. However, it means we will have to do additional copying from <code>m_RenderedSurfaces</code> to <code>m_pReturnSurface</code>:</p><pre><code>HRESULT PvpPresentEngineQueued::PresentSwapChain(
+                             IDirect3DSwapChain9* pSwapChain, 
+                             IDirect3DSurface9* pSurface)
+{
+    HRESULT hr = S_OK;
+
+    IDirect3DSurface9 *pRenderSurface = NULL;
+    if (m_AvailableSurfaces.Dequeue(&amp;pRenderSurface) == S_OK)
+    {
+        hr = D3DXLoadSurfaceFromSurface(pRenderSurface,
+                                        NULL,
+                                        NULL,
+                                        pSurface,
+                                        NULL,
+                                        NULL,
+                                        D3DX_FILTER_NONE,
+                                        0);
+
+        m_RenderedSurfaces.Queue(pRenderSurface);
+        pRenderSurface-&gt;Release();
+    }
+
+    return hr;
+}
+
+HRESULT PvpPresentEngineQueued::HasNewSurfaceArrived(
+                                     BOOL *newSurfaceArrived)
+{
+    IDirect3DSurface9 *pSurface = NULL;
+    if (m_RenderedSurfaces.Dequeue(&amp;pSurface) == S_OK)
+    {
+        m_RenderedSurfaces.PutBack(pSurface);
+        pSurface-&gt;Release();
+        *newSurfaceArrived = TRUE;
+    }
+    else
+    {
+        *newSurfaceArrived = FALSE;
+    }
+
+    return S_OK;
+}
+
+HRESULT PvpPresentEngineQueued::GetBackBufferNoRef(
+                                IDirect3DSurface9 **ppSurface)
+{
+    HRESULT hr = S_OK;
+    *ppSurface = NULL;
+
+    EnterCriticalSection(&amp;m_ObjectLock); // to safely release 
+                                         // and possibly 
+                                         // re-create resources
+
+    IDirect3DSurface9 *pSurface = NULL;
+    if (m_RenderedSurfaces.Dequeue(&amp;pSurface) == S_OK)
+    {
+        hr = D3DXLoadSurfaceFromSurface(m_pReturnSurface,
+                                        NULL,
+                                        NULL,
+                                        pSurface,
+                                        NULL,
+                                        NULL,
+                                        D3DX_FILTER_NONE,
+                                        0);
+
+        m_AvailableSurfaces.Queue(pSurface);
+        pSurface-&gt;Release();
+
+        if (SUCCEEDED(hr))
+        {
+            *ppSurface = m_pReturnSurface;
+        }
+    }
+
+    LeaveCriticalSection(&amp;m_ObjectLock);
+
+    return hr;
+}
+</code></pre><p>As you can see <code>PresentSwapChain, HasNewSurfaceArrived</code> and <code>GetBackBufferNoRef</code> only lock each other on accessing either <code>m_AvailableSurfaces</code> or <code>m_RenderedSurfaces</code> queues. But this locking is significantly shorter as threads don’t have to wait for long operations like surface copying.</p><p>The lock on <code>m_ObjectLock</code> doesn’t have anything to do with the scheduler’s thread. It’s there to synchronize with the parent’s class when it decides to recreate D3D resources and thus makes us recreate ours.</p><p>This implementation noticeably improved performance of the presenter. However, when rendering full HD video or making D3DImage resize relatively small video frames to full HD resolutions you still can notice discrete “jumps” instead of smooth playback. However this time the “jumps” are less harsh as they were with dropped frames. Instead, you see another anomaly caused by the fact that the scheduler manages to add too many frames to <code>m_RenderedSurfaces</code> and we are not feeding them fast enough to D3DImage so the video starts lagging behind and you can see, for example, that a person’s lips are often unsynchronized with what the person says. It’s not a huge gap (I’m talking in terms of milliseconds here) but still noticeable.</p><p>We could add a check for frames’ presentation time before sending them to D3DImage but it would make us consciously start dropping frames again.</p><h2 id=third-much-better-solution>Third (much better) solution</h2><p>This solution was inspired by <a href=http://wpfmediakit.codeplex.com/ >WPF MediaKit project</a>. The major difference is that instead of polling the renderer for new frames in <code>CompositionTarget.Rendering</code> event handler, we make the renderer callback into the managed code when a new frame is available. When I was running the MediaKit’s sample application I noticed that it produced better result than my previous solutions.</p><p>MediaKit’s version of the implementation renders a frame and sends a D3D surface to the managed code right in the callback before D3DImage is locked. This somewhat goes against official recommendation not to render on D3DImage’s back buffer when it’s unlocked.</p><p>I decided to make the callback a simple notification about a new surface availability. When we receive this notification we make our normal <code>GetBackBufferNoRef()</code> call to fetch the surface.</p><pre><code>HRESULT PvpPresentEngine2::RegisterCallback(
+             IPvpPresenterCallback *pCallback)
+{
+    m_pCallback = pCallback;
+    return S_OK;
+}
+
+HRESULT PvpPresentEngine2::PresentSwapChain(
+   IDirect3DSwapChain9* pSwapChain, IDirect3DSurface9* pSurface)
+{
+    HRESULT hr = S_OK;
+
+    if (m_pCallback != NULL &amp;&amp; m_pRecentSurface != pSurface) 
+    {
+        CopyComPointer(m_pRecentSurface, pSurface);
+
+        hr = m_pCallback-&gt;OnNewSurfaceArrived();
+    }
+
+    return hr;
+}
+
+HRESULT PvpPresentEngine2::GetBackBufferNoRef(
+                    IDirect3DSurface9 **ppSurface)
+{
+    EnterCriticalSection(&amp;m_ObjectLock);
+
+    HRESULT hr = S_OK;
+    *ppSurface = NULL;
+
+    if (m_pRecentSurface != NULL)
+    {
+        hr = D3DXLoadSurfaceFromSurface(m_pReturnSurface,
+                                        NULL,
+                                        NULL,
+                                        m_pRecentSurface,
+                                        NULL,
+                                        NULL,
+                                        D3DX_FILTER_NONE,
+                                        0);
+
+        if (SUCCEEDED(hr))
+        {
+            *ppSurface = m_pReturnSurface;
+        }
+    }
+
+    LeaveCriticalSection(&amp;m_ObjectLock);
+    return hr;
+}
+</code></pre><p>As you can see I reverted to using just a single return surface to avoid synchronization issues. I also introduced new <code>IPvpPresenterCallback</code> interface and allows the presenter to send notifications to the managed code. My managed class implements this interface and here is the handler:</p><pre><code>public int OnNewSurfaceArrived()
+{
+    _d3dImage.Dispatcher.Invoke(new Action(() =&gt;
+    {
+        if (_d3dImage.IsFrontBufferAvailable)
+        {
+            _d3dImage.Lock();
+
+            IntPtr pSurface;
+            _pvpPresenter.GetBackBufferNoRef(out pSurface);
+
+            if (pSurface != null)
+            {
+                // Repeatedly calling SetBackBuffer with 
+                // the same IntPtr is a no-op. 
+                // There is no performance penalty.
+                _d3dImage.SetBackBuffer(
+                   D3DResourceType.IDirect3DSurface9, pSurface);
+
+                _d3dImage.AddDirtyRect(new Int32Rect(0, 0, 
+                    _d3dImage.PixelWidth, _d3dImage.PixelHeight));
+            }
+
+            _d3dImage.Unlock();
+        }
+    }), System.Windows.Threading.DispatcherPriority.Send);
+
+    return 0;
+}
+</code></pre><p>As the callback is invoked on the presenter’s scheduler thread we have to dispatch to a thread that D3DImage was created on in order to access it. I do it synchronously with the highest priority which effectively transforms into a direct call (well, a ‘send’ operation to be correct, but it’s supposed to be done immediately, not scheduled). The presenter thread is blocked until we return from the <code>Dispatcher.Invoke</code> handler.</p><p>I also tried asynchronous handling and it required additional locking on a critical section in the native code as we release the scheduler&#39; thread and it go and try to substitute the recent surface anytime. However, this approach resulted in a less smooth experience compared to the synchronous handling.</p><p>One downside that you need to be aware of is that if D3DImage is created on your main UI thread, this thread becomes over occupied with rendering activities which negatively affects the responsiveness of your UI. Working with D3DImage is somewhat beyond the scope of the post but I recommend you have a look at <a href=http://blogs.msdn.com/b/dwayneneed/archive/2007/04/26/multithreaded-ui-hostvisual.aspx>this post</a> explaining how you can build multithread UI in WPF.</p></section><footer class=post-footer><figure class=author-image><a class=img href=/ style="background-image: url(//www.gravatar.com/avatar/7fbe59ac3d3eaab56ec27da019d76f66?s&#x3D;250&amp;amp;d&#x3D;mm&amp;amp;r&#x3D;x)"><span class=hidden>Andrei Dzimchuk's Picture</span></a></figure><section class=author><h4><a href=/ >Andrei Dzimchuk</a></h4><p>Hi, I&#x27;m Andrei, I&#x27;m a software developer building cloud enabled solutions. I&#x27;m mostly focused on Azure and .NET and I try to share my experience and knowledge here with you.</p><div class=author-meta></div></section><section class=share><h4>Share this post</h4><a class=icon-facebook href="https://www.facebook.com/sharer/sharer.php?u=https://dzimchuk.net/rendering-video-content-in-wpf-using-a-custom-evr-presenter-and-d3dimage/" rel="noopener noreferrer nofollow" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;"><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=facebook-icon role=img><title id=facebook-icon>Facebook</title><path d="M448 56.7v398.5c0 13.7-11.1 24.7-24.7 24.7H309.1V306.5h58.2l8.7-67.6h-67v-43.2c0-19.6 5.4-32.9 33.5-32.9h35.8v-60.5c-6.2-.8-27.4-2.7-52.2-2.7-51.6 0-87 31.5-87 89.4v49.9h-58.4v67.6h58.4V480H24.7C11.1 480 0 468.9 0 455.3V56.7C0 43.1 11.1 32 24.7 32h398.5c13.7 0 24.8 11.1 24.8 24.7z"></path></svg> </a><a class=icon-linkedin href="http://www.linkedin.com/shareArticle?mini=true&amp;url=https://dzimchuk.net/rendering-video-content-in-wpf-using-a-custom-evr-presenter-and-d3dimage/&amp;title=Rendering%20video%20content%20in%20WPF%20using%20a%20custom%20EVR%20presenter%20and%20D3DImage" rel="noopener noreferrer nofollow" onclick="window.open(this.href, 'linkedin-share','width=490,height=530');return false;"><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=linkedin-icon role=img><title id=linkedin-icon>LinkedIn</title><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg></a></section></footer><section class=post-comments><div id=disqus_thread></div><script>var disqus_config = function () {
+                    this.page.url = 'https://dzimchuk.net/rendering-video-content-in-wpf-using-a-custom-evr-presenter-and-d3dimage/';
+                    this.page.identifier = '89ceb76a-2a2f-49a7-9f71-e46dc7336af5';
+                    this.page.title = 'Rendering video content in WPF using a custom EVR presenter and D3DImage';
+                };
+                (function() {
+                    var d = document, s = d.createElement('script');
+                    s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
+                })();</script></section></article></main><footer class=site-footer><div class=site-footer-inner><section class=copyright><a href=https://dzimchuk.net/ >Andrei Dzimchuk</a> &copy; 2026</section><nav class=site-footer-nav><a href=https://github.com/dzimchuk target=_blank rel=noopener><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 496 512" aria-labelledby=github-icon role=img><title id=github-icon>GitHub</title><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg></a><a href=https://www.linkedin.com/in/andreidzimchuk target=_blank rel=noopener><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=linkedin-icon role=img><title id=linkedin-icon>LinkedIn</title><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg></a><a href=https://feedly.com/i/subscription/feed/https://dzimchuk.net/rss.xml target=_blank rel=noopener><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=rss-icon role=img><title id=rss-icon>RSS</title><path d="M128.081 415.959c0 35.369-28.672 64.041-64.041 64.041S0 451.328 0 415.959s28.672-64.041 64.041-64.041 64.04 28.673 64.04 64.041zm175.66 47.25c-8.354-154.6-132.185-278.587-286.95-286.95C7.656 175.765 0 183.105 0 192.253v48.069c0 8.415 6.49 15.472 14.887 16.018 111.832 7.284 201.473 96.702 208.772 208.772.547 8.397 7.604 14.887 16.018 14.887h48.069c9.149.001 16.489-7.655 15.995-16.79zm144.249.288C439.596 229.677 251.465 40.445 16.503 32.01 7.473 31.686 0 38.981 0 48.016v48.068c0 8.625 6.835 15.645 15.453 15.999 191.179 7.839 344.627 161.316 352.465 352.465.353 8.618 7.373 15.453 15.999 15.453h48.068c9.034-.001 16.329-7.474 16.005-16.504z"></path></svg></a></nav></div></footer></div><script src=https://code.jquery.com/jquery-3.2.1.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script type=text/javascript src=/assets/theme-4b97c15618.js></script><script>$(function () {
+    var $postContent = $(".post-content");
+    $postContent.fitVids();
+  });</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-JYXGZ70WJH"></script><script>window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-JYXGZ70WJH');</script></body></html>

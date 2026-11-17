@@ -1,0 +1,295 @@
+﻿<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><title>Single instance of a WPF app – part 2 (WM_COPYDATA)</title><meta name=HandheldFriendly content=True><meta name=viewport content="width=device-width,initial-scale=1"><link rel=stylesheet type=text/css href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400"><link rel=stylesheet type=text/css href=/assets/theme-0c0984d3fd.css><link rel=canonical href=https://dzimchuk.net/single-instance-of-a-wpf-app-e28093-part-2--wmcopydata-/ ><meta name=referrer content=no-referrer-when-downgrade><meta property=og:site_name content="Andrei Dzimchuk"><meta property=og:type content=article><meta property=og:title content="Single instance of a WPF app – part 2 (WM_COPYDATA)"><meta property=og:description content="When I started on the Power Video Player&amp;#xa0;in 2003 I knew that a single instance for the video player application was a must. PVP was a C++ MFC-based prototype at that time and I was reading about corresponding and close technologies on CodeProject, CodeGuru and where not. I hit upon an article written by Joseph M. Newcomer and really liked"><meta property=og:url content=https://dzimchuk.net/single-instance-of-a-wpf-app-e28093-part-2--wmcopydata-/ ><meta property=article:publisher content=https://www.facebook.com/andrei.dzimchuk><meta property=article:author content=https://www.facebook.com/andrei.dzimchuk><meta property=article:published_time content=2010-08-14T00:28:00.000+00:00><meta property=article:modified_time content=2015-04-23T17:37:54.000+00:00><meta property=article:tag content=WPF><meta name=twitter:card content=summary><meta name=twitter:title content="Single instance of a WPF app – part 2 (WM_COPYDATA)"><meta name=twitter:description content="When I started on the Power Video Player&amp;#xa0;in 2003 I knew that a single instance for the video player application was a must. PVP was a C++ MFC-based prototype at that time and I was reading about corresponding and close technologies on CodeProject, CodeGuru and where not. I hit upon an article written by Joseph M. Newcomer and really liked"><meta name=twitter:url content=https://dzimchuk.net/single-instance-of-a-wpf-app-e28093-part-2--wmcopydata-/ ><meta name=twitter:label1 content="Written by"><meta name=twitter:data1 content="Andrei Dzimchuk"><meta name=twitter:label2 content="Filed under"><meta name=twitter:data2 content=WPF><meta name=twitter:site content=@dzimchuk><meta property=twitter:creator content=@dzimchuk><script type=application/ld+json>{
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "publisher": {
+      "@type": "Organization",
+      "name": "Andrei Dzimchuk",
+      "logo": {
+      "@type": "ImageObject",
+      "url": "https://dzimchuk.net/media/favicons/v1/favicon.ico",
+      "width": 60,
+      "height": 60
+      }
+      },
+      "url": "https://dzimchuk.net/single-instance-of-a-wpf-app-e28093-part-2--wmcopydata-/",
+      "description": "When I started on the Power Video Player&amp;#xa0;in 2003 I knew that a single instance for the video player application was a must. PVP was a C++ MFC-based prototype at that time and I was reading about corresponding and close technologies on CodeProject, CodeGuru and where not. I hit upon an article written by Joseph M. Newcomer and really liked"
+      "headline": "Single instance of a WPF app – part 2 (WM_COPYDATA)",
+      "datePublished": "2010-08-14T00:28:00.000+00:00",
+      "dateModified": "2015-04-23T17:37:54.000+00:00",
+      "keywords": "WPF",
+      "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://dzimchuk.net/"
+      }
+      }</script><link rel=alternate type=application/rss+xml title="Andrei Dzimchuk" href=https://dzimchuk.net/rss.xml><script type=text/javascript>var disqus_shortname = 'dzimchuk';</script><link rel=apple-touch-icon sizes=57x57 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-57x57.png><link rel=apple-touch-icon sizes=60x60 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-60x60.png><link rel=apple-touch-icon sizes=72x72 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-72x72.png><link rel=apple-touch-icon sizes=76x76 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-76x76.png><link rel=apple-touch-icon sizes=114x114 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-114x114.png><link rel=apple-touch-icon sizes=120x120 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-120x120.png><link rel=apple-touch-icon sizes=144x144 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-144x144.png><link rel=apple-touch-icon sizes=152x152 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-152x152.png><link rel=apple-touch-icon sizes=180x180 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-180x180.png><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/android-chrome-192x192.png sizes=192x192><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/favicon-96x96.png sizes=96x96><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/favicon-16x16.png sizes=16x16><link rel=manifest href=https://dzimchuk.net/favicons/v1/manifest.json><link rel="shortcut icon" href=https://dzimchuk.net/media/favicons/v1/favicon.ico><meta name=msapplication-TileColor content=#da532c><meta name=msapplication-TileImage content=https://dzimchuk.net/media/favicons/v1/mstile-144x144.png><meta name=msapplication-config content=https://dzimchuk.net/favicons/v1/browserconfig.xml><meta name=theme-color content=#ffffff></head><body class="post-template tag-wpf"><div class=site-wrapper><header class="main-header post-head no-cover"><nav class="main-nav clearfix"><div class=nav-wrapper><ul class=nav role=menu><li class=nav-home role=menuitem><a href=/ >Home</a></li><li class=nav-cloud-patterns role=menuitem><a href=/tag/cloud-patterns/ >Cloud Patterns</a></li><li class=nav-service-fabric role=menuitem><a href=/tag/azure-service-fabric/ >Service Fabric</a></li><li class=nav-azure-ad role=menuitem><a href=/tag/azure-active-directory/ >Azure AD</a></li><li class=nav-azure-services role=menuitem><a href=/tag/azure-services/ >Azure Services</a></li><li class=nav-about role=menuitem><a href=/about/ >About</a></li></ul><a href=javascript:void(0); class=nav-hamburger-open><svg role=img xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=open-menu-icon><title id=open-menu-icon>Open menu</title><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path></svg></a><a href=javascript:void(0); class=nav-hamburger-close><svg role=img xmlns=http://www.w3.org/2000/svg viewBox="0 0 352 512" aria-labelledby=close-menu-icon><title id=close-menu-icon>Close menu</title><path fill=currentColor d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg></a></div></nav></header><main class=content role=main><article class="post tag-wpf"><header class=post-header><h1 class=post-title>Single instance of a WPF app – part 2 (WM_COPYDATA)</h1><section class=post-meta><time class=post-date datetime=2010-08-14>14 August 2010</time> on <a href=/tag/wpf/ >WPF</a></section></header><section class=post-content><p>When I started on the <a href=http://pvp.codeplex.com/ >Power Video Player</a> in 2003 I knew that a single instance for the video player application was a must. PVP was a C++ MFC-based prototype at that time and I was reading about corresponding and close technologies on <a href=http://www.codeproject.com>CodeProject</a>, <a href=http://www.codeguru.com>CodeGuru</a> and where not. I hit upon an <a href=http://www.flounder.com/nomultiples.htm>article</a> written by Joseph M. Newcomer and really liked the proposed design.</p><p>Later on in 2004 I was porting PVP to .NET and implemented the design as a handy component that you can use in a Windows Forms application. You can get the code from <a href=http://pvp.codeplex.com/SourceControl/list/changesets>CodePlex</a> and look for a class called <code>SingleInstance</code>.</p><p>Now that I’m contemplating the next generation of PVP which is going to be a WPF application I need to decide how I’m going to implement single instancing. I’ve already touched on the options in my <a href=/single-instance-of-a-wpf-app-e28093-part-1--introduction->introductory post</a>.</p><p>As this design has served me well over the years it will be the 1st option I will consider. By explaining what’s going on inside <code>SingleInstance</code> class I will also do a favor to the folks who want to a use the Windows Forms’ version.</p><p><code>SingleInstance</code> class encapsulates the behavior of detecting if the application is the first instance, triggering a provided logic to show the window if yes or sending the command line arguments and shutting down the application if no.</p><h2 id=usage>Usage</h2><p>Let’s start with the way you use it with your WPF application:</p><pre><code>public partial class App : Application
+{
+    private readonly Guid _appGuid = 
+         new Guid(&quot;{174ECDE3-BC6B-4AF9-8D38-539EF5E76D2B}&quot;);
+
+    protected override void OnStartup(StartupEventArgs e)
+    {
+        SingleInstance si = new SingleInstance(_appGuid);
+        si.ArgsRecieved += 
+             new SingleInstance.ArgsHandler(si_ArgsRecieved);
+
+        si.Run(() =&gt; 
+        { 
+            new MainWindow().Show();
+            return this.MainWindow;
+        }, e.Args);
+    }
+
+    private void si_ArgsRecieved(string[] args)
+    {
+        // process the command line arguments of 
+        // another instance here
+    }
+}
+</code></pre><p>All the action happens in the <code>Startup</code> event of the <code>Application</code> class or directly in <code>OnStartup</code> virtual method. If you use Visual Studio make sure to <strong>remove</strong> <code>StartupUri</code> attribute from App.xaml as we will control the creation of the main window ourselves.</p><p>The constructor of <code>SingleInstance</code> requires a Guid. Why? This identifier will be used to form a unique mutex name for your application as well as it will help to insure that we are communicating the command line arguments to another instance of ourselves, i.e. the application that carries the same identifier.</p><p>Once we have constructed <code>SingleInstance</code> we subscribe to <code>ArgsRecieved</code> event. This event will be fired in the 1st instance of our application when another instance starts up.</p><h2 id=the-run-method>The Run method</h2><p>We kick things off by calling <code>Run</code> method. The first argument is <code>System.Func&lt;Window result)</code> delegate that allows us to provide our logic to create and show the main application window. This delegate will be called only when this is the 1st instance of an application. We need to return the <code>Window</code> object to <code>SingleInstance</code> so that the latter could hook to its window procedure. The hook is necessary to intercept WM_COPYDATA and our custom message that is used to locate another already running instance of an application.</p><p>The 2nd arguments is an array of command line arguments that will be sent to the 1st instance in case the current instance is not the 1st one.</p><p>Let’s take a closer look at the <code>Run</code> method:</p><pre><code>public void Run(Func&lt;Window&gt; showWindow, string[] args)
+{
+    if (_owned)
+    {
+        // show the main app window
+        Window wnd = showWindow();
+
+        // add a hook
+        WindowInteropHelper helper = 
+            new WindowInteropHelper(wnd);
+
+        if (helper.Handle == null)
+        {
+          throw 
+          new Exception(&quot;Main window must be shown before adding a hook&quot;);
+        }
+
+        _hwndSource = 
+            HwndSource.FromHwnd(helper.Handle);
+
+        hwndSource.AddHook(MessageHook);
+    }
+    else
+    {
+        BringToFront();
+        SendCommandLineArgs(args);
+        Application.Current.Shutdown();
+    }
+}
+</code></pre><p>There 2 code paths defined by the value of the private Boolean variable _owned. What’s owned? The mutex. If we own it we are the 1st instance, if not we just need to bring the 1st instance on top, send it our argument and exit.</p><p>The named mutex is obtained in the constructor of <code>SingleInstance</code>:</p><pre><code>public SingleInstance(Guid appGuid)
+{
+    _appGuid = appGuid;
+    string asssemblyName = 
+        Assembly.GetExecutingAssembly().GetName().Name;
+
+    _mutex = 
+        new Mutex(true, asssemblyName + _appGuid, out _owned);
+
+    // the rest of the constructor is omitted for now...
+}
+</code></pre><p>Note that we generate a unique name for the mutex by concatenating the assembly name and the application identifier that we passed to the constructor.</p><p>If you explicitly dispose an object that encapsulates an open mutex you need to release it:</p><pre><code>class SingleInstance : IDisposable
+{
+    private Mutex _mutex;
+    private bool _owned;
+    private HwndSource _hwndSource;
+
+    public void Dispose()
+    {
+        if (_owned) // always release a mutex if you own it
+        {
+            _owned = false;
+            _mutex.ReleaseMutex();
+        }
+
+        if (_hwndSource != null)
+        {
+            _hwndSource.RemoveHook(MessageHook);
+            _hwndSource = null;
+        }
+    }
+
+    // the rest of the class is omitted
+}
+</code></pre><p>However, if <code>Dispose()</code> is called from Finalizer you shouldn&#39;t call <code>_mutex.ReleaseMutex()</code> as it&#39;s going to be released through its own finalizer. There is no Finalizer in <code>SingleInstance</code> class.</p><p>In fact <code>SingleInstance</code> is not supposed to be disposed explicitly. It’s going to live as long as the whole application lives. It is protected from garbage collection by the fact that we have installed a hook and the WPF infrastructure will keep a reference to <code>SingleInstance</code> class until we remove the hook. If you decide to call <code>Dispose ()</code>on <code>SingleInstance</code> it will gracefully clean up and become eligible for garbage collection.</p><h2 id=the-hook>The hook</h2><p>Back to the <code>Run</code> method. Once the main window is shown we add a hook to it. In WPF you do it with a help of <code>WindowInteropHelper</code> and <code>HwndSource</code> classes. They both live in <code>System.Windows.Interop</code> namespace that contains helper classes for interoperability of WPF applications with windows applications built with other technologies (Windows Forms, Win32).</p><p>Let’s have a look at the hook procedure:</p><pre><code>private IntPtr MessageHook(IntPtr hwnd,
+                           int msg,
+                           IntPtr wParam,
+                           IntPtr lParam,
+                           ref bool handled)
+{
+    IntPtr ret = IntPtr.Zero;
+    handled = false;
+
+    if (msg == (int)WindowsMessages.WM_COPYDATA)
+    {
+        WindowsManagement.COPYDATASTRUCT cds =
+        (WindowsManagement.COPYDATASTRUCT)Marshal.PtrToStructure(
+        lParam, typeof(WindowsManagement.COPYDATASTRUCT));
+
+        // extra check if it&#39;s us
+        if (cds.dwData == SingleInstance.COPYDATA_TYPE_FILENAME)
+        {
+            MemoryStream stream = null;
+            try
+            {
+                byte[] abyte = new byte[cds.cbData];
+                Marshal.Copy(cds.lpData, abyte, 0, cds.cbData);
+                stream = new MemoryStream(abyte);
+
+                BinaryFormatter formatter = 
+                    new BinaryFormatter();
+                ArgsPacket packet = 
+                    (ArgsPacket)formatter.Deserialize(stream);
+
+                // also check app guid
+                if (packet.AppGuid == _appGuid)
+                {
+                    // now we know this is us
+                    handled = true;
+
+                    if (ArgsRecieved != null)
+                        ArgsRecieved(packet.Args);
+
+                    ret = new IntPtr(1);
+                }
+            }
+            catch
+            { // log it or do what you want
+            }
+            finally
+            {
+                if (stream != null)
+                    stream.Close();
+            }
+        }
+    }
+    else if (msg == (int)UWM_ARE_YOU_ME)
+    {
+        ret = (IntPtr)UWM_ARE_YOU_ME;
+        handled = true;
+    }
+
+    return ret;
+}
+</code></pre><p>There are 2 messages that we are interested in:</p><ul><li>WM_COPYDATA</li><li>UWM_ARE_YOU_ME</li></ul><h2 id=wm_copydata>WM_COPYDATA</h2><p>I use classes from my napi assembly containing definitions for various PInvoke functions, structures and values. I included <code>WindowsMessages</code> and <code>WindowsManagement</code> classes in the sample code download (you will find the link at the end of this post).</p><p>WM_COPYDATA is processed by the 1st instance of our application when other instances send their command line arguments. We perform a double check to make sure the message is really intended for us. First we check the <code>dwData</code> field of the <code>COPYDATASTRUCT</code> structure. This field contains an arbitrary integer, I’ve picked one so all instances of the application put the same value there. And after we deserialize the actual data package (represented with a custom <code>ArgsPacket</code> structure defined in <code>SingleInstance</code>) we also check if it contains our application’s GUID. <code>SingleInstance</code> can be reused by different applications and <code>dwData</code> is likely to contain the same value, however each application has its own unique GUID.</p><p>Note that <code>COPYDATASTUCT</code> contains pointers to unmanaged memory so we need to use <code>System.Runtime.InteropServices.Marshal</code> class to copy the data into managed memory space. If you ever did a considerable amount of PInvok’ing you should know how invaluable this class is.</p><p>Ok, we’ve had a look at the receiving code. What about the sending part? Here it is:</p><pre><code>private void SendCommandLineArgs(string[] args)
+{
+    if (_hWndOther != IntPtr.Zero)
+    {
+        IntPtr buffer = IntPtr.Zero;
+        IntPtr pcds = IntPtr.Zero;
+        MemoryStream stream = null;
+        try
+        {
+            ArgsPacket packet = 
+                new ArgsPacket { AppGuid = _appGuid, 
+                                 Args = args };
+
+            stream = new MemoryStream();
+            BinaryFormatter formatter = new BinaryFormatter();
+            formatter.Serialize(stream, packet);
+
+            byte[] abyte = stream.ToArray();
+            buffer = Marshal.AllocCoTaskMem(abyte.Length);
+            Marshal.Copy(abyte, 0, buffer, abyte.Length);
+
+            WindowsManagement.COPYDATASTRUCT cds = 
+                new WindowsManagement.COPYDATASTRUCT();
+            cds.dwData = COPYDATA_TYPE_FILENAME;
+            cds.cbData = abyte.Length;
+            cds.lpData = buffer;
+
+            pcds = Marshal.AllocCoTaskMem(Marshal.SizeOf(cds));
+            Marshal.StructureToPtr(cds, pcds, true);
+
+            WindowsManagement.SendMessage(_hWndOther, 
+                (int)WindowsMessages.WM_COPYDATA, 
+                IntPtr.Zero, pcds);
+
+        }
+        catch
+        { // oh, swallowing block?
+        } // yes, if you have better ideas extend it
+        finally
+        {
+            if (buffer != IntPtr.Zero)
+                Marshal.FreeCoTaskMem(buffer);
+            if (pcds != IntPtr.Zero)
+                Marshal.FreeCoTaskMem(pcds);
+            if (stream != null)
+                stream.Close();
+        }
+    }
+}
+</code></pre><p>Ok, things seem to be happening in the reverse order here. Note that we have to allocate an unmanaged block of memory twice: first for the <code>ArgsPacket</code> serialized data and then for <code>COPYDATASTRUCT</code>. All pointers that you send with WM_COPYDATA must be in unmanaged memory space.</p><p>Noticed that <code>_hWndOther</code>? This is a HWND of the window of the 1st instance of our application. How do other instances know it?</p><p>It has a lot to do with the UWM_ARE_YOU_ME message that we process in the hook procedure.</p><h2 id=uwm_are_you_me>UWM_ARE_YOU_ME</h2><p>Let me show the full constructor of <code>SingleInstance</code> now:</p><pre><code>public SingleInstance(Guid appGuid)
+{
+    _appGuid = appGuid;
+    string asssemblyName = 
+        Assembly.GetExecutingAssembly().GetName().Name;
+
+    _mutex = 
+        new Mutex(true, asssemblyName + _appGuid, out _owned);
+    UWM_ARE_YOU_ME = 
+        WindowsManagement.RegisterWindowMessage(asssemblyName
+        + appGuid);
+
+    if (!_owned)
+        WindowsManagement.EnumWindows(
+          new WindowsManagement.EnumWindowsProc(SearchCallback),
+          IntPtr.Zero);
+}
+
+private int SearchCallback(IntPtr hWnd, IntPtr lParam)
+{
+    int result;
+    int ok = WindowsManagement.SendMessageTimeout(hWnd,
+        (int)UWM_ARE_YOU_ME,
+        IntPtr.Zero, IntPtr.Zero,
+        (WindowsManagement.SMTO_BLOCK | 
+         WindowsManagement.SMTO_ABORTIFHUNG),
+        100, out result);
+    if (ok == 0)
+        return 1; // ignore this and continue
+    if (result == (int)UWM_ARE_YOU_ME)
+    { // found it
+        _hWndOther = hWnd;
+        return 0; // stop search
+    }
+    return 1; // continue
+}
+</code></pre><p>If we don’t own the mutex (that is we are not the 1st instance) we try to locate the window of the 1st instance using <code>EnumWindows</code> API. It enumerates all top-level windows on the screen and passes UWM_ARE_YOU_ME message to each of them.</p><p>UWM_ARE_YOU_ME is a our own custom registered Windows message. We register it by providing a unique name consisting of the assembly name and the application identifier. The message actually gets registered once when the 1st instance calls <code>RegisterWindowMessage</code> function. All subsequent calls to this function with the same name will just return the code (integer) of the already registered message.</p><p>Thus all are instances share the same UWM_ARE_YOU_ME message code. And by responding to it with the same message code (see window hook above) we can detect another running instance of our application and get the HWND of its window.</p><h2 id=last-touch>Last touch</h2><p>We are almost done. Let’s just have a look at the 2nd code path in the <code>Run</code> method once again:</p><pre><code>public void Run(Func&lt;Window&gt; showWindow, string[] args)
+{
+    if (_owned)
+    {
+        // omitted
+    }
+    else
+    {
+        BringToFront();
+        SendCommandLineArgs(args);
+        Application.Current.Shutdown();
+    }
+}
+</code></pre><p>We’ve already seen how to send and receive command line arguments. What we also do here is bringing the 1st instance of our application on top. This is also done with a bit of PInvoke:</p><pre><code>private void BringToFront()
+{
+    if (_hWndOther != IntPtr.Zero)
+    {
+        if (WindowsManagement.IsIconic(_hWndOther) != 0)
+            WindowsManagement.ShowWindowAsync(_hWndOther, 
+            WindowsManagement.SW_RESTORE);
+        WindowsManagement.SetForegroundWindow(_hWndOther);
+    }
+}
+</code></pre><p>I’m a good guy so I included my PInvoke helpers with the sample download. You might also want to check out the full napi assembly from <a href=http://pvp.codeplex.com/SourceControl/list/changesets>PVP source code</a>. I added stuff there in an ad-hoc manner as I needed it so don’t get mad if you don’t find something there. It’s not that hard to write your own definitions.</p><p>The last thing that we do after we’ve sent the command line arguments is shut down our instance. We must do it explicitly otherwise our other instances will keep running without open windows.</p><p>Phew! Confused? Don’t be, just check out the sample code.</p><p><a href=https://dzimchuk.net/media/2010/8/SingleInstanceApp.zip>SingleInstanceApp.zip (41.33 kb)</a></p></section><footer class=post-footer><figure class=author-image><a class=img href=/ style="background-image: url(//www.gravatar.com/avatar/7fbe59ac3d3eaab56ec27da019d76f66?s&#x3D;250&amp;amp;d&#x3D;mm&amp;amp;r&#x3D;x)"><span class=hidden>Andrei Dzimchuk's Picture</span></a></figure><section class=author><h4><a href=/ >Andrei Dzimchuk</a></h4><p>Hi, I&#x27;m Andrei, I&#x27;m a software developer building cloud enabled solutions. I&#x27;m mostly focused on Azure and .NET and I try to share my experience and knowledge here with you.</p><div class=author-meta></div></section><section class=share><h4>Share this post</h4><a class=icon-facebook href="https://www.facebook.com/sharer/sharer.php?u=https://dzimchuk.net/single-instance-of-a-wpf-app-e28093-part-2--wmcopydata-/" rel="noopener noreferrer nofollow" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;"><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=facebook-icon role=img><title id=facebook-icon>Facebook</title><path d="M448 56.7v398.5c0 13.7-11.1 24.7-24.7 24.7H309.1V306.5h58.2l8.7-67.6h-67v-43.2c0-19.6 5.4-32.9 33.5-32.9h35.8v-60.5c-6.2-.8-27.4-2.7-52.2-2.7-51.6 0-87 31.5-87 89.4v49.9h-58.4v67.6h58.4V480H24.7C11.1 480 0 468.9 0 455.3V56.7C0 43.1 11.1 32 24.7 32h398.5c13.7 0 24.8 11.1 24.8 24.7z"></path></svg> </a><a class=icon-linkedin href="http://www.linkedin.com/shareArticle?mini=true&amp;url=https://dzimchuk.net/single-instance-of-a-wpf-app-e28093-part-2--wmcopydata-/&amp;title=Single%20instance%20of%20a%20WPF%20app%20%E2%80%93%20part%202%20(WM_COPYDATA)" rel="noopener noreferrer nofollow" onclick="window.open(this.href, 'linkedin-share','width=490,height=530');return false;"><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=linkedin-icon role=img><title id=linkedin-icon>LinkedIn</title><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg></a></section></footer><section class=post-comments><div id=disqus_thread></div><script>var disqus_config = function () {
+                    this.page.url = 'https://dzimchuk.net/single-instance-of-a-wpf-app-e28093-part-2--wmcopydata-/';
+                    this.page.identifier = '2396b28d-d7d2-49c4-9f1c-4c7d94ec5a94';
+                    this.page.title = 'Single instance of a WPF app – part 2 (WM_COPYDATA)';
+                };
+                (function() {
+                    var d = document, s = d.createElement('script');
+                    s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
+                })();</script></section></article></main><footer class=site-footer><div class=site-footer-inner><section class=copyright><a href=https://dzimchuk.net/ >Andrei Dzimchuk</a> &copy; 2026</section><nav class=site-footer-nav><a href=https://github.com/dzimchuk target=_blank rel=noopener><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 496 512" aria-labelledby=github-icon role=img><title id=github-icon>GitHub</title><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg></a><a href=https://www.linkedin.com/in/andreidzimchuk target=_blank rel=noopener><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=linkedin-icon role=img><title id=linkedin-icon>LinkedIn</title><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg></a><a href=https://feedly.com/i/subscription/feed/https://dzimchuk.net/rss.xml target=_blank rel=noopener><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=rss-icon role=img><title id=rss-icon>RSS</title><path d="M128.081 415.959c0 35.369-28.672 64.041-64.041 64.041S0 451.328 0 415.959s28.672-64.041 64.041-64.041 64.04 28.673 64.04 64.041zm175.66 47.25c-8.354-154.6-132.185-278.587-286.95-286.95C7.656 175.765 0 183.105 0 192.253v48.069c0 8.415 6.49 15.472 14.887 16.018 111.832 7.284 201.473 96.702 208.772 208.772.547 8.397 7.604 14.887 16.018 14.887h48.069c9.149.001 16.489-7.655 15.995-16.79zm144.249.288C439.596 229.677 251.465 40.445 16.503 32.01 7.473 31.686 0 38.981 0 48.016v48.068c0 8.625 6.835 15.645 15.453 15.999 191.179 7.839 344.627 161.316 352.465 352.465.353 8.618 7.373 15.453 15.999 15.453h48.068c9.034-.001 16.329-7.474 16.005-16.504z"></path></svg></a></nav></div></footer></div><script src=https://code.jquery.com/jquery-3.2.1.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script type=text/javascript src=/assets/theme-4b97c15618.js></script><script>$(function () {
+    var $postContent = $(".post-content");
+    $postContent.fitVids();
+  });</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-JYXGZ70WJH"></script><script>window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-JYXGZ70WJH');</script></body></html>

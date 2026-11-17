@@ -1,0 +1,204 @@
+﻿<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><title>Be aware of Web role host process</title><meta name=HandheldFriendly content=True><meta name=viewport content="width=device-width,initial-scale=1"><link rel=stylesheet type=text/css href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400"><link rel=stylesheet type=text/css href=/assets/theme-0c0984d3fd.css><link rel=canonical href=https://dzimchuk.net/be-aware-of-web-role-host-process/ ><meta name=referrer content=no-referrer-when-downgrade><meta property=og:site_name content="Andrei Dzimchuk"><meta property=og:type content=article><meta property=og:title content="Be aware of Web role host process"><meta property=og:description content="Azure cloud service web roles have one peculiarity in regard to the way your code is hosted. The thing is although you have a single project associated with your web role it will actually be run in two separate processes."><meta property=og:url content=https://dzimchuk.net/be-aware-of-web-role-host-process/ ><meta property=article:publisher content=https://www.facebook.com/andrei.dzimchuk><meta property=article:author content=https://www.facebook.com/andrei.dzimchuk><meta property=article:published_time content=2015-02-21T09:10:00.000+00:00><meta property=article:modified_time content=2017-09-09T11:03:19.000+00:00><meta property=article:tag content="Azure Cloud Services"><meta name=twitter:card content=summary><meta name=twitter:title content="Be aware of Web role host process"><meta name=twitter:description content="Azure cloud service web roles have one peculiarity in regard to the way your code is hosted. The thing is although you have a single project associated with your web role it will actually be run in two separate processes."><meta name=twitter:url content=https://dzimchuk.net/be-aware-of-web-role-host-process/ ><meta name=twitter:label1 content="Written by"><meta name=twitter:data1 content="Andrei Dzimchuk"><meta name=twitter:label2 content="Filed under"><meta name=twitter:data2 content="Azure Cloud Services"><meta name=twitter:site content=@dzimchuk><meta property=twitter:creator content=@dzimchuk><script type=application/ld+json>{
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "publisher": {
+      "@type": "Organization",
+      "name": "Andrei Dzimchuk",
+      "logo": {
+      "@type": "ImageObject",
+      "url": "https://dzimchuk.net/media/favicons/v1/favicon.ico",
+      "width": 60,
+      "height": 60
+      }
+      },
+      "url": "https://dzimchuk.net/be-aware-of-web-role-host-process/",
+      "description": "Azure cloud service web roles have one peculiarity in regard to the way your code is hosted. The thing is although you have a single project associated with your web role it will actually be run in two separate processes."
+      "headline": "Be aware of Web role host process",
+      "datePublished": "2015-02-21T09:10:00.000+00:00",
+      "dateModified": "2017-09-09T11:03:19.000+00:00",
+      "keywords": "Azure Cloud Services",
+      "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://dzimchuk.net/"
+      }
+      }</script><link rel=alternate type=application/rss+xml title="Andrei Dzimchuk" href=https://dzimchuk.net/rss.xml><script type=text/javascript>var disqus_shortname = 'dzimchuk';</script><link rel=apple-touch-icon sizes=57x57 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-57x57.png><link rel=apple-touch-icon sizes=60x60 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-60x60.png><link rel=apple-touch-icon sizes=72x72 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-72x72.png><link rel=apple-touch-icon sizes=76x76 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-76x76.png><link rel=apple-touch-icon sizes=114x114 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-114x114.png><link rel=apple-touch-icon sizes=120x120 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-120x120.png><link rel=apple-touch-icon sizes=144x144 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-144x144.png><link rel=apple-touch-icon sizes=152x152 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-152x152.png><link rel=apple-touch-icon sizes=180x180 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-180x180.png><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/android-chrome-192x192.png sizes=192x192><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/favicon-96x96.png sizes=96x96><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/favicon-16x16.png sizes=16x16><link rel=manifest href=https://dzimchuk.net/favicons/v1/manifest.json><link rel="shortcut icon" href=https://dzimchuk.net/media/favicons/v1/favicon.ico><meta name=msapplication-TileColor content=#da532c><meta name=msapplication-TileImage content=https://dzimchuk.net/media/favicons/v1/mstile-144x144.png><meta name=msapplication-config content=https://dzimchuk.net/favicons/v1/browserconfig.xml><meta name=theme-color content=#ffffff></head><body class="post-template tag-azure-cloud-services"><div class=site-wrapper><header class="main-header post-head no-cover"><nav class="main-nav clearfix"><div class=nav-wrapper><ul class=nav role=menu><li class=nav-home role=menuitem><a href=/ >Home</a></li><li class=nav-cloud-patterns role=menuitem><a href=/tag/cloud-patterns/ >Cloud Patterns</a></li><li class=nav-service-fabric role=menuitem><a href=/tag/azure-service-fabric/ >Service Fabric</a></li><li class=nav-azure-ad role=menuitem><a href=/tag/azure-active-directory/ >Azure AD</a></li><li class=nav-azure-services role=menuitem><a href=/tag/azure-services/ >Azure Services</a></li><li class=nav-about role=menuitem><a href=/about/ >About</a></li></ul><a href=javascript:void(0); class=nav-hamburger-open><svg role=img xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=open-menu-icon><title id=open-menu-icon>Open menu</title><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path></svg></a><a href=javascript:void(0); class=nav-hamburger-close><svg role=img xmlns=http://www.w3.org/2000/svg viewBox="0 0 352 512" aria-labelledby=close-menu-icon><title id=close-menu-icon>Close menu</title><path fill=currentColor d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg></a></div></nav></header><main class=content role=main><article class="post tag-azure-cloud-services"><header class=post-header><h1 class=post-title>Be aware of Web role host process</h1><section class=post-meta><time class=post-date datetime=2015-02-21>21 February 2015</time> on <a href=/tag/azure-cloud-services/ >Azure Cloud Services</a></section></header><section class=post-content><p>Azure cloud service web roles have one peculiarity in regard to the way your code is hosted. The thing is although you have a single project associated with your web role it will actually be run in two separate processes. One process is WaIISHost.exe and it will run your <code>RoleEntryPoint</code> and this is where you can handle <code>OnStart</code>, <code>OnStop</code> and <code>Run</code> events. An instance of your role is running as long as this process is running.</p><p>The second process actually hosts your web application. If you&#x2019;re running on IIS it will be a worker process for your application pool (w3wp.exe). If you&#x2019;re running your service locally in your development environment chances are you are using IIS Express (iisexpress.exe).</p><p>So what is the issue here? Well, things can go wrong if you misplace your initialization logic and/or configuration. It can be observed as a misbehavior or even a crash. Let me demonstrate a few examples of what can happen.</p><blockquote><p>Issues that I&#x2019;m going to describe in this post are relevant to web roles only. Worker roles are hosted by a single process (WaWorkerHost.exe).</p></blockquote><h2 id=set-up-test-harness>Set up test harness</h2><p>Before we start let&#x2019;s create a simple cloud service containing a single web role. In Visual Studio select Azure Cloud Service template in the &#x2018;New Project&#x2019; dialog, then add a single web role. On the next page you will be presented with a standard one ASP.NET dialog where you can preselect components you need in your application. We&#x2019;re going to select &#x2018;Empty project&#x2019; as we want to focus on hosting.</p><p>Now that we have a bare bones application let&#x2019;s add some code so it gives us output. Add the following NuGet package to the web project:</p><p>Microsoft.Owin.Host.SystemWeb</p><p>It&#x2019;s going to bring down a few other packages with it. Now we have created an OWIN-based web application that&#x2019;s going to be hosted in IIS. Let&#x2019;s add an OWIN start-up class and add the following code to it:</p><pre><code>public class Startup
+{
+    public void Configuration(IAppBuilder app)
+    {
+        app.Run(async context =&gt;
+        {
+            context.Response.ContentType = &quot;text/plain&quot;;
+            await context.Response.WriteAsync(&quot;Hello World!&quot;);
+        });
+    }
+}
+</code></pre><p>Awesome! Now we&#x2019;ve got a harness set up. Hit F5 to verify everything works.</p><h2 id=your-code-is-living-in-two-processes>Your code is living in two processes</h2><p>Let&#x2019;s add a setting to our role. Right-click on your role, select Properties and add a TestSetting on the Settings page:</p><p><a href=https://dzimchuk.net/media/image.png><img src=https://dzimchuk.net/media/image_thumb.png alt="Adding a TestSetting" title="Adding a TestSetting"></a></p><p>Not let&#x2019;s add a simple component that we will initialize with our TestSetting:</p><pre><code>public class SettingsCache
+{
+    private static readonly Lazy&lt;SettingsCache&gt; instance = 
+        new Lazy&lt;SettingsCache&gt;();
+
+    public static SettingsCache Insance
+    {
+        get { return instance.Value; }
+    }
+
+    private readonly ConcurrentDictionary&lt;string, string&gt; cache = 
+        new ConcurrentDictionary&lt;string, string&gt;();
+
+    public string Find(string key)
+    {
+        string value;
+        return cache.TryGetValue(key, out value) ? value : null;
+    }
+
+    public void Update(string key, string value)
+    {
+        cache.AddOrUpdate(key, value, (k, v) =&gt; value);
+    }
+}
+</code></pre><p>I want to keep it really simple for demonstration purposes. Let&#x2019;s add some initialization code to our <code>RoleEntryPoint.OnStart</code> event:</p><pre><code>public class WebRole : RoleEntryPoint
+{
+    public override bool OnStart()
+    {
+        var value = CloudConfigurationManager
+            .GetSetting(&quot;TestSetting&quot;);
+        SettingsCache.Insance.Update(&quot;TestSetting&quot;, value);
+
+        return base.OnStart();
+    }
+}
+</code></pre><p>And finally let&#x2019;s update our request handler to make use of the test component:</p><pre><code>app.Run(async context =&gt;
+{
+    context.Response.ContentType = &quot;text/plain&quot;;
+    await context.Response.WriteAsync(
+        string.Format(&quot;Value: {0}&quot;, SettingsCache.Insance
+                                    .Find(&quot;TestSetting&quot;)));
+});
+</code></pre><p>If we run our application we are going to see the following:</p><p><a href=https://dzimchuk.net/media/image_1.png><img src=https://dzimchuk.net/media/image_thumb_1.png alt="No value has been set" title="No value has been set"></a></p><p>It may seem na&#xef;ve to you but trust me it happens. We have just misplaced our initialization code and we run it in another process than the one that actually needs it. Let&#x2019;s move the initialization to our OWIN start-up class:</p><pre><code>public class Startup
+{
+    public void Configuration(IAppBuilder app)
+    {
+        InitializeSettingsCache();
+
+        app.Run(async context =&gt;
+        {
+            ...
+        });
+    }
+
+    private static void InitializeSettingsCache()
+    {
+        var value = CloudConfigurationManager
+            .GetSetting(&quot;TestSetting&quot;);
+        SettingsCache.Insance.Update(&quot;TestSetting&quot;, value);
+    }
+}
+</code></pre><p>Now it runs as expected:</p><p><a href=https://dzimchuk.net/media/image_2.png><img src=https://dzimchuk.net/media/image_thumb_2.png alt="Value has been set" title="Value has been set"></a></p><h2 id=but-you-need-to-take-care-of-roleentrypoint-configuration-too>But you need to take care of RoleEntryPoint configuration too</h2><p>Alright, you may think it&#x2019;s clear. We just need to make sure we set things up in places that belong to the actual web application (Global.asax, OWIN start-up, etc) and we should be fine. In most cases yes but let&#x2019;s have a look at another example. This one is going to make our role crash and recycle.</p><p>Let&#x2019;s add an Azure storage client library to our project. You are very likely to work with Azure storage in your cloud solutions so go and add the following package:</p><p>WindowsAzure.Storage</p><p>Now any decent software should implement efficient logging and tracing to collect diagnostic information. <a href="https://msdn.microsoft.com/en-us/library/dn440729%28v=pandp.60%29.aspx">Semantic logging application block (SLAB)</a> has proven to be quite efficient for cloud solutions. It supports logging to Azure Table Storage, Amazon S3, out-of-process logging service and more. Let&#x2019;s add it to our solution by installing the following NuGet package:</p><p>EnterpriseLibrary.SemanticLogging.WindowsAzure</p><p>SLAB requires you to write event sources for your strongly typed events. Let&#x2019;s quickly sketch an event source for ourselves:</p><pre><code>[EventSource(Name = &quot;test-event-source&quot;)]
+public class TestEventSource : EventSource
+{
+    private static readonly Lazy&lt;TestEventSource&gt; Instance = 
+        new Lazy&lt;TestEventSource&gt;();
+
+    public static TestEventSource Log
+    {
+        get { return Instance.Value; }
+    }
+
+    [Event(1, 
+           Message = &quot;RoleEntryPoint::Start&quot;, 
+           Level = EventLevel.Informational)]
+    public void LogRoleStart(string processName)
+    {
+        if (IsEnabled())
+            WriteEvent(1, processName);
+    }
+
+    [Event(2, 
+           Message = &quot;Owin::Startup&quot;, 
+           Level = EventLevel.Informational)]
+    public void LogOwinStart(string processName)
+    {
+        if (IsEnabled())
+            WriteEvent(2, processName);
+    }
+}
+</code></pre><p>Good, now we need to set up a sink. We can use <a href=/adding-slab-out-of-process-service-to-azure-cloud-services/ >out-of-process server</a> that will capture events coming from ETW (Event Tracing for Windows) infrastructure but you may also choose in-process sinks. This is exactly what we&#x2019;re going do now. Remember, we have two processes hosting our app and if we want to use logging in both of them we need to set up sinks in each process.</p><pre><code>private static void InitializeLogging()
+{
+    var listener = new ObservableEventListener();
+    listener.EnableEvents(TestEventSource.Log, 
+        System.Diagnostics.Tracing.EventLevel.Informational);
+    listener.LogToWindowsAzureTable(&quot;TestWebRole&quot;, 
+        CloudConfigurationManager
+            .GetSetting(&quot;Diagnostics.ConnectionString&quot;));
+}
+</code></pre><p>Add and call this method to both <code>RoleEntryPoint</code> as well as to the OWIN start-up class. Change instance name from &#x2018;TestWebRole&#x2019; to for example &#x2018;WebApp&#x2019; when putting it in the OWIN start-up class. SLAB adds quite a bit of contextual information to logged events and instance name is one such extra bit of information.</p><p><code>LogToWindowsAzureTable</code> method accepts additional parameters like table name for instance. If we omit it it will create a table called SLABLogsTable. Note that it will only create a new table if it doesn&#x2019;t exist. Otherwise it will be appending to an existing table.</p><p>Then add logging calls to <code>RoleEntryPoint</code> and the start-up class:</p><pre><code>public class WebRole : RoleEntryPoint
+{
+    public override bool OnStart()
+    {
+        InitializeLogging();
+        TestEventSource.Log.LogRoleStart(Process.GetCurrentProcess().ProcessName);
+
+        ...
+    }
+}
+
+public class Startup
+{
+    public void Configuration(IAppBuilder app)
+    {
+        InitializeLogging();
+        TestEventSource.Log.LogOwinStart(Process.GetCurrentProcess().ProcessName);
+
+        ...
+    }
+}
+</code></pre><p>Good, we&#x2019;re ready to go! Hit F5 and our application runs. Let&#x2019;s go check out the table storage:</p><p><a href=https://dzimchuk.net/media/image_3.png><img src=https://dzimchuk.net/media/image_thumb_3.png alt="SLAB logging output" title="SLAB logging output"></a></p><p>As I mentioned there is a lot of contextual information, you can add keywords to your events but what I really like about Azure table storage sink is that you can create create custom payloads for your events that will be serialized as JSON and also a column will be added per each property you want to include with it.</p><p>Well, it runs well locally and we may not realize yet that we already have a problem. This is really frustrating because the emulator is letting us down. Let&#x2019;s publish our service to Azure. Once published we are surprised to see that our role is recycling.</p><p>Try to enable RDP access to our role on the portal (or do that in the publish settings wizard). When you are in open up Event Viewer and expand Application and Services Logs/Windows Azure node. You will see errors like this:</p><p>An unhandled exception occurred. Type: <strong>System.IO.FileLoadException</strong> Process ID: 3660<br>Process Name: <strong>WaIISHost</strong><br>Thread ID: 5<br>AppDomain Unhandled Exception for role TestWebRole_IN_0<br>Exception: <strong>Could not load file or assembly &apos;Microsoft.WindowsAzure.Storage, Version=3.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35&apos; or one of its dependencies. The located assembly&apos;s manifest definition does not match the assembly reference.</strong> (Exception from HRESULT: 0x80131040)<br>&#xa0;&#xa0; at Microsoft.Practices.EnterpriseLibrary.SemanticLogging.Sinks.WindowsAzureTableSink..ctor(String instanceName, String connectionString, String tableAddress, TimeSpan bufferInterval, Int32 maxBufferSize, TimeSpan onCompletedTimeout)<br>&#xa0;&#xa0; at Microsoft.Practices.EnterpriseLibrary.SemanticLogging.WindowsAzureTableLog.LogToWindowsAzureTable(IObservable<code>1 eventStream, String instanceName, String connectionString, String tableAddress, Nullable</code>1 bufferingInterval, Boolean sortKeysAscending, Nullable`1 onCompletedTimeout, Int32 maxBufferSize)<br>&#xa0;&#xa0; at TestWebRole.WebRole.InitializeLogging() in f:\dev_git\AzureSettingsUpdateSample\TestWebRole\WebRole.cs:line 34<br>&#xa0;&#xa0; at TestWebRole.WebRole.OnStart() in f:\dev_git\AzureSettingsUpdateSample\TestWebRole\WebRole.cs:line 15</p><p>SLAB table storage sink requires the storage library of version 3.0.2.0 but earlier we added this library directly from nuget and we pulled the latest version (4.3.0 as of time of writing). This is pretty common, we could as well have updated the storage package. To deal with versioning and updates there is a mechanism in .NET that allows you to specifying that an application that was built against a certain version of a dependency can use another version of that dependency. This is called <a href="https://msdn.microsoft.com/en-us/library/vstudio/2fc472t2%28v=vs.100%29.aspx?f=255&amp;MSPPError=-2147217396">assembly binding redirection</a>.</p><p>If you look at web.config file in our project you&#x2019;re likely to find the following fragment:</p><pre><code>&lt;runtime&gt;
+  &lt;assemblyBinding xmlns=&quot;urn:schemas-microsoft-com:asm.v1&quot;&gt;
+    &lt;dependentAssembly&gt;
+      &lt;assemblyIdentity name=&quot;Microsoft.WindowsAzure.Storage&quot; 
+            publicKeyToken=&quot;31bf3856ad364e35&quot; culture=&quot;neutral&quot; /&gt;
+      &lt;bindingRedirect oldVersion=&quot;0.0.0.0-4.3.0.0&quot; newVersion=&quot;4.3.0.0&quot; /&gt;
+    &lt;/dependentAssembly&gt;
+  &lt;/assemblyBinding&gt;
+&lt;/runtime&gt;
+</code></pre><p>It basically tells an application built against the storage library of any version from 0.0.0.0 to 4.3.0.0 to use the latest version 4.3.0.0.</p><p>But here&#x2019;s the problem: web.config is going to be used by IIS worker process and it doesn&#x2019;t affect WaIISHost process. Remember we added some logging to <code>RoleEntryPoint</code> and initialized an in-process sink for that. We want to add a similar assembly binding redirection to WaIISHost.exe but we can&#x2019;t easily do that from our web project.</p><p>When you RDP to your role instance you can find the hosting applications in %ROLEROOT%\base\x64 directory. %ROLEROOT% is normally drive E: or F. The idea is to add (or modify if it exist) a configuration file for WaIISHost.exe assembly. We can do that with a PowerShell script that we are going to run as a Startup task for our role.</p><p>Let&#x2019;s go and add a folder called Startup (it can be named whatever you like) to our project and add a .cmd as well as PowerShell script to it:</p><p><a href=https://dzimchuk.net/media/image_4.png><img src=https://dzimchuk.net/media/image_thumb_4.png alt="A startup task files" title="A startup task files"></a></p><p>The reason we need a .cmd batch file is because we can&#x2019;t run PowerShell scripts directly as cloud service roles&#x2019; startup tasks. The batch file is pretty simple:</p><pre><code>IF &quot;%IsEmulated%&quot;==&quot;true&quot; goto :EOF 
+
+cd %ROLEROOT%\approot\bin\Startup\
+PowerShell -ExecutionPolicy Unrestricted -File 
+    .\Apply-BindingRedirect.ps1 
+    &quot;%ROLEROOT%\base\x64\WaIISHost.exe.config&quot; 
+    &quot;Microsoft.WindowsAzure.Storage&quot; &quot;31bf3856ad364e35&quot; 
+    &quot;neutral&quot; &quot;0.0.0.0-4.3.0.0&quot; &quot;4.3.0.0&quot; &gt;&gt; &quot;%TEMP%\StartupLog.txt&quot; 2&gt;&amp;1
+
+:EOF 
+EXIT /B %ERRORLEVEL%
+</code></pre><p>It doesn&#x2019;t do anything when you run the service under emulator and will run the PowerShell script when running in Azure. The PowerShell script is a bit lengthy to be posted here so I will just give a <a href="https://bitbucket.org/dzimchuk/azuresettingsupdatesample/src/fa1a98c1c248e7d162a1b9b0bee951fefaf03b12/TestWebRole/Startup/Apply-BindingRedirect.ps1?at=master">link</a> to it.</p><p>In fact that repo on Bitbucket contains the whole test solution I&#x2019;m using in this post.</p><p>So the script contains all the dreaded XML logic to add/update necessary elements for binding redirection. We just need to add the actual startup task to our role (ServiceDefinition.csdef file):</p><pre><code>&lt;WebRole name=&quot;TestWebRole&quot; vmsize=&quot;ExtraSmall&quot;&gt;
+  ...
+  &lt;Startup&gt;
+    &lt;Task commandLine=&quot;Startup\AddAssemblyBindings.cmd&quot; 
+        executionContext=&quot;elevated&quot; taskType=&quot;simple&quot;&gt;
+      &lt;Environment&gt;
+        &lt;Variable name=&quot;IsEmulated&quot;&gt;
+          &lt;RoleInstanceValue xpath=&quot;/RoleEnvironment/Deployment/@emulated&quot; /&gt;
+        &lt;/Variable&gt;
+      &lt;/Environment&gt;
+    &lt;/Task&gt;
+  &lt;/Startup&gt;
+&lt;/WebRole&gt;
+</code></pre><p>That&#x2019;s it. Redeploy the service to Azure and check if it&#x2019;s working.</p></section><footer class=post-footer><figure class=author-image><a class=img href=/ style="background-image: url(//www.gravatar.com/avatar/7fbe59ac3d3eaab56ec27da019d76f66?s&#x3D;250&amp;amp;d&#x3D;mm&amp;amp;r&#x3D;x)"><span class=hidden>Andrei Dzimchuk's Picture</span></a></figure><section class=author><h4><a href=/ >Andrei Dzimchuk</a></h4><p>Hi, I&#x27;m Andrei, I&#x27;m a software developer building cloud enabled solutions. I&#x27;m mostly focused on Azure and .NET and I try to share my experience and knowledge here with you.</p><div class=author-meta></div></section><section class=share><h4>Share this post</h4><a class=icon-facebook href="https://www.facebook.com/sharer/sharer.php?u=https://dzimchuk.net/be-aware-of-web-role-host-process/" rel="noopener noreferrer nofollow" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;"><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=facebook-icon role=img><title id=facebook-icon>Facebook</title><path d="M448 56.7v398.5c0 13.7-11.1 24.7-24.7 24.7H309.1V306.5h58.2l8.7-67.6h-67v-43.2c0-19.6 5.4-32.9 33.5-32.9h35.8v-60.5c-6.2-.8-27.4-2.7-52.2-2.7-51.6 0-87 31.5-87 89.4v49.9h-58.4v67.6h58.4V480H24.7C11.1 480 0 468.9 0 455.3V56.7C0 43.1 11.1 32 24.7 32h398.5c13.7 0 24.8 11.1 24.8 24.7z"></path></svg> </a><a class=icon-linkedin href="http://www.linkedin.com/shareArticle?mini=true&amp;url=https://dzimchuk.net/be-aware-of-web-role-host-process/&amp;title=Be%20aware%20of%20Web%20role%20host%20process" rel="noopener noreferrer nofollow" onclick="window.open(this.href, 'linkedin-share','width=490,height=530');return false;"><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=linkedin-icon role=img><title id=linkedin-icon>LinkedIn</title><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg></a></section></footer><section class=post-comments><div id=disqus_thread></div><script>var disqus_config = function () {
+                    this.page.url = 'https://dzimchuk.net/be-aware-of-web-role-host-process/';
+                    this.page.identifier = 'a9a058e9-3821-4ff1-9982-46f6b1d1786d';
+                    this.page.title = 'Be aware of Web role host process';
+                };
+                (function() {
+                    var d = document, s = d.createElement('script');
+                    s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
+                })();</script></section></article></main><footer class=site-footer><div class=site-footer-inner><section class=copyright><a href=https://dzimchuk.net/ >Andrei Dzimchuk</a> &copy; 2026</section><nav class=site-footer-nav><a href=https://github.com/dzimchuk target=_blank rel=noopener><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 496 512" aria-labelledby=github-icon role=img><title id=github-icon>GitHub</title><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg></a><a href=https://www.linkedin.com/in/andreidzimchuk target=_blank rel=noopener><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=linkedin-icon role=img><title id=linkedin-icon>LinkedIn</title><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg></a><a href=https://feedly.com/i/subscription/feed/https://dzimchuk.net/rss.xml target=_blank rel=noopener><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=rss-icon role=img><title id=rss-icon>RSS</title><path d="M128.081 415.959c0 35.369-28.672 64.041-64.041 64.041S0 451.328 0 415.959s28.672-64.041 64.041-64.041 64.04 28.673 64.04 64.041zm175.66 47.25c-8.354-154.6-132.185-278.587-286.95-286.95C7.656 175.765 0 183.105 0 192.253v48.069c0 8.415 6.49 15.472 14.887 16.018 111.832 7.284 201.473 96.702 208.772 208.772.547 8.397 7.604 14.887 16.018 14.887h48.069c9.149.001 16.489-7.655 15.995-16.79zm144.249.288C439.596 229.677 251.465 40.445 16.503 32.01 7.473 31.686 0 38.981 0 48.016v48.068c0 8.625 6.835 15.645 15.453 15.999 191.179 7.839 344.627 161.316 352.465 352.465.353 8.618 7.373 15.453 15.999 15.453h48.068c9.034-.001 16.329-7.474 16.005-16.504z"></path></svg></a></nav></div></footer></div><script src=https://code.jquery.com/jquery-3.2.1.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script type=text/javascript src=/assets/theme-4b97c15618.js></script><script>$(function () {
+    var $postContent = $(".post-content");
+    $postContent.fitVids();
+  });</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-JYXGZ70WJH"></script><script>window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-JYXGZ70WJH');</script></body></html>

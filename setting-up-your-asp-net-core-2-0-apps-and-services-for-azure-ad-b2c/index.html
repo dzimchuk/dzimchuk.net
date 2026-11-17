@@ -1,0 +1,348 @@
+﻿<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><title>Setting up your ASP.NET Core 2.0 apps and services for Azure AD B2C</title><meta name=HandheldFriendly content=True><meta name=viewport content="width=device-width,initial-scale=1"><link rel=stylesheet type=text/css href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400"><link rel=stylesheet type=text/css href=/assets/theme-0c0984d3fd.css><link rel=canonical href=https://dzimchuk.net/setting-up-your-asp-net-core-2-0-apps-and-services-for-azure-ad-b2c/ ><meta name=referrer content=no-referrer-when-downgrade><meta property=og:site_name content="Andrei Dzimchuk"><meta property=og:type content=article><meta property=og:title content="Setting up your ASP.NET Core 2.0 apps and services for Azure AD B2C"><meta property=og:description content="It&#x27;s been over 1.5 years since I&#x27;d posted on integrating ASP.NET Core applictions with Azure AD B2C. As I was upgrading my sample to ASP.NET Core 2.0 it became obvious that changes that I had to make were not only limited to the revamped authentication middleware and security related APIs..."><meta property=og:url content=https://dzimchuk.net/setting-up-your-asp-net-core-2-0-apps-and-services-for-azure-ad-b2c/ ><meta property=article:publisher content=https://www.facebook.com/andrei.dzimchuk><meta property=article:author content=https://www.facebook.com/andrei.dzimchuk><meta property=article:published_time content=2017-12-18T20:03:34.000+00:00><meta property=article:modified_time content=2018-03-15T19:47:38.000+00:00><meta property=article:tag content="Azure Active Directory"><meta property=article:tag content=ASP.NET><meta name=twitter:card content=summary><meta name=twitter:title content="Setting up your ASP.NET Core 2.0 apps and services for Azure AD B2C"><meta name=twitter:description content="It&#x27;s been over 1.5 years since I&#x27;d posted on integrating ASP.NET Core applictions with Azure AD B2C. As I was upgrading my sample to ASP.NET Core 2.0 it became obvious that changes that I had to make were not only limited to the revamped authentication middleware and security related APIs..."><meta name=twitter:url content=https://dzimchuk.net/setting-up-your-asp-net-core-2-0-apps-and-services-for-azure-ad-b2c/ ><meta name=twitter:label1 content="Written by"><meta name=twitter:data1 content="Andrei Dzimchuk"><meta name=twitter:label2 content="Filed under"><meta name=twitter:data2 content="Azure Active Directory, ASP.NET"><meta name=twitter:site content=@dzimchuk><meta property=twitter:creator content=@dzimchuk><script type=application/ld+json>{
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "publisher": {
+      "@type": "Organization",
+      "name": "Andrei Dzimchuk",
+      "logo": {
+      "@type": "ImageObject",
+      "url": "https://dzimchuk.net/media/favicons/v1/favicon.ico",
+      "width": 60,
+      "height": 60
+      }
+      },
+      "url": "https://dzimchuk.net/setting-up-your-asp-net-core-2-0-apps-and-services-for-azure-ad-b2c/",
+      "description": "It&#x27;s been over 1.5 years since I&#x27;d posted on integrating ASP.NET Core applictions with Azure AD B2C. As I was upgrading my sample to ASP.NET Core 2.0 it became obvious that changes that I had to make were not only limited to the revamped authentication middleware and security related APIs..."
+      "headline": "Setting up your ASP.NET Core 2.0 apps and services for Azure AD B2C",
+      "datePublished": "2017-12-18T20:03:34.000+00:00",
+      "dateModified": "2018-03-15T19:47:38.000+00:00",
+      "keywords": "Azure Active Directory, ASP.NET",
+      "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://dzimchuk.net/"
+      }
+      }</script><link rel=alternate type=application/rss+xml title="Andrei Dzimchuk" href=https://dzimchuk.net/rss.xml><script type=text/javascript>var disqus_shortname = 'dzimchuk';</script><link rel=apple-touch-icon sizes=57x57 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-57x57.png><link rel=apple-touch-icon sizes=60x60 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-60x60.png><link rel=apple-touch-icon sizes=72x72 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-72x72.png><link rel=apple-touch-icon sizes=76x76 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-76x76.png><link rel=apple-touch-icon sizes=114x114 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-114x114.png><link rel=apple-touch-icon sizes=120x120 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-120x120.png><link rel=apple-touch-icon sizes=144x144 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-144x144.png><link rel=apple-touch-icon sizes=152x152 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-152x152.png><link rel=apple-touch-icon sizes=180x180 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-180x180.png><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/android-chrome-192x192.png sizes=192x192><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/favicon-96x96.png sizes=96x96><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/favicon-16x16.png sizes=16x16><link rel=manifest href=https://dzimchuk.net/favicons/v1/manifest.json><link rel="shortcut icon" href=https://dzimchuk.net/media/favicons/v1/favicon.ico><meta name=msapplication-TileColor content=#da532c><meta name=msapplication-TileImage content=https://dzimchuk.net/media/favicons/v1/mstile-144x144.png><meta name=msapplication-config content=https://dzimchuk.net/favicons/v1/browserconfig.xml><meta name=theme-color content=#ffffff></head><body class="post-template tag-azure-active-directory tag-aspnet"><div class=site-wrapper><header class="main-header post-head no-cover"><nav class="main-nav clearfix"><div class=nav-wrapper><ul class=nav role=menu><li class=nav-home role=menuitem><a href=/ >Home</a></li><li class=nav-cloud-patterns role=menuitem><a href=/tag/cloud-patterns/ >Cloud Patterns</a></li><li class=nav-service-fabric role=menuitem><a href=/tag/azure-service-fabric/ >Service Fabric</a></li><li class=nav-azure-ad role=menuitem><a href=/tag/azure-active-directory/ >Azure AD</a></li><li class=nav-azure-services role=menuitem><a href=/tag/azure-services/ >Azure Services</a></li><li class=nav-about role=menuitem><a href=/about/ >About</a></li></ul><a href=javascript:void(0); class=nav-hamburger-open><svg role=img xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=open-menu-icon><title id=open-menu-icon>Open menu</title><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path></svg></a><a href=javascript:void(0); class=nav-hamburger-close><svg role=img xmlns=http://www.w3.org/2000/svg viewBox="0 0 352 512" aria-labelledby=close-menu-icon><title id=close-menu-icon>Close menu</title><path fill=currentColor d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg></a></div></nav></header><main class=content role=main><article class="post tag-azure-active-directory tag-aspnet"><header class=post-header><h1 class=post-title>Setting up your ASP.NET Core 2.0 apps and services for Azure AD B2C</h1><section class=post-meta><time class=post-date datetime=2017-12-18>18 December 2017</time> on <a href=/tag/azure-active-directory/ >Azure Active Directory</a>, <a href=/tag/aspnet/ >ASP.NET</a></section></header><section class=post-content><p>It&#39;s been over 1.5 years since I&#39;d posted an <a href=/setting-up-your-aspnet-core-apps-and-services-for-azure-ad-b2c/ >article</a> on integrating ASP.NET Core 1.x applictions with Azure AD B2C. As I was upgrading my sample application to ASP.NET Core 2.0 it became obvious that changes that I had to make were not only limited to the revamped authentication middleware and security related APIs (a great summary of which can be found in <a href=https://github.com/aspnet/Announcements/issues/262>this</a> issue on GitHub). Azure AD B2C has greatly evolved too and now it supports separate API and client apps, delegated access configured with scopes and proper access tokens.</p><p>It&#39;s too many changes that have literally rendered my previous post obsolete and prompted me to write a new version of it.</p><h2 id=test-application>Test application</h2><p>A sample application is available on <a href=https://github.com/dzimchuk/azure-ad-b2c-asp-net-core>GitHub</a>. It consists of a Web API project (which is pretty much the default template armored with JWT Bearer authentication middleware) and an MVC client that calls the API and displays a list of claims it receives in the ID token.</p><p><img src=https://dzimchuk.net/media/2017/12/AppCallResult1.png alt="Test application output"></p><p>The application uses the <a href=http://openid.net/specs/openid-connect-core-1_0.html#HybridFlowAuth>Hybrid Flow</a> and supports common customer facing scenarios such as self sign-up, profile editing and password reset. It demoes configuration of the ASP.NET Core authentication middleware for OpenID Connect and the Microsoft Authentication Library (MSAL).</p><h2 id=configuring-azure-ad-b2c-applications-and-policies>Configuring Azure AD B2C applications and policies</h2><p>Just like you do in the regular Azure AD you can now register separate applications in B2C to represent your APIs and client applications. You can further fine-tune what delegated permissions are required by the clients and you get normal <a href=https://docs.microsoft.com/en-us/azure/active-directory-b2c/active-directory-b2c-access-tokens>access tokens</a> in additional to ID and refresh tokens from Azure AD B2C (for those who are new to B2C, in the past you had to use the same app for APIs and clients and use ID tokens in place of access tokens when calling your APIs).</p><p><img src=https://dzimchuk.net/media/2017/12/APIApp_ID.png alt="API app ID"></p><p>One important setting to make sure to specify for the API app is the <code>App ID Uri</code>. This Uri is going to be used as a prefix for custom scopes that your API exposes and that should be requested by clients.</p><p>You declare your custom scopes in the &quot;Published scopes&quot; section of the API app.</p><p><img src=https://dzimchuk.net/media/2017/12/APIApp_PublishedScopes.png alt="API app published scopes"></p><p>Combined with the App ID our sample published scope will be</p><pre><code>https://devunleashedb2c.onmicrosoft.com/testapi/read_values
+</code></pre><p>This is the value that should be included as part of the <code>scope</code> parameter by the client when making requests to <code>authorize</code> and/or <code>token</code> endpoints. Note by default all apps come with the <code>user_impersonation</code> scope that can be used if there is no need to limit what portions of the APIs are available for particular clients and they just need to be able to call the APIs on behalf of signed in users.</p><p>For the client app it&#39;s important to specify reply Url(s) which should contain those to be specified when making requested to the directory.</p><p><img src=https://dzimchuk.net/media/2017/12/WebApp_ReturnUri.png alt="Web app settings"></p><p>If your client is confidential (that is, a server side application) you need to generate client keys in the appropriate section of the blade. Full client credentials are required by the Authorization Code and the Hybrid flows.</p><p>Finally, you assign exposed scopes of APIs that need to be available to clients.</p><p><img src=https://dzimchuk.net/media/2017/12/WebApp_RequiredAccess.png alt="Web app required access"></p><h3 id=create-and-configure-b2c-policies>Create and configure B2C policies</h3><p>In Azure AD B2C policies define the end user experience and enable much greater customization options than the ones available in the classic directory. <a href=https://docs.microsoft.com/en-us/azure/active-directory-b2c/active-directory-b2c-reference-policies>Official documentation</a> covers policies and other concepts in great details so I suggest you have a look at it.</p><p>In Azure AD B2C the policy is a required parameter in requests to authorization and token endpoints. For instance, if we query the metadata endpoint with a particular policy:</p><pre><code>GET https://login.microsoftonline.com/devunleashedb2c.onmicrosoft.com/v2.0/.well-known/openid-configuration?p=b2c_1_testsignupandsigninpolicy
+</code></pre><p>We get the following output:</p><pre><code>{
+  &quot;issuer&quot;: &quot;https://login.microsoftonline.com/bc2fb659-725b-48d8-b571-7420094e41cc/v2.0/&quot;,
+  &quot;authorization_endpoint&quot;: &quot;https://login.microsoftonline.com/devunleashedb2c.onmicrosoft.com/oauth2/v2.0/authorize?p=b2c_1_testsignupandsigninpolicy&quot;,
+  &quot;token_endpoint&quot;: &quot;https://login.microsoftonline.com/devunleashedb2c.onmicrosoft.com/oauth2/v2.0/token?p=b2c_1_testsignupandsigninpolicy&quot;,
+  &quot;end_session_endpoint&quot;: &quot;https://login.microsoftonline.com/devunleashedb2c.onmicrosoft.com/oauth2/v2.0/logout?p=b2c_1_testsignupandsigninpolicy&quot;,
+  &quot;jwks_uri&quot;: &quot;https://login.microsoftonline.com/devunleashedb2c.onmicrosoft.com/discovery/v2.0/keys?p=b2c_1_testsignupandsigninpolicy&quot;,
+  &quot;response_modes_supported&quot;: [
+    &quot;query&quot;,
+    &quot;fragment&quot;,
+    &quot;form_post&quot;
+  ],
+  &quot;response_types_supported&quot;: [
+    &quot;code&quot;,
+    &quot;id_token&quot;,
+    &quot;code id_token&quot;
+  ],
+  &quot;scopes_supported&quot;: [
+    &quot;openid&quot;
+  ],
+  &quot;subject_types_supported&quot;: [
+    &quot;pairwise&quot;
+  ],
+  &quot;id_token_signing_alg_values_supported&quot;: [
+    &quot;RS256&quot;
+  ],
+  &quot;token_endpoint_auth_methods_supported&quot;: [
+    &quot;client_secret_post&quot;
+  ],
+  &quot;claims_supported&quot;: [
+    &quot;oid&quot;,
+    &quot;newUser&quot;,
+    &quot;idp&quot;,
+    &quot;emails&quot;,
+    &quot;name&quot;,
+    &quot;sub&quot;
+  ]
+}
+</code></pre><p>Not only does it provide policy specific endpoints, it also gives information about claims that I configured to be included in tokens for this specific policy.</p><p>There are 2 ways you can specify the policy:</p><ul><li>as a <code>p</code> query string parameter as in the example above</li><li>as a URL segment when using special <code>tfp</code> URL format</li></ul><pre><code>public string GetAuthority(string policy) =&gt; $&quot;{Instance}tfp/{TenantId}/{policy}/v2.0&quot;;
+</code></pre><p>So in our example, we could have called the metadata endpoint with the following URL:</p><pre><code>https://login.microsoftonline.com/tfp/devunleashedb2c.onmicrosoft.com/b2c_1_testsignupandsigninpolicy/v2.0/.well-known/openid-configuration
+</code></pre><p>And the response would indicate:</p><pre><code>https://login.microsoftonline.com/te/devunleashedb2c.onmicrosoft.com/b2c_1_testsignupandsigninpolicy/oauth2/v2.0/authorize
+</code></pre><p>as the <code>authorize</code> endpoint.</p><p>While we&#39;re at it, it&#39;s essential that we properly configure claims to be included in tokens when using all planned policies. Each policy has the same set of settings and first of all it&#39;s important to include the <code>Object ID</code> claim which is the unique identifier of the user.</p><p><img src=https://dzimchuk.net/media/2017/12/PolicyClaims.png alt="Selecting what claims to include in responses"></p><p>It&#39;s important to enable it in all policies that are going to be used in your application and here is why. Different scenarios such as profile editing or password reset are handled by redirecting the user to the <code>authorize</code> endpoint. And upon return the application is supposed to reconstruct the security context and follow the OpenID Connect spec to redeem the authorization code (yes, all these scenarios are piggy backed on the standard flows). User ID is the essential claim to be present in all responses from the <code>authorize</code> endpoint. For example, it&#39;s used as part of the token&#39;s cache key which we&#39;re going to talk about later in this post.</p><p>There are a couple of more settings affecting claims which are specified at the policy level:</p><p><img src=https://dzimchuk.net/media/2017/12/SubAndPolicySettings.png alt="Additional policy settings"></p><p>The first one is the <code>sub</code> claim that often represents the user ID. Because we&#39;ve already included the Object ID (<code>oid</code> claim mapped to <code>http://schemas.microsoft.com/identity/claims/objectidentifier</code> claim type used in .NET) we can disable it (that&#39;s why you see the unsupported message for the <code>nameidentifier</code> .NET claim in the sample application).</p><p>The second claim is the one that identifies the policy that was used to call the <code>authorize</code> endpoint. This claim is used later when you need to redeem the authorization code by calling the appropriate <code>token</code> endpoint or when signing out the user. By default it&#39;s set to <code>acr</code> which is mapped to <code>http://schemas.microsoft.com/claims/authnclassreference</code> claim type in .NET.</p><p>By the way, all these claim mappings can be customized and even disabled so you can use short claim types (e.g. <code>sub</code>, <code>scp</code>, etc) but this is a topic for another post.</p><p>Our sample application requires 3 policies:</p><ul><li>Sign up and Sign in. This is a combined policy that enables self sign-up.</li><li>Profile editing.</li><li>Password reset.</li></ul><h2 id=configuring-web-api>Configuring Web API</h2><p>Configuration of <code>Microsoft.AspNetCore.Authentication.JwtBearer</code> middleware in your API apps is quite simple:</p><pre><code>public void ConfigureServices(IServiceCollection services)
+{
+    services.Configure&lt;AuthenticationOptions&gt;(configuration.GetSection(&quot;Authentication:AzureAd&quot;));
+
+    var serviceProvider = services.BuildServiceProvider();
+    var authOptions = serviceProvider.GetService&lt;IOptions&lt;AuthenticationOptions&gt;&gt;();
+    
+    services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme) // sets both authenticate and challenge default schemes
+        .AddJwtBearer(options =&gt;
+        {
+            options.MetadataAddress = $&quot;{authOptions.Value.Authority}/.well-known/openid-configuration?p={authOptions.Value.SignInOrSignUpPolicy}&quot;;
+            options.Audience = authOptions.Value.Audience;
+        });
+}
+</code></pre><p>Instead of setting the authority (which is the tenant&#39;s URL in the classic directory), you specify the full URL to the OpenID Connect metadata endpoint. This way you can specify the policy parameter. What&#39;s interesting is that even though you can request access tokens using various policies your API app will be able to validate them using just any of them.</p><h2 id=configuring-mvc-client>Configuring MVC client</h2><p>In a web client you use a pair of the Cookies and OpenID Connect middleware and also the Microsoft Authentication Library to help with token management.</p><p>Configuration of the middleware is slightly more involved:</p><pre><code>private static void ConfigureAuthentication(IServiceCollection services)
+{
+    var serviceProvider = services.BuildServiceProvider();
+
+    var authOptions = serviceProvider.GetService&lt;IOptions&lt;B2CAuthenticationOptions&gt;&gt;();
+    var b2cPolicies = serviceProvider.GetService&lt;IOptions&lt;B2CPolicies&gt;&gt;();
+
+    var distributedCache = serviceProvider.GetService&lt;IDistributedCache&gt;();
+    // this is needed when using in-memory cache (because 2 different service providers are going to be used and thus 2 in-memory dictionaries)
+    services.AddSingleton(distributedCache);
+    
+    services.AddAuthentication(options =&gt;
+    {
+        options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = Constants.OpenIdConnectAuthenticationScheme;
+    })
+    .AddCookie()
+    .AddOpenIdConnect(Constants.OpenIdConnectAuthenticationScheme, options =&gt;
+    {
+        options.Authority = authOptions.Value.Authority;
+        options.ClientId = authOptions.Value.ClientId;
+        options.ClientSecret = authOptions.Value.ClientSecret;
+        options.SignedOutRedirectUri = authOptions.Value.PostLogoutRedirectUri;
+
+        options.ConfigurationManager = new PolicyConfigurationManager(authOptions.Value.Authority,
+                                       new[] { b2cPolicies.Value.SignInOrSignUpPolicy, b2cPolicies.Value.EditProfilePolicy, b2cPolicies.Value.ResetPasswordPolicy });
+
+        options.Events = CreateOpenIdConnectEventHandlers(authOptions.Value, b2cPolicies.Value, distributedCache);
+
+        options.ResponseType = OpenIdConnectResponseType.CodeIdToken;
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            NameClaimType = &quot;name&quot;
+        };
+
+        // we have to set these scope that will be used in /authorize request
+        // (otherwise the /token request will not return access and refresh tokens)
+        options.Scope.Add(&quot;offline_access&quot;);
+        options.Scope.Add($&quot;{authOptions.Value.ApiIdentifier}/read_values&quot;);
+    });
+}
+</code></pre><p>Notice how you set the OpenID Connect middleware to be used for challenge requests and the Cookie middleware for the rest. Another important thing to remember is to include the same set of scopes when redirecting the the <code>authorize</code> endpoint as well as redeeming the authorization code (shown below). Otherwise the response from the <code>token</code> endpoint won&#39;t include access and refresh tokens.</p><p>The role of the custom configuration manager becomes apparent in various event handlers:</p><pre><code>private static OpenIdConnectEvents CreateOpenIdConnectEventHandlers(B2CAuthenticationOptions authOptions, B2CPolicies policies, IDistributedCache distributedCache)
+{
+    return new OpenIdConnectEvents
+    {
+        OnRedirectToIdentityProvider = context =&gt; SetIssuerAddressAsync(context, policies.SignInOrSignUpPolicy),
+        OnRedirectToIdentityProviderForSignOut = context =&gt; SetIssuerAddressForSignOutAsync(context, policies.SignInOrSignUpPolicy),
+        OnAuthorizationCodeReceived = async context =&gt;
+                                      {
+                                          ...
+                                      },
+        OnMessageReceived = context =&gt;
+        {
+            ...
+        }
+    };
+}
+
+private static async Task SetIssuerAddressAsync(RedirectContext context, string defaultPolicy)
+{
+    var configuration = await GetOpenIdConnectConfigurationAsync(context, defaultPolicy);
+    context.ProtocolMessage.IssuerAddress = configuration.AuthorizationEndpoint;
+}
+
+private static async Task SetIssuerAddressForSignOutAsync(RedirectContext context, string defaultPolicy)
+{
+    var configuration = await GetOpenIdConnectConfigurationAsync(context, defaultPolicy);
+    context.ProtocolMessage.IssuerAddress = configuration.EndSessionEndpoint;
+}
+
+private static Task&lt;OpenIdConnectConfiguration&gt; GetOpenIdConnectConfigurationAsync(RedirectContext context, string defaultPolicy)
+{
+    var manager = (PolicyConfigurationManager)context.Options.ConfigurationManager;
+    var policy = context.Properties.Items.ContainsKey(Constants.B2CPolicy) ? context.Properties.Items[Constants.B2CPolicy] : defaultPolicy;
+
+    return manager.GetConfigurationByPolicyAsync(CancellationToken.None, policy);
+}
+</code></pre><p>The idea is to use proper URLs for the <code>authorize</code> endpoint depending on the policy that is set by the <a href=https://github.com/dzimchuk/azure-ad-b2c-asp-net-core/blob/master/TestApp/Controllers/AccountController.cs>AccountController</a> in response to appropriate actions: sign in, sign up, edit profile, password reset or sign out. Please check out the code to get a better picture of how things work. The alternative solution would be using the <code>tfp</code> URL formats and replacing the policy name in the URL itself.</p><h2 id=using-msal-to-redeem-authorization-code-and-manage-tokens>Using MSAL to redeem authorization code and manage tokens</h2><p><a href=https://github.com/AzureAD/microsoft-authentication-library-for-dotnet>Microsoft Authentication Library</a> (MSAL) is the &quot;next generation&quot; library for managing tokens that should be used with v2 endpoints (as apposed to <a href=https://github.com/AzureAD/azure-activedirectory-library-for-dotnet>Active Directory Authentication Library</a> (ADAL) that is to be used with classic v1 endpoints).</p><p>You redeem the authorization code in <code>OnAuthorizationCodeReceived</code> event handler:</p><pre><code>OnAuthorizationCodeReceived = async context =&gt;
+{
+    try
+    {
+        var principal = context.Principal;
+
+        var userTokenCache = new DistributedTokenCache(distributedCache, principal.FindFirst(Constants.ObjectIdClaimType).Value).GetMSALCache();
+        var client = new ConfidentialClientApplication(authOptions.ClientId,
+            authOptions.GetAuthority(principal.FindFirst(Constants.AcrClaimType).Value),
+            &quot;https://app&quot;, // it&#39;s not really needed
+            new ClientCredential(authOptions.ClientSecret),
+            userTokenCache,
+            null);
+
+        var result = await client.AcquireTokenByAuthorizationCodeAsync(context.TokenEndpointRequest.Code,
+            new[] { $&quot;{authOptions.ApiIdentifier}/read_values&quot; });
+
+        context.HandleCodeRedemption(result.AccessToken, result.IdToken);
+    }
+    catch (Exception ex)
+    {
+        context.Fail(ex);
+    }
+}
+</code></pre><p>There are a few important notes to make here:</p><ul><li>Specifying a per-user token cache (described below).</li><li>Specifying the authority using the <code>tfp</code> format and policy name from the <code>acr</code> claim. This is important as this code is going to get executed as part of sign-in, profile editing and password reset flows. Failure to provide the correct policy will result in the following error: <code>AADB2C90088: The provided grant has not been issued for this endpoint. Actual Value : B2C_1_TestSignUpAndSignInPolicy and Expected Value : B2C_1_TestProfileEditPolicy</code>.</li><li>Sending the same set of claims the <code>token</code> endpoint that you send to the <code>authorize</code> endpoint.</li><li>Notifying the OpenID Connect middleware that you&#39;ve redeemed the code by calling <code>HandleCodeRedemption</code>.</li></ul><h3 id=implementing-a-distributed-token-cache>Implementing a distributed token cache</h3><p>I&#39;ve seen crazy implementations of the token cache even in official samples. It&#39;s much more straightforward when your cache is implemented on a per-user basis. I&#39;ve already described such an implemented for ADAL <a href=/adal-distributed-token-cache-in-asp-net-core/ >here</a> and here&#39;s the version for MSAL:</p><pre><code>internal class DistributedTokenCache
+{
+    private readonly IDistributedCache distributedCache;
+    private readonly string userId;
+
+    private readonly TokenCache tokenCache = new TokenCache();
+
+    public DistributedTokenCache(IDistributedCache cache, string userId)
+    {
+        this.distributedCache = cache;
+        this.userId = userId;
+
+        tokenCache.SetBeforeAccess(OnBeforeAccess);
+        tokenCache.SetAfterAccess(OnAfterAccess);
+    }
+
+    public TokenCache GetMSALCache() =&gt; tokenCache;
+
+    private void OnBeforeAccess(TokenCacheNotificationArgs args)
+    {
+        var userTokenCachePayload = distributedCache.Get(CacheKey);
+        if (userTokenCachePayload != null)
+        {
+            tokenCache.Deserialize(userTokenCachePayload);
+        }
+    }
+
+    private void OnAfterAccess(TokenCacheNotificationArgs args)
+    {
+        if (tokenCache.HasStateChanged)
+        {
+            var cacheOptions = new DistributedCacheEntryOptions
+            {
+                AbsoluteExpirationRelativeToNow = TimeSpan.FromDays(14)
+            };
+
+            distributedCache.Set(CacheKey, tokenCache.Serialize(), cacheOptions);
+
+            tokenCache.HasStateChanged = false;
+        }
+    }
+
+    private string CacheKey =&gt; $&quot;TokenCache_{userId}&quot;;
+}
+</code></pre><p>The cache relies on <code>IDistributedCache</code> abstraction and you get in-memory, Redis and SQL Server implementations in ASP.NET Core out of the box.</p><h2 id=calling-the-api>Calling the API</h2><p>When calling the API you need to obtain access token from MSAL cache (and let it handle token refresh if appropriate):</p><pre><code>public async Task&lt;string&gt; GetValuesAsync()
+{
+    var client = new HttpClient { BaseAddress = new Uri(serviceOptions.BaseUrl, UriKind.Absolute) };
+    client.DefaultRequestHeaders.Authorization = 
+        new AuthenticationHeaderValue(&quot;Bearer&quot;, await GetAccessTokenAsync());
+
+    return await client.GetStringAsync(&quot;api/values&quot;);
+}
+
+private async Task&lt;string&gt; GetAccessTokenAsync()
+{
+    try
+    {
+        var principal = httpContextAccessor.HttpContext.User;
+
+        var tokenCache = new DistributedTokenCache(distributedCache, principal.FindFirst(Constants.ObjectIdClaimType).Value).GetMSALCache();
+        var client = new ConfidentialClientApplication(authOptions.ClientId,
+                                                  authOptions.GetAuthority(principal.FindFirst(Constants.AcrClaimType).Value),
+                                                  &quot;https://app&quot;, // it&#39;s not really needed
+                                                  new ClientCredential(authOptions.ClientSecret),
+                                                  tokenCache,
+                                                  null);
+
+        var result = await client.AcquireTokenSilentAsync(new[] { $&quot;{authOptions.ApiIdentifier}/read_values&quot; },
+            client.Users.FirstOrDefault());
+
+        return result.AccessToken;
+    }
+    catch (MsalUiRequiredException)
+    {
+        throw new ReauthenticationRequiredException();
+    }
+}
+</code></pre><p>If the refresh token has expired (or for whatever reason there was no access token in cache) we have to propose the user to re-authenticate. Notice that we translate <code>MsalUiRequiredException</code> into our custom <code>ReauthenticationRequiredException</code> which is handled by the global exception filter by initiating the challenge flow:</p><pre><code>public void OnException(ExceptionContext context)
+{
+    if (!context.ExceptionHandled &amp;&amp; IsReauthenticationRequired(context.Exception))
+    {
+        context.Result = new ChallengeResult(
+                Constants.OpenIdConnectAuthenticationScheme,
+                new AuthenticationProperties(new Dictionary&lt;string, string&gt; { { Constants.B2CPolicy, policies.SignInOrSignUpPolicy } })
+                {
+                    RedirectUri = context.HttpContext.Request.Path
+                });
+
+        context.ExceptionHandled = true;
+    }
+}
+</code></pre><h2 id=handle-profile-editing>Handle profile editing</h2><p>One of the policy types supported by Azure AD B2C is profile editing which allows users to provide their info such as address details, job title, etc. The way you trigger this whole process is by returning a ChallengeResult, e.g.:</p><pre><code>public IActionResult Profile()
+{
+    if (User.Identity.IsAuthenticated)
+    {
+        return new ChallengeResult(
+            Constants.OpenIdConnectAuthenticationScheme,
+            new AuthenticationProperties(new Dictionary&lt;string, string&gt; { { Constants.B2CPolicy, policies.EditProfilePolicy } })
+            {
+                RedirectUri = &quot;/&quot;
+            });
+    }
+
+    return RedirectHome();
+}
+</code></pre><p>This will successfully redirect the user to the profile editing page:</p><p><img src=https://dzimchuk.net/media/2017/01/b2c_edit_profile.png alt="Azure AD B2C profile editing page"></p><p>If the user hits &#39;Continue&#39; she will be redirected back to the application with the regular authentication response containing state, nonce, authorization code and ID token (depending on the OpenID Connect flow).</p><p>But if the user hits &#39;Cancel&#39; Azure AD B2C will return an error response, oops:</p><pre><code>POST https://localhost:8686/signin-oidc-b2c HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+
+error=access_denied
+&amp;
+error_description=AADB2C90091: The user has cancelled entering self-asserted information.
+Correlation ID: 3ed683a1-d742-4f59-beb8-86bc22bb7196
+Timestamp: 2017-01-30 12:15:15Z
+</code></pre><p>This somewhat unexpected response from Azure AD makes the middleware fail the authentication process. And it&#39;s correct from the middleware&#39;s standpoint as there are no artifacts to validate.</p><p>To mitigate this we&#39;re going to have to intercept the response and prevent the middleware from raising an error:</p><pre><code>OnMessageReceived = context =&gt;
+{
+    if (!string.IsNullOrEmpty(context.ProtocolMessage.Error) &amp;&amp;
+        !string.IsNullOrEmpty(context.ProtocolMessage.ErrorDescription))
+    {
+        if (context.ProtocolMessage.ErrorDescription.StartsWith(&quot;AADB2C90091&quot;)) // cancel profile editing
+        {
+            context.HandleResponse();
+            context.Response.Redirect(&quot;/&quot;);
+        }
+    }
+
+    return Task.FromResult(0);
+}
+</code></pre><p>There is nothing we need to do in regards to the security context because profile editing could only be triggered when the user had already been signed in.</p><h2 id=handle-password-reset>Handle password reset</h2><p>Password reset is another essential self-service flow supported by Azure AD B2C. However as any other flow it&#39;s handled by sending the user to the <code>authorize</code> endpoint and because the &#39;Sign up or sign in&#39; policy does not support it (for the time being) we&#39;re going to get sent back to the middleware with an error: <code>AADB2C90118: The user has forgotten their password.</code> when the user clicks &#39;Forgot your password?&#39;.</p><p><img src=https://dzimchuk.net/media/2017/12/PasswordReset0.png alt="Forgot your password link on the sign-in page"></p><p>You can handle it again in the <code>OnMessageReceived</code> by redirecting to the dedicated action:</p><pre><code>OnMessageReceived = context =&gt;
+{
+    if (!string.IsNullOrEmpty(context.ProtocolMessage.Error) &amp;&amp;
+        !string.IsNullOrEmpty(context.ProtocolMessage.ErrorDescription))
+    {
+        ...
+        else if (context.ProtocolMessage.ErrorDescription.StartsWith(&quot;AADB2C90118&quot;)) // forgot password
+        {
+            context.HandleResponse();
+            context.Response.Redirect(&quot;/Account/ResetPassword&quot;);
+        }
+    }
+
+    return Task.FromResult(0);
+}
+</code></pre><p>which will trigger another challenge flow with the proper policy:</p><pre><code>public IActionResult ResetPassword()
+{
+    return new ChallengeResult(
+            Constants.OpenIdConnectAuthenticationScheme,
+            new AuthenticationProperties(new Dictionary&lt;string, string&gt; { { Constants.B2CPolicy, policies.ResetPasswordPolicy } })
+            {
+                RedirectUri = &quot;/&quot;
+            });
+}
+</code></pre><p>Azure AD B2C will verify the user by sending a code to her email:</p><p><img src=https://dzimchuk.net/media/2017/12/PasswordReset_1.png alt="User verification page"></p><p>And finally let the user provide a new password for her account:</p><p><img src=https://dzimchuk.net/media/2017/12/PasswordReset2.png alt="Password reset page"></p><p>This has been a lengthy post but I wanted to cover most of the essential stuff you need to know to integrate your solutions with Azure AD B2C. As has been mentioned, the full demo application can be found <a href=https://github.com/dzimchuk/azure-ad-b2c-asp-net-core>here</a>.</p></section><footer class=post-footer><figure class=author-image><a class=img href=/ style="background-image: url(//www.gravatar.com/avatar/7fbe59ac3d3eaab56ec27da019d76f66?s&#x3D;250&amp;amp;d&#x3D;mm&amp;amp;r&#x3D;x)"><span class=hidden>Andrei Dzimchuk's Picture</span></a></figure><section class=author><h4><a href=/ >Andrei Dzimchuk</a></h4><p>Hi, I&#x27;m Andrei, I&#x27;m a software developer building cloud enabled solutions. I&#x27;m mostly focused on Azure and .NET and I try to share my experience and knowledge here with you.</p><div class=author-meta></div></section><section class=share><h4>Share this post</h4><a class=icon-facebook href="https://www.facebook.com/sharer/sharer.php?u=https://dzimchuk.net/setting-up-your-asp-net-core-2-0-apps-and-services-for-azure-ad-b2c/" rel="noopener noreferrer nofollow" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;"><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=facebook-icon role=img><title id=facebook-icon>Facebook</title><path d="M448 56.7v398.5c0 13.7-11.1 24.7-24.7 24.7H309.1V306.5h58.2l8.7-67.6h-67v-43.2c0-19.6 5.4-32.9 33.5-32.9h35.8v-60.5c-6.2-.8-27.4-2.7-52.2-2.7-51.6 0-87 31.5-87 89.4v49.9h-58.4v67.6h58.4V480H24.7C11.1 480 0 468.9 0 455.3V56.7C0 43.1 11.1 32 24.7 32h398.5c13.7 0 24.8 11.1 24.8 24.7z"></path></svg> </a><a class=icon-linkedin href="http://www.linkedin.com/shareArticle?mini=true&amp;url=https://dzimchuk.net/setting-up-your-asp-net-core-2-0-apps-and-services-for-azure-ad-b2c/&amp;title=Setting%20up%20your%20ASP.NET%20Core%202.0%20apps%20and%20services%20for%20Azure%20AD%20B2C" rel="noopener noreferrer nofollow" onclick="window.open(this.href, 'linkedin-share','width=490,height=530');return false;"><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=linkedin-icon role=img><title id=linkedin-icon>LinkedIn</title><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg></a></section></footer><section class=post-comments><div id=disqus_thread></div><script>var disqus_config = function () {
+                    this.page.url = 'https://dzimchuk.net/setting-up-your-asp-net-core-2-0-apps-and-services-for-azure-ad-b2c/';
+                    this.page.identifier = '658a26f2-44a0-446e-929e-adb8a55f338b';
+                    this.page.title = 'Setting up your ASP.NET Core 2.0 apps and services for Azure AD B2C';
+                };
+                (function() {
+                    var d = document, s = d.createElement('script');
+                    s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
+                })();</script></section></article></main><footer class=site-footer><div class=site-footer-inner><section class=copyright><a href=https://dzimchuk.net/ >Andrei Dzimchuk</a> &copy; 2026</section><nav class=site-footer-nav><a href=https://github.com/dzimchuk target=_blank rel=noopener><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 496 512" aria-labelledby=github-icon role=img><title id=github-icon>GitHub</title><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg></a><a href=https://www.linkedin.com/in/andreidzimchuk target=_blank rel=noopener><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=linkedin-icon role=img><title id=linkedin-icon>LinkedIn</title><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg></a><a href=https://feedly.com/i/subscription/feed/https://dzimchuk.net/rss.xml target=_blank rel=noopener><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=rss-icon role=img><title id=rss-icon>RSS</title><path d="M128.081 415.959c0 35.369-28.672 64.041-64.041 64.041S0 451.328 0 415.959s28.672-64.041 64.041-64.041 64.04 28.673 64.04 64.041zm175.66 47.25c-8.354-154.6-132.185-278.587-286.95-286.95C7.656 175.765 0 183.105 0 192.253v48.069c0 8.415 6.49 15.472 14.887 16.018 111.832 7.284 201.473 96.702 208.772 208.772.547 8.397 7.604 14.887 16.018 14.887h48.069c9.149.001 16.489-7.655 15.995-16.79zm144.249.288C439.596 229.677 251.465 40.445 16.503 32.01 7.473 31.686 0 38.981 0 48.016v48.068c0 8.625 6.835 15.645 15.453 15.999 191.179 7.839 344.627 161.316 352.465 352.465.353 8.618 7.373 15.453 15.999 15.453h48.068c9.034-.001 16.329-7.474 16.005-16.504z"></path></svg></a></nav></div></footer></div><script src=https://code.jquery.com/jquery-3.2.1.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script type=text/javascript src=/assets/theme-4b97c15618.js></script><script>$(function () {
+    var $postContent = $(".post-content");
+    $postContent.fitVids();
+  });</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-JYXGZ70WJH"></script><script>window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-JYXGZ70WJH');</script></body></html>

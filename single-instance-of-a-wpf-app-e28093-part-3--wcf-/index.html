@@ -1,0 +1,236 @@
+﻿<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><title>Single instance of a WPF app – part 3 (WCF)</title><meta name=HandheldFriendly content=True><meta name=viewport content="width=device-width,initial-scale=1"><link rel=stylesheet type=text/css href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400"><link rel=stylesheet type=text/css href=/assets/theme-0c0984d3fd.css><link rel=canonical href=https://dzimchuk.net/single-instance-of-a-wpf-app-e28093-part-3--wcf-/ ><meta name=referrer content=no-referrer-when-downgrade><meta property=og:site_name content="Andrei Dzimchuk"><meta property=og:type content=article><meta property=og:title content="Single instance of a WPF app – part 3 (WCF)"><meta property=og:description content="Last time I blogged about a way to implement a single instance feature using WM_COPYDATA Win32 mechanism. It involves a bit of PInvoke but still works perfectly well with WPF. This implementation dates back to .NET 1.1 and to be more precise &amp;#x2013; the old Win32 days as it was inspired by Joseph M. Newcomer&amp;apos;s article."><meta property=og:url content=https://dzimchuk.net/single-instance-of-a-wpf-app-e28093-part-3--wcf-/ ><meta property=article:publisher content=https://www.facebook.com/andrei.dzimchuk><meta property=article:author content=https://www.facebook.com/andrei.dzimchuk><meta property=article:published_time content=2010-08-15T09:45:00.000+00:00><meta property=article:modified_time content=2015-04-23T17:35:20.000+00:00><meta property=article:tag content=WPF><meta name=twitter:card content=summary><meta name=twitter:title content="Single instance of a WPF app – part 3 (WCF)"><meta name=twitter:description content="Last time I blogged about a way to implement a single instance feature using WM_COPYDATA Win32 mechanism. It involves a bit of PInvoke but still works perfectly well with WPF. This implementation dates back to .NET 1.1 and to be more precise &amp;#x2013; the old Win32 days as it was inspired by Joseph M. Newcomer&amp;apos;s article."><meta name=twitter:url content=https://dzimchuk.net/single-instance-of-a-wpf-app-e28093-part-3--wcf-/ ><meta name=twitter:label1 content="Written by"><meta name=twitter:data1 content="Andrei Dzimchuk"><meta name=twitter:label2 content="Filed under"><meta name=twitter:data2 content=WPF><meta name=twitter:site content=@dzimchuk><meta property=twitter:creator content=@dzimchuk><script type=application/ld+json>{
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "publisher": {
+      "@type": "Organization",
+      "name": "Andrei Dzimchuk",
+      "logo": {
+      "@type": "ImageObject",
+      "url": "https://dzimchuk.net/media/favicons/v1/favicon.ico",
+      "width": 60,
+      "height": 60
+      }
+      },
+      "url": "https://dzimchuk.net/single-instance-of-a-wpf-app-e28093-part-3--wcf-/",
+      "description": "Last time I blogged about a way to implement a single instance feature using WM_COPYDATA Win32 mechanism. It involves a bit of PInvoke but still works perfectly well with WPF. This implementation dates back to .NET 1.1 and to be more precise &amp;#x2013; the old Win32 days as it was inspired by Joseph M. Newcomer&amp;apos;s article."
+      "headline": "Single instance of a WPF app – part 3 (WCF)",
+      "datePublished": "2010-08-15T09:45:00.000+00:00",
+      "dateModified": "2015-04-23T17:35:20.000+00:00",
+      "keywords": "WPF",
+      "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://dzimchuk.net/"
+      }
+      }</script><link rel=alternate type=application/rss+xml title="Andrei Dzimchuk" href=https://dzimchuk.net/rss.xml><script type=text/javascript>var disqus_shortname = 'dzimchuk';</script><link rel=apple-touch-icon sizes=57x57 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-57x57.png><link rel=apple-touch-icon sizes=60x60 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-60x60.png><link rel=apple-touch-icon sizes=72x72 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-72x72.png><link rel=apple-touch-icon sizes=76x76 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-76x76.png><link rel=apple-touch-icon sizes=114x114 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-114x114.png><link rel=apple-touch-icon sizes=120x120 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-120x120.png><link rel=apple-touch-icon sizes=144x144 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-144x144.png><link rel=apple-touch-icon sizes=152x152 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-152x152.png><link rel=apple-touch-icon sizes=180x180 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-180x180.png><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/android-chrome-192x192.png sizes=192x192><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/favicon-96x96.png sizes=96x96><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/favicon-16x16.png sizes=16x16><link rel=manifest href=https://dzimchuk.net/favicons/v1/manifest.json><link rel="shortcut icon" href=https://dzimchuk.net/media/favicons/v1/favicon.ico><meta name=msapplication-TileColor content=#da532c><meta name=msapplication-TileImage content=https://dzimchuk.net/media/favicons/v1/mstile-144x144.png><meta name=msapplication-config content=https://dzimchuk.net/favicons/v1/browserconfig.xml><meta name=theme-color content=#ffffff></head><body class="post-template tag-wpf"><div class=site-wrapper><header class="main-header post-head no-cover"><nav class="main-nav clearfix"><div class=nav-wrapper><ul class=nav role=menu><li class=nav-home role=menuitem><a href=/ >Home</a></li><li class=nav-cloud-patterns role=menuitem><a href=/tag/cloud-patterns/ >Cloud Patterns</a></li><li class=nav-service-fabric role=menuitem><a href=/tag/azure-service-fabric/ >Service Fabric</a></li><li class=nav-azure-ad role=menuitem><a href=/tag/azure-active-directory/ >Azure AD</a></li><li class=nav-azure-services role=menuitem><a href=/tag/azure-services/ >Azure Services</a></li><li class=nav-about role=menuitem><a href=/about/ >About</a></li></ul><a href=javascript:void(0); class=nav-hamburger-open><svg role=img xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=open-menu-icon><title id=open-menu-icon>Open menu</title><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path></svg></a><a href=javascript:void(0); class=nav-hamburger-close><svg role=img xmlns=http://www.w3.org/2000/svg viewBox="0 0 352 512" aria-labelledby=close-menu-icon><title id=close-menu-icon>Close menu</title><path fill=currentColor d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg></a></div></nav></header><main class=content role=main><article class="post tag-wpf"><header class=post-header><h1 class=post-title>Single instance of a WPF app – part 3 (WCF)</h1><section class=post-meta><time class=post-date datetime=2010-08-15>15 August 2010</time> on <a href=/tag/wpf/ >WPF</a></section></header><section class=post-content><p>Last time I blogged about a way to implement a single instance feature using <a href=/single-instance-of-a-wpf-app-e28093-part-2--wmcopydata->WM_COPYDATA</a> Win32 mechanism. It involves a bit of PInvoke but still works perfectly well with WPF. This implementation dates back to .NET 1.1 and to be more precise – the old Win32 days as it was inspired by <a href=http://www.flounder.com/nomultiples.htm>Joseph M. Newcomer&#39;s article</a>.</p><p>A lot of things have changed since then. An eager mind is always up to something new so I’ve decided to consider an alternative. Can the current standard communication framework from Microsoft offer a better option to meet my <a href=Single-instance-of-a-WPF-app-e28093-part-1-(introduction)>requirements</a>?</p><p>I’m going to re-implement the <code>SingleInstance</code> helper so that it uses WCF to communicate command line arguments to the 1st running instance of my application and doesn’t rely on PInvoke at all. As a I need a a fast communication within a machine boundaries named pipes is a logic choice for a transport protocol.</p><h2 id=usage>Usage</h2><p>The external interface to <code>SignleInstance</code> component remain absolutely intact:</p><pre><code>public partial class App : Application
+{
+    private readonly Guid _appGuid = 
+        new Guid(&quot;{C307A02B-6F41-4996-B330-97045F4A07BC}&quot;);
+
+    protected override void OnStartup(StartupEventArgs e)
+    {
+        SingleInstance si = new SingleInstance(_appGuid);
+        si.ArgsRecieved += 
+            new SingleInstance.ArgsHandler(si_ArgsRecieved);
+
+        si.Run(() =&gt;
+        {
+            new MainWindow().Show();
+            return this.MainWindow;
+        }, e.Args);
+    }
+
+    private void si_ArgsRecieved(string[] args)
+    {
+        // process arguments of another instance
+    }
+}
+</code></pre><p>Please refer to the <a href=Single-instance-of-a-WPF-app-e28093-part-2-(WM_COPYDATA)>previous post</a> for explanation on what’s going on here.</p><h2 id=the-run-method>The Run method</h2><p>Here’s the revised version of the <code>Run</code> method:</p><pre><code>public void Run(Func&lt;Window&gt; showWindow, string[] args)
+{
+    if (_owned)
+    {
+        // show the main app window
+        _window = showWindow();
+        // and start the service
+        StartServiceHost();
+    }
+    else
+    {
+        SendCommandLineArgs(args);
+        Application.Current.Shutdown();
+    }
+}
+</code></pre><p>There is no window hook any more as we are not going to communicate through windows messages any more. Instead we start up a WCF service:</p><pre><code>private string GetAddress()
+{
+    return string.Format(&quot;net.pipe://localhost/{0}{1}&quot;, 
+        _assemblyName, _appGuid);
+}
+
+private Binding GetBinding()
+{
+    return new NetNamedPipeBinding(NetNamedPipeSecurityMode.None);
+}
+
+private void StartServiceHost()
+{
+    try
+    {
+        _host = new ServiceHost(typeof(SingleInstanceService));
+        ServiceEndpoint endpoint = 
+          _host.AddServiceEndpoint(typeof(ISingleInstanceService),
+                                   GetBinding(),
+                                   GetAddress());
+        endpoint.Behaviors.Add(this);
+        _host.Open();
+    }
+    catch
+    {
+        _host = null;
+        // log it
+    }
+}
+</code></pre><p>Nothing extraordinary here. Two things are worth mentioning:</p><ol><li>we form a unique listening URI by concatenating the assembly name and the application GUID;</li><li>we disable the security on the named pipes binding.</li></ol><p>By default <code>NetNamedPipeBinding</code> has a transport security enabled (the only security mode supported by this binding) with Windows credential type (which is also used for encryption and signing). I disabled security to get the best performance possible but your application requires it you can enable it. Strangely enough my performance tests didn’t show a major performance drop (about 10%).</p><h2 id=the-service>The service</h2><p>It’s just a communication layer, it has no logic to affect the application behavior, its sole purpose is to receive messages and pass them up to the <code>SingleInstance</code> component:</p><pre><code>[ServiceContract]
+interface ISingleInstanceService
+{
+    [OperationContract(IsOneWay=true)]
+    void BringToFront(Guid appGuid);
+
+    [OperationContract(IsOneWay=true)]
+    void ProcessArguments(Guid appGuid, string[] args);
+}
+
+[ServiceBehavior(
+    InstanceContextMode=InstanceContextMode.PerSession, 
+    ConcurrencyMode=ConcurrencyMode.Single, 
+    UseSynchronizationContext=true)]
+class SingleInstanceService : ISingleInstanceService
+{
+    private Action&lt;Guid&gt; bringToFrontCallback;
+    private Action&lt;Guid, string[]&gt; processArgsCallback;
+
+    public SingleInstanceService()
+    {
+    }
+
+    public SingleInstanceService(
+        Action&lt;Guid&gt; bringToFrontCallback, 
+        Action&lt;Guid, string[]&gt; processArgsCallback)
+    {
+        this.bringToFrontCallback = bringToFrontCallback;
+        this.processArgsCallback = processArgsCallback;
+    }
+
+    public void BringToFront(Guid appGuid)
+    {
+        bringToFrontCallback(appGuid);
+    }
+
+    public void ProcessArguments(Guid appGuid, string[] args)
+    {
+        processArgsCallback(appGuid, args);
+    }
+}
+</code></pre><p>Although parameters I’ve specified for <code>ServiceBehavior</code> are at their default values this is a conscious choice that I’m going to explain now.</p><p>I could have set <code>InstanceContextMode</code> to <code>Single</code> as there is no point to re-instantiate the service instance and the <code>SingleInstance</code> itself is a single instance that lives for the whole application’s life period (too many ‘single instances’ for a single sentence, haha!). However, here’s the catch: I need to pass 2 delegates to the service so it could trigger certain actions in <code>SingleInstance</code> and thus I need to use a non-default constructor. But! singleton service instances are not instantiated when calls are received. Instead they are instantiated when you open up a <code>ServiceHost</code>! And the default <code>ServiceHost</code> requires a parameterless constructor. By the way that’s why there is a default constructor. Without it this statement would fail:</p><pre><code>_host = new ServiceHost(typeof(SingleInstanceService));
+</code></pre><p>This constructor is NOT used to actually instantiate our service instance. It’s just there to pass the default <code>ServiceHost’s</code> check.</p><p>I choose to join the synchronization context (<code>UseSynchronizationContext=true</code>) because my host is a WPF Windows application and I will need to synchronize with the UI thread to react to <code>BringToFront</code> <code>ProcessArguments</code> method anyway. I also set the <code>ConcurrencyMode</code> to <code>Single</code> because the messages will be queued for the single UI thread anyway.</p><p>Ok, how are you going to instantiate the service instance via a non-default constructor? We need a custom service instance provider. And our <code>SingleInstance</code> class itself is the one:</p><pre><code>class SingleInstance : IDisposable, 
+    IInstanceProvider, IEndpointBehavior
+{
+    public object GetInstance(InstanceContext instanceContext, 
+                                              Message message)
+    {
+        return 
+            new SingleInstanceService(BringToFront, ProcessArgs);
+    }
+
+    public void ApplyDispatchBehavior(ServiceEndpoint endpoint, 
+                        EndpointDispatcher endpointDispatcher)
+    {
+       endpointDispatcher.DispatchRuntime.InstanceProvider = this;
+    }
+
+    // the rest of the class is omitted
+}
+</code></pre><p>How does it hook? Take a look at the method where we create the <code>ServiceHost</code>. Here’s the key statements:</p><pre><code>ServiceEndpoint endpoint = 
+    _host.AddServiceEndpoint(typeof(ISingleInstanceService),
+                             GetBinding(),
+                             GetAddress());
+endpoint.Behaviors.Add(this); //add itself as an endpoint behavior
+</code></pre><p>That last statement also keeps <code>SingleInstance</code> away from garbage collection. If you call Dispose() it&#39;s going to shut down the service and become eligible for grabage collection. However, you are not likely to do it. <code>SingleInstance</code> is likely to live as long as your application lives.</p><p>Implementation of BringToFront and ProcessArguments method is pretty straightforward:</p><pre><code>private void BringToFront(Guid appGuid)
+{
+    if (appGuid == _appGuid)
+    {
+        if (_window.WindowState == WindowState.Minimized)
+            _window.WindowState = WindowState.Normal;
+        _window.Activate();
+    }
+}
+
+private void ProcessArgs(Guid appGuid, string[] args)
+{
+    if (appGuid == _appGuid &amp;&amp; ArgsRecieved != null)
+    {
+        ArgsRecieved(args);
+    }
+}
+</code></pre><p>Interestingly enough, <code>WindowState.Normal</code> actually restores the window to its previous state before it was minimized. So if it was maximized before it will be restored maximized. This corresponds to the behavior you get with <code>SW_RESTORE</code> when calling <code>ShowWindow(Async)</code> WinAPI.</p><h2 id=sending-command-line-arguments>Sending command line arguments</h2><p>When other instances of our application start and detect they are not the 1st one they need to send their command line arguments and exit:</p><pre><code>public void Run(Func&lt;Window&gt; showWindow, string[] args)
+{
+    if (_owned)
+    {
+        // omitted
+    }
+    else
+    {
+        SendCommandLineArgs(args);
+        Application.Current.Shutdown();
+    }
+}
+
+private void CloseCommunicationObject(
+    ICommunicationObject commObject)
+{
+    try
+    {
+        commObject.Close();
+    }
+    catch
+    {
+        commObject.Abort();
+    }
+}
+
+private void SendCommandLineArgs(string[] args)
+{
+    ISingleInstanceService proxy = null;
+    try
+    {
+        proxy = ChannelFactory&lt;ISingleInstanceService&gt;.
+                CreateChannel(GetBinding(), 
+                           new EndpointAddress(GetAddress()));
+        proxy.BringToFront(_appGuid);
+        proxy.ProcessArguments(_appGuid, args);
+    }
+    catch
+    { // log it
+    }
+    finally
+    {
+        if (proxy != null)
+            CloseCommunicationObject(proxy 
+                                     as ICommunicationObject);
+    }
+}
+</code></pre><h2 id=performance-comparison>Performance comparison</h2><p>That’s all there is to talk about the new implementation. Check out the sample code below if you have any uncertainties.</p><p>Now I need to make some conclusion as how this new version compares to the <a href=Single-instance-of-a-WPF-app-e28093-part-2-(WM_COPYDATA)>old and proven one</a>. It certainly works but we now have a dependency on the service model (and not all applications need it) and can we make any statement about its performance.</p><p>I did a simple test: launch 300 instances of the application and see how long it takes the 1st instance to receive command line arguments from them all. This is a rough test but it does cover my major concern – initialization of the service model that will be done each time you launch your application.</p><p>The results:</p><ul><li>WCF (no security): 41 sec</li><li>WCF (default transport security): 43 sec</li><li>WM_COPYDATA: 18 sec</li></ul><p>I was a bit surprised by the first 2 lines but WM_COPYDATA confirmed my expectations. Note that in all cases we push all messages to the UI thread’s queue. So we are ultimately limited to 1 thread, that is it’s a fair play.</p><p>2x times can be acceptable for some business applications, especially those that would require WCF for their core logic anyway. There could also be cases when PInvoke is not desirable.</p><p>But for my video player application I see no reason to lose this bit of performance and I even see it as a serious degrading. When you start up the 1st instance it opens up the <code>ServiceHost</code> – this is a notable delay for this kind of an application. I may (and will) use WCF for other purposes (online catalogs, etc) but this specific feature is best done with <a href=Single-instance-of-a-WPF-app-e28093-part-2-(WM_COPYDATA)>WM_COPYDATA</a>.</p><p>The code:</p><p><a href=https://dzimchuk.net/media/2010/8/SingleInstanceApp2.zip>SingleInstanceApp2.zip (72.25 kb)</a></p></section><footer class=post-footer><figure class=author-image><a class=img href=/ style="background-image: url(//www.gravatar.com/avatar/7fbe59ac3d3eaab56ec27da019d76f66?s&#x3D;250&amp;amp;d&#x3D;mm&amp;amp;r&#x3D;x)"><span class=hidden>Andrei Dzimchuk's Picture</span></a></figure><section class=author><h4><a href=/ >Andrei Dzimchuk</a></h4><p>Hi, I&#x27;m Andrei, I&#x27;m a software developer building cloud enabled solutions. I&#x27;m mostly focused on Azure and .NET and I try to share my experience and knowledge here with you.</p><div class=author-meta></div></section><section class=share><h4>Share this post</h4><a class=icon-facebook href="https://www.facebook.com/sharer/sharer.php?u=https://dzimchuk.net/single-instance-of-a-wpf-app-e28093-part-3--wcf-/" rel="noopener noreferrer nofollow" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;"><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=facebook-icon role=img><title id=facebook-icon>Facebook</title><path d="M448 56.7v398.5c0 13.7-11.1 24.7-24.7 24.7H309.1V306.5h58.2l8.7-67.6h-67v-43.2c0-19.6 5.4-32.9 33.5-32.9h35.8v-60.5c-6.2-.8-27.4-2.7-52.2-2.7-51.6 0-87 31.5-87 89.4v49.9h-58.4v67.6h58.4V480H24.7C11.1 480 0 468.9 0 455.3V56.7C0 43.1 11.1 32 24.7 32h398.5c13.7 0 24.8 11.1 24.8 24.7z"></path></svg> </a><a class=icon-linkedin href="http://www.linkedin.com/shareArticle?mini=true&amp;url=https://dzimchuk.net/single-instance-of-a-wpf-app-e28093-part-3--wcf-/&amp;title=Single%20instance%20of%20a%20WPF%20app%20%E2%80%93%20part%203%20(WCF)" rel="noopener noreferrer nofollow" onclick="window.open(this.href, 'linkedin-share','width=490,height=530');return false;"><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=linkedin-icon role=img><title id=linkedin-icon>LinkedIn</title><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg></a></section></footer><section class=post-comments><div id=disqus_thread></div><script>var disqus_config = function () {
+                    this.page.url = 'https://dzimchuk.net/single-instance-of-a-wpf-app-e28093-part-3--wcf-/';
+                    this.page.identifier = '91677380-539f-478c-af1a-69790ec4fe59';
+                    this.page.title = 'Single instance of a WPF app – part 3 (WCF)';
+                };
+                (function() {
+                    var d = document, s = d.createElement('script');
+                    s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
+                })();</script></section></article></main><footer class=site-footer><div class=site-footer-inner><section class=copyright><a href=https://dzimchuk.net/ >Andrei Dzimchuk</a> &copy; 2026</section><nav class=site-footer-nav><a href=https://github.com/dzimchuk target=_blank rel=noopener><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 496 512" aria-labelledby=github-icon role=img><title id=github-icon>GitHub</title><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg></a><a href=https://www.linkedin.com/in/andreidzimchuk target=_blank rel=noopener><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=linkedin-icon role=img><title id=linkedin-icon>LinkedIn</title><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg></a><a href=https://feedly.com/i/subscription/feed/https://dzimchuk.net/rss.xml target=_blank rel=noopener><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=rss-icon role=img><title id=rss-icon>RSS</title><path d="M128.081 415.959c0 35.369-28.672 64.041-64.041 64.041S0 451.328 0 415.959s28.672-64.041 64.041-64.041 64.04 28.673 64.04 64.041zm175.66 47.25c-8.354-154.6-132.185-278.587-286.95-286.95C7.656 175.765 0 183.105 0 192.253v48.069c0 8.415 6.49 15.472 14.887 16.018 111.832 7.284 201.473 96.702 208.772 208.772.547 8.397 7.604 14.887 16.018 14.887h48.069c9.149.001 16.489-7.655 15.995-16.79zm144.249.288C439.596 229.677 251.465 40.445 16.503 32.01 7.473 31.686 0 38.981 0 48.016v48.068c0 8.625 6.835 15.645 15.453 15.999 191.179 7.839 344.627 161.316 352.465 352.465.353 8.618 7.373 15.453 15.999 15.453h48.068c9.034-.001 16.329-7.474 16.005-16.504z"></path></svg></a></nav></div></footer></div><script src=https://code.jquery.com/jquery-3.2.1.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script type=text/javascript src=/assets/theme-4b97c15618.js></script><script>$(function () {
+    var $postContent = $(".post-content");
+    $postContent.fitVids();
+  });</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-JYXGZ70WJH"></script><script>window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-JYXGZ70WJH');</script></body></html>

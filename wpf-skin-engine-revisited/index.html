@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><title>WPF skin engine–revisited</title><meta name=HandheldFriendly content=True><meta name=viewport content="width=device-width,initial-scale=1"><link rel=stylesheet type=text/css href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400"><link rel=stylesheet type=text/css href=/assets/theme-0c0984d3fd.css><link rel=canonical href=https://dzimchuk.net/wpf-skin-engine-revisited/ ><meta name=referrer content=no-referrer-when-downgrade><meta property=og:site_name content="Andrei Dzimchuk"><meta property=og:type content=article><meta property=og:title content="WPF skin engine–revisited"><meta property=og:description content="&lt;strong&gt;UPDATE: Version 1.1 has been released. Check out the details here.&lt;/strong&gt;"><meta property=og:url content=https://dzimchuk.net/wpf-skin-engine-revisited/ ><meta property=article:publisher content=https://www.facebook.com/andrei.dzimchuk><meta property=article:author content=https://www.facebook.com/andrei.dzimchuk><meta property=article:published_time content=2011-10-19T04:46:00.000+00:00><meta property=article:modified_time content=2015-04-23T16:48:03.000+00:00><meta property=article:tag content=WPF><meta name=twitter:card content=summary><meta name=twitter:title content="WPF skin engine–revisited"><meta name=twitter:description content="&lt;strong&gt;UPDATE: Version 1.1 has been released. Check out the details here.&lt;/strong&gt;"><meta name=twitter:url content=https://dzimchuk.net/wpf-skin-engine-revisited/ ><meta name=twitter:label1 content="Written by"><meta name=twitter:data1 content="Andrei Dzimchuk"><meta name=twitter:label2 content="Filed under"><meta name=twitter:data2 content=WPF><meta name=twitter:site content=@dzimchuk><meta property=twitter:creator content=@dzimchuk><script type=application/ld+json>{
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "publisher": {
+      "@type": "Organization",
+      "name": "Andrei Dzimchuk",
+      "logo": {
+      "@type": "ImageObject",
+      "url": "https://dzimchuk.net/media/favicons/v1/favicon.ico",
+      "width": 60,
+      "height": 60
+      }
+      },
+      "url": "https://dzimchuk.net/wpf-skin-engine-revisited/",
+      "description": "&lt;strong&gt;UPDATE: Version 1.1 has been released. Check out the details here.&lt;/strong&gt;"
+      "headline": "WPF skin engine–revisited",
+      "datePublished": "2011-10-19T04:46:00.000+00:00",
+      "dateModified": "2015-04-23T16:48:03.000+00:00",
+      "keywords": "WPF",
+      "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://dzimchuk.net/"
+      }
+      }</script><link rel=alternate type=application/rss+xml title="Andrei Dzimchuk" href=https://dzimchuk.net/rss.xml><script type=text/javascript>var disqus_shortname = 'dzimchuk';</script><link rel=apple-touch-icon sizes=57x57 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-57x57.png><link rel=apple-touch-icon sizes=60x60 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-60x60.png><link rel=apple-touch-icon sizes=72x72 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-72x72.png><link rel=apple-touch-icon sizes=76x76 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-76x76.png><link rel=apple-touch-icon sizes=114x114 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-114x114.png><link rel=apple-touch-icon sizes=120x120 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-120x120.png><link rel=apple-touch-icon sizes=144x144 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-144x144.png><link rel=apple-touch-icon sizes=152x152 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-152x152.png><link rel=apple-touch-icon sizes=180x180 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-180x180.png><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/android-chrome-192x192.png sizes=192x192><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/favicon-96x96.png sizes=96x96><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/favicon-16x16.png sizes=16x16><link rel=manifest href=https://dzimchuk.net/favicons/v1/manifest.json><link rel="shortcut icon" href=https://dzimchuk.net/media/favicons/v1/favicon.ico><meta name=msapplication-TileColor content=#da532c><meta name=msapplication-TileImage content=https://dzimchuk.net/media/favicons/v1/mstile-144x144.png><meta name=msapplication-config content=https://dzimchuk.net/favicons/v1/browserconfig.xml><meta name=theme-color content=#ffffff></head><body class="post-template tag-wpf"><div class=site-wrapper><header class="main-header post-head no-cover"><nav class="main-nav clearfix"><div class=nav-wrapper><ul class=nav role=menu><li class=nav-home role=menuitem><a href=/ >Home</a></li><li class=nav-cloud-patterns role=menuitem><a href=/tag/cloud-patterns/ >Cloud Patterns</a></li><li class=nav-service-fabric role=menuitem><a href=/tag/azure-service-fabric/ >Service Fabric</a></li><li class=nav-azure-ad role=menuitem><a href=/tag/azure-active-directory/ >Azure AD</a></li><li class=nav-azure-services role=menuitem><a href=/tag/azure-services/ >Azure Services</a></li><li class=nav-about role=menuitem><a href=/about/ >About</a></li></ul><a href=javascript:void(0); class=nav-hamburger-open><svg role=img xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=open-menu-icon><title id=open-menu-icon>Open menu</title><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path></svg></a><a href=javascript:void(0); class=nav-hamburger-close><svg role=img xmlns=http://www.w3.org/2000/svg viewBox="0 0 352 512" aria-labelledby=close-menu-icon><title id=close-menu-icon>Close menu</title><path fill=currentColor d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg></a></div></nav></header><main class=content role=main><article class="post tag-wpf"><header class=post-header><h1 class=post-title>WPF skin engine–revisited</h1><section class=post-meta><time class=post-date datetime=2011-10-19>19 October 2011</time> on <a href=/tag/wpf/ >WPF</a></section></header><section class=post-content><p><strong>UPDATE: Version 1.1 has been released. Check out the details <a href=WPF-skin-engine-(aka-Skinner)-updated-to-11>here</a>.</strong></p><p>The <a href=WPF-skin-engine-part-1>Skinner</a> library that I introduced <a href=WPF-skin-engine-part-1>some time ago</a> didn’t put much care into security issues you may run into when loading and executing 3rd party components (skins). I had touched on these issues <a href=What-if-you-need-to-run-a-plug-in-in-full-trust>in one of my previous posts</a> where I also gave my view on the better solution. The two major points that represent that solution are:</p><ol><li>Don’t use MEF for scanning as opposed to initial version. Not because MEF is bad, but because we need better control over the scanning process.</li><li>Require strong name signing so that you could verify that skin assemblies had been signed by an authority you trust (which is you).</li></ol><p>Both of these points did affect the way you pack your skins and the way you use the Skinner library.</p><h2 id=developing-a-skin>Developing a skin</h2><p>A skin is a resource dictionary (or a combination of resource dictionaries) that is compiled into BAML for better runtime load times.</p><p>In order to make your skin consumable by the Skinner you need to add an assembly level attribute that defines 2 things:</p><ol><li>A friendly name of your skin;</li><li>A pack Uri that should be used to load it.</li></ol><p>Here’s an example:</p><pre><code>[assembly: SkinDescription(&quot;Bureau Black&quot;, 
+    &quot;/Skins/BureauBlack.xaml&quot;)]
+</code></pre><p>You can specify the pack Uri in one of these formats:</p><pre><code>pack://application:,,,/MyAssembly;component/Skins/BureauBlue.xaml
+/MyAssembly;component/Skins/BureauBlue.xaml
+MyAssembly;component/Skins/BureauBlue.xaml
+/Skins/BureauBlue.xamlSkins/BureauBlue.xaml
+</code></pre><p>A skin’s resource dictionary can merge resource dictionaries from other assemblies. However, it is required that all assemblies are signed with the private key which corresponds to a public key you pass to <code>SkinManagerFactory</code> (read below).</p><p>It is also recommended that you put initial resource dictionary BAML into the same assembly that contains <code>SkinDescription</code> attribute. This is not a requirement though.</p><h2 id=consuming-skins-with-skinner>Consuming skins with Skinner</h2><p>You control the Skinner through the <code>ISkinManager</code> interface. You request <code>SkinManagerFactory</code> to provide you with a skin manager:</p><pre><code>ISkinManager manager = 
+   SkinManagerFactory.GetSkinManager(
+      Assembly.GetExecutingAssembly().GetName().GetPublicKey());
+</code></pre><p>As you can see the <code>SkinManagerFactory</code> accepts an array of bytes which essentially represents a public key of the key pair that was used to sign the skin’s assembly.</p><p>You are not required to sign your consuming code with the same key, The code snippet shown above just shows a possible scenario when the consuming code has been signed with the same key as skin assemblies.</p><p>The skin manager is not a singleton and you are not even required to keep a reference to it between calls. However, the factory does maintain certain state and is able to re-initialize a new instance of the skin manager properly. The state is maintained per public key as you might have guessed. This actually opens up a possibility to get multiple skin managers and have each one load skins from separate assemblies. It may not be useful in practice though.</p><p>The <code>ISkinManager</code> interface is described with the following listing:</p><pre><code>/// &lt;summary&gt;
+/// A contract for a Skin Manager.
+/// Skin Manager is an entry point for a WPF application 
+/// to the skinner library.
+/// Through this interface it is possible to discover available 
+/// skins, load and unload them.
+/// 
+/// The manager is expected to be called from UI thread and 
+/// is not guaranteed to be thread-safe.
+/// &lt;/summary&gt;
+public interface ISkinManager
+{
+    /// &lt;summary&gt;
+    /// Fires when a new skin has been discovered. Applications 
+    /// can subscribe to this event to receive skin descriptions 
+    /// that they can use to load skins.
+    /// 
+    /// The event is fired on the UI thread if Application is 
+    /// available.
+    /// &lt;/summary&gt;
+    event EventHandler&lt;SkinFoundEventArgs&gt; SkinFound;
+
+    /// &lt;summary&gt;
+    /// Notifies a subscriber of any errors that occurred while 
+    /// the scan was in progress.
+    /// The error event is not fatal and doesn&#39;t abort scanning. 
+    /// It&#39;s primarily for notification purpose only.
+    /// 
+    /// The event is fired on the UI thread if Application is 
+    /// available.
+    /// &lt;/summary&gt;
+    event EventHandler&lt;ScanErrorEventArgs&gt; ScanError;
+
+    /// &lt;summary&gt;
+    /// Raised when scanning is complete. A list of found skins 
+    /// is included in ScanCompleteEventArgs.
+    /// 
+    /// The event is fired on the UI thread if Application is 
+    /// available.
+    /// &lt;/summary&gt;
+    event EventHandler&lt;ScanCompleteEventArgs&gt; ScanComplete;
+
+    /// &lt;summary&gt;
+    /// Scan for skins asynchronously using a separate domain.
+    /// The domain will be unloaded once the scanning is finished.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;directories&quot;&gt;Directories to be scanned for 
+    /// skins.&lt;/param&gt;
+    void Scan(string[] directories);
+
+    /// &lt;summary&gt;
+    /// Load a skin.
+    /// If there is a previously loaded skin it will be unloaded
+    /// first.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;skinDescription&quot;&gt;A description of the skin 
+    /// to load.&lt;/param&gt;
+    void Load(SkinDescription skinDescription);
+
+    /// &lt;summary&gt;
+    /// Unload a skin that has been loaded with 
+    /// Load(SkinDescription) before.
+    /// If no skin has been loaded, the method does nothing.
+    /// &lt;/summary&gt;
+    void UnloadCurrentSkin();
+}
+</code></pre><p>You need to specify one or more directories for scanning. There is no convention yet, however the Skinner will refuse to scan in the probing path of your main domain. Specifically, it will check that provided paths don’t included <code>AppDomain.CurrentDomain.SetupInformation.ApplicationBase</code> and any of the directories from <code>AppDomain.CurrentDomain.SetupInformation.PrivateBinPath</code>. If there is any of these directories, the scanning will abort with <code>ProhibitedPathException</code>. It is not thrown to the consuming code though (read below).</p><p>The reason to exclude directories on the probing paths is to intersect the assembly resolving mechanism when loading skins and provide additional security checks on the requested assemblies (see my <a href=What-if-you-need-to-run-a-plug-in-in-full-trust.aspx>post</a> for more details).</p><p>It is recommended that you pass <code>SkinDescription</code> instances to the Load method that have been retrieved during scanning. And it is required that a <code>SkinDescription</code> instance contains a list of directories used to scan for skins. Otherwise, the assembly resolving mechanism may fail.</p><h2 id=custom-errors>Custom errors</h2><p>There are a few custom exceptions that the Skinner may yield during scanning and loading. Exceptions that happen during the scanning pass are not directly propagated to the caller. Instead, you need to subscribe to <code>ScanError</code> event before scanning to receive information about errors. They include <code>ProhibitedPathException</code> and in fact any other exception FCL.</p><p>Exceptions that occur when loading/unloading skins are propagated to the caller. Make sure you properly handle them. They include <code>LoadSkinException</code> and <code>UnloadSkinException</code>.</p><h2 id=where-to-get-it>Where to get it</h2><p>Skinner is available as a NuGet package. You can look it up in the NuGet gallery or you can just type the following command in the Package Manager Console:</p><pre><code>Install-Package Skinner
+</code></pre><p>The library targets .NET 4.0.</p></section><footer class=post-footer><figure class=author-image><a class=img href=/ style="background-image: url(//www.gravatar.com/avatar/7fbe59ac3d3eaab56ec27da019d76f66?s&#x3D;250&amp;amp;d&#x3D;mm&amp;amp;r&#x3D;x)"><span class=hidden>Andrei Dzimchuk's Picture</span></a></figure><section class=author><h4><a href=/ >Andrei Dzimchuk</a></h4><p>Hi, I&#x27;m Andrei, I&#x27;m a software developer building cloud enabled solutions. I&#x27;m mostly focused on Azure and .NET and I try to share my experience and knowledge here with you.</p><div class=author-meta></div></section><section class=share><h4>Share this post</h4><a class=icon-facebook href="https://www.facebook.com/sharer/sharer.php?u=https://dzimchuk.net/wpf-skin-engine-revisited/" rel="noopener noreferrer nofollow" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;"><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=facebook-icon role=img><title id=facebook-icon>Facebook</title><path d="M448 56.7v398.5c0 13.7-11.1 24.7-24.7 24.7H309.1V306.5h58.2l8.7-67.6h-67v-43.2c0-19.6 5.4-32.9 33.5-32.9h35.8v-60.5c-6.2-.8-27.4-2.7-52.2-2.7-51.6 0-87 31.5-87 89.4v49.9h-58.4v67.6h58.4V480H24.7C11.1 480 0 468.9 0 455.3V56.7C0 43.1 11.1 32 24.7 32h398.5c13.7 0 24.8 11.1 24.8 24.7z"></path></svg> </a><a class=icon-linkedin href="http://www.linkedin.com/shareArticle?mini=true&amp;url=https://dzimchuk.net/wpf-skin-engine-revisited/&amp;title=WPF%20skin%20engine%E2%80%93revisited" rel="noopener noreferrer nofollow" onclick="window.open(this.href, 'linkedin-share','width=490,height=530');return false;"><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=linkedin-icon role=img><title id=linkedin-icon>LinkedIn</title><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg></a></section></footer><section class=post-comments><div id=disqus_thread></div><script>var disqus_config = function () {
+                    this.page.url = 'https://dzimchuk.net/wpf-skin-engine-revisited/';
+                    this.page.identifier = 'a171dfe1-a1c2-40e9-a7c2-1da9ca7cad11';
+                    this.page.title = 'WPF skin engine–revisited';
+                };
+                (function() {
+                    var d = document, s = d.createElement('script');
+                    s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
+                })();</script></section></article></main><footer class=site-footer><div class=site-footer-inner><section class=copyright><a href=https://dzimchuk.net/ >Andrei Dzimchuk</a> &copy; 2026</section><nav class=site-footer-nav><a href=https://github.com/dzimchuk target=_blank rel=noopener><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 496 512" aria-labelledby=github-icon role=img><title id=github-icon>GitHub</title><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg></a><a href=https://www.linkedin.com/in/andreidzimchuk target=_blank rel=noopener><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=linkedin-icon role=img><title id=linkedin-icon>LinkedIn</title><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg></a><a href=https://feedly.com/i/subscription/feed/https://dzimchuk.net/rss.xml target=_blank rel=noopener><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=rss-icon role=img><title id=rss-icon>RSS</title><path d="M128.081 415.959c0 35.369-28.672 64.041-64.041 64.041S0 451.328 0 415.959s28.672-64.041 64.041-64.041 64.04 28.673 64.04 64.041zm175.66 47.25c-8.354-154.6-132.185-278.587-286.95-286.95C7.656 175.765 0 183.105 0 192.253v48.069c0 8.415 6.49 15.472 14.887 16.018 111.832 7.284 201.473 96.702 208.772 208.772.547 8.397 7.604 14.887 16.018 14.887h48.069c9.149.001 16.489-7.655 15.995-16.79zm144.249.288C439.596 229.677 251.465 40.445 16.503 32.01 7.473 31.686 0 38.981 0 48.016v48.068c0 8.625 6.835 15.645 15.453 15.999 191.179 7.839 344.627 161.316 352.465 352.465.353 8.618 7.373 15.453 15.999 15.453h48.068c9.034-.001 16.329-7.474 16.005-16.504z"></path></svg></a></nav></div></footer></div><script src=https://code.jquery.com/jquery-3.2.1.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script type=text/javascript src=/assets/theme-4b97c15618.js></script><script>$(function () {
+    var $postContent = $(".post-content");
+    $postContent.fitVids();
+  });</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-JYXGZ70WJH"></script><script>window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-JYXGZ70WJH');</script></body></html>

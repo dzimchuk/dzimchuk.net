@@ -1,0 +1,166 @@
+﻿<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><title>A component to perform file associations</title><meta name=HandheldFriendly content=True><meta name=viewport content="width=device-width,initial-scale=1"><link rel=stylesheet type=text/css href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400"><link rel=stylesheet type=text/css href=/assets/theme-0c0984d3fd.css><link rel=canonical href=https://dzimchuk.net/a-component-to-perform-file-associations/ ><meta name=referrer content=no-referrer-when-downgrade><meta property=og:site_name content="Andrei Dzimchuk"><meta property=og:type content=article><meta property=og:title content="A component to perform file associations"><meta property=og:description content="Sometimes we need to do file associations with our desktop applications so that when a user clicks on&amp;#xa0; a file in the explorer it gets opened with our application. This is a common task and it is documented in MSDN so I&amp;#x2019;m not going to explain it all again."><meta property=og:url content=https://dzimchuk.net/a-component-to-perform-file-associations/ ><meta property=article:publisher content=https://www.facebook.com/andrei.dzimchuk><meta property=article:author content=https://www.facebook.com/andrei.dzimchuk><meta property=article:published_time content=2010-08-03T06:03:00.000+00:00><meta property=article:modified_time content=2015-04-23T17:45:11.000+00:00><meta property=article:tag content="Windows Programming"><meta name=twitter:card content=summary><meta name=twitter:title content="A component to perform file associations"><meta name=twitter:description content="Sometimes we need to do file associations with our desktop applications so that when a user clicks on&amp;#xa0; a file in the explorer it gets opened with our application. This is a common task and it is documented in MSDN so I&amp;#x2019;m not going to explain it all again."><meta name=twitter:url content=https://dzimchuk.net/a-component-to-perform-file-associations/ ><meta name=twitter:label1 content="Written by"><meta name=twitter:data1 content="Andrei Dzimchuk"><meta name=twitter:label2 content="Filed under"><meta name=twitter:data2 content="Windows Programming"><meta name=twitter:site content=@dzimchuk><meta property=twitter:creator content=@dzimchuk><script type=application/ld+json>{
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "publisher": {
+      "@type": "Organization",
+      "name": "Andrei Dzimchuk",
+      "logo": {
+      "@type": "ImageObject",
+      "url": "https://dzimchuk.net/media/favicons/v1/favicon.ico",
+      "width": 60,
+      "height": 60
+      }
+      },
+      "url": "https://dzimchuk.net/a-component-to-perform-file-associations/",
+      "description": "Sometimes we need to do file associations with our desktop applications so that when a user clicks on&amp;#xa0; a file in the explorer it gets opened with our application. This is a common task and it is documented in MSDN so I&amp;#x2019;m not going to explain it all again."
+      "headline": "A component to perform file associations",
+      "datePublished": "2010-08-03T06:03:00.000+00:00",
+      "dateModified": "2015-04-23T17:45:11.000+00:00",
+      "keywords": "Windows Programming",
+      "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://dzimchuk.net/"
+      }
+      }</script><link rel=alternate type=application/rss+xml title="Andrei Dzimchuk" href=https://dzimchuk.net/rss.xml><script type=text/javascript>var disqus_shortname = 'dzimchuk';</script><link rel=apple-touch-icon sizes=57x57 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-57x57.png><link rel=apple-touch-icon sizes=60x60 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-60x60.png><link rel=apple-touch-icon sizes=72x72 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-72x72.png><link rel=apple-touch-icon sizes=76x76 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-76x76.png><link rel=apple-touch-icon sizes=114x114 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-114x114.png><link rel=apple-touch-icon sizes=120x120 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-120x120.png><link rel=apple-touch-icon sizes=144x144 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-144x144.png><link rel=apple-touch-icon sizes=152x152 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-152x152.png><link rel=apple-touch-icon sizes=180x180 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-180x180.png><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/android-chrome-192x192.png sizes=192x192><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/favicon-96x96.png sizes=96x96><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/favicon-16x16.png sizes=16x16><link rel=manifest href=https://dzimchuk.net/favicons/v1/manifest.json><link rel="shortcut icon" href=https://dzimchuk.net/media/favicons/v1/favicon.ico><meta name=msapplication-TileColor content=#da532c><meta name=msapplication-TileImage content=https://dzimchuk.net/media/favicons/v1/mstile-144x144.png><meta name=msapplication-config content=https://dzimchuk.net/favicons/v1/browserconfig.xml><meta name=theme-color content=#ffffff></head><body class="post-template tag-windows-programming"><div class=site-wrapper><header class="main-header post-head no-cover"><nav class="main-nav clearfix"><div class=nav-wrapper><ul class=nav role=menu><li class=nav-home role=menuitem><a href=/ >Home</a></li><li class=nav-cloud-patterns role=menuitem><a href=/tag/cloud-patterns/ >Cloud Patterns</a></li><li class=nav-service-fabric role=menuitem><a href=/tag/azure-service-fabric/ >Service Fabric</a></li><li class=nav-azure-ad role=menuitem><a href=/tag/azure-active-directory/ >Azure AD</a></li><li class=nav-azure-services role=menuitem><a href=/tag/azure-services/ >Azure Services</a></li><li class=nav-about role=menuitem><a href=/about/ >About</a></li></ul><a href=javascript:void(0); class=nav-hamburger-open><svg role=img xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=open-menu-icon><title id=open-menu-icon>Open menu</title><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path></svg></a><a href=javascript:void(0); class=nav-hamburger-close><svg role=img xmlns=http://www.w3.org/2000/svg viewBox="0 0 352 512" aria-labelledby=close-menu-icon><title id=close-menu-icon>Close menu</title><path fill=currentColor d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg></a></div></nav></header><main class=content role=main><article class="post tag-windows-programming"><header class=post-header><h1 class=post-title>A component to perform file associations</h1><section class=post-meta><time class=post-date datetime=2010-08-03>03 August 2010</time> on <a href=/tag/windows-programming/ >Windows Programming</a></section></header><section class=post-content><p>Sometimes we need to do file associations with our desktop applications so that when a user clicks on  a file in the explorer it gets opened with our application. This is a common task and it is documented in MSDN so I’m not going to explain it all again.</p><p>Instead, I will describe a component I wrote for <a href=http://pvp.codeplex.com>Power Video Player</a> that can perform file associations on pre-Vista systems as well as with the ‘Default Programs’ feature (Vista+ systems). It will also take care of restoring the previous associations when you need to un-associate a file or when you uninstall your application.</p><h2 id=pre-vista-days>Pre-Vista days</h2><p>On pre-Vista systems to associate a file with your application was about creating a document type in either HKEY_CLASSES_ROOT or in HKEY_LOCAL_MACHINE\Software\Classes and then pointing a particular extension to your document type by setting the default value of an extension key in HKEY_CLASSES_ROOT to the name of your document type. The document type itself contains information about what command to launch when the file is clicked in the explorer.</p><p>Confused? Don’t be. Here’s a <a href=http://msdn.microsoft.com/en-us/library/cc144158(VS.85).aspx>quick and good example.</a></p><h2 id=default-programs-vista>Default Programs (Vista+)</h2><p>The previous approach won’t work well on Vista and more modern OS’s. On these system a new mechanism was introduced that is called Default Programs. The idea is to organize the way different applications do file associations and provide a consistent UI for a user to control associations.</p><p>For a complete reference see <a href="http://msdn.microsoft.com/en-us/library/cc144154(v=VS.85).aspx">Default Programs.</a> </p><p>As programmers we are interested in programmatic ways to do tasks and Default Programs provide to COM interfaces:</p><ul><li><code>IApplicationAssociationRegistrationUI</code></li><li><code>IApplicationAssociationRegistration</code></li></ul><p>Of course you can still hack the registry directly but now it’s a bit more tedious than it used to be. I suggest staying with the official way.</p><p><code>IApplicationAssociationRegistrationUI</code> allows you to spawn a standard dialog box like the one shown in the MSDN article above. This may be a good option in some cases when it comes in line with the overall look and feel of your application. And hey, it shaves a few hours off your development effort  as you don’t have to implement the UI yourself.</p><p>However, in PVP I have my own file association page as part of the user preferences dialog so I went for <code>IApplicationAssociationRegistration</code>.</p><h2 id=the-fileassociator-component>The FileAssociator component</h2><p>The component consists of 2 classes: <code>FileAssociator</code> and <code>FileAssociatorW6</code>.</p><p>They are available for download as part of PVP source code, just go to <a href=http://pvp.codeplex.com/SourceControl/list/changesets>PVP source code</a> to grab the latest version. You will find the component in<solution>\pvp\Util directory.</solution></p><p><code>IApplicationAssociationRegistration</code> is defined in ‘napi’ assembly which is also available as part of the source code package. I created this assembly as a place to define PInvoke stuff. You might find it useful as it defines various WinAPI functions, types and structures that you might need someday.</p><h2 id=usage>Usage</h2><p>There are several key points to mention:</p><ul><li>Setting up or registering an application</li><li>Associating and un-associating file types</li><li>Tearing down or unregistering the application</li></ul><h2 id=application-registration>Application registration</h2><p>Before you can perform file associations you need to put certain information into the system registry namely properly register with Default Programs by putting certain records under HKEY_LOCAL_MACHINE\Software and create document (program) types for pre-Vista associations.</p><p>As we need write access to HKEY_LOCAL_MACHINE the program needs elevated permission under Vista+ systems. Normally programs don’t run in the elevated mode unless a user disabled the UAC or explicitly started a program as administrator.</p><p>The optimum place where you can perform registration is at install time. Installers usually already run elevated as they need to put stuff into the registry, on drive C:, etc, etc.</p><p>In PVP I use standard MS installer and I added a custom Installer class to my project. The custom installer overrides Install and Uninstall methods which get called at install and uninstall times appropriately. This is where I can perform one-time actions that require elevated permissions.</p><p>So here’s the registration code:</p><pre><code>public static void HandleRegApp()
+{
+    if (IsAdmin)
+    {
+        CultureInfo ci = new CultureInfo(&quot;en-US&quot;);
+        Thread.CurrentThread.CurrentCulture = ci;
+        Thread.CurrentThread.CurrentUICulture = ci;
+
+        string strExe = Assembly.GetExecutingAssembly().Location;
+        string command = &quot;\&quot;&quot; + strExe + &quot;\&quot;&quot;;
+        string icon = strExe + &quot;,0&quot;;
+
+        string appName = Resources.Resources.program_name;
+        string appDescription = 
+           Resources.Resources.program_description;
+
+        using (FileAssociator fa = 
+               FileAssociator.GetFileAssociator(strDocTypePrefix, 
+                                                strProgName))
+        {
+            fa.Register(@&quot;Software\Clients\Media&quot;, 
+                        icon, 
+                        command, 
+                        appName, 
+                        appDescription, 
+                        GetTypesInfo());
+        }
+    }
+    else
+    {
+        Elevate(&quot;-regapp&quot;);
+    }
+}
+</code></pre><p>There is an extra check for the elevated mode as registration can be run outside of the installer. PVP provides a command line switch that allows you re-register it. I will not dive into how you can force elevation, I think I’ll writer another blog post to cover it.</p><p><code>FileAssociator</code> provides a convenient static method <code>GetFileAsociator</code> that will check the version of the operating system you are running and return a proper implementation of the component. Note that I’m calling it from within <code>using</code> block as Vista+ versions (that is <code>FileAssociatorW6</code>) needs to dispose of the <code>IApplicationAssociationRegistration</code>.</p><p>The registration code is self-explaining for the most part however there are a few arguments that I would like to elaborate upon:</p><p><em>strDocTypePrefix</em></p><p>This is a prefix that will be used to define document (program) types that your application claims to be allowed to be associated with. Say you want to be able to associate with “.doc” extension. The following document type will be created under HKEY_LOCAL_MACHINE\Software\Classes : <em>strDocTypePrefix.DOC</em>. And this type will be used to define a file association capability with Default Programs.</p><p><em>&quot;Software\Clients\Media&quot;</em></p><p>This is a registry path relative to HKEY_LOCAL_MACHINE that will be used to store registration information for Default Programs. You can choose a different path like ‘Company name\Product name’ or anything else. I just followed a pattern used by other media applications including the Windows Media Player.</p><p><em>GetTypesInfo()</em></p><p>This is how you provide information about what extensions your application can be associated with and what commands to run per each extension.</p><p>There is a DocTypeInfo class that wraps this information for each file extensions. Here’s how I define a collection of file types in PVP:</p><pre><code>private static IList&lt;FileAssociator.DocTypeInfo&gt; GetTypesInfo()
+{
+    string strExe = Assembly.GetExecutingAssembly().Location;
+    string command = &quot;\&quot;&quot; + strExe + &quot;\&quot; \&quot;%L\&quot;&quot;;
+    string icon = strExe + &quot;,0&quot;;
+
+    IList&lt;FileAssociator.DocTypeInfo&gt; types = 
+         new List&lt;FileAssociator.DocTypeInfo&gt;();
+
+    IList&lt;FileType&gt; ts = Dzimchuk.PVP.FileTypes.GetFileTypes();
+    foreach (FileType t in ts)
+    {
+        types.Add(new FileAssociator.DocTypeInfo(t.Extension, 
+          t.Description.Substring(t.Description.IndexOf(&#39;-&#39;) + 2), 
+          icon, 
+          command, 
+          command, 
+          true));
+    }
+
+    return types;
+}
+</code></pre><p>Some might ask: “why do I need to provide commands and icons for each type when I already provided this information to <code>FileAssociator.Register(…)</code> method?&quot;. This is a valid question and you are free to refactor, though this info actually belongs to file (document) types and you may need to provide different commands or icons for each file type.</p><p>What you pass to   <code>FileAssociator.Register(…)</code> describes your application. DocTypeInfo describes file types.</p><p>Hm… wait, there are some FileType and FileTypes classes. What role do they play? They are auxiliary classes used to keep supported file extensions in one place and access this info where needed (registration, dialog, etc):</p><pre><code>internal class FileType
+{
+    public string Extension;
+    public string Description;
+    public FileType(string description, string extension)
+    {
+        Extension = extension;
+        Description = description;
+    }
+}
+
+internal static class FileTypes
+{
+    public static IList&lt;FileType&gt; GetFileTypes()
+    {
+        IList&lt;FileType&gt; types = new List&lt;FileType&gt;();
+        types.Add(new FileType(Resources.Resources.file_type_asf, 
+           &quot;.asf&quot;));
+        types.Add(new FileType(Resources.Resources.file_type_avi, 
+           &quot;.avi&quot;));
+
+        // other types are omitted
+
+        return types;
+    }
+}
+</code></pre><h2 id=associating-files>Associating files</h2><p>The tough part is done, we are registered. Now we can easily associate and un-associate file types with our application.</p><p>Determining what types we are already associated with and pass this info to our custom dialog box:</p><pre><code>using (FileAssociator fa = 
+       FileAssociator.GetFileAssociator(strDocTypePrefix, 
+                                        strProgName))
+{
+    string[] types = dlg.FileTypes;
+    Hashtable table = new Hashtable();
+    foreach (string type in types)
+        table[type] = fa.IsAssociated(type);
+    dlg.SelectedFileTypes = table;
+}
+</code></pre><p>When OK is clicked and a user changed some file association we detect it and use the <code>FileAssociator</code> to do its job:</p><pre><code>private void OnSettingsApply(object sender, EventArgs e)
+{
+    if (dlg.FileTypesChanged)
+        AssociateFiles(dlg);
+}
+
+private void AssociateFiles(SettingsForm dlg)
+{
+    using (FileAssociator fa = 
+           FileAssociator.GetFileAssociator(strDocTypePrefix, 
+                                            strProgName))
+    {
+        Hashtable table = dlg.SelectedFileTypes;
+        foreach (DictionaryEntry entry in table)
+            fa.Associate(entry.Key.ToString(), (bool)entry.Value);
+    }
+
+    FileAssociator.NotifyShell();
+}
+</code></pre><p>Basically we pass an extension and a <code>Boolean</code> value to <code>FileAssociator,Associate(…)</code> method. Passing <code>True</code> means we want to associate with an extension and correspondingly <code>False</code> indicates we want to remove an association. The extension we pass to this method must start with a dot.</p><p>File associations are done on per-user bases, i.e. the information will be put under HKEY_CURRENT_USER on pre-Vista system and Default Programs also create per-user file associations.</p><p>Writing to HKEY_CURRENT_USER or calling methods on <code>IApplicationAssociationRegistration</code> do not require elevated permissions.</p><p>An additional added value brought by the <code>FileAssociator</code> is that it will backup the information about the previous document (program) type that an extension was associated with so it is possible to restore the association when a user decides to un-associate the program or when she uninstalls our application.</p><h2 id=unregistering>Unregistering</h2><p>You do it at uninstall time:</p><pre><code>public static void HandleUnRegApp()
+{
+    if (IsAdmin)
+    {
+        using (FileAssociator fa = 
+               FileAssociator.GetFileAssociator(strDocTypePrefix, 
+                                                strProgName))
+        {
+            fa.Unregister();
+        }
+    }
+    else
+    {
+        Elevate(&quot;-unregapp&quot;);
+    }
+}
+</code></pre><p>It will remove all associations and the component will try to restore previous associations. The default programs will even try to determine a matching application of the information about previous association is missing for some reason or an application that an extension used to be associated with had been removed.</p><p>It will then remove all document types from the registry and all information it added for Default Programs.</p><p>You might have noticed I relied on some PVP-specific classes in the code samples, that’s because I need to provide my own UI and I need to be able to pass the association information to and from the UI.</p><p>You might prefer to use the UI provided by Vista+ systems through the <code>IApplicationAssociationRegistrationUI</code> interface. Still, you need to do registration and un-registration anyway. And this is where you might find the component still useful to you.</p></section><footer class=post-footer><figure class=author-image><a class=img href=/ style="background-image: url(//www.gravatar.com/avatar/7fbe59ac3d3eaab56ec27da019d76f66?s&#x3D;250&amp;amp;d&#x3D;mm&amp;amp;r&#x3D;x)"><span class=hidden>Andrei Dzimchuk's Picture</span></a></figure><section class=author><h4><a href=/ >Andrei Dzimchuk</a></h4><p>Hi, I&#x27;m Andrei, I&#x27;m a software developer building cloud enabled solutions. I&#x27;m mostly focused on Azure and .NET and I try to share my experience and knowledge here with you.</p><div class=author-meta></div></section><section class=share><h4>Share this post</h4><a class=icon-facebook href="https://www.facebook.com/sharer/sharer.php?u=https://dzimchuk.net/a-component-to-perform-file-associations/" rel="noopener noreferrer nofollow" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;"><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=facebook-icon role=img><title id=facebook-icon>Facebook</title><path d="M448 56.7v398.5c0 13.7-11.1 24.7-24.7 24.7H309.1V306.5h58.2l8.7-67.6h-67v-43.2c0-19.6 5.4-32.9 33.5-32.9h35.8v-60.5c-6.2-.8-27.4-2.7-52.2-2.7-51.6 0-87 31.5-87 89.4v49.9h-58.4v67.6h58.4V480H24.7C11.1 480 0 468.9 0 455.3V56.7C0 43.1 11.1 32 24.7 32h398.5c13.7 0 24.8 11.1 24.8 24.7z"></path></svg> </a><a class=icon-linkedin href="http://www.linkedin.com/shareArticle?mini=true&amp;url=https://dzimchuk.net/a-component-to-perform-file-associations/&amp;title=A%20component%20to%20perform%20file%20associations" rel="noopener noreferrer nofollow" onclick="window.open(this.href, 'linkedin-share','width=490,height=530');return false;"><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=linkedin-icon role=img><title id=linkedin-icon>LinkedIn</title><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg></a></section></footer><section class=post-comments><div id=disqus_thread></div><script>var disqus_config = function () {
+                    this.page.url = 'https://dzimchuk.net/a-component-to-perform-file-associations/';
+                    this.page.identifier = '4a64fb41-5c69-409d-9df8-d1f35edab78e';
+                    this.page.title = 'A component to perform file associations';
+                };
+                (function() {
+                    var d = document, s = d.createElement('script');
+                    s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
+                })();</script></section></article></main><footer class=site-footer><div class=site-footer-inner><section class=copyright><a href=https://dzimchuk.net/ >Andrei Dzimchuk</a> &copy; 2026</section><nav class=site-footer-nav><a href=https://github.com/dzimchuk target=_blank rel=noopener><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 496 512" aria-labelledby=github-icon role=img><title id=github-icon>GitHub</title><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg></a><a href=https://www.linkedin.com/in/andreidzimchuk target=_blank rel=noopener><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=linkedin-icon role=img><title id=linkedin-icon>LinkedIn</title><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg></a><a href=https://feedly.com/i/subscription/feed/https://dzimchuk.net/rss.xml target=_blank rel=noopener><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=rss-icon role=img><title id=rss-icon>RSS</title><path d="M128.081 415.959c0 35.369-28.672 64.041-64.041 64.041S0 451.328 0 415.959s28.672-64.041 64.041-64.041 64.04 28.673 64.04 64.041zm175.66 47.25c-8.354-154.6-132.185-278.587-286.95-286.95C7.656 175.765 0 183.105 0 192.253v48.069c0 8.415 6.49 15.472 14.887 16.018 111.832 7.284 201.473 96.702 208.772 208.772.547 8.397 7.604 14.887 16.018 14.887h48.069c9.149.001 16.489-7.655 15.995-16.79zm144.249.288C439.596 229.677 251.465 40.445 16.503 32.01 7.473 31.686 0 38.981 0 48.016v48.068c0 8.625 6.835 15.645 15.453 15.999 191.179 7.839 344.627 161.316 352.465 352.465.353 8.618 7.373 15.453 15.999 15.453h48.068c9.034-.001 16.329-7.474 16.005-16.504z"></path></svg></a></nav></div></footer></div><script src=https://code.jquery.com/jquery-3.2.1.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script type=text/javascript src=/assets/theme-4b97c15618.js></script><script>$(function () {
+    var $postContent = $(".post-content");
+    $postContent.fitVids();
+  });</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-JYXGZ70WJH"></script><script>window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-JYXGZ70WJH');</script></body></html>

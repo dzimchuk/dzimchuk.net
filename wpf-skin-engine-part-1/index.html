@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><title>WPF skin engine – part 1</title><meta name=HandheldFriendly content=True><meta name=viewport content="width=device-width,initial-scale=1"><link rel=stylesheet type=text/css href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400"><link rel=stylesheet type=text/css href=/assets/theme-0c0984d3fd.css><link rel=canonical href=https://dzimchuk.net/wpf-skin-engine-part-1/ ><meta name=referrer content=no-referrer-when-downgrade><meta property=og:site_name content="Andrei Dzimchuk"><meta property=og:type content=article><meta property=og:title content="WPF skin engine – part 1"><meta property=og:description content="&lt;strong&gt;NOTE: The information presented in this post is outdated. It does describes the problem the library tries to solve but the approach in which this is done has changed. For the current library description please visit WPF skin engine - revisited.&lt;/strong&gt;"><meta property=og:url content=https://dzimchuk.net/wpf-skin-engine-part-1/ ><meta property=article:publisher content=https://www.facebook.com/andrei.dzimchuk><meta property=article:author content=https://www.facebook.com/andrei.dzimchuk><meta property=article:published_time content=2011-07-08T06:13:00.000+00:00><meta property=article:modified_time content=2015-04-23T16:57:19.000+00:00><meta property=article:tag content=WPF><meta name=twitter:card content=summary><meta name=twitter:title content="WPF skin engine – part 1"><meta name=twitter:description content="&lt;strong&gt;NOTE: The information presented in this post is outdated. It does describes the problem the library tries to solve but the approach in which this is done has changed. For the current library description please visit WPF skin engine - revisited.&lt;/strong&gt;"><meta name=twitter:url content=https://dzimchuk.net/wpf-skin-engine-part-1/ ><meta name=twitter:label1 content="Written by"><meta name=twitter:data1 content="Andrei Dzimchuk"><meta name=twitter:label2 content="Filed under"><meta name=twitter:data2 content=WPF><meta name=twitter:site content=@dzimchuk><meta property=twitter:creator content=@dzimchuk><script type=application/ld+json>{
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "publisher": {
+      "@type": "Organization",
+      "name": "Andrei Dzimchuk",
+      "logo": {
+      "@type": "ImageObject",
+      "url": "https://dzimchuk.net/media/favicons/v1/favicon.ico",
+      "width": 60,
+      "height": 60
+      }
+      },
+      "url": "https://dzimchuk.net/wpf-skin-engine-part-1/",
+      "description": "&lt;strong&gt;NOTE: The information presented in this post is outdated. It does describes the problem the library tries to solve but the approach in which this is done has changed. For the current library description please visit WPF skin engine - revisited.&lt;/strong&gt;"
+      "headline": "WPF skin engine – part 1",
+      "datePublished": "2011-07-08T06:13:00.000+00:00",
+      "dateModified": "2015-04-23T16:57:19.000+00:00",
+      "keywords": "WPF",
+      "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://dzimchuk.net/"
+      }
+      }</script><link rel=alternate type=application/rss+xml title="Andrei Dzimchuk" href=https://dzimchuk.net/rss.xml><script type=text/javascript>var disqus_shortname = 'dzimchuk';</script><link rel=apple-touch-icon sizes=57x57 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-57x57.png><link rel=apple-touch-icon sizes=60x60 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-60x60.png><link rel=apple-touch-icon sizes=72x72 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-72x72.png><link rel=apple-touch-icon sizes=76x76 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-76x76.png><link rel=apple-touch-icon sizes=114x114 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-114x114.png><link rel=apple-touch-icon sizes=120x120 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-120x120.png><link rel=apple-touch-icon sizes=144x144 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-144x144.png><link rel=apple-touch-icon sizes=152x152 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-152x152.png><link rel=apple-touch-icon sizes=180x180 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-180x180.png><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/android-chrome-192x192.png sizes=192x192><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/favicon-96x96.png sizes=96x96><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/favicon-16x16.png sizes=16x16><link rel=manifest href=https://dzimchuk.net/favicons/v1/manifest.json><link rel="shortcut icon" href=https://dzimchuk.net/media/favicons/v1/favicon.ico><meta name=msapplication-TileColor content=#da532c><meta name=msapplication-TileImage content=https://dzimchuk.net/media/favicons/v1/mstile-144x144.png><meta name=msapplication-config content=https://dzimchuk.net/favicons/v1/browserconfig.xml><meta name=theme-color content=#ffffff></head><body class="post-template tag-wpf"><div class=site-wrapper><header class="main-header post-head no-cover"><nav class="main-nav clearfix"><div class=nav-wrapper><ul class=nav role=menu><li class=nav-home role=menuitem><a href=/ >Home</a></li><li class=nav-cloud-patterns role=menuitem><a href=/tag/cloud-patterns/ >Cloud Patterns</a></li><li class=nav-service-fabric role=menuitem><a href=/tag/azure-service-fabric/ >Service Fabric</a></li><li class=nav-azure-ad role=menuitem><a href=/tag/azure-active-directory/ >Azure AD</a></li><li class=nav-azure-services role=menuitem><a href=/tag/azure-services/ >Azure Services</a></li><li class=nav-about role=menuitem><a href=/about/ >About</a></li></ul><a href=javascript:void(0); class=nav-hamburger-open><svg role=img xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=open-menu-icon><title id=open-menu-icon>Open menu</title><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path></svg></a><a href=javascript:void(0); class=nav-hamburger-close><svg role=img xmlns=http://www.w3.org/2000/svg viewBox="0 0 352 512" aria-labelledby=close-menu-icon><title id=close-menu-icon>Close menu</title><path fill=currentColor d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg></a></div></nav></header><main class=content role=main><article class="post tag-wpf"><header class=post-header><h1 class=post-title>WPF skin engine – part 1</h1><section class=post-meta><time class=post-date datetime=2011-07-08>08 July 2011</time> on <a href=/tag/wpf/ >WPF</a></section></header><section class=post-content><p><strong>NOTE: The information presented in this post is outdated. It does describes the problem the library tries to solve but the approach in which this is done has changed. For the current library description please visit <a href=WPF-skin-engine-revisited>WPF skin engine - revisited</a>.</strong></p><p>In the upcoming couple of posts I’m going to a cover a simple yet useful helper library I wrote recently. Its purpose is to provide a convenient way to manage skinned interface in an application that wants to support various skins and a possibility to change them at runtime. WPF has all that’s needed to apply a different look to everything from a thumb on a track bar to the whole window but it’s still a programmer’s task to implement the logic needed to look for available skins, load, apply and unload them. This library called <strong>Skinner</strong> solves this task and allows you to jump right to actually creating art work (XAML templates) and/or great functionality of your application without bothering about the tedious details of managing skins.</p><p>When I started working on it I outlined a few of the core requirements:</p><ul><li>It should be simple, that is dead-simple to use;</li><li>Scanning for available skins should be efficient, that is fast and not hurting the application;</li><li>It should be able to enable a chosen skin, disabling the previous one if there was any;</li><li>Loading a skin should be fast, it’s extremely important for the start-up time.</li></ul><p>What is a skin? By the way, I’d love to use the term ‘theme’ instead but in WPF world it’s already used to refer to OS themes support (Luna, Aero). So not to cause a conclusion I stopped on ‘skin’.</p><p>So what is a skin? Effectively a resource dictionary containing a bunch of templates to define the look of various UI elements.</p><p>But keeping your skins in XAML is not efficient in terms of performance as parsing them will severely affect loading time. If you struggle to keep your application’s start-up time as little as possible, parsing XAML will hurt too bad. So we want to compile our skins into BAML and put it in an assembly as a resource.</p><p>Now that we have decided on what a skin physically represents, we can decide how to find and load it.</p><p>Skinner uses MEF for scanning purposes. It appears to be extremely fast. Moreover, as potentially there can be a lot of third party skins provided for your application (and these skins are .NET assemblies containing BAML resources) you wouldn’t want to load them all in your process during the scan as these assemblies can’t be unloaded unless you load them in a separate domain that you can unload. Thus, Skinner will create a domain for scanning purposes and shut it down when finished scanning.</p><p>And of course, scanning for new skins is not something your application should be doing in the foreground. It needs to start, load the currently selected skin and start a background search for new skins. Skinner takes care of that too.</p><h2 id=developing-a-skin>Developing a skin</h2><p>First, you need XAML. I’m going to use one of the <a href="http://wpf.codeplex.com/wikipage?title=WPF%20Themes&ProjectName=wpf">freely available</a> themes and just reference it in my skin’s resource dictionary:</p><pre><code>&lt;ResourceDictionary 
+  xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
+  xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;&gt;
+    &lt;ResourceDictionary.MergedDictionaries&gt;
+        &lt;ResourceDictionary 
+Source=&quot;pack://application:,,,/WpfThemes;component/BureauBlue.xaml&quot; /&gt;
+    &lt;/ResourceDictionary.MergedDictionaries&gt;
+&lt;/ResourceDictionary&gt;
+</code></pre><p>I also need a bit of metadata for the Skinner library which is basically the name of my skin (something you want to display to the user) and a pack Uri that Skinner will use to load this skin.</p><p>The metadata is defined for each skin in a class called <code>SkinDescription</code>. Skinner expects a a MEF-exportable class that implements <code>ISkin</code> interface to be defined for each skin. <code>ISkin</code> interface defines just one method:</p><pre><code>/// &lt;summary&gt;
+/// A contract that represents a skin.
+/// &lt;/summary&gt;
+public interface ISkin
+{
+    /// &lt;summary&gt;
+    /// Get the description of the skin.
+    /// &lt;/summary&gt;
+    /// &lt;returns&gt;Description of the skin.&lt;/returns&gt;
+    SkinDescription GetDescription();
+}
+</code></pre><p>Thus, this is all the code needed to define your skin:</p><pre><code>[Export(typeof(ISkin))]
+public class BureauBlue : ISkin
+{
+    public SkinDescription GetDescription()
+    {
+        return new SkinDescription(&quot;Bureau Blue&quot;, 
+            new Uri(&quot;/Skins/BureauBlue.xaml&quot;, UriKind.Relative));
+    }
+}
+</code></pre><p>Here’s an interesting thing – the URI is defined relatively to the skin’s assembly. This is because <code>Uri</code> class’ constructor won’t happily accept an absolute pack Uri (sighs…). But how are we going to load a resource with a relative Uri like this? It doesn’t even mention the assembly name… Don’t worry, Skinner will take care of this too. In fact, it supports all these forms:</p><pre><code>pack://application:,,,/MyAssembly;component/Skins/BureauBlue.xaml
+/MyAssembly;component/Skins/BureauBlue.xaml
+MyAssembly;component/Skins/BureauBlue.xaml
+/Skins/BureauBlue.xaml
+Skins/BureauBlue.xaml
+</code></pre><p>However, as I mentioned, you probably won’t be able to create a <code>Uri</code> object with an absolute pack Uri.</p><h2 id=consuming-skins-with-skinner>Consuming skins with Skinner</h2><p>You control Skinner with a skin manager. Skin manager is a class that implements (guess what?) <code>ISkinManager</code> interface. Skinner provides a default implementation for you, which a singleton and should be requested through <code>SkinManagerFactory</code>:</p><pre><code>ISkinManager manager = SkinManagerFactory.GetSkinManager();
+</code></pre><p>It insures there is only one instance of skin manager in your application as it keeps track of what skin is currently loaded.</p><p>Let me post the I<code>SkinManager</code> interface in its entirety:</p><pre><code>/// &lt;summary&gt;
+/// A contract for a Skin Manager.
+/// Skin Manager is an entry point for a WPF application 
+/// to the skinner library.
+/// Through this interface it is possible to discover available 
+/// skins, load and unload them.
+/// 
+/// The manager is expected to be called from UI thread 
+/// and is not guaranteed to be thread-safe.
+/// &lt;/summary&gt;
+public interface ISkinManager
+{
+    /// &lt;summary&gt;
+    /// Fires when a new skin has been discovered. 
+    /// Applications should subscribe to this event 
+    /// to receive skin descriptions that they can use 
+    /// to load skins.
+    /// 
+    /// The event is fired on the UI thread if Application 
+    /// is available.
+    /// &lt;/summary&gt;
+    event EventHandler&lt;SkinFoundEventArgs&gt; SkinFound;
+
+    /// &lt;summary&gt;
+    /// Notifies a subscriber of any errors that occured while 
+    /// the scan was in progress.
+    /// The error event is not fatal and doesn&#39;t abort scanning.
+    /// It&#39;s primarily for notification purpose only.
+    /// &lt;/summary&gt;
+    event EventHandler&lt;ScanErrorEventArgs&gt; ScanError;
+
+    /// &lt;summary&gt;
+    /// Scan for skins asynchronously using a separate domain.
+    /// The domain will be unloaded once the scanning is 
+    /// finished.
+    /// &lt;/summary&gt;
+    void Scan();
+
+    /// &lt;summary&gt;
+    /// Load a skin.
+    /// If there is a previously loaded skin it will be unloaded
+    /// first.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;skinDescription&quot;&gt;A description of the skin 
+    /// to load.&lt;/param&gt;
+    void Load(SkinDescription skinDescription);
+
+    /// &lt;summary&gt;
+    /// Unload a skin that has been loaded with 
+    /// Load(SkinDescription) before.
+    /// If no skin has been loaded, the method does nothing.
+    /// &lt;/summary&gt;
+    void UnloadCurrentSkin();
+}
+</code></pre><p>I’ve tried to document it as well as I could. I believe it’s simple enough to meet my first requirement, isn’t it? At the end of this post you will find a link to a solution containing test projects as well as the Skinner library itself (licensed under MS-PL) so you could try it in action.</p><h2 id=scanning-performance>Scanning performance</h2><p>One thing that’s not yet been covered is performance. The attached solution contains ConsoleTestApp project that tests scanning performance. It runs Skinner against 202 skin assemblies and Skinner finishes scanning in about 1.6-2 seconds.</p><p>As to the loading performance you can check the provided WPF test project (there must be a running WPF application so that the skin can be merged into its resource dictionary).</p><p>Loading a skin from another assembly and applying it takes around 80 ms on my machine. Loading it for the 2nd time takes around 20-30 ms. Why? Because when you load a skin, the assembly is loaded into your main application’s domain. That’s the only way I could properly manage to load BAML. For details, have a look of part 2 of this post that’s coming soon.</p></section><footer class=post-footer><figure class=author-image><a class=img href=/ style="background-image: url(//www.gravatar.com/avatar/7fbe59ac3d3eaab56ec27da019d76f66?s&#x3D;250&amp;amp;d&#x3D;mm&amp;amp;r&#x3D;x)"><span class=hidden>Andrei Dzimchuk's Picture</span></a></figure><section class=author><h4><a href=/ >Andrei Dzimchuk</a></h4><p>Hi, I&#x27;m Andrei, I&#x27;m a software developer building cloud enabled solutions. I&#x27;m mostly focused on Azure and .NET and I try to share my experience and knowledge here with you.</p><div class=author-meta></div></section><section class=share><h4>Share this post</h4><a class=icon-facebook href="https://www.facebook.com/sharer/sharer.php?u=https://dzimchuk.net/wpf-skin-engine-part-1/" rel="noopener noreferrer nofollow" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;"><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=facebook-icon role=img><title id=facebook-icon>Facebook</title><path d="M448 56.7v398.5c0 13.7-11.1 24.7-24.7 24.7H309.1V306.5h58.2l8.7-67.6h-67v-43.2c0-19.6 5.4-32.9 33.5-32.9h35.8v-60.5c-6.2-.8-27.4-2.7-52.2-2.7-51.6 0-87 31.5-87 89.4v49.9h-58.4v67.6h58.4V480H24.7C11.1 480 0 468.9 0 455.3V56.7C0 43.1 11.1 32 24.7 32h398.5c13.7 0 24.8 11.1 24.8 24.7z"></path></svg> </a><a class=icon-linkedin href="http://www.linkedin.com/shareArticle?mini=true&amp;url=https://dzimchuk.net/wpf-skin-engine-part-1/&amp;title=WPF%20skin%20engine%20%E2%80%93%20part%201" rel="noopener noreferrer nofollow" onclick="window.open(this.href, 'linkedin-share','width=490,height=530');return false;"><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=linkedin-icon role=img><title id=linkedin-icon>LinkedIn</title><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg></a></section></footer><section class=post-comments><div id=disqus_thread></div><script>var disqus_config = function () {
+                    this.page.url = 'https://dzimchuk.net/wpf-skin-engine-part-1/';
+                    this.page.identifier = '4b4b3168-99b7-4938-9619-a89fc341d731';
+                    this.page.title = 'WPF skin engine – part 1';
+                };
+                (function() {
+                    var d = document, s = d.createElement('script');
+                    s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
+                })();</script></section></article></main><footer class=site-footer><div class=site-footer-inner><section class=copyright><a href=https://dzimchuk.net/ >Andrei Dzimchuk</a> &copy; 2026</section><nav class=site-footer-nav><a href=https://github.com/dzimchuk target=_blank rel=noopener><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 496 512" aria-labelledby=github-icon role=img><title id=github-icon>GitHub</title><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg></a><a href=https://www.linkedin.com/in/andreidzimchuk target=_blank rel=noopener><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=linkedin-icon role=img><title id=linkedin-icon>LinkedIn</title><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg></a><a href=https://feedly.com/i/subscription/feed/https://dzimchuk.net/rss.xml target=_blank rel=noopener><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=rss-icon role=img><title id=rss-icon>RSS</title><path d="M128.081 415.959c0 35.369-28.672 64.041-64.041 64.041S0 451.328 0 415.959s28.672-64.041 64.041-64.041 64.04 28.673 64.04 64.041zm175.66 47.25c-8.354-154.6-132.185-278.587-286.95-286.95C7.656 175.765 0 183.105 0 192.253v48.069c0 8.415 6.49 15.472 14.887 16.018 111.832 7.284 201.473 96.702 208.772 208.772.547 8.397 7.604 14.887 16.018 14.887h48.069c9.149.001 16.489-7.655 15.995-16.79zm144.249.288C439.596 229.677 251.465 40.445 16.503 32.01 7.473 31.686 0 38.981 0 48.016v48.068c0 8.625 6.835 15.645 15.453 15.999 191.179 7.839 344.627 161.316 352.465 352.465.353 8.618 7.373 15.453 15.999 15.453h48.068c9.034-.001 16.329-7.474 16.005-16.504z"></path></svg></a></nav></div></footer></div><script src=https://code.jquery.com/jquery-3.2.1.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script type=text/javascript src=/assets/theme-4b97c15618.js></script><script>$(function () {
+    var $postContent = $(".post-content");
+    $postContent.fitVids();
+  });</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-JYXGZ70WJH"></script><script>window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-JYXGZ70WJH');</script></body></html>

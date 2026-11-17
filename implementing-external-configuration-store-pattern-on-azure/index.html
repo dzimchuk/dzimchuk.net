@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><title>Implementing External Configuration Store Pattern on Azure</title><meta name=HandheldFriendly content=True><meta name=viewport content="width=device-width,initial-scale=1"><link rel=stylesheet type=text/css href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400"><link rel=stylesheet type=text/css href=/assets/theme-0c0984d3fd.css><link rel=canonical href=https://dzimchuk.net/implementing-external-configuration-store-pattern-on-azure/ ><meta name=referrer content=no-referrer-when-downgrade><meta property=og:site_name content="Andrei Dzimchuk"><meta property=og:type content=article><meta property=og:title content="Implementing External Configuration Store Pattern on Azure"><meta property=og:description content="Configuration management is an important part of running and evolving public facing services when down time is not tolerated and you need maximum flexibility in adjusting settings of running services. Implementing External Configuration Store Pattern opens up some great possibilities for you like..."><meta property=og:url content=https://dzimchuk.net/implementing-external-configuration-store-pattern-on-azure/ ><meta property=article:publisher content=https://www.facebook.com/andrei.dzimchuk><meta property=article:author content=https://www.facebook.com/andrei.dzimchuk><meta property=article:published_time content=2015-03-03T16:39:00.000+00:00><meta property=article:modified_time content=2017-09-05T18:54:55.000+00:00><meta property=article:tag content="Cloud Patterns"><meta property=article:tag content="Azure Cloud Services"><meta name=twitter:card content=summary><meta name=twitter:title content="Implementing External Configuration Store Pattern on Azure"><meta name=twitter:description content="Configuration management is an important part of running and evolving public facing services when down time is not tolerated and you need maximum flexibility in adjusting settings of running services. Implementing External Configuration Store Pattern opens up some great possibilities for you like..."><meta name=twitter:url content=https://dzimchuk.net/implementing-external-configuration-store-pattern-on-azure/ ><meta name=twitter:label1 content="Written by"><meta name=twitter:data1 content="Andrei Dzimchuk"><meta name=twitter:label2 content="Filed under"><meta name=twitter:data2 content="Cloud Patterns, Azure Cloud Services"><meta name=twitter:site content=@dzimchuk><meta property=twitter:creator content=@dzimchuk><script type=application/ld+json>{
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "publisher": {
+      "@type": "Organization",
+      "name": "Andrei Dzimchuk",
+      "logo": {
+      "@type": "ImageObject",
+      "url": "https://dzimchuk.net/media/favicons/v1/favicon.ico",
+      "width": 60,
+      "height": 60
+      }
+      },
+      "url": "https://dzimchuk.net/implementing-external-configuration-store-pattern-on-azure/",
+      "description": "Configuration management is an important part of running and evolving public facing services when down time is not tolerated and you need maximum flexibility in adjusting settings of running services. Implementing External Configuration Store Pattern opens up some great possibilities for you like..."
+      "headline": "Implementing External Configuration Store Pattern on Azure",
+      "datePublished": "2015-03-03T16:39:00.000+00:00",
+      "dateModified": "2017-09-05T18:54:55.000+00:00",
+      "keywords": "Cloud Patterns, Azure Cloud Services",
+      "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://dzimchuk.net/"
+      }
+      }</script><link rel=alternate type=application/rss+xml title="Andrei Dzimchuk" href=https://dzimchuk.net/rss.xml><script type=text/javascript>var disqus_shortname = 'dzimchuk';</script><link rel=apple-touch-icon sizes=57x57 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-57x57.png><link rel=apple-touch-icon sizes=60x60 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-60x60.png><link rel=apple-touch-icon sizes=72x72 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-72x72.png><link rel=apple-touch-icon sizes=76x76 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-76x76.png><link rel=apple-touch-icon sizes=114x114 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-114x114.png><link rel=apple-touch-icon sizes=120x120 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-120x120.png><link rel=apple-touch-icon sizes=144x144 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-144x144.png><link rel=apple-touch-icon sizes=152x152 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-152x152.png><link rel=apple-touch-icon sizes=180x180 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-180x180.png><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/android-chrome-192x192.png sizes=192x192><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/favicon-96x96.png sizes=96x96><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/favicon-16x16.png sizes=16x16><link rel=manifest href=https://dzimchuk.net/favicons/v1/manifest.json><link rel="shortcut icon" href=https://dzimchuk.net/media/favicons/v1/favicon.ico><meta name=msapplication-TileColor content=#da532c><meta name=msapplication-TileImage content=https://dzimchuk.net/media/favicons/v1/mstile-144x144.png><meta name=msapplication-config content=https://dzimchuk.net/favicons/v1/browserconfig.xml><meta name=theme-color content=#ffffff></head><body class="post-template tag-cloud-patterns tag-azure-cloud-services"><div class=site-wrapper><header class="main-header post-head no-cover"><nav class="main-nav clearfix"><div class=nav-wrapper><ul class=nav role=menu><li class=nav-home role=menuitem><a href=/ >Home</a></li><li class=nav-cloud-patterns role=menuitem><a href=/tag/cloud-patterns/ >Cloud Patterns</a></li><li class=nav-service-fabric role=menuitem><a href=/tag/azure-service-fabric/ >Service Fabric</a></li><li class=nav-azure-ad role=menuitem><a href=/tag/azure-active-directory/ >Azure AD</a></li><li class=nav-azure-services role=menuitem><a href=/tag/azure-services/ >Azure Services</a></li><li class=nav-about role=menuitem><a href=/about/ >About</a></li></ul><a href=javascript:void(0); class=nav-hamburger-open><svg role=img xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=open-menu-icon><title id=open-menu-icon>Open menu</title><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path></svg></a><a href=javascript:void(0); class=nav-hamburger-close><svg role=img xmlns=http://www.w3.org/2000/svg viewBox="0 0 352 512" aria-labelledby=close-menu-icon><title id=close-menu-icon>Close menu</title><path fill=currentColor d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg></a></div></nav></header><main class=content role=main><article class="post tag-cloud-patterns tag-azure-cloud-services"><header class=post-header><h1 class=post-title>Implementing External Configuration Store Pattern on Azure</h1><section class=post-meta><time class=post-date datetime=2015-03-03>03 March 2015</time> on <a href=/tag/cloud-patterns/ >Cloud Patterns</a>, <a href=/tag/azure-cloud-services/ >Azure Cloud Services</a></section></header><section class=post-content><p>Configuration management is an important part of running and evolving public facing services when down time is not tolerated and you need maximum flexibility in adjusting settings of running services. Implementing <a href=https://msdn.microsoft.com/en-us/library/dn589803.aspx>External Configuration Store Pattern</a> opens up some great possibilities for you like independent deployment of your services and configuration, sharing configuration between multiple services and versioning of configuration sets. By versioning your configuration sets you define which services use which set of configuration settings at any given time. You can roll back and forth configuration sets per service as needed.</p><p>I am going to demonstrate this pattern on a sample Azure cloud service. I&#x2019;m going to build upon a test solution that I used in my <a href=/be-aware-of-web-role-host-process/ >previous post</a>. You can find it on <a href=https://bitbucket.org/dzimchuk/azuresettingsupdatesample/src>Bitbucket</a> so you can clone and run it on your own.</p><h2 id=organizing-settings>Organizing settings</h2><p>Let&#x2019;s start with moving our configuration settings to external files. In my sample I&#x2019;m going to use XML files but of course you&#x2019;re not limited to file formats or schema. You may even choose to store your configuration in a database of some sort.</p><p><a href=https://dzimchuk.net/media/image_5.png><img src=https://dzimchuk.net/media/image_thumb_5.png alt="External configuration files" title="External configuration files"></a></p><p>Note that we have separate configuration files per deployment type. It&#x2019;s just an example, you may come up with an organization that better suites your needs. To give you an idea of what an external configuration file may look like:</p><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;ConfigurationSettings&gt;
+  &lt;Setting name=&quot;Diagnostics.ConnectionString&quot; value=&quot;UseDevelopmentStorage=true&quot; /&gt;
+  &lt;Setting name=&quot;TestSetting&quot; value=&quot;initial&quot; /&gt;
+  &lt;Setting name=&quot;Microsoft.ServiceBus.ConnectionString&quot; value=&quot;&quot; /&gt;
+&lt;/ConfigurationSettings&gt;
+</code></pre><p>It does resemble standard .cscfg files of an Azure cloud service but it&#x2019;s just because I decided to keep them this way. Talking about .cscfg files they are not gone. Instead of storing our application specific settings they are going to store some metadata that&#x2019;s necessary to find appropriate external configuration:</p><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;ServiceConfiguration serviceName=&quot;AzureSettingsUpdateSample&quot; 
+    xmlns=&quot;http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration&quot; 
+    osFamily=&quot;4&quot; osVersion=&quot;*&quot; schemaVersion=&quot;2014-06.2.4&quot;&gt;
+  &lt;Role name=&quot;TestWebRole&quot;&gt;
+    &lt;Instances count=&quot;1&quot; /&gt;
+    &lt;ConfigurationSettings&gt;
+      &lt;Setting name=&quot;Diagnostics.ConnectionString&quot; value=&quot;UseDevelopmentStorage=true&quot; /&gt;
+      &lt;Setting name=&quot;ConfigurationStorage&quot; value=&quot;UseDevelopmentStorage=true&quot; /&gt;
+      &lt;Setting name=&quot;ConfigurationContainer&quot; value=&quot;external-configurations&quot; /&gt;
+      &lt;Setting name=&quot;ConfigurationVersion&quot; value=&quot;1&quot; /&gt;
+      &lt;Setting name=&quot;Deployment&quot; value=&quot;Local&quot; /&gt;
+    &lt;/ConfigurationSettings&gt;
+  &lt;/Role&gt;
+&lt;/ServiceConfiguration&gt;
+</code></pre><p>These are basically all of the settings I need to keep in my .cscfg files. As I decided to store my external configuration in XML files I need a connection string to a storage account and a container name. Configuration version plays a key part here as it binds my service to a particular configuration set. I also need to add an explicit setting identifying current deployment (Local, Cloud, etc) as there is no way to get it at runtime and I use the deployment name as part of persistence path (more on that later). Now, that &#x2018;Diagnostics.ConnectionString&#x2019; setting is not technically needed to implement the pattern however we often initialize logging at the very early stage of a service lifetime as we want to capture messages from our external configuration infrastructure components even if it can&#x2019;t be properly initialized.</p><h2 id=uploading-external-configuration>Uploading external configuration</h2><p>Now that configuration has been isolated it won&#x2019;t be deployed together with our services. We can upload the external configuration files to blob containers manually but this is an error prone tedious task that won&#x2019;t get us far. Remember on Azure to <a href=https://alexandrebrisebois.wordpress.com/2014/07/31/automate-everything/ >automate everything</a>! In the sample solution you can find <a href="https://bitbucket.org/dzimchuk/azuresettingsupdatesample/src/c1a48f21c5f872dcb677737dd7f9ecef86831d92/Automation/Upload-Configuration.ps1?at=master">Upload-Configuration.ps1</a> PowerShell script in Automation folder that accepts a deployment name (Local, Cloud, etc) and takes care of the rest. It will pull the metadata configuration from the appropriate .cscfg file, insure that the target container exists and upload an external configuration file that corresponds to the specified deployment option.</p><p>I won&#x2019;t post it here due its length but you may really want to spend some time studying it.</p><p>.\Upload-Configuration.ps1 -deployment Cloud</p><p><a href=https://dzimchuk.net/media/image_6.png><img src=https://dzimchuk.net/media/image_thumb_6.png alt="Running Upload-Configuration.ps1" title="Running Upload-Configuration.ps1"></a></p><p>Because we have just uploaded the configuration for the first time it has been assigned version 1 as you can tell from the blob name (Cloud/01.xml). It also uses the deployment option as part of the path. Again, this is just an example. You may choose a more sophisticated naming scheme. On one project where we successfully implement the pattern we include date in the blob path for easier search and use an accompanying table storage index table for quick access programmatically.</p><h2 id=accessing-external-configuration>Accessing external configuration</h2><p>As we moved our application settings to an external location we can&#x2019;t rely on <code>CloudConfigurationManager</code> anymore. Instead, we need a similar component that can look close to this:</p><pre><code>public class SettingsCache
+{
+    private static readonly Lazy&lt;SettingsCache&gt; instance = 
+        new Lazy&lt;SettingsCache&gt;();
+
+    public static SettingsCache Insance
+    {
+        get { return instance.Value; }
+    }
+
+    private readonly ConcurrentDictionary&lt;string, string&gt; cache = 
+        new ConcurrentDictionary&lt;string, string&gt;();
+
+    public string Find(string key)
+    {
+        string value;
+        return cache.TryGetValue(key, out value) ? value : null;
+    }
+
+    public void Update()
+    {
+        var content = DownloadConfigurationFile();
+        var settings = Parse(content);
+
+        foreach (var pair in settings)
+        {
+            cache.AddOrUpdate(pair.Key, pair.Value, (k, v) =&gt; pair.Value);
+        }
+
+        TestEventSource.Log.LogSettingsCacheUpdate();
+    }
+
+    private static string DownloadConfigurationFile()
+    {
+        var storageAccount = 
+            CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting(&quot;ConfigurationStorage&quot;));
+        var containerName = 
+            CloudConfigurationManager.GetSetting(&quot;ConfigurationContainer&quot;);
+
+        var client = storageAccount.CreateCloudBlobClient();
+        var container = client.GetContainerReference(containerName);
+
+        var blobName = GetConfigurationBlobName();
+        var blob = container.GetBlockBlobReference(blobName);
+
+        return blob.DownloadText();
+    }
+
+    private static string GetConfigurationBlobName()
+    {
+        var deployment = 
+            CloudConfigurationManager.GetSetting(&quot;Deployment&quot;);
+        var version = int.Parse(CloudConfigurationManager.GetSetting(&quot;ConfigurationVersion&quot;));
+
+        return string.Format(&quot;{0}/{1:D2}.xml&quot;, deployment, version);
+    }
+
+    private static Dictionary&lt;string, string&gt; Parse(string content)
+    {
+        var doc = XDocument.Parse(StripBom(content));
+        var settings = (from s in doc.Descendants(&quot;Setting&quot;)
+                        select new
+                        {
+                            Key = s.Attribute(&quot;name&quot;).Value,
+                            Value = s.Attribute(&quot;value&quot;).Value
+                        }).ToList();
+
+        return settings.ToDictionary(s =&gt; s.Key, s =&gt; s.Value);
+    }
+
+    private static string StripBom(string content)
+    {
+        var index = content.IndexOf(&quot;&lt;&quot;, StringComparison.Ordinal);
+        return index &gt; 0 ? content.Substring(index) : content;
+    }
+}
+</code></pre><p>I have posted the whole class so you can see how all of the metadata settings I was talking about are used by consuming applications. I am not saying it&#x2019;s production ready like, for example, there is no error handling logic and interaction with Azure storage should be a separate component on its own but still it is a good place to start. Our <code>SettingsCache</code> class provides public <code>Find</code> (similar to <code>CloudConfigurationManager.GetSetting</code>) and <code>Update</code> methods methods. The latter is our way to reload external configuration when needed.</p><p>When do we need to reload settings? Apparently at start-up. Remember, however, that web roles code is executed in <a href=/be-aware-of-web-role-host-process/ >two processes</a> and we need to initialize <code>SettingsCache</code> in both. However, we also want to enable our running services to refresh their settings cache without requiring a restart.</p><h2 id=responding-to-a-configuration-change>Responding to a configuration change</h2><p>When we upload a new configuration set we need to make services aware of that by updating configuration version in their, well, native configuration. We can do that right on the Configure tab on the portal or we can do that from the command line (<a href=http://azure.microsoft.com/en-us/documentation/articles/xplat-cli/ >cross-platform tools</a> or <a href=http://azure.microsoft.com/en-us/documentation/articles/install-configure-powershell/ >PowerShell</a>). Regardless of the way we update the ConfigurationVersion value we need to make services respond to that by loading an appropriate version of the external configuration set.</p><p>Azure cloud services provide us with <code>RoleEnvironment.Changed</code> event that notifies us when a setting (or settings) have been changed for a running service. We can inspect what settings have been changed and perform appropriate actions.</p><pre><code>RoleEnvironment.Changed += (sender, args) =&gt;
+{
+    var configurationChanges = args.Changes
+                               .OfType&lt;RoleEnvironmentConfigurationSettingChange&gt;()
+                               .ToList();
+    if (configurationChanges.Any(c =&gt; c.ConfigurationSettingName == &quot;ConfigurationVersion&quot;))
+        SettingsCache.Insance.Update();
+
+    TestEventSource.Log.LogTestSetting(SettingsCache.Insance.Find(&quot;TestSetting&quot;));
+};
+</code></pre><p>Once again, remember that you want to handle the event in the process that actually stores the cache. In the sample solution I handle the event in IIS process by subscribing to the event in OWIN start-up class.</p><p>When we deploy our application to Azure and open up a web link we can see that it shows initial value:</p><p><a href=https://dzimchuk.net/media/image_7.png><img src=https://dzimchuk.net/media/image_thumb_7.png alt="Initial value" title="Initial value"></a></p><p>Let&#x2019;s change &#x2018;TestSetting&#x2019; value in the external configuration file to &#x2018;updated value&#x2019; and upload it. The PowerShell script will assign version 2 this time (Cloud/02.xml). Then let&#x2019;s go to the portal and enter &#x2018;2&#x2019; for ConfigurationVersion on both web and worker roles. After we hit &#x2018;Save&#x2019; our roles are going under transitioning that we can notice on the Instances tab:</p><p><a href=https://dzimchuk.net/media/image_8.png><img src=https://dzimchuk.net/media/image_thumb_8.png alt="The deployment is transitioning" title="The deployment is transitioning"></a></p><p>While the roles are in the transitioning state they are still responsive. If we keep hitting refresh on the browser it will keep returning the initial value and at some point it will start returning the &#x2018;updated value&#x2019;.</p></section><footer class=post-footer><figure class=author-image><a class=img href=/ style="background-image: url(//www.gravatar.com/avatar/7fbe59ac3d3eaab56ec27da019d76f66?s&#x3D;250&amp;amp;d&#x3D;mm&amp;amp;r&#x3D;x)"><span class=hidden>Andrei Dzimchuk's Picture</span></a></figure><section class=author><h4><a href=/ >Andrei Dzimchuk</a></h4><p>Hi, I&#x27;m Andrei, I&#x27;m a software developer building cloud enabled solutions. I&#x27;m mostly focused on Azure and .NET and I try to share my experience and knowledge here with you.</p><div class=author-meta></div></section><section class=share><h4>Share this post</h4><a class=icon-facebook href="https://www.facebook.com/sharer/sharer.php?u=https://dzimchuk.net/implementing-external-configuration-store-pattern-on-azure/" rel="noopener noreferrer nofollow" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;"><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=facebook-icon role=img><title id=facebook-icon>Facebook</title><path d="M448 56.7v398.5c0 13.7-11.1 24.7-24.7 24.7H309.1V306.5h58.2l8.7-67.6h-67v-43.2c0-19.6 5.4-32.9 33.5-32.9h35.8v-60.5c-6.2-.8-27.4-2.7-52.2-2.7-51.6 0-87 31.5-87 89.4v49.9h-58.4v67.6h58.4V480H24.7C11.1 480 0 468.9 0 455.3V56.7C0 43.1 11.1 32 24.7 32h398.5c13.7 0 24.8 11.1 24.8 24.7z"></path></svg> </a><a class=icon-linkedin href="http://www.linkedin.com/shareArticle?mini=true&amp;url=https://dzimchuk.net/implementing-external-configuration-store-pattern-on-azure/&amp;title=Implementing%20External%20Configuration%20Store%20Pattern%20on%20Azure" rel="noopener noreferrer nofollow" onclick="window.open(this.href, 'linkedin-share','width=490,height=530');return false;"><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=linkedin-icon role=img><title id=linkedin-icon>LinkedIn</title><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg></a></section></footer><section class=post-comments><div id=disqus_thread></div><script>var disqus_config = function () {
+                    this.page.url = 'https://dzimchuk.net/implementing-external-configuration-store-pattern-on-azure/';
+                    this.page.identifier = '244f734f-be81-45d1-aedc-ebfda40bf0e6';
+                    this.page.title = 'Implementing External Configuration Store Pattern on Azure';
+                };
+                (function() {
+                    var d = document, s = d.createElement('script');
+                    s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
+                })();</script></section></article></main><footer class=site-footer><div class=site-footer-inner><section class=copyright><a href=https://dzimchuk.net/ >Andrei Dzimchuk</a> &copy; 2026</section><nav class=site-footer-nav><a href=https://github.com/dzimchuk target=_blank rel=noopener><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 496 512" aria-labelledby=github-icon role=img><title id=github-icon>GitHub</title><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg></a><a href=https://www.linkedin.com/in/andreidzimchuk target=_blank rel=noopener><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=linkedin-icon role=img><title id=linkedin-icon>LinkedIn</title><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg></a><a href=https://feedly.com/i/subscription/feed/https://dzimchuk.net/rss.xml target=_blank rel=noopener><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=rss-icon role=img><title id=rss-icon>RSS</title><path d="M128.081 415.959c0 35.369-28.672 64.041-64.041 64.041S0 451.328 0 415.959s28.672-64.041 64.041-64.041 64.04 28.673 64.04 64.041zm175.66 47.25c-8.354-154.6-132.185-278.587-286.95-286.95C7.656 175.765 0 183.105 0 192.253v48.069c0 8.415 6.49 15.472 14.887 16.018 111.832 7.284 201.473 96.702 208.772 208.772.547 8.397 7.604 14.887 16.018 14.887h48.069c9.149.001 16.489-7.655 15.995-16.79zm144.249.288C439.596 229.677 251.465 40.445 16.503 32.01 7.473 31.686 0 38.981 0 48.016v48.068c0 8.625 6.835 15.645 15.453 15.999 191.179 7.839 344.627 161.316 352.465 352.465.353 8.618 7.373 15.453 15.999 15.453h48.068c9.034-.001 16.329-7.474 16.005-16.504z"></path></svg></a></nav></div></footer></div><script src=https://code.jquery.com/jquery-3.2.1.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script type=text/javascript src=/assets/theme-4b97c15618.js></script><script>$(function () {
+    var $postContent = $(".post-content");
+    $postContent.fitVids();
+  });</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-JYXGZ70WJH"></script><script>window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-JYXGZ70WJH');</script></body></html>

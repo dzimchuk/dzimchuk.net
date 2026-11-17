@@ -1,0 +1,255 @@
+﻿<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><title>Bring your own DI container to ASP.NET 5 - Unity</title><meta name=HandheldFriendly content=True><meta name=viewport content="width=device-width,initial-scale=1"><link rel=stylesheet type=text/css href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400"><link rel=stylesheet type=text/css href=/assets/theme-0c0984d3fd.css><link rel=canonical href=https://dzimchuk.net/bring-your-own-di-container-to-aspnet-5-unity/ ><meta name=referrer content=no-referrer-when-downgrade><meta property=og:site_name content="Andrei Dzimchuk"><meta property=og:type content=article><meta property=og:title content="Bring your own DI container to ASP.NET 5 - Unity"><meta property=og:description content="Now that we understand some basics of how dependency injection is handled by ASP.NET 5 we are ready to start rolling out our integration components for our container of choice. The process may not that straightforward at times and different containers have their quirks. I believe things will improve when new bits actually go GA and it&amp;apos;s likely that containers"><meta property=og:url content=https://dzimchuk.net/bring-your-own-di-container-to-aspnet-5-unity/ ><meta property=article:publisher content=https://www.facebook.com/andrei.dzimchuk><meta property=article:author content=https://www.facebook.com/andrei.dzimchuk><meta property=article:published_time content=2015-04-16T16:29:00.000+00:00><meta property=article:modified_time content=2015-04-22T17:35:05.000+00:00><meta property=article:tag content=ASP.NET><meta property=article:tag content="Dependency Injection"><meta name=twitter:card content=summary><meta name=twitter:title content="Bring your own DI container to ASP.NET 5 - Unity"><meta name=twitter:description content="Now that we understand some basics of how dependency injection is handled by ASP.NET 5 we are ready to start rolling out our integration components for our container of choice. The process may not that straightforward at times and different containers have their quirks. I believe things will improve when new bits actually go GA and it&amp;apos;s likely that containers"><meta name=twitter:url content=https://dzimchuk.net/bring-your-own-di-container-to-aspnet-5-unity/ ><meta name=twitter:label1 content="Written by"><meta name=twitter:data1 content="Andrei Dzimchuk"><meta name=twitter:label2 content="Filed under"><meta name=twitter:data2 content="ASP.NET, Dependency Injection"><meta name=twitter:site content=@dzimchuk><meta property=twitter:creator content=@dzimchuk><script type=application/ld+json>{
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "publisher": {
+      "@type": "Organization",
+      "name": "Andrei Dzimchuk",
+      "logo": {
+      "@type": "ImageObject",
+      "url": "https://dzimchuk.net/media/favicons/v1/favicon.ico",
+      "width": 60,
+      "height": 60
+      }
+      },
+      "url": "https://dzimchuk.net/bring-your-own-di-container-to-aspnet-5-unity/",
+      "description": "Now that we understand some basics of how dependency injection is handled by ASP.NET 5 we are ready to start rolling out our integration components for our container of choice. The process may not that straightforward at times and different containers have their quirks. I believe things will improve when new bits actually go GA and it&amp;apos;s likely that containers"
+      "headline": "Bring your own DI container to ASP.NET 5 - Unity",
+      "datePublished": "2015-04-16T16:29:00.000+00:00",
+      "dateModified": "2015-04-22T17:35:05.000+00:00",
+      "keywords": "ASP.NET, Dependency Injection",
+      "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://dzimchuk.net/"
+      }
+      }</script><link rel=alternate type=application/rss+xml title="Andrei Dzimchuk" href=https://dzimchuk.net/rss.xml><script type=text/javascript>var disqus_shortname = 'dzimchuk';</script><link rel=apple-touch-icon sizes=57x57 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-57x57.png><link rel=apple-touch-icon sizes=60x60 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-60x60.png><link rel=apple-touch-icon sizes=72x72 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-72x72.png><link rel=apple-touch-icon sizes=76x76 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-76x76.png><link rel=apple-touch-icon sizes=114x114 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-114x114.png><link rel=apple-touch-icon sizes=120x120 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-120x120.png><link rel=apple-touch-icon sizes=144x144 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-144x144.png><link rel=apple-touch-icon sizes=152x152 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-152x152.png><link rel=apple-touch-icon sizes=180x180 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-180x180.png><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/android-chrome-192x192.png sizes=192x192><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/favicon-96x96.png sizes=96x96><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/favicon-16x16.png sizes=16x16><link rel=manifest href=https://dzimchuk.net/favicons/v1/manifest.json><link rel="shortcut icon" href=https://dzimchuk.net/media/favicons/v1/favicon.ico><meta name=msapplication-TileColor content=#da532c><meta name=msapplication-TileImage content=https://dzimchuk.net/media/favicons/v1/mstile-144x144.png><meta name=msapplication-config content=https://dzimchuk.net/favicons/v1/browserconfig.xml><meta name=theme-color content=#ffffff></head><body class="post-template tag-aspnet tag-dependency-injection"><div class=site-wrapper><header class="main-header post-head no-cover"><nav class="main-nav clearfix"><div class=nav-wrapper><ul class=nav role=menu><li class=nav-home role=menuitem><a href=/ >Home</a></li><li class=nav-cloud-patterns role=menuitem><a href=/tag/cloud-patterns/ >Cloud Patterns</a></li><li class=nav-service-fabric role=menuitem><a href=/tag/azure-service-fabric/ >Service Fabric</a></li><li class=nav-azure-ad role=menuitem><a href=/tag/azure-active-directory/ >Azure AD</a></li><li class=nav-azure-services role=menuitem><a href=/tag/azure-services/ >Azure Services</a></li><li class=nav-about role=menuitem><a href=/about/ >About</a></li></ul><a href=javascript:void(0); class=nav-hamburger-open><svg role=img xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=open-menu-icon><title id=open-menu-icon>Open menu</title><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path></svg></a><a href=javascript:void(0); class=nav-hamburger-close><svg role=img xmlns=http://www.w3.org/2000/svg viewBox="0 0 352 512" aria-labelledby=close-menu-icon><title id=close-menu-icon>Close menu</title><path fill=currentColor d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg></a></div></nav></header><main class=content role=main><article class="post tag-aspnet tag-dependency-injection"><header class=post-header><h1 class=post-title>Bring your own DI container to ASP.NET 5 - Unity</h1><section class=post-meta><time class=post-date datetime=2015-04-16>16 April 2015</time> on <a href=/tag/aspnet/ >ASP.NET</a>, <a href=/tag/dependency-injection/ >Dependency Injection</a></section></header><section class=post-content><p>Now that we understand <a href=/bring-your-own-di-container-to-aspnet-5>some basics</a> of how dependency injection is handled by ASP.NET 5 we are ready to start rolling out our integration components for our container of choice. The process may not that straightforward at times and different containers have their quirks. I believe things will improve when new bits actually go GA and it&#39;s likely that containers will receive certain changes to play smooth with the abstraction. Microsoft has already provided sample implementations for some containers such as <a href=https://github.com/aspnet/DependencyInjection/tree/dev/src/Microsoft.Framework.DependencyInjection.Autofac>Autofac</a> and <a href=https://github.com/aspnet/DependencyInjection/tree/dev/src/Microsoft.Framework.DependencyInjection.Ninject>Ninject</a>. Surprisingly there is no for <a href=http://unity.codeplex.com/ >Unity</a> yet. Autofac has already published alpha bit of there <a href=http://alexmg.com/autofac-4-0-alpha-1-for-asp-net-5-0-beta-3/ >own integration</a>.</p><p>In this post I’m going to walk you through integrating Unity with ASP.NET pipeline. Sample implementation is just my first take on this and it has its rough edges. I think it was kind of a disclaimer. Note that it’s based on version 1.0.0-beta3 of related components.</p><p>Service provider implementation is pretty straightforward:</p><pre><code>internal class UnityServiceProvider : IServiceProvider
+{
+    private readonly IUnityContainer container;
+
+    public UnityServiceProvider(IUnityContainer container)
+    {
+        this.container = container;
+    }
+
+    public object GetService(Type serviceType)
+    {
+        return container.Resolve(serviceType);
+    }
+}
+</code></pre><p>Note that we use a simple resolution by type without resolve overrides or named resolutions. This is sufficient for the infrastructure to resolve top level objects such as, for example, controllers. The rest of the tree will be handled by your container and you can use its advanced features.</p><h2 id=scoping-with-unity>Scoping with Unity</h2><p>To implement a lifetime scope in Unity you need two things: child containers and <code>HierarchicalLifetimeManager</code>. Child containers inherit registrations from the parent but they also allow you to specify different extensions. For us it&#39;s important that we can dispose a child container at the end of request processing when the service scope is disposed. When you register types with a container and specify <code>HierarchicalLifetimeManager</code> it makes the container track objects it creates. Thus, when we dispose the container it will dispose tracked objects (if they implement <code>IDisposable</code> of course).</p><p>Our service scope factory will look like this:</p><pre><code>internal class UnityServiceScopeFactory : IServiceScopeFactory
+{
+    private readonly IUnityContainer container;
+
+    public UnityServiceScopeFactory(IUnityContainer container)
+    {
+        this.container = container;
+    }
+
+    public IServiceScope CreateScope()
+    {
+        return new UnityServiceScope(CreateChildContainer());
+    }
+
+    private IUnityContainer CreateChildContainer()
+    {
+        var child = container.CreateChildContainer();
+        child.AddExtension(new EnumerableResolutionExtension());
+        return child;
+    }
+}
+</code></pre><p>Service scope factory receives a top level container as a constructor parameter. It works because the factory itself is resolved from the top level service provider by <a href=https://github.com/aspnet/Hosting/blob/1.0.0-beta3/src/Microsoft.AspNet.RequestContainer/RequestServicesContainer.cs>RequestServiceContainer</a>. Notice the <code>EnumerableResolutionExtension</code> that I add to a child container. I will explain that shortly but first let&#39;s have a look at the service scope implementation:</p><pre><code>internal class UnityServiceScope : IServiceScope
+{
+    private readonly IUnityContainer container;
+    private readonly IServiceProvider provider;
+
+    public UnityServiceScope(IUnityContainer container)
+    {
+        this.container = container;
+        provider = container.Resolve&lt;IServiceProvider&gt;();
+    }
+
+    public IServiceProvider ServiceProvider
+    {
+        get { return provider; }
+    }
+
+    public void Dispose()
+    {
+        container.Dispose();
+    }
+}
+</code></pre><p>Because it is given a child container the service provider it resolves out of it will encapsulate the very same child container instance. We could have created a service provider directly just as well.</p><h2 id=resolving-ienumerable>Resolving IEnumerable<t></t></h2><p>Unfortunately Unity can&#39;t automatically resolve <code>IEnumerable</code> of type when we register just the type. However, it natively supports resolution of an array of registered types. This is more of a design aspect of Unity. When we register multiple services of the same type with it we have to use named registrations otherwise services that are registered later will overwrite those registered earlier. We can register one and only one unnamed service of a particular type.</p><p>To consume all registered services of a type in a component we can make it accept an array of service types. This works out of the box but what if we can&#39;t change a component from requiring <code>IEnumerable&lt;T&gt;</code> to requiring an array of <code>T</code>? In this case we can rely on InjectionMember&#39;s, <code>ResolvedAll()</code> or adding a registration that would map <code>IEnumerable&lt;T&gt;</code> to <code>T[]</code> (<code>T</code> should be known at registration time).</p><p>This will work when it&#39;s our code and we know what types we are resolving. But we need to support resolution of <code>IEnumerable</code> of any type that&#39;s registered by ASP.NET and any framework that runs on it. We need to enable Unity to resolve <code>IEnumerable</code> as an array and it can be done with an extension. An example of such an extension can be found <a href=https://github.com/NancyFx/Nancy.Bootstrappers.Unity/issues/7>here</a> and this is exactly what I&#39;m using.</p><p>The downside of it is that it uses reflection methods like <code>IsGenericType</code> and <code>GetGenericArguments</code> that are not (yet) supported by .NET Core (I am using beta 3 at the time of writing). Like I said there are quirks and things are in flux now. We need to be aware of that.</p><h2 id=registering-service-descriptors-with-unity>Registering service descriptors with Unity</h2><p>In my previous post I was using <code>Populate</code> extension method to register service descriptors with Unity container. Now it is a good time to look into its implementation.</p><pre><code>public static class UnityRegistration
+{
+    public static void Populate(this IUnityContainer container, 
+        IEnumerable&lt;IServiceDescriptor&gt; descriptors)
+    {
+        container.AddExtension(new EnumerableResolutionExtension());
+
+        container.RegisterType&lt;IServiceProvider, UnityServiceProvider&gt;();
+        container.RegisterType&lt;IServiceScopeFactory, UnityServiceScopeFactory&gt;();
+
+        foreach (var descriptor in descriptors)
+        {
+            Register(container, descriptor);
+        }
+    }
+
+    private static void Register(IUnityContainer container, 
+        IServiceDescriptor descriptor)
+    {
+        if (descriptor.ImplementationType != null)
+        {
+            container.RegisterType(descriptor.ServiceType, 
+                descriptor.ImplementationType, 
+                GetLifetimeManager(descriptor.Lifecycle));
+        }
+        else if (descriptor.ImplementationFactory != null)
+        {
+            container.RegisterType(descriptor.ServiceType, 
+                GetLifetimeManager(descriptor.Lifecycle),
+                new InjectionFactory(unity =&gt;
+                {
+                    var provider = unity.Resolve&lt;IServiceProvider&gt;();
+                    return descriptor.ImplementationFactory(provider);
+                }));
+        }
+        else if (descriptor.ImplementationInstance != null)
+        {
+            container.RegisterInstance(descriptor.ServiceType, 
+                descriptor.ImplementationInstance, 
+                GetLifetimeManager(descriptor.Lifecycle));
+        }
+    }
+
+    private static LifetimeManager GetLifetimeManager(LifecycleKind lifecycle)
+    {
+        switch (lifecycle)
+        {
+            case LifecycleKind.Singleton:
+                return new ContainerControlledLifetimeManager();
+            case LifecycleKind.Scoped:
+                return new HierarchicalLifetimeManager();
+            case LifecycleKind.Transient:
+                return new TransientLifetimeManager();
+            default:
+                throw new NotSupportedException(lifecycle.ToString());
+        }
+    }
+}
+</code></pre><p>As with scoped child containers we need to add <code>EnumerableResolutionExtension</code> to the top level container. Note that we also register top level service provider and service scope factory. They are going to be used by the hosting <a href=https://dzimchuk.net/media/ContainerMiddlewareSequence.png>infrastructure</a>. The <code>Register</code> method needs to support all registration types (type, instance, factory) and life time modes (transient, singleton, scoped). In Unity object life time is controlled by the life time manager and we provide an appropriate instance of it with each registration.</p><h2 id=show-time>Show time</h2><p>Here comes a major disappointment because I haven&#39;t managed to make it work with MVC yet. All services are registered successfully and requests are processed by the pipeline but they never hit a controller. It looks like routing is totally screwed up, both imperative as well as attribute based. I am going to research deeper into the issue and provide an update when I find something out. Also lately hosting and dependency injection packages have undergone refactoring so things might have changed.</p><p>Still I am going to test our Unity integration. I&#39;ll write up a poor man HTTP endpoint that will have some dependencies it will use to produce the response:</p><pre><code>app.Run&lt;IProductService, ILogger&gt;(async (context, productService, logger) =&gt;
+{
+    logger.WriteMessage(&quot;Handling request...&quot;);
+    if (!context.Request.Path.StartsWithSegments(new PathString(&quot;/api/product&quot;)))
+    {
+        context.Response.StatusCode = 404;
+        return;
+    }
+
+    var products = await productService.ListAsync();
+
+    context.Response.ContentType = &quot;application/json&quot;;
+    await context.Response.WriteAsync(JsonConvert.SerializeObject(products));
+});
+</code></pre><p>We&#39;ve got <code>IProductService</code> that we&#39;re going to use to get a list of products and <code>ILogger</code> service that we are going to use to output messages to console that will actually allow us to observe different life time modes:</p><pre><code>internal class ConsoleLogger : ILogger, IDisposable
+{
+    private readonly string instanceId;
+
+    public ConsoleLogger()
+    {
+        instanceId = Path.GetRandomFileName()
+            .Replace(&quot;.&quot;, string.Empty);
+    }
+
+    public void WriteMessage(string message)
+    {
+        Console.WriteLine(&quot;{0} {1} - {2}&quot;, 
+            DateTimeOffset.Now, instanceId, message);
+    }
+
+    public void Dispose()
+    {
+        Console.WriteLine(&quot;{0} {1} - ConsoleLogger::Dispose&quot;, 
+            DateTimeOffset.Now, instanceId);
+    }
+}
+</code></pre><p>Each instance of <code>ConsoleLogger</code> will get a unique ID and include it in the output. <code>ProductService</code> is defined below:</p><pre><code>internal class ProductService : IProductService
+{
+    private readonly List&lt;Product&gt; products = new List&lt;Product&gt;
+    {
+        new Product { Id = 1, Name = &quot;Product 1&quot; },
+        new Product { Id = 2, Name = &quot;Product 2&quot; }
+    };
+
+    private readonly ILogger logger;
+
+    public ProductService(ILogger logger)
+    {
+        this.logger = logger;
+    }
+
+    public Task&lt;IEnumerable&lt;Product&gt;&gt; ListAsync()
+    {
+        logger.WriteMessage(&quot;ProductService::ListAsync&quot;);
+        return Task.FromResult(products.AsEnumerable());
+    }
+}
+</code></pre><p><code>ProductService</code> also requires an instance of <code>ILogger</code>. This will allow us to verify scoped and singleton life time modes as we would expect the same instance of <code>ILogger</code> to be injected in <code>ProductService</code> as well as in the test middleware handler during processing of a single request. We would also expect the same instance to be used for different requests in singleton mode.</p><p>We are going to run the test application from the command line to be able to observe messages. Let&#39;s quickly add Microsoft.AspNet.Server.WebListener package and the following command to project.json:</p><pre><code>&quot;commands&quot;: {
+    &quot;web&quot;: &quot;Microsoft.AspNet.Hosting 
+            --server Microsoft.AspNet.Server.WebListener 
+            --server.urls http://localhost:5000&quot;
+}
+</code></pre><p>Let&#39;s start with transient services.</p><pre><code>app.UseServices(services =&gt;
+{
+    services.AddTransient&lt;ILogger, ConsoleLogger&gt;();
+    services.AddTransient&lt;IProductService, ProductService&gt;();
+
+    var container = new UnityContainer();
+    container.Populate(services);
+
+    return container.Resolve&lt;IServiceProvider&gt;();
+});
+</code></pre><pre><code>
+4/16/2015 9:57:30 PM +03:00 hsi23r51whw - Handling request...
+4/16/2015 9:57:30 PM +03:00 2rz5qgqzk4l - ProductService::ListAsync
+4/16/2015 9:57:46 PM +03:00 gut0oadzqeu - Handling request...
+4/16/2015 9:57:46 PM +03:00 aezxbucznes - ProductService::ListAsync
+</code></pre><p>We issued two requests and as expected each time a new instance of the logger was provided to our components.</p><p>Let&#39;s do singleton now.</p><pre><code>app.UseServices(services =&gt;
+{
+    services.AddSingleton&lt;ILogger, ConsoleLogger&gt;();
+    ...
+    return container.Resolve&lt;IServiceProvider&gt;();
+});
+</code></pre><pre><code>
+4/16/2015 10:04:15 PM +03:00 sn4yjruyzbh - Handling request...
+4/16/2015 10:04:15 PM +03:00 sn4yjruyzbh - ProductService::ListAsync
+4/16/2015 10:04:17 PM +03:00 sn4yjruyzbh - Handling request...
+4/16/2015 10:04:17 PM +03:00 sn4yjruyzbh - ProductService::ListAsync
+</code></pre><p>Same test but this time only a single instance of the logger was used for both requests.</p><p>Let&#39;s switch to scoped instance.</p><pre><code>app.UseServices(services =&gt;
+{
+    services.AddScoped&lt;ILogger, ConsoleLogger&gt;();
+    ...
+    return container.Resolve&lt;IServiceProvider&gt;();
+});
+</code></pre><pre><code>
+4/16/2015 10:08:50 PM +03:00 uynnctk2l1y - Handling request...
+4/16/2015 10:08:50 PM +03:00 uynnctk2l1y - ProductService::ListAsync
+4/16/2015 10:08:50 PM +03:00 uynnctk2l1y - ConsoleLogger::Dispose
+4/16/2015 10:08:51 PM +03:00 phpyxhpcvbi - Handling request...
+4/16/2015 10:08:51 PM +03:00 phpyxhpcvbi - ProductService::ListAsync
+4/16/2015 10:08:51 PM +03:00 phpyxhpcvbi - ConsoleLogger::Dispose
+</code></pre><p>As expected each request was using their own single instance of the logger. Note that because we were using <code>HierarchicalLifetimeManager</code> this time scoped containers were tracking instances of the logger and disposed them at the end of their lifetime.</p></section><footer class=post-footer><figure class=author-image><a class=img href=/ style="background-image: url(//www.gravatar.com/avatar/7fbe59ac3d3eaab56ec27da019d76f66?s&#x3D;250&amp;amp;d&#x3D;mm&amp;amp;r&#x3D;x)"><span class=hidden>Andrei Dzimchuk's Picture</span></a></figure><section class=author><h4><a href=/ >Andrei Dzimchuk</a></h4><p>Hi, I&#x27;m Andrei, I&#x27;m a software developer building cloud enabled solutions. I&#x27;m mostly focused on Azure and .NET and I try to share my experience and knowledge here with you.</p><div class=author-meta></div></section><section class=share><h4>Share this post</h4><a class=icon-facebook href="https://www.facebook.com/sharer/sharer.php?u=https://dzimchuk.net/bring-your-own-di-container-to-aspnet-5-unity/" rel="noopener noreferrer nofollow" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;"><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=facebook-icon role=img><title id=facebook-icon>Facebook</title><path d="M448 56.7v398.5c0 13.7-11.1 24.7-24.7 24.7H309.1V306.5h58.2l8.7-67.6h-67v-43.2c0-19.6 5.4-32.9 33.5-32.9h35.8v-60.5c-6.2-.8-27.4-2.7-52.2-2.7-51.6 0-87 31.5-87 89.4v49.9h-58.4v67.6h58.4V480H24.7C11.1 480 0 468.9 0 455.3V56.7C0 43.1 11.1 32 24.7 32h398.5c13.7 0 24.8 11.1 24.8 24.7z"></path></svg> </a><a class=icon-linkedin href="http://www.linkedin.com/shareArticle?mini=true&amp;url=https://dzimchuk.net/bring-your-own-di-container-to-aspnet-5-unity/&amp;title=Bring%20your%20own%20DI%20container%20to%20ASP.NET%205%20-%20Unity" rel="noopener noreferrer nofollow" onclick="window.open(this.href, 'linkedin-share','width=490,height=530');return false;"><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=linkedin-icon role=img><title id=linkedin-icon>LinkedIn</title><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg></a></section></footer><section class=post-comments><div id=disqus_thread></div><script>var disqus_config = function () {
+                    this.page.url = 'https://dzimchuk.net/bring-your-own-di-container-to-aspnet-5-unity/';
+                    this.page.identifier = 'f0486eda-f4b4-414a-810e-fbb017c36e87';
+                    this.page.title = 'Bring your own DI container to ASP.NET 5 - Unity';
+                };
+                (function() {
+                    var d = document, s = d.createElement('script');
+                    s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
+                })();</script></section></article></main><footer class=site-footer><div class=site-footer-inner><section class=copyright><a href=https://dzimchuk.net/ >Andrei Dzimchuk</a> &copy; 2026</section><nav class=site-footer-nav><a href=https://github.com/dzimchuk target=_blank rel=noopener><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 496 512" aria-labelledby=github-icon role=img><title id=github-icon>GitHub</title><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg></a><a href=https://www.linkedin.com/in/andreidzimchuk target=_blank rel=noopener><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=linkedin-icon role=img><title id=linkedin-icon>LinkedIn</title><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg></a><a href=https://feedly.com/i/subscription/feed/https://dzimchuk.net/rss.xml target=_blank rel=noopener><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=rss-icon role=img><title id=rss-icon>RSS</title><path d="M128.081 415.959c0 35.369-28.672 64.041-64.041 64.041S0 451.328 0 415.959s28.672-64.041 64.041-64.041 64.04 28.673 64.04 64.041zm175.66 47.25c-8.354-154.6-132.185-278.587-286.95-286.95C7.656 175.765 0 183.105 0 192.253v48.069c0 8.415 6.49 15.472 14.887 16.018 111.832 7.284 201.473 96.702 208.772 208.772.547 8.397 7.604 14.887 16.018 14.887h48.069c9.149.001 16.489-7.655 15.995-16.79zm144.249.288C439.596 229.677 251.465 40.445 16.503 32.01 7.473 31.686 0 38.981 0 48.016v48.068c0 8.625 6.835 15.645 15.453 15.999 191.179 7.839 344.627 161.316 352.465 352.465.353 8.618 7.373 15.453 15.999 15.453h48.068c9.034-.001 16.329-7.474 16.005-16.504z"></path></svg></a></nav></div></footer></div><script src=https://code.jquery.com/jquery-3.2.1.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script type=text/javascript src=/assets/theme-4b97c15618.js></script><script>$(function () {
+    var $postContent = $(".post-content");
+    $postContent.fitVids();
+  });</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-JYXGZ70WJH"></script><script>window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-JYXGZ70WJH');</script></body></html>

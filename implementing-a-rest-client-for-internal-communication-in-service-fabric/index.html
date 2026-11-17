@@ -1,0 +1,208 @@
+﻿<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><title>Implementing a REST client for internal communication in Service Fabric</title><meta name=HandheldFriendly content=True><meta name=viewport content="width=device-width,initial-scale=1"><link rel=stylesheet type=text/css href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400"><link rel=stylesheet type=text/css href=/assets/theme-0c0984d3fd.css><link rel=canonical href=https://dzimchuk.net/implementing-a-rest-client-for-internal-communication-in-service-fabric/ ><meta name=referrer content=no-referrer-when-downgrade><meta property=og:site_name content="Andrei Dzimchuk"><meta property=og:type content=article><meta property=og:title content="Implementing a REST client for internal communication in Service Fabric"><meta property=og:description content="In this post we&#x27;re going to look at specifics of building a REST client for service to service communication within a Service Fabric cluster. We&#x27;re going to discuss endpoint resolution and communication components and how we can use them with AutoRest generated clients and ADAL."><meta property=og:url content=https://dzimchuk.net/implementing-a-rest-client-for-internal-communication-in-service-fabric/ ><meta property=article:publisher content=https://www.facebook.com/andrei.dzimchuk><meta property=article:author content=https://www.facebook.com/andrei.dzimchuk><meta property=article:published_time content=2017-02-23T15:41:00.000+00:00><meta property=article:modified_time content=2017-09-05T19:14:16.000+00:00><meta property=article:tag content="Azure Service Fabric"><meta name=twitter:card content=summary><meta name=twitter:title content="Implementing a REST client for internal communication in Service Fabric"><meta name=twitter:description content="In this post we&#x27;re going to look at specifics of building a REST client for service to service communication within a Service Fabric cluster. We&#x27;re going to discuss endpoint resolution and communication components and how we can use them with AutoRest generated clients and ADAL."><meta name=twitter:url content=https://dzimchuk.net/implementing-a-rest-client-for-internal-communication-in-service-fabric/ ><meta name=twitter:label1 content="Written by"><meta name=twitter:data1 content="Andrei Dzimchuk"><meta name=twitter:label2 content="Filed under"><meta name=twitter:data2 content="Azure Service Fabric"><meta name=twitter:site content=@dzimchuk><meta property=twitter:creator content=@dzimchuk><script type=application/ld+json>{
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "publisher": {
+      "@type": "Organization",
+      "name": "Andrei Dzimchuk",
+      "logo": {
+      "@type": "ImageObject",
+      "url": "https://dzimchuk.net/media/favicons/v1/favicon.ico",
+      "width": 60,
+      "height": 60
+      }
+      },
+      "url": "https://dzimchuk.net/implementing-a-rest-client-for-internal-communication-in-service-fabric/",
+      "description": "In this post we&#x27;re going to look at specifics of building a REST client for service to service communication within a Service Fabric cluster. We&#x27;re going to discuss endpoint resolution and communication components and how we can use them with AutoRest generated clients and ADAL."
+      "headline": "Implementing a REST client for internal communication in Service Fabric",
+      "datePublished": "2017-02-23T15:41:00.000+00:00",
+      "dateModified": "2017-09-05T19:14:16.000+00:00",
+      "keywords": "Azure Service Fabric",
+      "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://dzimchuk.net/"
+      }
+      }</script><link rel=alternate type=application/rss+xml title="Andrei Dzimchuk" href=https://dzimchuk.net/rss.xml><script type=text/javascript>var disqus_shortname = 'dzimchuk';</script><link rel=apple-touch-icon sizes=57x57 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-57x57.png><link rel=apple-touch-icon sizes=60x60 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-60x60.png><link rel=apple-touch-icon sizes=72x72 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-72x72.png><link rel=apple-touch-icon sizes=76x76 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-76x76.png><link rel=apple-touch-icon sizes=114x114 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-114x114.png><link rel=apple-touch-icon sizes=120x120 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-120x120.png><link rel=apple-touch-icon sizes=144x144 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-144x144.png><link rel=apple-touch-icon sizes=152x152 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-152x152.png><link rel=apple-touch-icon sizes=180x180 href=https://dzimchuk.net/media/favicons/v1/apple-touch-icon-180x180.png><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/android-chrome-192x192.png sizes=192x192><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/favicon-96x96.png sizes=96x96><link rel=icon type=image/png href=https://dzimchuk.net/media/favicons/v1/favicon-16x16.png sizes=16x16><link rel=manifest href=https://dzimchuk.net/favicons/v1/manifest.json><link rel="shortcut icon" href=https://dzimchuk.net/media/favicons/v1/favicon.ico><meta name=msapplication-TileColor content=#da532c><meta name=msapplication-TileImage content=https://dzimchuk.net/media/favicons/v1/mstile-144x144.png><meta name=msapplication-config content=https://dzimchuk.net/favicons/v1/browserconfig.xml><meta name=theme-color content=#ffffff></head><body class="post-template tag-azure-service-fabric"><div class=site-wrapper><header class="main-header post-head no-cover"><nav class="main-nav clearfix"><div class=nav-wrapper><ul class=nav role=menu><li class=nav-home role=menuitem><a href=/ >Home</a></li><li class=nav-cloud-patterns role=menuitem><a href=/tag/cloud-patterns/ >Cloud Patterns</a></li><li class=nav-service-fabric role=menuitem><a href=/tag/azure-service-fabric/ >Service Fabric</a></li><li class=nav-azure-ad role=menuitem><a href=/tag/azure-active-directory/ >Azure AD</a></li><li class=nav-azure-services role=menuitem><a href=/tag/azure-services/ >Azure Services</a></li><li class=nav-about role=menuitem><a href=/about/ >About</a></li></ul><a href=javascript:void(0); class=nav-hamburger-open><svg role=img xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=open-menu-icon><title id=open-menu-icon>Open menu</title><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path></svg></a><a href=javascript:void(0); class=nav-hamburger-close><svg role=img xmlns=http://www.w3.org/2000/svg viewBox="0 0 352 512" aria-labelledby=close-menu-icon><title id=close-menu-icon>Close menu</title><path fill=currentColor d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg></a></div></nav></header><main class=content role=main><article class="post tag-azure-service-fabric"><header class=post-header><h1 class=post-title>Implementing a REST client for internal communication in Service Fabric</h1><section class=post-meta><time class=post-date datetime=2017-02-23>23 February 2017</time> on <a href=/tag/azure-service-fabric/ >Azure Service Fabric</a></section></header><section class=post-content><p>In this post we&#39;re going to look at specifics of building a REST client for service to service communication within a Service Fabric cluster. We&#39;re going to discuss endpoint resolution and communication components provided by Service Fabric and how we can use them with AutoRest generated clients and ADAL.</p><h2 id=internal-communication-basics>Internal communication basics</h2><p>Service Fabric cluster manager takes care of spreading service instances and replicas across cluster nodes and relocating them as needed. From the internal communication standpoint the most important thing to remember is that a service endpoint is not permanent and may change at any moment. Your service may get shut down when it&#39;s unresponsive or the node it&#39;s running on is getting updated. The service may get moved to another node for more efficient utilization of the cluster resources as determined by Service Fabric.</p><p>Every time you register a listener you return the actual endpoint address from <code>ICommunicationListener.OpenAsync</code> method that gets registered with the naming service running in the cluster. For a consuming service to call your service it requires the following steps to be carried out:</p><ol><li>Call the naming service with a canonical Uri of the target service in order to get an actual address that can be used to make a call.</li><li>Try to call the service using the returned address.</li><li>Handle possible errors and decide whether we need to repeat steps 1-3 as the target service may have been moved to another node by the time we tried to reach it. Also, implementing Retry and Circuit Breaker patterns are going to help mitigate transient errors and avoid bombarding services that are experiencing issues.</li></ol><p><img src=https://dzimchuk.net/media/2017/02/SF-internal-communication.png alt="Internal communication in Service Fabric"></p><p>Service Fabric provides components that help you communicate with the naming service. First of all, it&#39;s <code>FabricClient</code> which is central component for communication with Service Fabric infrastructure. It implements internal optimizations such as caching and it&#39;s highly recommended to share and re-use a <code>FabricClient</code> instance within your service.</p><p>Another component is <code>ServicePartitionResolver</code> that relies on <code>FabricClient</code> and can be used to obtain an actual endpoint address given a canonical service Uri within a partition.</p><p>Endpoint resolution procedure can be sketched like this:</p><pre><code>ServicePartitionResolver resolver = ServicePartitionResolver.GetDefault();
+ResolvedServicePartition partition = 
+    await resolver.ResolveAsync(&quot;fabric:/BookFast/FacilityService&quot;, new ServicePartitionKey(), cancellationToken);
+    
+ResolvedServiceEndpoint endpoint = partition.GetEndpoint();
+                
+JObject addresses = JObject.Parse(endpoint.Address);
+string address = (string)addresses[&quot;Endpoints&quot;].First();
+</code></pre><p>Here we use a singleton instance of <code>ServicePartitionResolver</code> that takes care of instantiating <code>FabricClient</code>. We try to resolve a current address of BookFast facility service by its canonical Uri <code>fabric:/BookFast/FacilityService</code> using a singleton partition. Normally, you don&#39;t partition stateless services and this is exactly the case with the facility service.</p><p><code>partition.GetEndpoint()</code> is going to return an address of a random instance of your stateless service. Then all that&#39;s left is some parsing trivia.</p><p>Unlike stateless services, stateful services often require partitioning as this is the way they scale out. So if you&#39;re communicating with a stateful service you need to provide a valid partition key (based on the agreed partitioning schema) and expect <code>partition.GetEndpoint()</code> to return an endpoint of the primary replica which is the replica you want to communicate to as it has read and write access to the service state.</p><h2 id=getting-retry-support-with-servicepartitionclient>Getting retry support with ServicePartitionClient</h2><p>Service Fabric also provides you with a higher level communication component called <code>ServicePartitionClient</code> which handles endpoint resolution under the hood and gives you two things on top of that:</p><ol><li>It caches resolved endpoints which improves efficiency as you don&#39;t have to call the naming service every time you want to call a service which endpoint has already been resolved. <code>ServicePartitionClient</code> will re-trigger endpoint resolution if the endpoint turns out to be stale.</li><li>It implements the Retry pattern which is a recommended practice to mitigate self healing (aka transient) errors.</li></ol><p>There are a few more classes involved when working with <code>ServicePartitionClient</code>. First of all, it&#39;s communication client factory that performs most of the work by communicating with the naming service using <code>ServicePartitionResolver</code> and caching resolved endpoints. As the cache is maintained within an instance of the factory you want to re-use it between your calls to other services. That means, you normally want to go with a singleton instance of the factory.</p><p>Now, it&#39;s called a factory because its purpose is to create instances of communication clients. Think of a communication client as a wrapper around a resolved endpoint that implements <code>ICommunicationClient</code> interface. In your consuming services you create factories by deriving from <code>CommunicationClientFactoryBase</code> and implementing its methods such as <code>CreateClientAsync</code>.</p><p>Finally, you need a way to tell <code>ServicePartitionClient</code> how to handle errors and whether it should retry a call or resolve a new endpoint address. You do that by implementing <code>IExceptionHandler</code>. Service Fabric samples give an example of a <a href=https://github.com/Azure-Samples/service-fabric-dotnet-getting-started/blob/master/Services/WordCount/WordCount.WebService/HttpExceptionHandler.cs>possible implementation</a> of the interface. In fact, you want to check out this particular WordCount sample to get an idea of how all these components fit together.</p><h2 id=common-infrastructure-classes-and-autorest>Common infrastructure classes and AutoRest</h2><p>I&#39;ve already <a href=/generating-clients-for-your-apis-with-autorest/ >blogged</a> about using AutoRest to generate clients against Swagger documentation provided by RESTful services. I recommend this approach (or any alternative such as <a href=https://github.com/swagger-api/swagger-codegen>swagger-codegen</a>) as it removes grinding chore of writing ceremony code around <code>HttpClient</code>.</p><p>AutoRest generates representations (models), the actual wrapper around <code>HttpClient</code> and the interface that this wrapper implements. Now, to be realistic, you normally build additional proxy components on top of this generated code as you have to at least handle HTTP error responses and perform additional mapping.</p><p>Here&#39;s what your proxy might look like:</p><pre><code>internal class FacilityProxy : IFacilityProxy
+{
+    private readonly IFacilityMapper mapper;
+    private readonly IBookFastFacilityAPI api;
+
+    public FacilityProxy(IFacilityMapper mapper,
+        IBookFastFacilityAPI api)
+    {
+        this.mapper = mapper;
+        this.api = api;
+    }
+    
+    public async Task&lt;Contracts.Models.Facility&gt; FindAsync(Guid facilityId)
+    {
+        var result = await api.FindFacilityWithHttpMessagesAsync(facilityId);
+
+        if (result.Response.StatusCode == HttpStatusCode.NotFound)
+        {
+            throw new FacilityNotFoundException(facilityId);
+        }
+
+        return mapper.MapFrom(result.Body);
+    }
+}
+</code></pre><p><code>IBookFastFacilityAPI</code> is the generated interface and the rest is our usual proxy code. We would like to use the proxy in Service Fabric and take advantage of its communication components described above.</p><p>First, let&#39;s create a communication client that represents a resolved endpoint:</p><pre><code>public class CommunicationClient&lt;T&gt; : ICommunicationClient
+{
+    private readonly Func&lt;Task&lt;T&gt;&gt; apiFactory;
+
+    public CommunicationClient(Func&lt;Task&lt;T&gt;&gt; apiFactory)
+    {
+        this.apiFactory = apiFactory;
+    }
+
+    public Task&lt;T&gt; CreateApiClient() =&gt; apiFactory();
+
+    ResolvedServiceEndpoint ICommunicationClient.Endpoint { get; set; }
+    string ICommunicationClient.ListenerName { get; set; }
+    ResolvedServicePartition ICommunicationClient.ResolvedServicePartition { get; set; }
+}
+</code></pre><p>We&#39;re not that interested in <code>ICommunicationClient</code> interface itself. Rather we want to get a hold of the factory method that creates an instance of the AutoRest generated client. <code>T</code> represents a particular client type, such as <code>IBookFastFacilityAPI</code>.</p><p>You may wonder why we need this factory method but hold on a minute, I&#39;ll get back to it soon.</p><p>Let&#39;s also define a factory interface to be used in our proxy to create a <code>ServicePartitionClient</code>:</p><pre><code>public interface IPartitionClientFactory&lt;TCommunicationClient&gt; where TCommunicationClient : ICommunicationClient
+{
+    ServicePartitionClient&lt;TCommunicationClient&gt; CreatePartitionClient();
+    ServicePartitionClient&lt;TCommunicationClient&gt; CreatePartitionClient(ServicePartitionKey partitionKey);
+}
+</code></pre><p>The second overload accepting <code>ServicePartitionKey</code> is useful for stateful services.</p><p>Now our proxy code can be rewritten like this:</p><pre><code>internal class FacilityProxy : IFacilityService
+{
+    private readonly IFacilityMapper mapper;
+    private readonly IPartitionClientFactory&lt;CommunicationClient&lt;IBookFastFacilityAPI&gt;&gt; factory;
+
+    public FacilityProxy(IFacilityMapper mapper,
+        IPartitionClientFactory&lt;CommunicationClient&lt;IBookFastFacilityAPI&gt;&gt; factory)
+    {
+        this.mapper = mapper;
+        this.factory = factory;
+    }
+
+    public async Task&lt;Contracts.Models.Facility&gt; FindAsync(Guid facilityId)
+    {
+        var result = await factory.CreatePartitionClient()
+            .InvokeWithRetryAsync(async client =&gt;
+            {
+                var api = await client.CreateApiClient();
+                return await api.FindFacilityWithHttpMessagesAsync(facilityId);
+            });
+
+        if (result.Response.StatusCode == HttpStatusCode.NotFound)
+        {
+            throw new FacilityNotFoundException(facilityId);
+        }
+
+        return mapper.MapFrom(result.Body);
+    }
+}
+</code></pre><p>Now we have endpoint resolution, caching and retry and we still use the AutoRest generated client. Sweet!</p><h2 id=implementing-a-service-client>Implementing a service client</h2><p>Often teams responsible for particular services provide client libraries for consumers of their services. Let&#39;s see how such a library can be implemented for the facility service.</p><p>The library apparently will incorporate the AutoRest generated code together with the implementation of <code>IPartitionClientFactory</code> and required components.</p><p>The central component is the communication client factory:</p><pre><code>internal class FacilityCommunicationClientFactory : 
+    CommunicationClientFactoryBase&lt;CommunicationClient&lt;IBookFastFacilityAPI&gt;&gt;
+{
+    public FacilityCommunicationClientFactory(IServicePartitionResolver resolver)
+        : base(resolver, new[] { new HttpExceptionHandler() })
+    {
+    }
+
+    protected override Task&lt;CommunicationClient&lt;IBookFastFacilityAPI&gt;&gt; CreateClientAsync(string endpoint, CancellationToken cancellationToken)
+    {
+        var client = new CommunicationClient&lt;IBookFastFacilityAPI&gt;(
+            () =&gt; Task.FromResult&lt;IBookFastFacilityAPI&gt;(new BookFastFacilityAPI(new Uri(endpoint))));
+
+        return Task.FromResult(client);
+    }
+}
+</code></pre><p>I omitted other methods&#39; implementations as they are trivial for HTTP clients.</p><p>Now it&#39;s time to explain this delegate dance when instantiating <code>BookFastFacilityAPI</code>. I was migrating the facility service from a stand alone public facing service which required an access token issued by Azure AD. I did not want to change internals of the service which rely on the token so I had to have an opportunity to execute code before each call to the service. You got it, in this case this code is about getting or refreshing the access token. Here&#39;s the updated implementation of the factory:</p><pre><code>internal class FacilityCommunicationClientFactory : 
+    CommunicationClientFactoryBase&lt;CommunicationClient&lt;IBookFastFacilityAPI&gt;&gt;
+{
+    private readonly IAccessTokenProvider accessTokenProvider;
+    private readonly ApiOptions apiOptions;
+
+    public FacilityCommunicationClientFactory(IServicePartitionResolver resolver, 
+        IAccessTokenProvider accessTokenProvider, 
+        IOptions&lt;ApiOptions&gt; apiOptions)
+        : base(resolver, new[] { new HttpExceptionHandler() })
+    {
+        if (accessTokenProvider == null)
+        {
+            throw new ArgumentNullException(nameof(accessTokenProvider));
+        }
+
+        this.accessTokenProvider = accessTokenProvider;
+        this.apiOptions = apiOptions.Value;
+    }
+
+    protected override Task&lt;CommunicationClient&lt;IBookFastFacilityAPI&gt;&gt; CreateClientAsync(string endpoint, CancellationToken cancellationToken)
+    {
+        var client = new CommunicationClient&lt;IBookFastFacilityAPI&gt;(async () =&gt;
+        {
+            var accessToken = await accessTokenProvider.AcquireTokenAsync(apiOptions.ServiceApiResource);
+            var credentials = string.IsNullOrEmpty(accessToken) 
+                              ? (ServiceClientCredentials)new EmptyCredentials()
+                              : new TokenCredentials(accessToken);
+
+            return new BookFastFacilityAPI(new Uri(endpoint), credentials);
+        });
+
+        return Task.FromResult(client);
+    }
+}
+</code></pre><p>Remember that communication clients get cached and we want to make sure to check and refresh access tokens if they happen to get stale. I rely on ADAL with its internal token cache and refresh logic to handle tokens. I&#39;ve recently <a href=/adal-distributed-token-cache-in-asp-net-core/ >blogged</a> about ADAL&#39;s cache and the possible implementation of the access token provider.</p><blockquote><p>We are talking about internal communication and you may have a valid question why we need tokens when communicating to internal services. Often you need to create a security context for the call and I agree that with internal services going full OAuth2 is an overkill. Even if an internal service is also exposed to the outside world we may choose to implement separate endpoints for internal and external communication. But in this case it was a migration of a stand alone service which already relied on JWT tokens to construct a security context. It&#39;s a viable approach when you&#39;re not ready to change the internals of the service.</p></blockquote><p>The implementation of <code>IPartitionClientFactory</code> is straight forward:</p><pre><code>internal class FacilityPartitionClientFactory : 
+    IPartitionClientFactory&lt;CommunicationClient&lt;IBookFastFacilityAPI&gt;&gt;
+{
+    private readonly ICommunicationClientFactory&lt;CommunicationClient&lt;IBookFastFacilityAPI&gt;&gt; factory;
+    private readonly ApiOptions apiOptions;
+
+    public FacilityPartitionClientFactory(ICommunicationClientFactory&lt;CommunicationClient&lt;IBookFastFacilityAPI&gt;&gt; factory, 
+        IOptions&lt;ApiOptions&gt; apiOptions)
+    {
+        this.factory = factory;
+        this.apiOptions = apiOptions.Value;
+    }
+
+    public ServicePartitionClient&lt;CommunicationClient&lt;IBookFastFacilityAPI&gt;&gt; CreatePartitionClient() =&gt; 
+        new ServicePartitionClient&lt;CommunicationClient&lt;IBookFastFacilityAPI&gt;&gt;(factory, new Uri(apiOptions.ServiceUri));
+
+    public ServicePartitionClient&lt;CommunicationClient&lt;IBookFastFacilityAPI&gt;&gt; CreatePartitionClient(ServicePartitionKey partitionKey) =&gt; 
+        new ServicePartitionClient&lt;CommunicationClient&lt;IBookFastFacilityAPI&gt;&gt;(factory, new Uri(apiOptions.ServiceUri), partitionKey);
+}
+</code></pre><p>We expect the canonical address of the facility service to be specified in the consuming service configuration. We also need to implement registration of our components in the DI container of the consuming service:</p><pre><code>public class CompositionModule : ICompositionModule
+{
+    public void AddServices(IServiceCollection services, IConfiguration configuration)
+    {
+        services.Configure&lt;ApiOptions&gt;(configuration.GetSection(&quot;FacilityApi&quot;));
+
+        services.AddSingleton(new FabricClient());
+
+        services.AddSingleton&lt;ICommunicationClientFactory&lt;CommunicationClient&lt;IBookFastFacilityAPI&gt;&gt;&gt;(
+            serviceProvider =&gt; new FacilityCommunicationClientFactory(
+                new ServicePartitionResolver(() =&gt; serviceProvider.GetService&lt;FabricClient&gt;()),
+                serviceProvider.GetService&lt;IAccessTokenProvider&gt;(),
+                serviceProvider.GetService&lt;IOptions&lt;ApiOptions&gt;&gt;()));
+
+        services.AddSingleton&lt;IPartitionClientFactory&lt;CommunicationClient&lt;IBookFastFacilityAPI&gt;&gt;, FacilityPartitionClientFactory&gt;();
+    }
+}
+</code></pre><p>We want to go with a single instance of the communication client factory to take advantage of its cache.</p></section><footer class=post-footer><figure class=author-image><a class=img href=/ style="background-image: url(//www.gravatar.com/avatar/7fbe59ac3d3eaab56ec27da019d76f66?s&#x3D;250&amp;amp;d&#x3D;mm&amp;amp;r&#x3D;x)"><span class=hidden>Andrei Dzimchuk's Picture</span></a></figure><section class=author><h4><a href=/ >Andrei Dzimchuk</a></h4><p>Hi, I&#x27;m Andrei, I&#x27;m a software developer building cloud enabled solutions. I&#x27;m mostly focused on Azure and .NET and I try to share my experience and knowledge here with you.</p><div class=author-meta></div></section><section class=share><h4>Share this post</h4><a class=icon-facebook href="https://www.facebook.com/sharer/sharer.php?u=https://dzimchuk.net/implementing-a-rest-client-for-internal-communication-in-service-fabric/" rel="noopener noreferrer nofollow" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;"><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=facebook-icon role=img><title id=facebook-icon>Facebook</title><path d="M448 56.7v398.5c0 13.7-11.1 24.7-24.7 24.7H309.1V306.5h58.2l8.7-67.6h-67v-43.2c0-19.6 5.4-32.9 33.5-32.9h35.8v-60.5c-6.2-.8-27.4-2.7-52.2-2.7-51.6 0-87 31.5-87 89.4v49.9h-58.4v67.6h58.4V480H24.7C11.1 480 0 468.9 0 455.3V56.7C0 43.1 11.1 32 24.7 32h398.5c13.7 0 24.8 11.1 24.8 24.7z"></path></svg> </a><a class=icon-linkedin href="http://www.linkedin.com/shareArticle?mini=true&amp;url=https://dzimchuk.net/implementing-a-rest-client-for-internal-communication-in-service-fabric/&amp;title=Implementing%20a%20REST%20client%20for%20internal%20communication%20in%20Service%20Fabric" rel="noopener noreferrer nofollow" onclick="window.open(this.href, 'linkedin-share','width=490,height=530');return false;"><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=linkedin-icon role=img><title id=linkedin-icon>LinkedIn</title><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg></a></section></footer><section class=post-comments><div id=disqus_thread></div><script>var disqus_config = function () {
+                    this.page.url = 'https://dzimchuk.net/implementing-a-rest-client-for-internal-communication-in-service-fabric/';
+                    this.page.identifier = '16143e4e-56c8-4d88-b60f-1af40fe69c0a';
+                    this.page.title = 'Implementing a REST client for internal communication in Service Fabric';
+                };
+                (function() {
+                    var d = document, s = d.createElement('script');
+                    s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
+                })();</script></section></article></main><footer class=site-footer><div class=site-footer-inner><section class=copyright><a href=https://dzimchuk.net/ >Andrei Dzimchuk</a> &copy; 2026</section><nav class=site-footer-nav><a href=https://github.com/dzimchuk target=_blank rel=noopener><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 496 512" aria-labelledby=github-icon role=img><title id=github-icon>GitHub</title><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg></a><a href=https://www.linkedin.com/in/andreidzimchuk target=_blank rel=noopener><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=linkedin-icon role=img><title id=linkedin-icon>LinkedIn</title><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg></a><a href=https://feedly.com/i/subscription/feed/https://dzimchuk.net/rss.xml target=_blank rel=noopener><svg xmlns=http://www.w3.org/2000/svg viewBox="0 0 448 512" aria-labelledby=rss-icon role=img><title id=rss-icon>RSS</title><path d="M128.081 415.959c0 35.369-28.672 64.041-64.041 64.041S0 451.328 0 415.959s28.672-64.041 64.041-64.041 64.04 28.673 64.04 64.041zm175.66 47.25c-8.354-154.6-132.185-278.587-286.95-286.95C7.656 175.765 0 183.105 0 192.253v48.069c0 8.415 6.49 15.472 14.887 16.018 111.832 7.284 201.473 96.702 208.772 208.772.547 8.397 7.604 14.887 16.018 14.887h48.069c9.149.001 16.489-7.655 15.995-16.79zm144.249.288C439.596 229.677 251.465 40.445 16.503 32.01 7.473 31.686 0 38.981 0 48.016v48.068c0 8.625 6.835 15.645 15.453 15.999 191.179 7.839 344.627 161.316 352.465 352.465.353 8.618 7.373 15.453 15.999 15.453h48.068c9.034-.001 16.329-7.474 16.005-16.504z"></path></svg></a></nav></div></footer></div><script src=https://code.jquery.com/jquery-3.2.1.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script type=text/javascript src=/assets/theme-4b97c15618.js></script><script>$(function () {
+    var $postContent = $(".post-content");
+    $postContent.fitVids();
+  });</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-JYXGZ70WJH"></script><script>window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-JYXGZ70WJH');</script></body></html>
